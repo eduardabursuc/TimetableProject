@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 public enum ConstraintType
 {
     ROOM_CHANGE,
+    ROOM_PREFERENCE,
     TIME_CHANGE,
     DAY_CHANGE,
     INTERVAL_AVAILABILITY,

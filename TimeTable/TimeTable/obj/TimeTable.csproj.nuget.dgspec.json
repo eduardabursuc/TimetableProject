@@ -1,28 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\TimeTable.csproj": {}
+    "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj": {}
   },
   "projects": {
-    "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\TimeTable.csproj": {
+    "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\TimeTable.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj",
         "projectName": "TimeTable",
-        "projectPath": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\TimeTable.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

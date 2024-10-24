@@ -17,6 +17,8 @@ public class SoftConstraintsValidator
         {
             case ConstraintType.ROOM_CHANGE:
                 return RoomChange(constraint);
+            case ConstraintType.ROOM_PREFERENCE:
+                return RoomPreference(constraint);
             case ConstraintType.TIME_CHANGE:
                 return TimeChange(constraint);
             case ConstraintType.DAY_CHANGE:
@@ -54,6 +56,18 @@ public class SoftConstraintsValidator
         if (roomExists && ( (courseExists && eventExists && courseExists) || constraint.Timeslots != null))
             return Tuple.Create(true, "Room change constraint is valid.");
         else return Tuple.Create(false, "A professor, group, timeslot or course should be specified.");
+    }
+
+    private Tuple<bool, string> RoomPreference(Constraint constraint)
+    {
+        if (constraint.WantedRoom == null) return Tuple.Create(false, "Wanted room is not specified.");
+
+        // Validate the wanted room against the instance's room list
+        bool roomExists = _instance.Rooms.Any(r => r.Name == constraint.WantedRoom.Name);
+
+        if (roomExists)
+            return Tuple.Create(true, "Room preference constraint is valid.");
+        else return Tuple.Create(false, "Wanted room does not exist.");
     }
 
     private Tuple<bool, string> TimeChange(Constraint constraint)
