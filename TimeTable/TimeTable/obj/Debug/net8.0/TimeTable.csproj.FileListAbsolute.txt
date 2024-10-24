@@ -1,0 +1,14 @@
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.deps.json
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.runtimeconfig.json
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.dll
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.pdb
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.GeneratedMSBuildEditorConfig.editorconfig
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.AssemblyInfoInputs.cache
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.AssemblyInfo.cs
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.csproj.CoreCompileInputs.cache
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.dll
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/refint/TimeTable.dll
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.pdb
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.genruntimeconfig.cache
+/Users/edwardabursuc/Desktop/AI/TimeTable/TimeTable/obj/Debug/net8.0/ref/TimeTable.dll
