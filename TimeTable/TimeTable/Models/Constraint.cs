@@ -46,6 +46,5 @@ public class Constraint
         Group = group;
         Event = _event;
     }
-
-
+    
 }

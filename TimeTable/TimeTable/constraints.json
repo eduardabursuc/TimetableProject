@@ -1,0 +1,5 @@
+[
+  {"Type":"CONSECUTIVE_HOURS","Professor":{"Id":"c0023793-1509-453c-a8f7-9c7ffb3a0d76","Name":"Prof. Grace Walker","Courses":null},"Course":null,"Room":null,"WantedRoom":null,"Timeslots":[{"Day":"Monday","Time":"10:00-14:00"}],"WantedTimeslot":null,"Group":null,"Event":null},
+  { "Type": "CONSECUTIVE_HOURS", "Professor": null,"Course": null,"Room": null,"WantedRoom": null,"Timeslots": [ {"Day": "Monday","Time": "10:00-14:00" }],"WantedTimeslot": null,"Group": null,"Event": null},
+  { "Type": "CONSECUTIVE_HOURS", "Professor": {"Id":"c0023793-1509-453c-a8f7-9c7ffb3a0d76", "Name": "Prof. Grace Walker" },"Course": null,"Room": null,"WantedRoom": null,"Timeslots": null,"WantedTimeslot": null,"Group": null,"Event": null}
+]
