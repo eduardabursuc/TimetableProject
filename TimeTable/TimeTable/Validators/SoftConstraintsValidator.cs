@@ -23,7 +23,7 @@ public class SoftConstraintsValidator
                 return DayChange(constraint);
             case ConstraintType.INTERVAL_AVAILABILITY:
                 return IntervalAvailability(constraint);
-            case ConstraintType.INTERVAL_UNAVAILABILIY:
+            case ConstraintType.INTERVAL_UNAVAILABILITY:
                 return IntervalUnavailability(constraint);
             case ConstraintType.WEEK_EVENNESS:
                 return WeekEvenness(constraint);
