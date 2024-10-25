@@ -1,0 +1,125 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|e:\\onedrive\\desktop\\timetableproject\\timetable\\timetable\\constraints.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|solutionrelative:timetable\\constraints.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|e:\\onedrive\\desktop\\timetableproject\\timetable\\timetable\\models\\constraint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|solutionrelative:timetable\\models\\constraint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|e:\\onedrive\\desktop\\timetableproject\\timetable\\timetable\\validators\\softconstraintsvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|solutionrelative:timetable\\validators\\softconstraintsvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|e:\\onedrive\\desktop\\timetableproject\\timetable\\timetable\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|solutionrelative:timetable\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|e:\\onedrive\\desktop\\timetableproject\\timetable\\timetable\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1A3A887B-635C-47A5-AC2E-A9BBF74F0764}|TimeTable\\TimeTable.csproj|solutionrelative:timetable\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Constraint.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\Models\\Constraint.cs",
+              "RelativeDocumentMoniker": "TimeTable\\Models\\Constraint.cs",
+              "ToolTip": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\Models\\Constraint.cs",
+              "RelativeToolTip": "TimeTable\\Models\\Constraint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T19:43:57.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SoftConstraintsValidator.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\Validators\\SoftConstraintsValidator.cs",
+              "RelativeDocumentMoniker": "TimeTable\\Validators\\SoftConstraintsValidator.cs",
+              "ToolTip": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\Validators\\SoftConstraintsValidator.cs",
+              "RelativeToolTip": "TimeTable\\Validators\\SoftConstraintsValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T19:42:20.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\Program.cs",
+              "RelativeDocumentMoniker": "TimeTable\\Program.cs",
+              "ToolTip": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\Program.cs",
+              "RelativeToolTip": "TimeTable\\Program.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAswHMAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T19:38:08.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "constraints.json",
+              "DocumentMoniker": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\constraints.json",
+              "RelativeDocumentMoniker": "TimeTable\\constraints.json",
+              "ToolTip": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\constraints.json",
+              "RelativeToolTip": "TimeTable\\constraints.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ8AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-24T19:29:03.951Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "config.json",
+              "DocumentMoniker": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\config.json",
+              "RelativeDocumentMoniker": "TimeTable\\config.json",
+              "ToolTip": "E:\\OneDrive\\Desktop\\TimeTableProject\\TimeTable\\TimeTable\\config.json",
+              "RelativeToolTip": "TimeTable\\config.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAC9MwAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-24T19:28:59.884Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
