@@ -1,0 +1,15 @@
+E:\OneDrive\Desktop\temaNET\Application\bin\Debug\net8.0\Application.deps.json
+E:\OneDrive\Desktop\temaNET\Application\bin\Debug\net8.0\Application.dll
+E:\OneDrive\Desktop\temaNET\Application\bin\Debug\net8.0\Application.pdb
+E:\OneDrive\Desktop\temaNET\Application\bin\Debug\net8.0\Domain.dll
+E:\OneDrive\Desktop\temaNET\Application\bin\Debug\net8.0\Domain.pdb
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Application.csproj.AssemblyReference.cache
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Applicat.44B5EDA2.Up2Date
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Application.dll
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\refint\Application.dll
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\Application.pdb
+E:\OneDrive\Desktop\temaNET\Application\obj\Debug\net8.0\ref\Application.dll

@@ -1,0 +1,11 @@
+E:\OneDrive\Desktop\temaNET\Domain\bin\Debug\net8.0\Domain.deps.json
+E:\OneDrive\Desktop\temaNET\Domain\bin\Debug\net8.0\Domain.dll
+E:\OneDrive\Desktop\temaNET\Domain\bin\Debug\net8.0\Domain.pdb
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\Domain.dll
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\refint\Domain.dll
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\Domain.pdb
+E:\OneDrive\Desktop\temaNET\Domain\obj\Debug\net8.0\ref\Domain.dll
