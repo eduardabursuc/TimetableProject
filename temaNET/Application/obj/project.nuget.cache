@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "8xdVRUyWvf0=",
+  "dgSpecHash": "qOF8SHykPT4=",
   "success": true,
-  "projectFilePath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj",
+  "projectFilePath": "E:\\OneDrive\\Desktop\\temaNET\\Application\\Application.csproj",
   "expectedPackageFiles": [
-    "/Users/edwardabursuc/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/fluentvalidation/11.10.0/fluentvalidation.11.10.0.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.10.0/fluentvalidation.dependencyinjectionextensions.11.10.0.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/mediatr/12.4.1/mediatr.12.4.1.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "/Users/edwardabursuc/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\simona AMH\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\fluentvalidation\\11.10.0\\fluentvalidation.11.10.0.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.10.0\\fluentvalidation.dependencyinjectionextensions.11.10.0.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\mediatr\\12.4.1\\mediatr.12.4.1.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\microsoft.extensions.options\\8.0.2\\microsoft.extensions.options.8.0.2.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\simona AMH\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
