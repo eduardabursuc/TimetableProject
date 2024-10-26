@@ -7,9 +7,7 @@ namespace Application.UseCases.Commands
         public UpdateToDoItemCommandValidator()
         {
             RuleFor(t => t.Id).NotEmpty();
-            RuleFor(t => t.Description).NotEmpty().MaximumLength(200);
-            RuleFor(t => t.DueDate).NotEmpty();
-            RuleFor(t => t.IsDone).NotNull();
+            Include(new CreateToDoItemCommandValidator());
         }
     }
 }

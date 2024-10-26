@@ -1,0 +1,10 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AAssert_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F285675a6903d43ca89ed13e37e2bfe3c2d4d0_003F5b_003F6da6b2ff_003FAssert_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2a045624_002Da6f4_002D47ce_002D856a_002D77c0b5340482/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Given_GetToDoItemsQueryHandler_When_HandleIsCalled_Then_AToDoListShouldBeReturned" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Or&gt;
+    &lt;Project Location="/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;UnitTests&amp;gt;\&amp;lt;ToDoListManagement.Application.UnitTests&amp;gt;" /&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;xUnit::7CF592ED-67DB-48B6-930A-2B6D235FAE0F::net8.0::ToDoListManagement.Application.UnitTests.GetToDoItemsQueryHandlerTests.Given_GetToDoItemsQueryHandler_When_RepositoryThrowsException_Then_ExceptionShouldBeThrown&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+  &lt;/Or&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
