@@ -20,7 +20,7 @@ namespace Application.UseCases.QueryHandlers
         public async Task<List<ToDoItemDTO>> Handle(GetToDoItemsQuery request, CancellationToken cancellationToken)
         {
             var todoItems = await repository.GetAllAsync();
-            return mapper.Map<List<ToDoItemDTO>>(todoItems);
+            return mapper.Map<List<ToDoItemDTO>>(todoItems) ?? new List<ToDoItemDTO>();
         }
     }
 }

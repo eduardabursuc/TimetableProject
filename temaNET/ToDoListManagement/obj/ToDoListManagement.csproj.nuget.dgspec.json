@@ -1,36 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "E:\\OneDrive\\Desktop\\temaNET\\ToDoListManagement\\ToDoListManagement.csproj": {}
+    "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj": {}
   },
   "projects": {
-    "E:\\OneDrive\\Desktop\\temaNET\\Application\\Application.csproj": {
+    "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\temaNET\\Application\\Application.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj",
         "projectName": "Application",
-        "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\temaNET\\Application\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj"
+              "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj"
               }
             }
           }
@@ -99,29 +96,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj": {
+    "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\temaNET\\Domain\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -160,37 +154,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\Infrastructure.csproj": {
+    "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj"
+              "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj"
               }
             }
           }
@@ -247,40 +238,139 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\OneDrive\\Desktop\\temaNET\\ToDoListManagement\\ToDoListManagement.csproj": {
+    "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\temaNET\\ToDoListManagement\\ToDoListManagement.csproj",
-        "projectName": "ToDoListManagement",
-        "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\ToDoListManagement\\ToDoListManagement.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\temaNET\\ToDoListManagement\\obj\\",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj",
+        "projectName": "ToDoListManagement.Application.UnitTests",
+        "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\OneDrive\\Desktop\\temaNET\\Application\\Application.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Application\\Application.csproj"
+              "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj"
               },
-              "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\Infrastructure.csproj"
+              "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "NSubstitute": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.14.0, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[3.9.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj",
+        "projectName": "ToDoListManagement",
+        "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj"
+              },
+              "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj"
+              },
+              "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj"
               }
             }
           }
@@ -338,7 +428,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
