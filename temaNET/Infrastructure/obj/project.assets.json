@@ -2165,35 +2165,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\simona AMH\\.nuget\\packages\\": {}
+    "/Users/edwardabursuc/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-      "outputPath": "E:\\OneDrive\\Desktop\\temaNET\\Infrastructure\\obj\\",
+      "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj",
+      "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+      "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj": {
-              "projectPath": "E:\\OneDrive\\Desktop\\temaNET\\Domain\\Domain.csproj"
+            "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj": {
+              "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj"
             }
           }
         }
@@ -2250,7 +2247,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
