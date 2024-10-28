@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ToDoListManagement.Application.UnitTests
-build_property.ProjectDir = /Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/
+build_property.ProjectDir = /Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -33,3 +33,21 @@ E:/OneDrive/Desktop/temaNET/Infrastructure/obj/Debug/net8.0/ref/Infrastructure.d
 /Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.pdb
 /Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.genruntimeconfig.cache
 /Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/ref/Infrastructure.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/bin/Debug/net8.0/Infrastructure.deps.json
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/bin/Debug/net8.0/Infrastructure.runtimeconfig.json
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/bin/Debug/net8.0/Infrastructure.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/bin/Debug/net8.0/Infrastructure.pdb
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/bin/Debug/net8.0/Domain.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/bin/Debug/net8.0/Domain.pdb
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.csproj.AssemblyReference.cache
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.AssemblyInfoInputs.cache
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.AssemblyInfo.cs
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.csproj.CoreCompileInputs.cache
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.sourcelink.json
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastr.15EFFBFE.Up2Date
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/refint/Infrastructure.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.pdb
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/Infrastructure.genruntimeconfig.cache
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/obj/Debug/net8.0/ref/Infrastructure.dll

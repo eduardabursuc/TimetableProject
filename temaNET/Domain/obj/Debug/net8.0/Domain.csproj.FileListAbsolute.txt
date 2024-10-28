@@ -21,3 +21,15 @@ E:/OneDrive/Desktop/temaNET/Domain/obj/Debug/net8.0/ref/Domain.dll
 /Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/obj/Debug/net8.0/refint/Domain.dll
 /Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.pdb
 /Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/obj/Debug/net8.0/ref/Domain.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/bin/Debug/net8.0/Domain.deps.json
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/bin/Debug/net8.0/Domain.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/bin/Debug/net8.0/Domain.pdb
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.AssemblyInfoInputs.cache
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.AssemblyInfo.cs
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.csproj.CoreCompileInputs.cache
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.sourcelink.json
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/refint/Domain.dll
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/Domain.pdb
+/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/Debug/net8.0/ref/Domain.dll

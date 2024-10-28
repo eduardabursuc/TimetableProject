@@ -8,24 +8,25 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/Users/edwardabursuc/.nuget/packages/": {}
+    "/Users/razvang11/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj",
+      "projectUniqueName": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/Domain.csproj",
-      "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
-      "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Domain/obj/",
+      "projectPath": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/Domain.csproj",
+      "packagesPath": "/Users/razvang11/.nuget/packages/",
+      "outputPath": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
+        "/Users/razvang11/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

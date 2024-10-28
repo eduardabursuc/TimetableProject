@@ -4139,38 +4139,39 @@
     ]
   },
   "packageFolders": {
-    "/Users/edwardabursuc/.nuget/packages/": {}
+    "/Users/razvang11/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj",
+      "projectUniqueName": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj",
       "projectName": "ToDoListManagement",
-      "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj",
-      "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
-      "outputPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/obj/",
+      "projectPath": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.csproj",
+      "packagesPath": "/Users/razvang11/.nuget/packages/",
+      "outputPath": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/ToDoListManagement/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
+        "/Users/razvang11/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj": {
-              "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Application/Application.csproj"
+            "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Application/Application.csproj": {
+              "projectPath": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Application/Application.csproj"
             },
-            "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj": {
-              "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj"
+            "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj": {
+              "projectPath": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/Infrastructure/Infrastructure.csproj"
             },
-            "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj": {
-              "projectPath": "/Users/edwardabursuc/Desktop/I.NET/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj"
+            "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj": {
+              "projectPath": "/Users/razvang11/Desktop/Artificial Intelligence/TimetableProject/temaNET/ToDoListManagement/ToDoListManagement.Application.UnitTests/ToDoListManagement.Application.UnitTests.csproj"
             }
           }
         }
