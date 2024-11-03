@@ -1,5 +1,4 @@
-﻿using Application.DTOs;
-using Domain.Entities;
+﻿using Domain.Entities;
 using MediatR;
 
 namespace Application.UseCases.Commands
@@ -7,28 +6,32 @@ namespace Application.UseCases.Commands
     public class CreateConstraintCommand : IRequest<Guid>
     {
         public ConstraintType Type { get; set; }
-        public Guid ProfessorId { get; set; }
-        public Guid CourseId { get; set; }
-        public Guid RoomId { get; set; }
-        public Guid? WantedRoomId { get; set; }
-        public Guid GroupId { get; set; }
-        public Guid? WantedTimeslotId { get; set; }
-        public string Event { get; set; }
-        public List<TimeslotDTO> Timeslots { get; set; } = new List<TimeslotDTO>();
-
+        public string? ProfessorId { get; set; }
+        public string? CourseName { get; set; }
+        public string? RoomName { get; set; }
+        public string? WantedRoomName { get; set; }
+        public string? GroupName { get; set; }
+        public string? Day { get; set; }
+        public string? Time { get; set; }
+        public string? WantedDay { get; set; }
+        public string? WantedTime { get; set; }
+        public string? Event { get; set; }
+        
         public CreateConstraintCommand() { }
 
         public CreateConstraintCommand(ConstraintDTO constraint)
         {
             Type = constraint.Type;
             ProfessorId = constraint.ProfessorId;
-            CourseId = constraint.CourseId;
-            RoomId = constraint.RoomId;
-            WantedRoomId = constraint.WantedRoomId;
-            GroupId = constraint.GroupId;
-            WantedTimeslotId = constraint.WantedTimeslotId;
+            CourseName = constraint.CourseName;
+            RoomName = constraint.RoomName;
+            WantedRoomName = constraint.WantedRoomName;
+            GroupName = constraint.GroupName;
+            Day = constraint.Day;
+            Time = constraint.Time;
+            WantedDay = constraint.WantedDay;
+            WantedTime = constraint.WantedTime;
             Event = constraint.Event;
-            Timeslots = constraint.Timeslots;
         }
     }
 }

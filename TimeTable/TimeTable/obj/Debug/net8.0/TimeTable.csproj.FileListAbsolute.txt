@@ -1,121 +1,245 @@
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.GeneratedMSBuildEditorConfig.editorconfig
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.AssemblyInfoInputs.cache
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.AssemblyInfo.cs
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.csproj.CoreCompileInputs.cache
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.MvcApplicationPartsAssemblyInfo.cache
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.csproj.AssemblyReference.cache
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\appsettings.Development.json
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\appsettings.json
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\TimeTable.exe
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\TimeTable.deps.json
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\TimeTable.runtimeconfig.json
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\TimeTable.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\TimeTable.pdb
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\AutoMapper.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\FluentValidation.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\MediatR.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\MediatR.Contracts.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.OpenApi.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Npgsql.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Application.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Domain.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Infrastructure.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Application.pdb
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Domain.pdb
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Infrastructure.pdb
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.MvcApplicationPartsAssemblyInfo.cs
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\staticwebassets.build.json
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\staticwebassets.development.json
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\staticwebassets\msbuild.TimeTable.Microsoft.AspNetCore.StaticWebAssets.props
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\staticwebassets\msbuild.build.TimeTable.props
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.TimeTable.props
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.TimeTable.props
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\staticwebassets.pack.json
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\scopedcss\bundle\TimeTable.styles.css
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.csproj.Up2Date
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\refint\TimeTable.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.pdb
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\TimeTable.genruntimeconfig.cache
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\obj\Debug\net8.0\ref\TimeTable.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Humanizer.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\Mono.TextTemplating.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\System.CodeDom.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\System.Composition.AttributedModel.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\System.Composition.Convention.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\System.Composition.Hosting.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\System.Composition.Runtime.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\System.Composition.TypedParts.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
-E:\OneDrive\Desktop\NEW TIMETABLE PROJECT\TimeTable\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.GeneratedMSBuildEditorConfig.editorconfig
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.AssemblyInfoInputs.cache
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.AssemblyInfo.cs
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.csproj.CoreCompileInputs.cache
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.MvcApplicationPartsAssemblyInfo.cache
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.csproj.AssemblyReference.cache
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/appsettings.Development.json
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/appsettings.json
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/TimeTable.exe
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/TimeTable.deps.json
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/TimeTable.runtimeconfig.json
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/TimeTable.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/TimeTable.pdb
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/AutoMapper.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/FluentValidation.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/MediatR.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/MediatR.Contracts.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.OpenApi.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Npgsql.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Application.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Domain.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Infrastructure.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Application.pdb
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Domain.pdb
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Infrastructure.pdb
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.MvcApplicationPartsAssemblyInfo.cs
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/staticwebassets.build.json
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/staticwebassets.development.json
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.TimeTable.Microsoft.AspNetCore.StaticWebAssets.props
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.build.TimeTable.props
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.TimeTable.props
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.TimeTable.props
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/staticwebassets.pack.json
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/scopedcss/bundle/TimeTable.styles.css
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.csproj.Up2Date
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/refint/TimeTable.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.pdb
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/TimeTable.genruntimeconfig.cache
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/obj/Debug/net8.0/ref/TimeTable.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Humanizer.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/Mono.TextTemplating.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/System.CodeDom.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/System.Composition.Convention.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/System.Composition.Hosting.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/System.Composition.Runtime.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/System.Composition.TypedParts.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:/OneDrive/Desktop/NEW TIMETABLE PROJECT/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/appsettings.Development.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/appsettings.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.deps.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.runtimeconfig.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/TimeTable.pdb
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/AutoMapper.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/FluentValidation.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Humanizer.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/MediatR.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/MediatR.Contracts.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Mono.TextTemplating.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Npgsql.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/System.CodeDom.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/System.Composition.Convention.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/System.Composition.Hosting.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/System.Composition.Runtime.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/System.Composition.TypedParts.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Application.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Domain.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Infrastructure.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Application.pdb
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Domain.pdb
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Infrastructure.pdb
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.csproj.AssemblyReference.cache
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.GeneratedMSBuildEditorConfig.editorconfig
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.AssemblyInfoInputs.cache
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.AssemblyInfo.cs
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.csproj.CoreCompileInputs.cache
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.MvcApplicationPartsAssemblyInfo.cs
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.MvcApplicationPartsAssemblyInfo.cache
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.sourcelink.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/staticwebassets.build.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/staticwebassets.development.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.TimeTable.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.build.TimeTable.props
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.TimeTable.props
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.TimeTable.props
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/scopedcss/bundle/TimeTable.styles.css
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.csproj.Up2Date
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/refint/TimeTable.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.pdb
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/TimeTable.genruntimeconfig.cache
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/Debug/net8.0/ref/TimeTable.dll
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Configuration/config.json
+/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/bin/Debug/net8.0/Configuration/constrains.json

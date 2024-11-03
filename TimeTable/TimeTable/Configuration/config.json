@@ -1,0 +1,643 @@
+{
+  "Professors": [
+    {
+      "Id": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Name": "Prof. Alice Johnson",
+      "Courses": [
+        {
+          "CourseName": "Introduction to Programming",
+          "Credits": 6,
+          "Package": "compulsory",
+          "Semester": 1,
+          "Level": "license",
+          "Professors": []
+        },
+        {
+          "CourseName": "Advanced Algorithms",
+          "Credits": 5,
+          "Package": "compulsory",
+          "Semester": 4,
+          "Level": "license",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Name": "Prof. Bob Smith",
+      "Courses": [
+        {
+          "CourseName": "Machine Learning",
+          "Credits": 6,
+          "Package": "AI",
+          "Semester": 1,
+          "Level": "master",
+          "Professors": []
+        },
+        {
+          "CourseName": "Deep Learning",
+          "Credits": 5,
+          "Package": "AI",
+          "Semester": 2,
+          "Level": "master",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Name": "Prof. Carol Davis",
+      "Courses": [
+        {
+          "CourseName": "Operating Systems",
+          "Credits": 6,
+          "Package": "compulsory",
+          "Semester": 3,
+          "Level": "license",
+          "Professors": []
+        },
+        {
+          "CourseName": "Computer Networks",
+          "Credits": 5,
+          "Package": "compulsory",
+          "Semester": 4,
+          "Level": "license",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Name": "Prof. David Thompson",
+      "Courses": [
+        {
+          "CourseName": "Database Systems",
+          "Credits": 6,
+          "Package": "compulsory",
+          "Semester": 3,
+          "Level": "license",
+          "Professors": []
+        },
+        {
+          "CourseName": "Distributed Systems",
+          "Credits": 5,
+          "Package": "Systems",
+          "Semester": 3,
+          "Level": "master",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Name": "Prof. Emily Clark",
+      "Courses": [
+        {
+          "CourseName": "Software Engineering",
+          "Credits": 6,
+          "Package": "compulsory",
+          "Semester": 6,
+          "Level": "license",
+          "Professors": []
+        },
+        {
+          "CourseName": "Software Testing",
+          "Credits": 5,
+          "Package": "compulsory",
+          "Semester": 6,
+          "Level": "license",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Name": "Prof. Frank Evans",
+      "Courses": [
+        {
+          "CourseName": "Artificial Intelligence",
+          "Credits": 6,
+          "Package": "AI",
+          "Semester": 1,
+          "Level": "master",
+          "Professors": []
+        },
+        {
+          "CourseName": "Natural Language Processing",
+          "Credits": 5,
+          "Package": "AI",
+          "Semester": 3,
+          "Level": "master",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Name": "Prof. Grace Walker",
+      "Courses": [
+        {
+          "CourseName": "Data Science",
+          "Credits": 6,
+          "Package": "DataScience",
+          "Semester": 2,
+          "Level": "master",
+          "Professors": []
+        },
+        {
+          "CourseName": "Big Data Analysis",
+          "Credits": 5,
+          "Package": "DataScience",
+          "Semester": 3,
+          "Level": "master",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Name": "Prof. Henry Adams",
+      "Courses": [
+        {
+          "CourseName": "Cybersecurity",
+          "Credits": 6,
+          "Package": "compulsory",
+          "Semester": 5,
+          "Level": "license",
+          "Professors": []
+        },
+        {
+          "CourseName": "Ethical Hacking",
+          "Credits": 5,
+          "Package": "P6",
+          "Semester": 6,
+          "Level": "license",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Name": "Prof. Irene Carter",
+      "Courses": [
+        {
+          "CourseName": "Mobile App Development",
+          "Credits": 6,
+          "Package": "P3",
+          "Semester": 5,
+          "Level": "license",
+          "Professors": []
+        },
+        {
+          "CourseName": "Cross-Platform App Development",
+          "Credits": 5,
+          "Package": "P4",
+          "Semester": 6,
+          "Level": "license",
+          "Professors": []
+        }
+      ]
+    },
+    {
+      "Id": "e1a404a2-e2e9-4e75-ac11-6518d1e4bf7f",
+      "Name": "Prof. John Mitchell",
+      "Courses": [
+        {
+          "CourseName": "Computer Graphics",
+          "Credits": 6,
+          "Package": "P2",
+          "Semester": 4,
+          "Level": "license",
+          "Professors": []
+        },
+        {
+          "CourseName": "3D Modeling and Animation",
+          "Credits": 5,
+          "Package": "P3",
+          "Semester": 5,
+          "Level": "license",
+          "Professors": []
+        }
+      ]
+    }
+  ],
+  "Courses": [
+    {
+      "CourseName": "Introduction to Programming",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 1,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Advanced Algorithms",
+      "Credits": 5,
+      "Package": "compulsory",
+      "Semester": 4,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Machine Learning",
+      "Credits": 6,
+      "Package": "AI",
+      "Semester": 1,
+      "Level": "master",
+      "Professors": []
+    },
+    {
+      "CourseName": "Deep Learning",
+      "Credits": 5,
+      "Package": "AI",
+      "Semester": 2,
+      "Level": "master",
+      "Professors": []
+    },
+    {
+      "CourseName": "Operating Systems",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 3,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Computer Networks",
+      "Credits": 5,
+      "Package": "compulsory",
+      "Semester": 4,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Database Systems",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 3,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Distributed Systems",
+      "Credits": 5,
+      "Package": "Systems",
+      "Semester": 3,
+      "Level": "master",
+      "Professors": []
+    },
+    {
+      "CourseName": "Software Engineering",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 6,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Software Testing",
+      "Credits": 5,
+      "Package": "compulsory",
+      "Semester": 6,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Artificial Intelligence",
+      "Credits": 6,
+      "Package": "AI",
+      "Semester": 1,
+      "Level": "master",
+      "Professors": []
+    },
+    {
+      "CourseName": "Natural Language Processing",
+      "Credits": 5,
+      "Package": "AI",
+      "Semester": 3,
+      "Level": "master",
+      "Professors": []
+    },
+    {
+      "CourseName": "Data Science",
+      "Credits": 6,
+      "Package": "DataScience",
+      "Semester": 2,
+      "Level": "master",
+      "Professors": []
+    },
+    {
+      "CourseName": "Big Data Analysis",
+      "Credits": 5,
+      "Package": "DataScience",
+      "Semester": 3,
+      "Level": "master",
+      "Professors": []
+    },
+    {
+      "CourseName": "Cybersecurity",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 5,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Ethical Hacking",
+      "Credits": 5,
+      "Package": "P6",
+      "Semester": 6,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Mobile App Development",
+      "Credits": 6,
+      "Package": "P3",
+      "Semester": 5,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Cross-Platform App Development",
+      "Credits": 5,
+      "Package": "P4",
+      "Semester": 6,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "Computer Graphics",
+      "Credits": 6,
+      "Package": "P2",
+      "Semester": 4,
+      "Level": "license",
+      "Professors": []
+    },
+    {
+      "CourseName": "3D Modeling and Animation",
+      "Credits": 5,
+      "Package": "P3",
+      "Semester": 5,
+      "Level": "license",
+      "Professors": []
+    }
+  ],
+  "Groups": [
+    {
+      "Name": "1A1"
+    },
+    {
+      "Name": "1A2"
+    },
+    {
+      "Name": "1A3"
+    },
+    {
+      "Name": "1B1"
+    },
+    {
+      "Name": "1B2"
+    },
+    {
+      "Name": "1B3"
+    },
+    {
+      "Name": "1E1"
+    },
+    {
+      "Name": "1E2"
+    },
+    {
+      "Name": "2A1"
+    },
+    {
+      "Name": "2A2"
+    },
+    {
+      "Name": "2B1"
+    },
+    {
+      "Name": "2B2"
+    },
+    {
+      "Name": "2B3"
+    },
+    {
+      "Name": "2E1"
+    },
+    {
+      "Name": "2E2"
+    },
+    {
+      "Name": "3A1"
+    },
+    {
+      "Name": "3A2"
+    },
+    {
+      "Name": "3A3"
+    },
+    {
+      "Name": "3B1"
+    },
+    {
+      "Name": "3B2"
+    },
+    {
+      "Name": "3B3"
+    },
+    {
+      "Name": "3E1"
+    },
+    {
+      "Name": "3E2"
+    },
+    {
+      "Name": "1MSI1"
+    },
+    {
+      "Name": "1MSI2"
+    },
+    {
+      "Name": "1MAI1"
+    },
+    {
+      "Name": "1MAI2"
+    },
+    {
+      "Name": "1X1"
+    },
+    {
+      "Name": "1X2"
+    },
+    {
+      "Name": "2X1"
+    },
+    {
+      "Name": "3X1"
+    }
+  ],
+  "Rooms": [
+    {
+      "Name": "C902",
+      "Capacity": 120
+    },
+    {
+      "Name": "C309",
+      "Capacity": 30
+    },
+    {
+      "Name": "C305",
+      "Capacity": 80
+    },
+    {
+      "Name": "C905",
+      "Capacity": 40
+    },
+    {
+      "Name": "C910",
+      "Capacity": 150
+    },
+    {
+      "Name": "C806",
+      "Capacity": 25
+    },
+    {
+      "Name": "C419",
+      "Capacity": 35
+    },
+    {
+      "Name": "C2",
+      "Capacity": 100
+    },
+    {
+      "Name": "C112",
+      "Capacity": 20
+    }
+  ],
+  "Constraints": [
+  ],
+  "TimeSlots": [
+    {
+      "Day": "Monday",
+      "Time": "08:00 - 10:00"
+    },
+    {
+      "Day": "Monday",
+      "Time": "10:00 - 12:00"
+    },
+    {
+      "Day": "Monday",
+      "Time": "12:00 - 14:00"
+    },
+    {
+      "Day": "Monday",
+      "Time": "14:00 - 16:00"
+    },
+    {
+      "Day": "Monday",
+      "Time": "16:00 - 18:00"
+    },
+    {
+      "Day": "Monday",
+      "Time": "18:00 - 20:00"
+    },
+    {
+      "Day": "Tuesday",
+      "Time": "08:00 - 10:00"
+    },
+    {
+      "Day": "Tuesday",
+      "Time": "10:00 - 12:00"
+    },
+    {
+      "Day": "Tuesday",
+      "Time": "12:00 - 14:00"
+    },
+    {
+      "Day": "Tuesday",
+      "Time": "14:00 - 16:00"
+    },
+    {
+      "Day": "Tuesday",
+      "Time": "16:00 - 18:00"
+    },
+    {
+      "Day": "Tuesday",
+      "Time": "18:00 - 20:00"
+    },
+    {
+      "Day": "Wednesday",
+      "Time": "08:00 - 10:00"
+    },
+    {
+      "Day": "Wednesday",
+      "Time": "10:00 - 12:00"
+    },
+    {
+      "Day": "Wednesday",
+      "Time": "12:00 - 14:00"
+    },
+    {
+      "Day": "Wednesday",
+      "Time": "14:00 - 16:00"
+    },
+    {
+      "Day": "Wednesday",
+      "Time": "16:00 - 18:00"
+    },
+    {
+      "Day": "Wednesday",
+      "Time": "18:00 - 20:00"
+    },
+    {
+      "Day": "Thursday",
+      "Time": "08:00 - 10:00"
+    },
+    {
+      "Day": "Thursday",
+      "Time": "10:00 - 12:00"
+    },
+    {
+      "Day": "Thursday",
+      "Time": "12:00 - 14:00"
+    },
+    {
+      "Day": "Thursday",
+      "Time": "14:00 - 16:00"
+    },
+    {
+      "Day": "Thursday",
+      "Time": "16:00 - 18:00"
+    },
+    {
+      "Day": "Thursday",
+      "Time": "18:00 - 20:00"
+    },
+    {
+      "Day": "Friday",
+      "Time": "08:00 - 10:00"
+    },
+    {
+      "Day": "Friday",
+      "Time": "10:00 - 12:00"
+    },
+    {
+      "Day": "Friday",
+      "Time": "12:00 - 14:00"
+    },
+    {
+      "Day": "Friday",
+      "Time": "14:00 - 16:00"
+    },
+    {
+      "Day": "Friday",
+      "Time": "16:00 - 18:00"
+    },
+    {
+      "Day": "Friday",
+      "Time": "18:00 - 20:00"
+    }
+  ]
+}

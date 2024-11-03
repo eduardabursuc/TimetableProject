@@ -1,36 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\TimeTable\\TimeTable.csproj": {}
+    "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj": {}
   },
   "projects": {
-    "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Application\\Application.csproj": {
+    "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Application\\Application.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Application/Application.csproj",
         "projectName": "Application",
-        "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Application\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Application/Application.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj"
+              "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj"
               }
             }
           }
@@ -99,29 +96,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj": {
+    "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -160,37 +154,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Infrastructure\\Infrastructure.csproj": {
+    "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Infrastructure/Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Infrastructure/Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Infrastructure\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj"
+              "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj"
               }
             }
           }
@@ -247,43 +238,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\TimeTable\\TimeTable.csproj": {
+    "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\TimeTable\\TimeTable.csproj",
+        "projectUniqueName": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj",
         "projectName": "TimeTable",
-        "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\TimeTable\\TimeTable.csproj",
-        "packagesPath": "C:\\Users\\simona AMH\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\TimeTable\\obj\\",
+        "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/TimeTable.csproj",
+        "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
+        "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\simona AMH\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Application\\Application.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Application\\Application.csproj"
+              "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Application/Application.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Application/Application.csproj"
               },
-              "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Domain\\Domain.csproj"
+              "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/Domain.csproj"
               },
-              "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "E:\\OneDrive\\Desktop\\NEW TIMETABLE PROJECT\\Infrastructure\\Infrastructure.csproj"
+              "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Infrastructure/Infrastructure.csproj"
               }
             }
           }
@@ -347,7 +335,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

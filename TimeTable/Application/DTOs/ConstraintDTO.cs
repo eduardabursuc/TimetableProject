@@ -5,12 +5,14 @@ public class ConstraintDTO
 {
     public Guid Id { get; set; }
     public ConstraintType Type { get; set; }
-    public Guid ProfessorId { get; set; }
-    public Guid CourseId { get; set; }
-    public Guid RoomId { get; set; }
-    public Guid? WantedRoomId { get; set; }
-    public Guid GroupId { get; set; }
-    public Guid? WantedTimeslotId { get; set; }
-    public List<TimeslotDTO> Timeslots { get; set; } = new List<TimeslotDTO>();
-    public string Event { get; set; }
+    public string? ProfessorId { get; set; }
+    public string? CourseName { get; set; }
+    public string? RoomName { get; set; }
+    public string? WantedRoomName { get; set; }
+    public string? GroupName { get; set; }
+    public string? Day { get; set; }
+    public string? Time { get; set; }
+    public string? WantedDay { get; set; }
+    public string? WantedTime { get; set; }
+    public string? Event { get; set; }
 }

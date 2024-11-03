@@ -7,7 +7,7 @@ namespace Application.UseCases.Commands
         public UpdateConstraintCommandValidator()
         {
             RuleFor(t => t.Id).NotEmpty();
-            Include(new CreateConstraintCommandValidator());
+            RuleFor(t => t.Type).IsInEnum();
         }
     }
 }
