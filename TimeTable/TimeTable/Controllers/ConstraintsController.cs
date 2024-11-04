@@ -26,7 +26,7 @@ namespace TimeTable.Controllers
             }
 
             var result = await mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { id = result }, command);
+            return CreatedAtAction(nameof(GetById), new { id = result }, result);
         }
 
 

@@ -49,7 +49,12 @@ namespace Domain.Entities
 
         public void UploadToJson(string configPath)
         {
-            var jsonString = JsonSerializer.Serialize(this);
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            
+            var jsonString = JsonSerializer.Serialize(this, options);
             File.WriteAllText(configPath, jsonString);
         }
     }
