@@ -22,7 +22,7 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public ConstraintType Type { get; set; }
-        public string ProfessorId { get; set; }
+        public string? ProfessorId { get; set; }
         public string? CourseName { get; set; }
         public string? RoomName { get; set; }
         public string? WantedRoomName { get; set; }

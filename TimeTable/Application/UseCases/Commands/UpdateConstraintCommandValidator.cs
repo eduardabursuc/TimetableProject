@@ -1,13 +1,15 @@
 ﻿using FluentValidation;
+using AutoMapper;
+using Application.Validators;
 
 namespace Application.UseCases.Commands
 {
     public class UpdateConstraintCommandValidator : AbstractValidator<UpdateConstraintCommand>
     {
-        public UpdateConstraintCommandValidator()
+        public UpdateConstraintCommandValidator(SoftConstraintsValidator validator, IMapper mapper)
         {
             RuleFor(t => t.Id).NotEmpty();
-            RuleFor(t => t.Type).IsInEnum();
+            Include(new CreateConstraintCommandValidator(validator, mapper));
         }
     }
 }
