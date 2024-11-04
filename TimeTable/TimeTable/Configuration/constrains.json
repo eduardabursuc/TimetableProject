@@ -1,330 +1,70 @@
 [
   {
-    "Type": "CONSECUTIVE_HOURS",
-    "Professor": {
-      "Id": "c0023793-1509-453c-a8f7-9c7ffb3a0d76",
-      "Name": "Prof. Grace Walker",
-      "Courses": null
-    },
-    "Course": null,
-    "Room": null,
-    "WantedRoom": null,
-    "Timeslots": [
-      {
-        "Day": "Monday",
-        "Time": "10:00-14:00"
-      }
-    ],
-    "WantedTimeslot": null,
-    "Group": null,
-    "Event": null
+    "type": "CONSECUTIVE_HOURS",
+    "professorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+    "day": "Wednesday"
   },
   {
-    "Type": "CONSECUTIVE_HOURS",
-    "Professor": null,
-    "Course": null,
-    "Room": null,
-    "WantedRoom": null,
-    "Timeslots": [
-      {
-        "Day": "Monday",
-        "Time": "10:00-14:00"
-      }
-    ],
-    "WantedTimeslot": null,
-    "Group": null,
-    "Event": null
+    "type": "CONSECUTIVE_HOURS",
+    "day": "Monday"
   },
   {
-    "Type": "CONSECUTIVE_HOURS",
-    "Professor": {
-      "Id": "c0023793-1509-453c-a8f7-9c7ffb3a0d76",
-      "Name": "Prof. Grace Walker"
-    },
-    "Course": null,
-    "Room": null,
-    "WantedRoom": null,
-    "Timeslots": null,
-    "WantedTimeslot": null,
-    "Group": null,
-    "Event": null
+    "type": "ROOM_CHANGE",
+    "courseName": "Machine Learning",
+    "roomName": "C112",
+    "groupName": "2B3"
   },
   {
-    "Type": "ROOM_CHANGE",
-    "Professor": {
-      "Id": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Name": "Prof. Bob Smith",
-      "Courses": [
-        {
-          "CourseName": "Machine Learning",
-          "Credits": 6,
-          "Package": "AI",
-          "Semester": 1,
-          "Level": "master"
-        }
-      ]
-    },
-    "Course": {
-      "CourseName": "Machine Learning",
-      "Credits": 6,
-      "Package": "AI",
-      "Semester": 1,
-      "Level": "master"
-    },
-    "Room": {
-      "Name": "C101",
-      "Capacity": 150
-    },
-    "WantedRoom": {
-      "Name": "C409",
-      "Capacity": 120
-    },
-    "Timeslots": [
-      {
-        "Day": "Monday",
-        "Time": "08:00 - 10:00"
-      }
-    ]
+    "type": "INTERVAL_AVAILABILITY",
+    "professorId": "e1a404a2-e2e9-4e75-ac11-6518d1e4bf7f",
+    "day": "Monday",
+    "time": "10:00 - 18:00"
   },
   {
-    "Type": "TIME_CHANGE",
-    "Professor": {
-      "Id": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Name": "Prof. Carol Davis",
-      "Courses": [
-        {
-          "CourseName": "Operating Systems",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 3,
-          "Level": "license"
-        }
-      ]
-    },
-    "Course": {
-      "CourseName": "Operating Systems",
-      "Credits": 6,
-      "Package": "compulsory",
-      "Semester": 3,
-      "Level": "license"
-    },
-    "Timeslots": [
-      {
-        "Day": "Tuesday",
-        "Time": "10:00 - 12:00"
-      },
-      {
-        "Day": "Tuesday",
-        "Time": "14:00 - 16:00"
-      }
-    ]
+    "type": "LECTURE_BEFORE_LABS",
+    "courseName": "Computer Graphics"
   },
   {
-    "Type": "DAY_CHANGE",
-    "Professor": {
-      "Id": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Name": "Prof. Emily Clark",
-      "Courses": [
-        {
-          "CourseName": "Software Engineering",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 6,
-          "Level": "license"
-        }
-      ]
-    },
-    "Course": {
-      "CourseName": "Software Engineering",
-      "Credits": 6,
-      "Package": "compulsory",
-      "Semester": 6,
-      "Level": "license"
-    },
-    "Timeslots": [
-      {
-        "Day": "Wednesday",
-        "Time": "08:00 - 10:00"
-      }
-    ]
+    "type": "ROOM_PREFERENCE",
+    "wantedRoomName": "C2",
+    "professorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69"
   },
   {
-    "Type": "INTERVAL_AVAILABILITY",
-    "Professor": {
-      "Id": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Name": "Prof. Alice Johnson",
-      "Courses": [
-        {
-          "CourseName": "Advanced Algorithms",
-          "Credits": 5,
-          "Package": "compulsory",
-          "Semester": 4,
-          "Level": "license"
-        }
-      ]
-    },
-    "Timeslots": [
-      {
-        "Day": "Thursday",
-        "Time": "14:00 - 16:00"
-      }
-    ]
+    "type": "TIME_CHANGE",
+    "courseName": "Data Science",
+    "day": "Friday",
+    "time": "14:00 - 16:00"
   },
   {
-    "Type": "INTERVAL_UNAVAILABILITY",
-    "Professor": {
-      "Id": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Name": "Prof. Henry Adams",
-      "Courses": [
-        {
-          "CourseName": "Cybersecurity",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 5,
-          "Level": "license"
-        }
-      ]
-    },
-    "Timeslots": [
-      {
-        "Day": "Friday",
-        "Time": "12:00 - 14:00"
-      }
-    ]
+    "type": "DAY_CHANGE",
+    "courseName": "Artificial Intelligence",
+    "day": "Thursday"
   },
   {
-    "Type": "WEEK_EVENNESS",
-    "Course": {
-      "CourseName": "Database Systems",
-      "Credits": 6,
-      "Package": "compulsory",
-      "Semester": 3,
-      "Level": "license"
-    }
+    "type": "INTERVAL_UNAVAILABILITY",
+    "professorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+    "day": "Tuesday",
+    "time": "08:00 - 12:00"
   },
   {
-    "Type": "ADD_WINDOW",
-    "Professor": {
-      "Id": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Name": "Prof. Grace Walker",
-      "Courses": [
-        {
-          "CourseName": "Data Science",
-          "Credits": 6,
-          "Package": "DataScience",
-          "Semester": 2,
-          "Level": "master"
-        }
-      ]
-    },
-    "Timeslots": [
-      {
-        "Day": "Monday",
-        "Time": "10:00 - 12:00"
-      }
-    ]
+    "type": "WEEK_EVENNESS",
+    "courseName": "Operating Systems"
   },
   {
-    "Type": "REMOVE_WINDOW",
-    "Professor": {
-      "Id": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Name": "Prof. David Thompson",
-      "Courses": [
-        {
-          "CourseName": "Distributed Systems",
-          "Credits": 5,
-          "Package": "Systems",
-          "Semester": 3,
-          "Level": "master"
-        }
-      ]
-    },
-    "Timeslots": [
-      {
-        "Day": "Wednesday",
-        "Time": "14:00 - 16:00"
-      }
-    ]
+    "type": "ADD_WINDOW",
+    "professorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+    "day": "Monday",
+    "time": "12:00 - 14:00"
   },
   {
-    "Type": "DAY_OFF",
-    "Professor": {
-      "Id": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Name": "Prof. Irene Carter",
-      "Courses": [
-        {
-          "CourseName": "Cross-Platform App Development",
-          "Credits": 5,
-          "Package": "P4",
-          "Semester": 6,
-          "Level": "license"
-        }
-      ]
-    },
-    "Timeslots": [
-      {
-        "Day": "Friday",
-        "Time": "12:00 - 14:00"
-      }
-    ]
+    "type": "REMOVE_WINDOW",
+    "professorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+    "day": "Wednesday",
+    "time": "11:00 - 12:00"
   },
   {
-    "Type": "CONSECUTIVE_HOURS",
-    "Professor": {
-      "Id": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Name": "Prof. Frank Evans",
-      "Courses": [
-        {
-          "CourseName": "Natural Language Processing",
-          "Credits": 5,
-          "Package": "AI",
-          "Semester": 3,
-          "Level": "master"
-        }
-      ]
-    },
-    "Timeslots": [
-      {
-        "Day": "Tuesday",
-        "Time": "12:00 - 14:00"
-      },
-      {
-        "Day": "Tuesday",
-        "Time": "14:00 - 16:00"
-      }
-    ]
-  },
-  {
-    "Type": "LECTURE_BEFORE_LABS",
-    "Professor": {
-      "Id": "e1a404a2-e2e9-4e75-ac11-6518d1e4bf7f",
-      "Name": "Prof. John Mitchell",
-      "Courses": [
-        {
-          "CourseName": "Computer Graphics",
-          "Credits": 6,
-          "Package": "P2",
-          "Semester": 4,
-          "Level": "license"
-        }
-      ]
-    },
-    "Course": {
-      "CourseName": "Computer Graphics",
-      "Credits": 6,
-      "Package": "P2",
-      "Semester": 4,
-      "Level": "license"
-    },
-    "Timeslots": [
-      {
-        "Day": "Monday",
-        "Time": "10:00 - 12:00"
-      },
-      {
-        "Day": "Monday",
-        "Time": "14:00 - 16:00"
-      }
-    ]
+    "type": "DAY_OFF",
+    "professorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+    "day": "Friday"
   }
 ]
