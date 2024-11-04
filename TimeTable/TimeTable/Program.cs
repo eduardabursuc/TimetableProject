@@ -3,6 +3,7 @@ using Infrastructure;
 using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Application.Validators;
 using System.Text.Json;
 
 // Load the JSON data
@@ -10,6 +11,12 @@ var jsonFilePath = "Configuration/config.json"; // Update this path to your JSON
 var instance = new Instance(jsonFilePath);
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register the instance as a singleton
+builder.Services.AddSingleton(instance);
+
+// Register the SoftConstraintsValidator
+builder.Services.AddTransient<SoftConstraintsValidator>();
 
 // Configure services
 builder.Services.AddApplication();
