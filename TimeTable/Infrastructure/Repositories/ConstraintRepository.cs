@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Common;
+using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -14,27 +15,58 @@ namespace Infrastructure
             this.context = context;
         }
 
-        public async Task<Guid> AddAsync(Constraint constraint)
+        public async Task<Result<Guid>> AddAsync(Constraint constraint)
         {
-            await context.Constraints.AddAsync(constraint);
-            await context.SaveChangesAsync();
-            return constraint.Id;
+            try
+            {
+                await context.Constraints.AddAsync(constraint);
+                await context.SaveChangesAsync();
+                return Result<Guid>.Success(constraint.Id);
+            }
+            catch (Exception e)
+            {
+                return Result<Guid>.Failure(e.Message);
+            }
         }
 
-        public async Task<IEnumerable<Constraint>> GetAllAsync()
+        public async Task<Result<IEnumerable<Constraint>>> GetAllAsync()
         {
-            return await context.Constraints.ToListAsync();
+            try
+            {
+                var constraints = await context.Constraints.ToListAsync();
+                return Result<IEnumerable<Constraint>>.Success(constraints);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<Constraint>>.Failure(e.Message);
+            }
         }
 
-        public async Task<Constraint> GetByIdAsync(Guid id)
+        public async Task<Result<Constraint>> GetByIdAsync(Guid id)
         {
-            return await context.Constraints.FindAsync(id);
+            try
+            {
+                var constraint = await context.Constraints.FindAsync(id);
+                return constraint == null ? Result<Constraint>.Failure("Constraint not found.") : Result<Constraint>.Success(constraint);
+            }
+            catch (Exception e)
+            {
+                return Result<Constraint>.Failure(e.Message);
+            }
         }
 
-        public async Task UpdateAsync(Constraint constraint)
+        public async Task<Result<Guid>> UpdateAsync(Constraint constraint)
         {
-            context.Entry(constraint).State = EntityState.Modified;
-            await context.SaveChangesAsync();
+            try
+            {
+                context.Entry(constraint).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return Result<Guid>.Success(constraint.Id);
+            }
+            catch (Exception e)
+            {
+                return Result<Guid>.Failure(e.Message);
+            }
         }
     }
 }

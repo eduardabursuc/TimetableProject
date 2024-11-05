@@ -26,36 +26,57 @@ namespace TimeTable.Controllers
             }
 
             var result = await mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { id = result }, result);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
         }
 
-
         [HttpPut("{id}")]
-        public async Task<ActionResult<Guid>> UpdateConstraint(Guid id, UpdateConstraintCommand command)
+        public async Task<IActionResult> UpdateConstraint(Guid id, [FromBody] UpdateConstraintCommand command)
         {
             if (id != command.Id)
             {
                 return BadRequest("ID in the URL does not match ID in the command.");
             }
-            await mediator.Send(command);
+
+            var result = await mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
             return NoContent();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ConstraintDTO>> GetById(Guid id)
         {
-            var constraint = await mediator.Send(new GetConstraintByIdQuery { Id = id });
-            if (constraint == null)
+            var result = await mediator.Send(new GetConstraintByIdQuery { Id = id });
+
+            if (!result.IsSuccess)
             {
-                return NotFound();
+                return NotFound(result.ErrorMessage);
             }
-            return constraint;
+
+            return Ok(result.Data);
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ConstraintDTO>>> GetAll()
         {
-            return await mediator.Send(new GetAllConstraintsQuery());
+            var result = await mediator.Send(new GetAllConstraintsQuery());
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
         }
     }
 }

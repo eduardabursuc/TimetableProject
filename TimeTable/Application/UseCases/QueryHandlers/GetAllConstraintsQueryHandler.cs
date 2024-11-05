@@ -1,12 +1,13 @@
 ﻿using Application.DTOs;
 using Application.UseCases.Queries;
 using AutoMapper;
+using Domain.Common;
 using Domain.Repositories;
 using MediatR;
 
 namespace Application.UseCases.QueryHandlers
 {
-    public class GetAllConstraintsQueryHandler : IRequestHandler<GetAllConstraintsQuery, List<ConstraintDTO>>
+    public class GetAllConstraintsQueryHandler : IRequestHandler<GetAllConstraintsQuery, Result<List<ConstraintDTO>>>
     {
         private readonly IConstraintRepository repository;
         private readonly IMapper mapper;
@@ -17,10 +18,14 @@ namespace Application.UseCases.QueryHandlers
             this.mapper = mapper;
         }
 
-        public async Task<List<ConstraintDTO>> Handle(GetAllConstraintsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<ConstraintDTO>>> Handle(GetAllConstraintsQuery request, CancellationToken cancellationToken)
         {
-            var constraints = await repository.GetAllAsync();
-            return mapper.Map<List<ConstraintDTO>>(constraints) ?? new List<ConstraintDTO>();
+            var result = await repository.GetAllAsync();
+
+            if (!result.IsSuccess) return Result<List<ConstraintDTO>>.Failure(result.ErrorMessage);
+            
+            var constraintDTOs = mapper.Map<List<ConstraintDTO>>(result.Data) ?? new List<ConstraintDTO>();
+            return Result<List<ConstraintDTO>>.Success(constraintDTOs);
         }
     }
 }

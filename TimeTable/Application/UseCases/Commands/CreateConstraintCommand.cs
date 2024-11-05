@@ -1,10 +1,11 @@
 ﻿using Domain.Entities;
 using MediatR;
 using Application.DTOs;
+using Domain.Common;
 
 namespace Application.UseCases.Commands
 {
-    public class CreateConstraintCommand : IRequest<Guid>
+    public class CreateConstraintCommand : IRequest<Result<Guid>>
     {
         public ConstraintType Type { get; set; }
         public string? ProfessorId { get; set; }

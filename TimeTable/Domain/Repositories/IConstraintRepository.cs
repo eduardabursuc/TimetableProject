@@ -1,12 +1,13 @@
-﻿using Domain.Entities;
+﻿using Domain.Common;
+using Domain.Entities;
 
 namespace Domain.Repositories
 {
     public interface IConstraintRepository
     {
-        Task<IEnumerable<Constraint>> GetAllAsync();
-        Task<Constraint> GetByIdAsync(Guid id);
-        Task<Guid> AddAsync(Constraint constraint);
-        Task UpdateAsync(Constraint constraint);
+        Task<Result<IEnumerable<Constraint>>> GetAllAsync();
+        Task<Result<Constraint>> GetByIdAsync(Guid id);
+        Task<Result<Guid>> AddAsync(Constraint constraint);
+        Task<Result<Guid>> UpdateAsync(Constraint constraint);
     }
 }

@@ -1,0 +1,31 @@
+# Ignore JetBrains Rider and IntelliJ IDEA project files
+.idea/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries/
+.idea/libraries/
+.idea/.idea_modules.xml
+
+# Ignore Rider build artifacts
+*.sln.iml
+out/
+
+# Ignore build artifacts
+bin/
+obj/
+**/bin/
+**/obj/
+.gradle/
+build/
+
+# Ignore user-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore user-specific configuration files for editors
+.vscode/

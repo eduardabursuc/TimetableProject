@@ -2,11 +2,12 @@
 using AutoMapper;
 using Domain.Entities;
 using Domain.Repositories;
+using Domain.Common;
 using MediatR;
 
 namespace Application.UseCases.CommandHandlers
 {
-    public class CreateConstraintCommandHandler : IRequestHandler<CreateConstraintCommand, Guid>
+    public class CreateConstraintCommandHandler : IRequestHandler<CreateConstraintCommand, Result<Guid>>
     {
         private readonly IConstraintRepository repository;
         private readonly IMapper mapper;
@@ -17,10 +18,16 @@ namespace Application.UseCases.CommandHandlers
             this.mapper = mapper;
         }
 
-        public async Task<Guid> Handle(CreateConstraintCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(CreateConstraintCommand request, CancellationToken cancellationToken)
         {
             var constraint = mapper.Map<Constraint>(request);
-            return await repository.AddAsync(constraint);
+            var result = await repository.AddAsync(constraint);
+            if (result.IsSuccess)
+            {
+                return Result<Guid>.Success(result.Data);
+            }
+
+            return Result<Guid>.Failure(result.ErrorMessage);
         }
     }
 }
