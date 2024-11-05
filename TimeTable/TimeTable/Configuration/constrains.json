@@ -11,8 +11,8 @@
   {
     "type": "ROOM_CHANGE",
     "courseName": "Machine Learning",
-    "roomName": "C112",
-    "groupName": "2B3"
+    "groupName": "2B3",
+    "event": "laboratory"
   },
   {
     "type": "INTERVAL_AVAILABILITY",
@@ -38,7 +38,8 @@
   {
     "type": "DAY_CHANGE",
     "courseName": "Artificial Intelligence",
-    "day": "Thursday"
+    "day": "Thursday",
+    "time": "08:00 - 10:00"
   },
   {
     "type": "INTERVAL_UNAVAILABILITY",

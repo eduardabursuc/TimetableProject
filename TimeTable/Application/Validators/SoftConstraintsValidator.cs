@@ -46,10 +46,6 @@ public class SoftConstraintsValidator
 
     private Tuple<bool, string> RoomChange(Constraint constraint)
     {
-        var roomExists = constraint.RoomName != null && instance.Rooms.Any(r => r.Name == constraint.RoomName);
-        
-        if (!roomExists) return Tuple.Create(false, "Room is not specified.");
-        
         var courseExists = constraint.CourseName != null && instance.Courses.Any(c => c.CourseName == constraint.CourseName);
         var eventExists = constraint.Event != null && (constraint.Event == "lecture" || constraint.Event == "laboratory" || constraint.Event == "seminary");
         var groupExists = constraint.GroupName != null && instance.Groups.Any(g => g.Name == constraint.GroupName);
@@ -109,7 +105,7 @@ public class SoftConstraintsValidator
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Any(p => p.Id == constraint.ProfessorId);
         var dayExists = constraint.Day != null && instance.TimeSlots.Any(t => t.Day == constraint.Day);
-        var timeExists = constraint.Time != null && instance.TimeSlots.Any(t => t.Time == constraint.Time);
+        var timeExists = constraint.Time != null && TimeRangeExists(constraint.Time);
         
         if (dayExists && timeExists && professorExists )
         {
@@ -122,7 +118,7 @@ public class SoftConstraintsValidator
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Any(p => p.Id == constraint.ProfessorId);
         var dayExists = constraint.Day != null && instance.TimeSlots.Any(t => t.Day == constraint.Day);
-        var timeExists = constraint.Time != null && instance.TimeSlots.Any(t => t.Time == constraint.Time);
+        var timeExists = constraint.Time != null && TimeRangeExists(constraint.Time);
         
         if (dayExists && timeExists && professorExists)
         {
@@ -145,7 +141,7 @@ public class SoftConstraintsValidator
     private Tuple<bool, string> AddWindow(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Any(p => p.Id == constraint.ProfessorId);
-        var timeExists = constraint.Time != null && instance.TimeSlots.Any(t => t.Time == constraint.Time);
+        var timeExists = constraint.Time != null && TimeRangeExists(constraint.Time);
         var dayExists = constraint.Day != null && instance.TimeSlots.Any(t => t.Day == constraint.Day);
 
         if ((dayExists || timeExists) && professorExists)
@@ -202,5 +198,30 @@ public class SoftConstraintsValidator
             return Tuple.Create(true, "Lecture before labs constraint is valid.");
         }
         return Tuple.Create(false, "Course or professor are not specified or do not exist.");
+    }
+    
+    private bool TimeRangeExists(string timeRange)
+    {
+        var times = timeRange.Split(" - ");
+        var rangeStart = TimeSpan.Parse(times[0]);
+        var rangeEnd = TimeSpan.Parse(times[1]);
+
+        // Check if there is any time slot that overlaps with the given range
+        foreach (var slot in instance.TimeSlots)
+        {
+            // Parse start and end times of the current slot
+            var slotTimes = slot.Time.Split(" - ");
+            var slotStart = TimeSpan.Parse(slotTimes[0]);
+            var slotEnd = TimeSpan.Parse(slotTimes[1]);
+
+            // Check if the time slot overlaps with the range
+            bool overlaps = slotStart < rangeEnd && slotEnd > rangeStart;
+            if (overlaps)
+            {
+                return true; // Found an overlapping slot
+            }
+        }
+
+        return false; // No overlapping slot found
     }
 }
