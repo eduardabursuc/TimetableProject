@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton(instance);
 
 // Register the SoftConstraintsValidator
-builder.Services.AddTransient<SoftConstraintsValidator>();
+builder.Services.AddTransient<ConstraintsValidator>();
 
 // Configure services
 builder.Services.AddApplication();
@@ -36,11 +36,14 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 
     // Seed Professors if not already present
-    if (!dbContext.Professors.Any())
+    foreach (var prof in instance.Professors)
     {
-        dbContext.Professors.AddRange(instance.Professors);
-        dbContext.SaveChanges();
+        if (!dbContext.Professors.Any(p => p.Name == prof.Name))
+        {
+            dbContext.Professors.Add(prof);
+        }
     }
+    dbContext.SaveChanges();
 
     // Seed unique Courses
     foreach (var course in instance.Courses)
@@ -53,31 +56,48 @@ using (var scope = app.Services.CreateScope())
     dbContext.SaveChanges();
 
     // Seed Groups
-    if (!dbContext.Groups.Any())
+    foreach (var group in instance.Groups)
     {
-        dbContext.Groups.AddRange(instance.Groups);
-        dbContext.SaveChanges();
+        var existingGroup = dbContext.Groups.Local
+            .FirstOrDefault(g => g.Name == group.Name);
+
+        if (existingGroup != null)
+        {
+            dbContext.Entry(existingGroup).State = EntityState.Detached;
+        }
+
+        if (!dbContext.Groups.Any(g => g.Name == group.Name))
+        {
+            dbContext.Groups.Add(group);
+        }
     }
+    dbContext.SaveChanges();
 
     // Seed Rooms
-    if (!dbContext.Rooms.Any())
+    foreach (var room in instance.Rooms)
     {
-        dbContext.Rooms.AddRange(instance.Rooms);
-        dbContext.SaveChanges();
+        if (!dbContext.Rooms.Any(r => r.Name == room.Name))
+        {
+            dbContext.Rooms.Add(room);
+        }
     }
 
     // Seed Constraints
-    if (!dbContext.Constraints.Any())
+    foreach (var constraint in instance.Constraints)
     {
-        dbContext.Constraints.AddRange(instance.Constraints);
-        dbContext.SaveChanges();
+        if (!dbContext.Constraints.Any(c => c.Type == constraint.Type))
+        {
+            dbContext.Constraints.Add(constraint);
+        }
     }
 
     // Seed Timeslots
-    if (!dbContext.Timeslots.Any())
+    foreach (var timeslot in instance.TimeSlots)
     {
-        dbContext.Timeslots.AddRange(instance.TimeSlots);
-        dbContext.SaveChanges();
+        if (!dbContext.Timeslots.Any(t => t.Day == timeslot.Day && t.Time == timeslot.Time))
+        {
+            dbContext.Timeslots.Add(timeslot);
+        }
     }
 }
 

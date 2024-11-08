@@ -9,7 +9,7 @@ namespace Application.UseCases.Commands
     {
         private readonly IMapper mapper;
 
-        public CreateConstraintCommandValidator(SoftConstraintsValidator validator, IMapper mapper)
+        public CreateConstraintCommandValidator(ConstraintsValidator validator, IMapper mapper)
         {
             this.mapper = mapper;
 

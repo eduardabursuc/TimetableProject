@@ -3,222 +3,62 @@
     {
       "Id": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
       "Name": "Prof. Alice Johnson",
-      "Courses": [
-        {
-          "CourseName": "Introduction to Programming",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 1,
-          "Level": "license",
-          "Professors": []
-        },
-        {
-          "CourseName": "Advanced Algorithms",
-          "Credits": 5,
-          "Package": "compulsory",
-          "Semester": 4,
-          "Level": "license",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
       "Name": "Prof. Bob Smith",
-      "Courses": [
-        {
-          "CourseName": "Machine Learning",
-          "Credits": 6,
-          "Package": "AI",
-          "Semester": 1,
-          "Level": "master",
-          "Professors": []
-        },
-        {
-          "CourseName": "Deep Learning",
-          "Credits": 5,
-          "Package": "AI",
-          "Semester": 2,
-          "Level": "master",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
       "Name": "Prof. Carol Davis",
-      "Courses": [
-        {
-          "CourseName": "Operating Systems",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 3,
-          "Level": "license",
-          "Professors": []
-        },
-        {
-          "CourseName": "Computer Networks",
-          "Credits": 5,
-          "Package": "compulsory",
-          "Semester": 4,
-          "Level": "license",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
       "Name": "Prof. David Thompson",
-      "Courses": [
-        {
-          "CourseName": "Database Systems",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 3,
-          "Level": "license",
-          "Professors": []
-        },
-        {
-          "CourseName": "Distributed Systems",
-          "Credits": 5,
-          "Package": "Systems",
-          "Semester": 3,
-          "Level": "master",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
       "Name": "Prof. Emily Clark",
-      "Courses": [
-        {
-          "CourseName": "Software Engineering",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 6,
-          "Level": "license",
-          "Professors": []
-        },
-        {
-          "CourseName": "Software Testing",
-          "Credits": 5,
-          "Package": "compulsory",
-          "Semester": 6,
-          "Level": "license",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
       "Name": "Prof. Frank Evans",
-      "Courses": [
-        {
-          "CourseName": "Artificial Intelligence",
-          "Credits": 6,
-          "Package": "AI",
-          "Semester": 1,
-          "Level": "master",
-          "Professors": []
-        },
-        {
-          "CourseName": "Natural Language Processing",
-          "Credits": 5,
-          "Package": "AI",
-          "Semester": 3,
-          "Level": "master",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
       "Name": "Prof. Grace Walker",
-      "Courses": [
-        {
-          "CourseName": "Data Science",
-          "Credits": 6,
-          "Package": "DataScience",
-          "Semester": 2,
-          "Level": "master",
-          "Professors": []
-        },
-        {
-          "CourseName": "Big Data Analysis",
-          "Credits": 5,
-          "Package": "DataScience",
-          "Semester": 3,
-          "Level": "master",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "5499a2ba-3979-420a-9696-71fa801ca431",
       "Name": "Prof. Henry Adams",
-      "Courses": [
-        {
-          "CourseName": "Cybersecurity",
-          "Credits": 6,
-          "Package": "compulsory",
-          "Semester": 5,
-          "Level": "license",
-          "Professors": []
-        },
-        {
-          "CourseName": "Ethical Hacking",
-          "Credits": 5,
-          "Package": "P6",
-          "Semester": 6,
-          "Level": "license",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
       "Name": "Prof. Irene Carter",
-      "Courses": [
-        {
-          "CourseName": "Mobile App Development",
-          "Credits": 6,
-          "Package": "P3",
-          "Semester": 5,
-          "Level": "license",
-          "Professors": []
-        },
-        {
-          "CourseName": "Cross-Platform App Development",
-          "Credits": 5,
-          "Package": "P4",
-          "Semester": 6,
-          "Level": "license",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     },
     {
       "Id": "e1a404a2-e2e9-4e75-ac11-6518d1e4bf7f",
       "Name": "Prof. John Mitchell",
-      "Courses": [
-        {
-          "CourseName": "Computer Graphics",
-          "Credits": 6,
-          "Package": "P2",
-          "Semester": 4,
-          "Level": "license",
-          "Professors": []
-        },
-        {
-          "CourseName": "3D Modeling and Animation",
-          "Credits": 5,
-          "Package": "P3",
-          "Semester": 5,
-          "Level": "license",
-          "Professors": []
-        }
-      ]
+      "Type": null,
+      "Courses": []
     }
   ],
   "Courses": [
@@ -323,7 +163,7 @@
       "Credits": 6,
       "Package": "DataScience",
       "Semester": 2,
-      "Level": "master",
+      "Level": "license",
       "Professors": []
     },
     {
@@ -345,45 +185,694 @@
     {
       "CourseName": "Ethical Hacking",
       "Credits": 5,
-      "Package": "P6",
-      "Semester": 6,
+      "Package": "Security",
+      "Semester": 5,
       "Level": "license",
       "Professors": []
     },
     {
       "CourseName": "Mobile App Development",
       "Credits": 6,
-      "Package": "P3",
-      "Semester": 5,
+      "Package": "compulsory",
+      "Semester": 6,
       "Level": "license",
       "Professors": []
     },
     {
       "CourseName": "Cross-Platform App Development",
       "Credits": 5,
-      "Package": "P4",
-      "Semester": 6,
-      "Level": "license",
+      "Package": "MobileDev",
+      "Semester": 2,
+      "Level": "master",
       "Professors": []
     },
     {
       "CourseName": "Computer Graphics",
       "Credits": 6,
-      "Package": "P2",
-      "Semester": 4,
+      "Package": "compulsory",
+      "Semester": 2,
       "Level": "license",
       "Professors": []
     },
     {
       "CourseName": "3D Modeling and Animation",
       "Credits": 5,
-      "Package": "P3",
-      "Semester": 5,
+      "Package": "Graphics",
+      "Semester": 3,
       "Level": "license",
       "Professors": []
     }
   ],
+  "Events": [
+    {
+      "Group": "1B",
+      "EventName": "course",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1E",
+      "EventName": "course",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1B1",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1E1",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1B2",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1E2",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1B3",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1E1",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1E2",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1B1",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1B2",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "2A1",
+      "EventName": "seminary",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "2B1",
+      "EventName": "seminary",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "2E1",
+      "EventName": "seminary",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI",
+      "EventName": "course",
+      "CourseName": "Machine Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Machine Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Machine Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI",
+      "EventName": "course",
+      "CourseName": "Deep Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI2",
+      "EventName": "seminary",
+      "CourseName": "Deep Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI1",
+      "EventName": "seminary",
+      "CourseName": "Deep Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Constraints": []
+    },
+    {
+      "Group": "3A",
+      "EventName": "course",
+      "CourseName": "Mobile App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "3B",
+      "EventName": "course",
+      "CourseName": "Mobile App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "3E",
+      "EventName": "course",
+      "CourseName": "Mobile App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "1X2",
+      "EventName": "seminary",
+      "CourseName": "Cross-Platform App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "1X1",
+      "EventName": "seminary",
+      "CourseName": "Cross-Platform App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "1A2",
+      "EventName": "seminary",
+      "CourseName": "Cross-Platform App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "1E1",
+      "EventName": "seminary",
+      "CourseName": "Cross-Platform App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "1E2",
+      "EventName": "seminary",
+      "CourseName": "Cross-Platform App Development",
+      "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Constraints": []
+    },
+    {
+      "Group": "3A",
+      "EventName": "course",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3B",
+      "EventName": "course",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3E",
+      "EventName": "course",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3X1",
+      "EventName": "laboratory",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3E1",
+      "EventName": "laboratory",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3E2",
+      "EventName": "laboratory",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3E1",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3E2",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3A3",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "3B1",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Constraints": []
+    },
+    {
+      "Group": "1X1",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Constraints": []
+    },
+    {
+      "Group": "1B1",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Constraints": []
+    },
+    {
+      "Group": "1B2",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Constraints": []
+    },
+    {
+      "Group": "1A1",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Constraints": []
+    },
+    {
+      "Group": "2MSI",
+      "EventName": "course",
+      "CourseName": "Big Data Analysis",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Constraints": []
+    },
+    {
+      "Group": "2MSI1",
+      "EventName": "laboratory",
+      "CourseName": "Big Data Analysis",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Constraints": []
+    },
+    {
+      "Group": "2MSI2",
+      "EventName": "laboratory",
+      "CourseName": "Big Data Analysis",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI",
+      "EventName": "course",
+      "CourseName": "Artificial Intelligence",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Artificial Intelligence",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Constraints": []
+    },
+    {
+      "Group": "1MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Artificial Intelligence",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Constraints": []
+    },
+    {
+      "Group": "2MAI",
+      "EventName": "course",
+      "CourseName": "Natural Language Processing",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Constraints": []
+    },
+    {
+      "Group": "2MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Natural Language Processing",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Constraints": []
+    },
+    {
+      "Group": "2MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Natural Language Processing",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Constraints": []
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3B",
+      "EventName": "course",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3A",
+      "EventName": "course",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3E",
+      "EventName": "course",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3B1",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3A1",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3A2",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3B2",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3E2",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3E1",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3B",
+      "EventName": "course",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3A",
+      "EventName": "course",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3E",
+      "EventName": "course",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3B3",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3A3",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3E2",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "3E1",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Constraints": []
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2B1",
+      "EventName": "laboratory",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2A1",
+      "EventName": "laboratory",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2E1",
+      "EventName": "laboratory",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2MAI",
+      "EventName": "course",
+      "CourseName": "Distributed Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Distributed Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Distributed Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Constraints": []
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2A1",
+      "EventName": "laboratory",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2B1",
+      "EventName": "laboratory",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2E1",
+      "EventName": "laboratory",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2A2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2B2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2E2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    },
+    {
+      "Group": "2A2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Constraints": []
+    }
+  ],
   "Groups": [
+    {
+      "Name": "1A"
+    },
     {
       "Name": "1A1"
     },
@@ -392,6 +881,9 @@
     },
     {
       "Name": "1A3"
+    },
+    {
+      "Name": "1B"
     },
     {
       "Name": "1B1"
@@ -403,16 +895,25 @@
       "Name": "1B3"
     },
     {
+      "Name": "1E"
+    },
+    {
       "Name": "1E1"
     },
     {
       "Name": "1E2"
     },
     {
+      "Name": "2A"
+    },
+    {
       "Name": "2A1"
     },
     {
       "Name": "2A2"
+    },
+    {
+      "Name": "2B"
     },
     {
       "Name": "2B1"
@@ -424,10 +925,16 @@
       "Name": "2B3"
     },
     {
+      "Name": "2E"
+    },
+    {
       "Name": "2E1"
     },
     {
       "Name": "2E2"
+    },
+    {
+      "Name": "3A"
     },
     {
       "Name": "3A1"
@@ -439,6 +946,9 @@
       "Name": "3A3"
     },
     {
+      "Name": "3B"
+    },
+    {
       "Name": "3B1"
     },
     {
@@ -448,10 +958,25 @@
       "Name": "3B3"
     },
     {
+      "Name": "3E"
+    },
+    {
       "Name": "3E1"
     },
     {
       "Name": "3E2"
+    },
+    {
+      "Name": "2MAI"
+    },
+    {
+      "Name": "1MAI"
+    },
+    {
+      "Name": "2MSI"
+    },
+    {
+      "Name": "1MSI"
     },
     {
       "Name": "1MSI1"
@@ -464,6 +989,24 @@
     },
     {
       "Name": "1MAI2"
+    },
+    {
+      "Name": "2MAI"
+    },
+    {
+      "Name": "2MSI"
+    },
+    {
+      "Name": "2MSI1"
+    },
+    {
+      "Name": "2MSI2"
+    },
+    {
+      "Name": "2MAI1"
+    },
+    {
+      "Name": "2MAI2"
     },
     {
       "Name": "1X1"
@@ -516,8 +1059,7 @@
       "Capacity": 20
     }
   ],
-  "Constraints": [
-  ],
+  "Constraints": [],
   "TimeSlots": [
     {
       "Day": "Monday",

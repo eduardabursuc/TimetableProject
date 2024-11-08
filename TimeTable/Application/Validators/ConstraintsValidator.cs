@@ -2,11 +2,11 @@ namespace Application.Validators;
 using Domain.Entities;
 using System.Linq;
 
-public class SoftConstraintsValidator
+public class ConstraintsValidator
 {
     private Instance instance;
 
-    public SoftConstraintsValidator(Instance instance)
+    public ConstraintsValidator(Instance instance)
     {
         this.instance = instance;
     }
@@ -15,29 +15,35 @@ public class SoftConstraintsValidator
     {
         switch (constraint.Type)
         {
-            case ConstraintType.ROOM_CHANGE:
+            case ConstraintType.HARD_NO_OVERLAP:
+                return Tuple.Create(true, "No overlap constraint is valid.");
+            case ConstraintType.HARD_YEAR_PRIORITY:
+                return Tuple.Create(true, "Year priority constraint is valid.");
+            case ConstraintType.HARD_ROOM_CAPACITY:
+                return Tuple.Create(true, "Room capacity constraint is valid.");
+            case ConstraintType.SOFT_ROOM_CHANGE:
                 return RoomChange(constraint);
-            case ConstraintType.ROOM_PREFERENCE:
+            case ConstraintType.SOFT_ROOM_PREFERENCE:
                 return RoomPreference(constraint);
-            case ConstraintType.TIME_CHANGE:
+            case ConstraintType.SOFT_TIME_CHANGE:
                 return TimeChange(constraint);
-            case ConstraintType.DAY_CHANGE:
+            case ConstraintType.SOFT_DAY_CHANGE:
                 return DayChange(constraint);
-            case ConstraintType.INTERVAL_AVAILABILITY:
+            case ConstraintType.SOFT_INTERVAL_AVAILABILITY:
                 return IntervalAvailability(constraint);
-            case ConstraintType.INTERVAL_UNAVAILABILITY:
+            case ConstraintType.SOFT_INTERVAL_UNAVAILABILITY:
                 return IntervalUnavailability(constraint);
-            case ConstraintType.WEEK_EVENNESS:
+            case ConstraintType.SOFT_WEEK_EVENNESS:
                 return WeekEvenness(constraint);
-            case ConstraintType.ADD_WINDOW:
+            case ConstraintType.SOFT_ADD_WINDOW:
                 return AddWindow(constraint);
-            case ConstraintType.REMOVE_WINDOW:
+            case ConstraintType.SOFT_REMOVE_WINDOW:
                 return RemoveWindow(constraint);
-            case ConstraintType.DAY_OFF:
+            case ConstraintType.SOFT_DAY_OFF:
                 return DayOff(constraint);
-            case ConstraintType.CONSECUTIVE_HOURS:
+            case ConstraintType.SOFT_CONSECUTIVE_HOURS:
                 return ConsecutiveHours(constraint);
-            case ConstraintType.LECTURE_BEFORE_LABS:
+            case ConstraintType.SOFT_LECTURE_BEFORE_LABS:
                 return LectureBeforeLabs(constraint);
         }
 

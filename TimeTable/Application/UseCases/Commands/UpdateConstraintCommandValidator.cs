@@ -6,7 +6,7 @@ namespace Application.UseCases.Commands
 {
     public class UpdateConstraintCommandValidator : AbstractValidator<UpdateConstraintCommand>
     {
-        public UpdateConstraintCommandValidator(SoftConstraintsValidator validator, IMapper mapper)
+        public UpdateConstraintCommandValidator(ConstraintsValidator validator, IMapper mapper)
         {
             RuleFor(t => t.Id).NotEmpty();
             Include(new CreateConstraintCommandValidator(validator, mapper));

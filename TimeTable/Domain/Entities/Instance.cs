@@ -6,6 +6,7 @@ namespace Domain.Entities
     {
         public List<Professor> Professors { get; set; }
         public List<Course> Courses { get; set; }
+        public List<Event> Events { get; set; }
         public List<Group> Groups { get; set; }
         public List<Room> Rooms { get; set; }
         public HashSet<Constraint> Constraints { get; set; }
@@ -39,12 +40,14 @@ namespace Domain.Entities
             var jsonString = File.ReadAllText(configPath);
             var data = JsonSerializer.Deserialize<Instance>(jsonString);
 
-            Professors = data.Professors;
             Courses = data.Courses;
-            TimeSlots = data.TimeSlots;
             Groups = data.Groups;
             Rooms = data.Rooms;
             Constraints = data.Constraints;
+            Professors = data.Professors;
+            TimeSlots = data.TimeSlots;
+            Events = data.Events;
+            
         }
 
         public void UploadToJson(string configPath)
@@ -58,4 +61,5 @@ namespace Domain.Entities
             File.WriteAllText(configPath, jsonString);
         }
     }
+    
 }
