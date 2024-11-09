@@ -68,5 +68,22 @@ namespace Infrastructure
                 return Result<Guid>.Failure(e.Message);
             }
         }
+
+        public async Task<Result<Guid>> DeleteAsync(Guid id)
+        {
+            try
+            {
+                var constraint = await context.Constraints.FindAsync(id);
+                if (constraint == null) return Result<Guid>.Failure("Constraint not found.");
+
+                context.Constraints.Remove(constraint);
+                await context.SaveChangesAsync();
+                return Result<Guid>.Success(constraint.Id);
+            }
+            catch (Exception e)
+            {
+                return Result<Guid>.Failure(e.Message);
+            }
+        }
     }
 }
