@@ -9,5 +9,6 @@ namespace Domain.Repositories
         Task<Result<Constraint>> GetByIdAsync(Guid id);
         Task<Result<Guid>> AddAsync(Constraint constraint);
         Task<Result<Guid>> UpdateAsync(Constraint constraint);
+        Task<Result<Guid>> DeleteAsync(Guid id);
     }
 }

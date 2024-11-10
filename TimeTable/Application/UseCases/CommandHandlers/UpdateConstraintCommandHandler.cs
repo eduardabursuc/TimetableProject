@@ -20,7 +20,6 @@ namespace Application.UseCases.CommandHandlers
         public async Task<Result<Guid>> Handle(UpdateConstraintCommand request, CancellationToken cancellationToken)
         {
             var constraint = mapper.Map<Constraint>(request);
-
             var result = await repository.UpdateAsync(constraint);
             if (result.IsSuccess)
             {

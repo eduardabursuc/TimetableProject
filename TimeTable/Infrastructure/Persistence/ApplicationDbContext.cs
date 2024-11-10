@@ -76,8 +76,6 @@ namespace Infrastructure.Persistence
                 entity.Property(e => e.Id).IsRequired();
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
                 
-                // Many-to-many relationship with Course
-                entity.HasMany(e => e.Courses).WithMany(c => c.Professors);
             });
 
             modelBuilder.Entity<Course>(entity =>
@@ -89,9 +87,7 @@ namespace Infrastructure.Persistence
                 entity.Property(e => e.Package).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Semester).IsRequired();
                 entity.Property(e => e.Level).IsRequired().HasMaxLength(100);
-
-                // Many-to-many relationship with Professor
-                entity.HasMany(e => e.Professors).WithMany(p => p.Courses);
+                
             });
 
             modelBuilder.Entity<Group>(entity =>
