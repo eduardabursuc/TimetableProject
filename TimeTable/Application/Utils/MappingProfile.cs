@@ -63,8 +63,6 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
 
         
-<<<<<<< Updated upstream
-=======
         // Mapping for Professor
         CreateMap<Professor, ProfessorDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -98,6 +96,5 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Package, opt => opt.MapFrom(src => src.Package))
             .ForMember(dest => dest.Semester, opt => opt.MapFrom(src => src.Semester))
             .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level));
->>>>>>> Stashed changes
     }
 }
