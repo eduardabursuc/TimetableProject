@@ -8,9 +8,6 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-<<<<<<< Updated upstream
-        // Mapping for CreateConstraintCommand to Constraint entity
-=======
         // Mapping for Constraint
         CreateMap<Constraint, ConstraintDto>()
             .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
@@ -25,7 +22,6 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.WantedTime, opt => opt.MapFrom(src => src.WantedTime))
             .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
 
->>>>>>> Stashed changes
         CreateMap<CreateConstraintCommand, Constraint>()
             .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
             .ForMember(dest => dest.ProfessorId, opt => opt.MapFrom(src => src.ProfessorId))
