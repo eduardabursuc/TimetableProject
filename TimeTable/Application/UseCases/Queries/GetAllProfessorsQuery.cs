@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.UseCases.Queries
 {
-    public class GetAllProfessorsQuery : IRequest<Result<List<ProfessorDTO>>>
+    public class GetAllProfessorsQuery : IRequest<Result<List<ProfessorDto>>>
     {
     }
 }

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.UseCases.QueryHandlers
 {
-    public class GetProfessorByIdQueryHandler : IRequestHandler<GetProfessorByIdQuery, Result<ProfessorDTO>>
+    public class GetProfessorByIdQueryHandler : IRequestHandler<GetProfessorByIdQuery, Result<ProfessorDto>>
     {
         private readonly IProfessorRepository repository;
         private readonly IMapper mapper;
@@ -18,14 +18,14 @@ namespace Application.UseCases.QueryHandlers
             this.mapper = mapper;
         }
 
-        public async Task<Result<ProfessorDTO>> Handle(GetProfessorByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Result<ProfessorDto>> Handle(GetProfessorByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await repository.GetByIdAsync(request.Id);
 
-            if (!result.IsSuccess) return Result<ProfessorDTO>.Failure(result.ErrorMessage);
+            if (!result.IsSuccess) return Result<ProfessorDto>.Failure(result.ErrorMessage);
 
-            var professorDTO = mapper.Map<ProfessorDTO>(result.Data);
-            return Result<ProfessorDTO>.Success(professorDTO);
+            var professorDTO = mapper.Map<ProfessorDto>(result.Data);
+            return Result<ProfessorDto>.Success(professorDTO);
         }
     }
 }

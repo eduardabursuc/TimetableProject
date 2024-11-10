@@ -16,6 +16,8 @@ namespace Infrastructure
                     b => b.MigrationsAssembly("Infrastructure")));
 
             services.AddScoped<IConstraintRepository, ConstraintRepository>();
+            services.AddScoped<IProfessorRepository, ProfessorRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
 
             return services;
         }

@@ -29,7 +29,7 @@ namespace Infrastructure.Persistence
 
                 entity.Property(e => e.Type).IsRequired();
                 entity.Property(e => e.Event).HasMaxLength(50).IsRequired(false);
-                entity.Property(e => e.ProfessorId).IsRequired(false);
+                entity.Property(e => e.ProfessorId).HasColumnType("uuid").IsRequired(false);
                 entity.Property(e => e.CourseName).IsRequired(false);
                 entity.Property(e => e.RoomName).IsRequired(false);
                 entity.Property(e => e.WantedRoomName).IsRequired(false);
@@ -66,16 +66,20 @@ namespace Infrastructure.Persistence
                     .WithMany()
                     .HasForeignKey(e => e.WantedRoomName)
                     .IsRequired(false);
-                
             });
 
-            modelBuilder.Entity<Professor>(entity =>
-            {
-                entity.ToTable("professors");
+            modelBuilder.Entity<Professor>(entity => 
+            { 
+                entity.ToTable("professors"); 
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).IsRequired();
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
-                
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("uuid")
+                    .HasDefaultValueSql("uuid_generate_v4()")
+                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200); 
             });
 
             modelBuilder.Entity<Course>(entity =>
@@ -87,7 +91,6 @@ namespace Infrastructure.Persistence
                 entity.Property(e => e.Package).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Semester).IsRequired();
                 entity.Property(e => e.Level).IsRequired().HasMaxLength(100);
-                
             });
 
             modelBuilder.Entity<Group>(entity =>
@@ -111,6 +114,12 @@ namespace Infrastructure.Persistence
                 entity.HasKey(e => new { e.Time, e.Day });
                 entity.Property(e => e.Day).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Time).IsRequired().HasMaxLength(50);
+
+                entity.HasOne<Room>()
+                    .WithMany()
+                    .HasForeignKey(e => e.RoomName)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired(false);
             });
         }
     }

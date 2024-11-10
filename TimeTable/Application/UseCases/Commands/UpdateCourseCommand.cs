@@ -7,6 +7,6 @@ namespace Application.UseCases.Commands
 {
     public class UpdateCourseCommand : CreateCourseCommand, IRequest<Result<string>>
     {
-        public string CourseName { get; set; }
+
     }
 }

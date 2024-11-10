@@ -4,13 +4,18 @@ namespace Domain.Entities
 {
     public class Instance
     {
-        public List<Professor> Professors { get; set; }
-        public List<Course> Courses { get; set; }
-        public List<Event> Events { get; set; }
-        public List<Group> Groups { get; set; }
-        public List<Room> Rooms { get; set; }
-        public HashSet<Constraint> Constraints { get; set; }
-        public List<Timeslot> TimeSlots { get; set; }
+        private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
+        public List<Professor> Professors { get; set; } = new List<Professor>();
+        public List<Course> Courses { get; set; } = new List<Course>();
+        public List<Event> Events { get; set; } = new List<Event>();
+        public List<Group> Groups { get; set; } = new List<Group>();
+        public List<Room> Rooms { get; set; } = new List<Room>();
+        public HashSet<Constraint> Constraints { get; set; } = new HashSet<Constraint>();
+        public List<Timeslot> TimeSlots { get; set; } = new List<Timeslot>();
 
         public Instance() { }
 
@@ -27,12 +32,13 @@ namespace Domain.Entities
             HashSet<Constraint> constraints,
             List<Timeslot> timeSlots)
         {
-            Professors = professors;
-            Courses = courses;
-            Groups = groups;
-            Rooms = rooms;
-            Constraints = constraints;
-            TimeSlots = timeSlots;
+            Professors = professors ?? new List<Professor>();
+            Courses = courses ?? new List<Course>();
+            Groups = groups ?? new List<Group>();
+            Rooms = rooms ?? new List<Room>();
+            Constraints = constraints ?? new HashSet<Constraint>();
+            TimeSlots = timeSlots ?? new List<Timeslot>();
+            Events = new List<Event>();
         }
 
         private void LoadFromJson(string configPath)
@@ -40,26 +46,19 @@ namespace Domain.Entities
             var jsonString = File.ReadAllText(configPath);
             var data = JsonSerializer.Deserialize<Instance>(jsonString);
 
-            Courses = data.Courses;
-            Groups = data.Groups;
-            Rooms = data.Rooms;
-            Constraints = data.Constraints;
-            Professors = data.Professors;
-            TimeSlots = data.TimeSlots;
-            Events = data.Events;
-            
+            Courses = data?.Courses ?? new List<Course>();
+            Groups = data?.Groups ?? new List<Group>();
+            Rooms = data?.Rooms ?? new List<Room>();
+            Constraints = data?.Constraints ?? new HashSet<Constraint>();
+            Professors = data?.Professors ?? new List<Professor>();
+            TimeSlots = data?.TimeSlots ?? new List<Timeslot>();
+            Events = data?.Events ?? new List<Event>();
         }
 
         public void UploadToJson(string configPath)
         {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-            
-            var jsonString = JsonSerializer.Serialize(this, options);
+            var jsonString = JsonSerializer.Serialize(this, JsonSerializerOptions);
             File.WriteAllText(configPath, jsonString);
         }
     }
-    
 }

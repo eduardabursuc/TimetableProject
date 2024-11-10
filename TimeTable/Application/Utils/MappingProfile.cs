@@ -3,12 +3,13 @@ using Domain.Entities;
 using AutoMapper;
 using Application.UseCases.Commands;
 
+namespace Application.Utils;
 public class MappingProfile : Profile
 {
     public MappingProfile()
     {
         // Mapping for Constraint
-        CreateMap<Constraint, ConstraintDTO>()
+        CreateMap<Constraint, ConstraintDto>()
             .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
             .ForMember(dest => dest.ProfessorId, opt => opt.MapFrom(src => src.ProfessorId))
             .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.CourseName))
@@ -48,8 +49,9 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.WantedTime, opt => opt.MapFrom(src => src.WantedTime))
             .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
         
+        
         // Mapping for Professor
-        CreateMap<Professor, ProfessorDTO>()
+        CreateMap<Professor, ProfessorDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
@@ -61,7 +63,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
         
         // Mapping for Course
-        CreateMap<Course, CourseDTO>()
+        CreateMap<Course, CourseDto>()
             .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.CourseName))
             .ForMember(dest => dest.Credits, opt => opt.MapFrom(src => src.Credits))
             .ForMember(dest => dest.Package, opt => opt.MapFrom(src => src.Package))

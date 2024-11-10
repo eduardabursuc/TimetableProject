@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.UseCases.Queries
 {
-    public class GetProfessorByIdQuery : IRequest<Result<ProfessorDTO>>
+    public class GetProfessorByIdQuery : IRequest<Result<ProfessorDto>>
     {
         public Guid Id { get; set; }
     }

@@ -7,8 +7,8 @@ namespace Domain.Repositories
     {
         Task<Result<IEnumerable<Course>>> GetAllAsync();
         Task<Result<Course>> GetByNameAsync(string courseName);
-        Task<Result<string>> AddAsync(Course constraint);
-        Task<Result<string>> UpdateAsync(Course constraint);
+        Task<Result<string>> AddAsync(Course course);
+        Task<Result<string>> UpdateAsync(Course course);
         Task<Result<string>> DeleteAsync(string courseName);
     }
 }

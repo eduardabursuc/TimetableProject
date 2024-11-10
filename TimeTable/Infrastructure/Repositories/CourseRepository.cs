@@ -42,11 +42,11 @@ namespace Infrastructure
             }
         }
 
-        public async Task<Result<Course>> GetByNameAsync(string id)
+        public async Task<Result<Course>> GetByNameAsync(string courseName)
         {
             try
             {
-                var course = await context.Courses.FindAsync(id);
+                var course = await context.Courses.FindAsync(courseName);
                 return course == null ? Result<Course>.Failure("Course not found.") : Result<Course>.Success(course);
             }
             catch (Exception e)
@@ -69,11 +69,11 @@ namespace Infrastructure
             }
         }
 
-        public async Task<Result<string>> DeleteAsync(string id)
+        public async Task<Result<string>> DeleteAsync(string courseName)
         {
             try
             {
-                var course = await context.Courses.FindAsync(id);
+                var course = await context.Courses.FindAsync(courseName);
                 if (course == null) return Result<string>.Failure("Course not found.");
 
                 context.Courses.Remove(course);

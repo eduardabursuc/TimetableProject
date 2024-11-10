@@ -54,7 +54,7 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet("{courseName}")]
-        public async Task<ActionResult<CourseDTO>> GetByName(string courseName)
+        public async Task<ActionResult<CourseDto>> GetByName(string courseName)
         {
             var result = await mediator.Send(new GetCourseByNameQuery { CourseName = courseName });
 
@@ -67,7 +67,7 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CourseDTO>>> GetAll()
+        public async Task<ActionResult<List<CourseDto>>> GetAll()
         {
             var result = await mediator.Send(new GetAllCoursesQuery());
 

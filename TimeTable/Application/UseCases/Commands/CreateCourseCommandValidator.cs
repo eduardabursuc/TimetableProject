@@ -3,26 +3,25 @@ using AutoMapper;
 using Domain.Entities;
 using FluentValidation;
 
-namespace Application.UseCases.Commands;
-
-public class CreateCourseCommandValidator : AbstractValidator<CreateCourseCommand>
+namespace Application.UseCases.Commands
 {
-    private readonly IMapper mapper;
-
-    public CreateCourseCommandValidator(CoursesValidator validator, IMapper mapper)
+    public class CreateCourseCommandValidator : AbstractValidator<CreateCourseCommand>
     {
-        this.mapper = mapper;
-        
-        RuleFor(c => c)
-            .Must(c =>
-            {
-                var result = validator.Validate(mapper.Map<Course>(c));
-                return result.Item1;
-            })
-            .WithMessage(c =>
-            {
-                var result = validator.Validate(mapper.Map<Course>(c));
-                return result.Item2;
-            });
+        public CreateCourseCommandValidator(CoursesValidator validator, IMapper mapper)
+        {
+            RuleFor(c => c)
+                .Must(c =>
+                {
+                    var course = mapper.Map<Course>(c);
+                    var result = validator.Validate(course);
+                    return result.Item1;
+                })
+                .WithMessage(c =>
+                {
+                    var course = mapper.Map<Course>(c);
+                    var result = validator.Validate(course);
+                    return result.Item2;
+                });
+        }
     }
 }

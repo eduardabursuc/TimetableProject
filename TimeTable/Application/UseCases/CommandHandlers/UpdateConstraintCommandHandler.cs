@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using Domain.Common;
 using MediatR;
+using Application.UseCases.Commands;
 
 namespace Application.UseCases.CommandHandlers
 {
@@ -20,6 +21,7 @@ namespace Application.UseCases.CommandHandlers
         public async Task<Result<Guid>> Handle(UpdateConstraintCommand request, CancellationToken cancellationToken)
         {
             var constraint = mapper.Map<Constraint>(request);
+
             var result = await repository.UpdateAsync(constraint);
             if (result.IsSuccess)
             {

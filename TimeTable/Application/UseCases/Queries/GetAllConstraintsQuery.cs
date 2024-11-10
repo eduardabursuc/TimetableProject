@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.UseCases.Queries
 {
-    public class GetAllConstraintsQuery : IRequest<Result<List<ConstraintDTO>>>
+    public class GetAllConstraintsQuery : IRequest<Result<List<ConstraintDto>>>
     {
     }
 }

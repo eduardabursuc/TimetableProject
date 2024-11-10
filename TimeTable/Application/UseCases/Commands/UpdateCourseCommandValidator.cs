@@ -1,6 +1,7 @@
 using FluentValidation;
 using AutoMapper;
 using Application.Validators;
+using Domain.Entities;
 
 namespace Application.UseCases.Commands
 {

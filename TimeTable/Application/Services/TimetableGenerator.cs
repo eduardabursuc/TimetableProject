@@ -4,16 +4,15 @@ using Domain.Common;
 
 public class TimetableGenerator
 {
-    private Instance instance;
-    
+    private readonly Instance instance;
+
     public TimetableGenerator(Instance instance)
     {
         this.instance = instance;
     }
-    
+
     public Result<Timetable> Generate()
     {
-        
         foreach (var evt in instance.Events)
         {
             foreach (var constraint in instance.Constraints)
@@ -24,19 +23,23 @@ public class TimetableGenerator
                 }
             }
         }
-        
+
         List<Timeslot> timeslots = new List<Timeslot>();
-        
-        foreach ( var time in instance.TimeSlots)
+
+        foreach (var time in instance.TimeSlots)
         {
             foreach (var room in instance.Rooms)
             {
-                timeslots.Add(new Timeslot(time.Time, time.Day, room.Name));
+                timeslots.Add(new Timeslot
+                {
+                    Day = time.Day,
+                    Time = time.Time,
+                    RoomName = room.Name
+                });
             }
         }
-        
+
         // Ideea:
-       
         // 0. Pentru fiecare eveniment, adauga toate constrangerile care se aplica
         // 1. Cream un set de timeslots*rooms
         // 2. Alegem constrangerile hard care se aplica:
@@ -47,7 +50,7 @@ public class TimetableGenerator
         // satisface constrangerile
         // 6. Daca gasim un conflict ne intoarcem cu un pas si incercam sa alegem alt timeslot pentru evenimentul
         // curent din timeslot 
-        
+
         return Result<Timetable>.Success(new Timetable());
     }
 }

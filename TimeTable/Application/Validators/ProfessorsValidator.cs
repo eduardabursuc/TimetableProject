@@ -4,7 +4,7 @@ namespace Application.Validators
 {
     public class ProfessorsValidator
     {
-        private Instance instance;
+        private readonly Instance instance;
 
         public ProfessorsValidator(Instance instance)
         {
@@ -18,7 +18,7 @@ namespace Application.Validators
                 return Tuple.Create(false, "Professor name is required.");
             }
 
-            if (instance.Professors.Any(p => p.Name == professor.Name && p.Id != professor.Id))
+            if (instance.Professors.Exists(p => p.Name == professor.Name && p.Id != professor.Id))
             {
                 return Tuple.Create(false, "A professor with the same name already exists.");
             }

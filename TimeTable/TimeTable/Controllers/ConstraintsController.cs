@@ -54,7 +54,7 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ConstraintDTO>> GetById(Guid id)
+        public async Task<ActionResult<ConstraintDto>> GetById(Guid id)
         {
             var result = await mediator.Send(new GetConstraintByIdQuery { Id = id });
 
@@ -67,7 +67,7 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ConstraintDTO>>> GetAll()
+        public async Task<ActionResult<List<ConstraintDto>>> GetAll()
         {
             var result = await mediator.Send(new GetAllConstraintsQuery());
 

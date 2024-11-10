@@ -2,9 +2,9 @@ using Domain.Entities;
 
 namespace Application.DTOs;
 
-public class ProfessorDTO
+public class ProfessorDto
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
+    public Guid Id { get; set; }
+    public required string Name { get; set; }
     public List<Course> Courses { get; set; } = new List<Course>();
 }

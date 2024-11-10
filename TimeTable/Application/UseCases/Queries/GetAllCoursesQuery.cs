@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.UseCases.Queries
 {
-    public class GetAllCoursesQuery : IRequest<Result<List<CourseDTO>>>
+    public class GetAllCoursesQuery : IRequest<Result<List<CourseDto>>>
     {
     }
 }

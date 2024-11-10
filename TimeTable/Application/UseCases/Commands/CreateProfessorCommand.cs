@@ -6,11 +6,11 @@ namespace Application.UseCases.Commands
 {
     public class CreateProfessorCommand : IRequest<Result<Guid>>
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         public CreateProfessorCommand() { }
         
-        public CreateProfessorCommand(ProfessorDTO professor)
+        public CreateProfessorCommand(ProfessorDto professor)
         {
             Name = professor.Name;
         }

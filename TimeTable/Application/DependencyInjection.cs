@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.UseCases.Commands;
 using Application.UseCases.Queries;
+using Application.Validators;
+using Application.Utils;
 
 namespace Application
 {
@@ -13,12 +15,10 @@ namespace Application
         {
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            
-            // Constraint Validators
             services.AddValidatorsFromAssemblyContaining<CreateConstraintCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateConstraintCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<GetConstraintByIdQueryValidator>();
-            
+
             // Course Validators
             services.AddValidatorsFromAssemblyContaining<CreateCourseCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateCourseCommandValidator>();
@@ -28,7 +28,10 @@ namespace Application
             services.AddValidatorsFromAssemblyContaining<CreateProfessorCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateProfessorCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<GetProfessorByIdQueryValidator>();
-            
+
+            services.AddScoped<CoursesValidator>();
+            services.AddScoped<ProfessorsValidator>();
+
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }

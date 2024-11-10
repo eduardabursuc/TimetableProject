@@ -4,7 +4,7 @@ namespace Application.Validators
 {
     public class CoursesValidator
     {
-        private Instance instance;
+        private readonly Instance instance;
 
         public CoursesValidator(Instance instance)
         {
@@ -36,6 +36,11 @@ namespace Application.Validators
             if (string.IsNullOrEmpty(course.Level))
             {
                 return Tuple.Create(false, "Level is required.");
+            }
+
+            if (instance.Courses.Exists(c => c.CourseName == course.CourseName))
+            {
+                return Tuple.Create(false, "Course name must be unique.");
             }
 
             return Tuple.Create(true, "Course is valid.");

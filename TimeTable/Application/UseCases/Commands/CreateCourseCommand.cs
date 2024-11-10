@@ -7,15 +7,15 @@ namespace Application.UseCases.Commands
 {
     public class CreateCourseCommand : IRequest<Result<string>>
     {
-        public string CourseName { get; set; }
-        public int Credits { get; set; }
-        public string Package { get; set; }
-        public int Semester { get; set; }
-        public string Level { get; set; }
-        
-        public CreateCourseCommand() {}
+        public required string CourseName { get; set; }
+        public required int Credits { get; set; }
+        public required string Package { get; set; }
+        public required int Semester { get; set; }
+        public required string Level { get; set; }
 
-        public CreateCourseCommand(CourseDTO course)
+        public CreateCourseCommand() { }
+
+        public CreateCourseCommand(CourseDto course)
         {
             CourseName = course.CourseName;
             Credits = course.Credits;
