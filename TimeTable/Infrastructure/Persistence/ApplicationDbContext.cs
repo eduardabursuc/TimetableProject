@@ -72,13 +72,7 @@ namespace Infrastructure.Persistence
             { 
                 entity.ToTable("professors"); 
                 entity.HasKey(e => e.Id);
-<<<<<<< Updated upstream
-                entity.Property(e => e.Id).IsRequired();
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
-                
-                // Many-to-many relationship with Course
-                entity.HasMany(e => e.Courses).WithMany(c => c.Professors);
-=======
+
                 entity.Property(e => e.Id)
                     .HasColumnType("uuid")
                     .HasDefaultValueSql("uuid_generate_v4()")
@@ -86,7 +80,6 @@ namespace Infrastructure.Persistence
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(200); 
->>>>>>> Stashed changes
             });
 
             modelBuilder.Entity<Course>(entity =>
@@ -98,12 +91,6 @@ namespace Infrastructure.Persistence
                 entity.Property(e => e.Package).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Semester).IsRequired();
                 entity.Property(e => e.Level).IsRequired().HasMaxLength(100);
-<<<<<<< Updated upstream
-
-                // Many-to-many relationship with Professor
-                entity.HasMany(e => e.Professors).WithMany(p => p.Courses);
-=======
->>>>>>> Stashed changes
             });
 
             modelBuilder.Entity<Group>(entity =>
