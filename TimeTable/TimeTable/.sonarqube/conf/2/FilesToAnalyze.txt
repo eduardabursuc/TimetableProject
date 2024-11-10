@@ -1,0 +1,8 @@
+﻿E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\DependencyInjection.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\Migrations\20241110114449_InitialCreate.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\Migrations\20241110114449_InitialCreate.Designer.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\Migrations\ApplicationDbContextModelSnapshot.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\Persistence\ApplicationDbContext.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\Repositories\ConstraintRepository.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\Repositories\CourseRepository.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Infrastructure\Repositories\ProfessorRepository.cs

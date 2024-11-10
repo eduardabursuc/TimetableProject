@@ -1,0 +1,13 @@
+﻿E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Common\Result.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Constraint.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Course.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Event.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Group.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Instance.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Professor.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Room.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Timeslot.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Entities\Timetable.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Repositories\IConstraintRepository.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Repositories\ICourseRepository.cs
+E:\OneDrive\Documente\GitHub\TimetableProjectFinal\TimeTable\Domain\Repositories\IProfessorRepository.cs
