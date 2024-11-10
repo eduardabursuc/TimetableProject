@@ -18,8 +18,6 @@ namespace Application
             services.AddValidatorsFromAssemblyContaining<CreateConstraintCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateConstraintCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<GetConstraintByIdQueryValidator>();
-<<<<<<< Updated upstream
-=======
 
             // Course Validators
             services.AddValidatorsFromAssemblyContaining<CreateCourseCommandValidator>();
@@ -33,7 +31,7 @@ namespace Application
 
             services.AddScoped<CoursesValidator>();
             services.AddScoped<ProfessorsValidator>();
->>>>>>> Stashed changes
+
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }
