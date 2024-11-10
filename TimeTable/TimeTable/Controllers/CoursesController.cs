@@ -78,5 +78,18 @@ namespace TimeTable.Controllers
 
             return Ok(result.Data);
         }
+        
+        [HttpDelete("{name}")]
+        public async Task<IActionResult> DeleteCourse(string name)
+        {
+            var result = await mediator.Send(new DeleteCourseCommand(name));
+
+            if (result.IsSuccess)
+            {
+                return NoContent();
+            }
+
+            return NotFound(result.ErrorMessage);
+        }
     }
 }

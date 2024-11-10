@@ -4,7 +4,6 @@ using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Application.Validators;
-using System.Text.Json;
 
 // Load the JSON data
 var jsonFilePath = "Configuration/config.json"; // Update this path to your JSON file location
@@ -97,4 +96,9 @@ async Task SeedEntitiesAsync<TEntity, TKey>(ApplicationDbContext dbContext, IEnu
         }
     }
     await dbContext.SaveChangesAsync();
+}
+
+public partial class Program
+{
+    protected Program(){}
 }

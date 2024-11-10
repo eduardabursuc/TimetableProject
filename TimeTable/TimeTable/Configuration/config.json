@@ -2,63 +2,43 @@
   "Professors": [
     {
       "Id": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Name": "Prof. Alice Johnson",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Alice Johnson"
     },
     {
       "Id": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Name": "Prof. Bob Smith",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Bob Smith"
     },
     {
       "Id": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Name": "Prof. Carol Davis",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Carol Davis"
     },
     {
       "Id": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Name": "Prof. David Thompson",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. David Thompson"
     },
     {
       "Id": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Name": "Prof. Emily Clark",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Emily Clark"
     },
     {
       "Id": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Name": "Prof. Frank Evans",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Frank Evans"
     },
     {
       "Id": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Name": "Prof. Grace Walker",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Grace Walker"
     },
     {
       "Id": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Name": "Prof. Henry Adams",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Henry Adams"
     },
     {
       "Id": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Name": "Prof. Irene Carter",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. Irene Carter"
     },
     {
       "Id": "e1a404a2-e2e9-4e75-ac11-6518d1e4bf7f",
-      "Name": "Prof. John Mitchell",
-      "Type": null,
-      "Courses": []
+      "Name": "Prof. John Mitchell"
     }
   ],
   "Courses": [
@@ -67,160 +47,140 @@
       "Credits": 6,
       "Package": "compulsory",
       "Semester": 1,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Advanced Algorithms",
       "Credits": 5,
       "Package": "compulsory",
       "Semester": 4,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Machine Learning",
       "Credits": 6,
       "Package": "AI",
       "Semester": 1,
-      "Level": "master",
-      "Professors": []
+      "Level": "master"
     },
     {
       "CourseName": "Deep Learning",
       "Credits": 5,
       "Package": "AI",
       "Semester": 2,
-      "Level": "master",
-      "Professors": []
+      "Level": "master"
     },
     {
       "CourseName": "Operating Systems",
       "Credits": 6,
       "Package": "compulsory",
       "Semester": 3,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Computer Networks",
       "Credits": 5,
       "Package": "compulsory",
       "Semester": 4,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Database Systems",
       "Credits": 6,
       "Package": "compulsory",
       "Semester": 3,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Distributed Systems",
       "Credits": 5,
       "Package": "Systems",
       "Semester": 3,
-      "Level": "master",
-      "Professors": []
+      "Level": "master"
     },
     {
       "CourseName": "Software Engineering",
       "Credits": 6,
       "Package": "compulsory",
       "Semester": 6,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Software Testing",
       "Credits": 5,
       "Package": "compulsory",
       "Semester": 6,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Artificial Intelligence",
       "Credits": 6,
       "Package": "AI",
       "Semester": 1,
-      "Level": "master",
-      "Professors": []
+      "Level": "master"
     },
     {
       "CourseName": "Natural Language Processing",
       "Credits": 5,
       "Package": "AI",
       "Semester": 3,
-      "Level": "master",
-      "Professors": []
+      "Level": "master"
     },
     {
       "CourseName": "Data Science",
       "Credits": 6,
       "Package": "DataScience",
       "Semester": 2,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Big Data Analysis",
       "Credits": 5,
       "Package": "DataScience",
       "Semester": 3,
-      "Level": "master",
-      "Professors": []
+      "Level": "master"
     },
     {
       "CourseName": "Cybersecurity",
       "Credits": 6,
       "Package": "compulsory",
       "Semester": 5,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Ethical Hacking",
       "Credits": 5,
       "Package": "Security",
       "Semester": 5,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Mobile App Development",
       "Credits": 6,
       "Package": "compulsory",
       "Semester": 6,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "Cross-Platform App Development",
       "Credits": 5,
       "Package": "MobileDev",
       "Semester": 2,
-      "Level": "master",
-      "Professors": []
+      "Level": "master"
     },
     {
       "CourseName": "Computer Graphics",
       "Credits": 6,
       "Package": "compulsory",
       "Semester": 2,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     },
     {
       "CourseName": "3D Modeling and Animation",
       "Credits": 5,
       "Package": "Graphics",
       "Semester": 3,
-      "Level": "license",
-      "Professors": []
+      "Level": "license"
     }
   ],
   "Events": [
@@ -229,644 +189,736 @@
       "EventName": "course",
       "CourseName": "Computer Graphics",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1E",
       "EventName": "course",
       "CourseName": "Computer Graphics",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1B1",
       "EventName": "laboratory",
       "CourseName": "Computer Graphics",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1E1",
       "EventName": "laboratory",
       "CourseName": "Computer Graphics",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1B2",
       "EventName": "laboratory",
       "CourseName": "Computer Graphics",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1E2",
       "EventName": "laboratory",
       "CourseName": "Computer Graphics",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1B3",
       "EventName": "laboratory",
       "CourseName": "Computer Graphics",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1E1",
       "EventName": "seminary",
       "CourseName": "3D Modeling and Animation",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1E2",
       "EventName": "seminary",
       "CourseName": "3D Modeling and Animation",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1B1",
       "EventName": "seminary",
       "CourseName": "3D Modeling and Animation",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1B2",
       "EventName": "seminary",
       "CourseName": "3D Modeling and Animation",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A",
       "EventName": "course",
       "CourseName": "Advanced Algorithms",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B",
       "EventName": "course",
       "CourseName": "Advanced Algorithms",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E",
       "EventName": "course",
       "CourseName": "Advanced Algorithms",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A1",
       "EventName": "seminary",
       "CourseName": "Advanced Algorithms",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B1",
       "EventName": "seminary",
       "CourseName": "Advanced Algorithms",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E1",
       "EventName": "seminary",
       "CourseName": "Advanced Algorithms",
       "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI",
       "EventName": "course",
       "CourseName": "Machine Learning",
       "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI2",
       "EventName": "laboratory",
       "CourseName": "Machine Learning",
       "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI1",
       "EventName": "laboratory",
       "CourseName": "Machine Learning",
       "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI",
       "EventName": "course",
       "CourseName": "Deep Learning",
       "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI2",
       "EventName": "seminary",
       "CourseName": "Deep Learning",
       "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI1",
       "EventName": "seminary",
       "CourseName": "Deep Learning",
       "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A",
       "EventName": "course",
       "CourseName": "Mobile App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B",
       "EventName": "course",
       "CourseName": "Mobile App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E",
       "EventName": "course",
       "CourseName": "Mobile App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1X2",
       "EventName": "seminary",
       "CourseName": "Cross-Platform App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1X1",
       "EventName": "seminary",
       "CourseName": "Cross-Platform App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1A2",
       "EventName": "seminary",
       "CourseName": "Cross-Platform App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1E1",
       "EventName": "seminary",
       "CourseName": "Cross-Platform App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1E2",
       "EventName": "seminary",
       "CourseName": "Cross-Platform App Development",
       "ProfessorId": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A",
       "EventName": "course",
       "CourseName": "Cybersecurity",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B",
       "EventName": "course",
       "CourseName": "Cybersecurity",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E",
       "EventName": "course",
       "CourseName": "Cybersecurity",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3X1",
       "EventName": "laboratory",
       "CourseName": "Cybersecurity",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E1",
       "EventName": "laboratory",
       "CourseName": "Cybersecurity",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E2",
       "EventName": "laboratory",
       "CourseName": "Cybersecurity",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E1",
       "EventName": "seminary",
       "CourseName": "Ethical Hacking",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E2",
       "EventName": "seminary",
       "CourseName": "Ethical Hacking",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A3",
       "EventName": "seminary",
       "CourseName": "Ethical Hacking",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B1",
       "EventName": "seminary",
       "CourseName": "Ethical Hacking",
       "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1X1",
       "EventName": "seminary",
       "CourseName": "Data Science",
       "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1B1",
       "EventName": "seminary",
       "CourseName": "Data Science",
       "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1B2",
       "EventName": "seminary",
       "CourseName": "Data Science",
       "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1A1",
       "EventName": "seminary",
       "CourseName": "Data Science",
       "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MSI",
       "EventName": "course",
       "CourseName": "Big Data Analysis",
       "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MSI1",
       "EventName": "laboratory",
       "CourseName": "Big Data Analysis",
       "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MSI2",
       "EventName": "laboratory",
       "CourseName": "Big Data Analysis",
       "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI",
       "EventName": "course",
       "CourseName": "Artificial Intelligence",
       "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI1",
       "EventName": "laboratory",
       "CourseName": "Artificial Intelligence",
       "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "1MAI2",
       "EventName": "laboratory",
       "CourseName": "Artificial Intelligence",
       "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MAI",
       "EventName": "course",
       "CourseName": "Natural Language Processing",
       "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MAI1",
       "EventName": "laboratory",
       "CourseName": "Natural Language Processing",
       "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MAI2",
       "EventName": "laboratory",
       "CourseName": "Natural Language Processing",
       "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A",
       "EventName": "course",
       "CourseName": "Computer Networks",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B",
       "EventName": "course",
       "CourseName": "Computer Networks",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E",
       "EventName": "course",
       "CourseName": "Computer Networks",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B",
       "EventName": "course",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A",
       "EventName": "course",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E",
       "EventName": "course",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B1",
       "EventName": "laboratory",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A1",
       "EventName": "laboratory",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A2",
       "EventName": "laboratory",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B2",
       "EventName": "laboratory",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E2",
       "EventName": "laboratory",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E1",
       "EventName": "laboratory",
       "CourseName": "Software Engineering",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B",
       "EventName": "course",
       "CourseName": "Software Testing",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A",
       "EventName": "course",
       "CourseName": "Software Testing",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E",
       "EventName": "course",
       "CourseName": "Software Testing",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3B3",
       "EventName": "laboratory",
       "CourseName": "Software Testing",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3A3",
       "EventName": "laboratory",
       "CourseName": "Software Testing",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E2",
       "EventName": "laboratory",
       "CourseName": "Software Testing",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "3E1",
       "EventName": "laboratory",
       "CourseName": "Software Testing",
       "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B",
       "EventName": "course",
       "CourseName": "Database Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A",
       "EventName": "course",
       "CourseName": "Database Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E",
       "EventName": "course",
       "CourseName": "Database Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B1",
       "EventName": "laboratory",
       "CourseName": "Database Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A1",
       "EventName": "laboratory",
       "CourseName": "Database Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E1",
       "EventName": "laboratory",
       "CourseName": "Database Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MAI",
       "EventName": "course",
       "CourseName": "Distributed Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MAI1",
       "EventName": "laboratory",
       "CourseName": "Distributed Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2MAI2",
       "EventName": "laboratory",
       "CourseName": "Distributed Systems",
       "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A",
       "EventName": "course",
       "CourseName": "Operating Systems",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B",
       "EventName": "course",
       "CourseName": "Operating Systems",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E",
       "EventName": "course",
       "CourseName": "Operating Systems",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A1",
       "EventName": "laboratory",
       "CourseName": "Operating Systems",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B1",
       "EventName": "laboratory",
       "CourseName": "Operating Systems",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E1",
       "EventName": "laboratory",
       "CourseName": "Operating Systems",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A2",
       "EventName": "seminary",
       "CourseName": "Computer Networks",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2B2",
       "EventName": "seminary",
       "CourseName": "Computer Networks",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2E2",
       "EventName": "seminary",
       "CourseName": "Computer Networks",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     },
     {
       "Group": "2A2",
       "EventName": "seminary",
       "CourseName": "Computer Networks",
       "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
-      "Constraints": []
+      "Constraints": [],
+      "Timeslots": []
     }
   ],
   "Groups": [
@@ -1063,123 +1115,423 @@
   "TimeSlots": [
     {
       "Day": "Monday",
-      "Time": "08:00 - 10:00"
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Monday",
-      "Time": "10:00 - 12:00"
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Monday",
-      "Time": "12:00 - 14:00"
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Monday",
-      "Time": "14:00 - 16:00"
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Monday",
-      "Time": "16:00 - 18:00"
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Monday",
-      "Time": "18:00 - 20:00"
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Tuesday",
-      "Time": "08:00 - 10:00"
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Tuesday",
-      "Time": "10:00 - 12:00"
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Tuesday",
-      "Time": "12:00 - 14:00"
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Tuesday",
-      "Time": "14:00 - 16:00"
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Tuesday",
-      "Time": "16:00 - 18:00"
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Tuesday",
-      "Time": "18:00 - 20:00"
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Wednesday",
-      "Time": "08:00 - 10:00"
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Wednesday",
-      "Time": "10:00 - 12:00"
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Wednesday",
-      "Time": "12:00 - 14:00"
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Wednesday",
-      "Time": "14:00 - 16:00"
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Wednesday",
-      "Time": "16:00 - 18:00"
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Wednesday",
-      "Time": "18:00 - 20:00"
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Thursday",
-      "Time": "08:00 - 10:00"
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Thursday",
-      "Time": "10:00 - 12:00"
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Thursday",
-      "Time": "12:00 - 14:00"
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Thursday",
-      "Time": "14:00 - 16:00"
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Thursday",
-      "Time": "16:00 - 18:00"
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Thursday",
-      "Time": "18:00 - 20:00"
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Friday",
-      "Time": "08:00 - 10:00"
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Friday",
-      "Time": "10:00 - 12:00"
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Friday",
-      "Time": "12:00 - 14:00"
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Friday",
-      "Time": "14:00 - 16:00"
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Friday",
-      "Time": "16:00 - 18:00"
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     },
     {
       "Day": "Friday",
-      "Time": "18:00 - 20:00"
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "",
+        "EventName": "",
+        "CourseName": "",
+        "ProfessorId": "00000000-0000-0000-0000-000000000000",
+        "Constraints": [],
+        "Timeslots": []
+      },
+      "RoomName": null
     }
   ]
 }

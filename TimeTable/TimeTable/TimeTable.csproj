@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="6.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -47,21 +51,38 @@
     <_ContentIncludedByDefault Remove="TimeTable.Application.IntegrationTests\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="TimeTable.Application.IntegrationTests\obj\project.packagespec.json" />
     <_ContentIncludedByDefault Remove="TimeTable.Application.IntegrationTests\obj\TimeTable.Application.IntegrationTests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Appliaction.IntegrationTests\obj\Debug\net8.0\MvcTestingAppManifest.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Appliaction.IntegrationTests\obj\Debug\net8.0\TimeTable.Appliaction.IntegrationTests.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Appliaction.IntegrationTests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Appliaction.IntegrationTests\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Appliaction.IntegrationTests\obj\TimeTable.Appliaction.IntegrationTests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Application.IntegrationTests\bin\Debug\net8.0\TimeTable.Appliaction.IntegrationTests.deps.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Application.IntegrationTests\bin\Debug\net8.0\TimeTable.Appliaction.IntegrationTests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Application.IntegrationTests\obj\Debug\net8.0\TimeTable.Appliaction.IntegrationTests.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="TimeTable.Application.IntegrationTests\obj\TimeTable.Appliaction.IntegrationTests.csproj.nuget.dgspec.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="TimeTable.Application.UnitTests\**" />
+    <Compile Remove="TimeTable.Appliaction.IntegrationTests\**" />
     <Compile Remove="TimeTable.Application.IntegrationTests\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="TimeTable.Application.UnitTests\**" />
+    <EmbeddedResource Remove="TimeTable.Appliaction.IntegrationTests\**" />
     <EmbeddedResource Remove="TimeTable.Application.IntegrationTests\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="TimeTable.Application.UnitTests\**" />
+    <Content Remove="TimeTable.Appliaction.IntegrationTests\**" />
     <Content Remove="TimeTable.Application.IntegrationTests\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="TimeTable.Application.UnitTests\**" />
+    <None Remove="TimeTable.Appliaction.IntegrationTests\**" />
     <None Remove="TimeTable.Application.IntegrationTests\**" />
   </ItemGroup>
 

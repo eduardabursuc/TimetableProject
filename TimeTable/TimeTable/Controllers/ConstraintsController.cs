@@ -78,5 +78,18 @@ namespace TimeTable.Controllers
 
             return Ok(result.Data);
         }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteConstraint(Guid id)
+        {
+            var result = await mediator.Send(new DeleteConstraintCommand(id));
+
+            if (result.IsSuccess)
+            {
+                return NoContent();
+            }
+
+            return NotFound(result.ErrorMessage);
+        }
     }
 }
