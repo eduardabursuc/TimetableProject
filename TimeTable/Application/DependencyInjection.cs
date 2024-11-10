@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.UseCases.Commands;
 using Application.UseCases.Queries;
+using Application.Validators;
+using Application.Utils;
 
 namespace Application
 {
@@ -16,6 +18,22 @@ namespace Application
             services.AddValidatorsFromAssemblyContaining<CreateConstraintCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateConstraintCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<GetConstraintByIdQueryValidator>();
+<<<<<<< Updated upstream
+=======
+
+            // Course Validators
+            services.AddValidatorsFromAssemblyContaining<CreateCourseCommandValidator>();
+            services.AddValidatorsFromAssemblyContaining<UpdateCourseCommandValidator>();
+            services.AddValidatorsFromAssemblyContaining<GetCourseByNameQueryValidator>();
+            
+            // Professor Validators
+            services.AddValidatorsFromAssemblyContaining<CreateProfessorCommandValidator>();
+            services.AddValidatorsFromAssemblyContaining<UpdateProfessorCommandValidator>();
+            services.AddValidatorsFromAssemblyContaining<GetProfessorByIdQueryValidator>();
+
+            services.AddScoped<CoursesValidator>();
+            services.AddScoped<ProfessorsValidator>();
+>>>>>>> Stashed changes
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }

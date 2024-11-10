@@ -44,7 +44,7 @@ namespace Infrastructure.Migrations
                 name: "professors",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
@@ -65,48 +65,12 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "timeslots",
-                columns: table => new
-                {
-                    Day = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Time = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_timeslots", x => new { x.Time, x.Day });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CourseProfessor",
-                columns: table => new
-                {
-                    CoursesCourseName = table.Column<string>(type: "character varying(200)", nullable: false),
-                    ProfessorsId = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseProfessor", x => new { x.CoursesCourseName, x.ProfessorsId });
-                    table.ForeignKey(
-                        name: "FK_CourseProfessor_courses_CoursesCourseName",
-                        column: x => x.CoursesCourseName,
-                        principalTable: "courses",
-                        principalColumn: "CourseName",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourseProfessor_professors_ProfessorsId",
-                        column: x => x.ProfessorsId,
-                        principalTable: "professors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "constraints",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Type = table.Column<int>(type: "integer", nullable: false),
-                    ProfessorId = table.Column<string>(type: "text", nullable: true),
+                    ProfessorId = table.Column<Guid>(type: "uuid", nullable: true),
                     CourseName = table.Column<string>(type: "character varying(200)", nullable: true),
                     RoomName = table.Column<string>(type: "character varying(200)", nullable: true),
                     WantedRoomName = table.Column<string>(type: "character varying(200)", nullable: true),
@@ -151,6 +115,26 @@ namespace Infrastructure.Migrations
                         principalColumn: "Name");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "timeslots",
+                columns: table => new
+                {
+                    Day = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Time = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
+                    RoomName = table.Column<string>(type: "character varying(200)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_timeslots", x => new { x.Time, x.Day });
+                    table.ForeignKey(
+                        name: "FK_timeslots_rooms_RoomName",
+                        column: x => x.RoomName,
+                        principalTable: "rooms",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_constraints_CourseName",
                 table: "constraints",
@@ -177,9 +161,9 @@ namespace Infrastructure.Migrations
                 column: "WantedRoomName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseProfessor_ProfessorsId",
-                table: "CourseProfessor",
-                column: "ProfessorsId");
+                name: "IX_timeslots_RoomName",
+                table: "timeslots",
+                column: "RoomName");
         }
 
         /// <inheritdoc />
@@ -189,22 +173,19 @@ namespace Infrastructure.Migrations
                 name: "constraints");
 
             migrationBuilder.DropTable(
-                name: "CourseProfessor");
-
-            migrationBuilder.DropTable(
                 name: "timeslots");
-
-            migrationBuilder.DropTable(
-                name: "groups");
-
-            migrationBuilder.DropTable(
-                name: "rooms");
 
             migrationBuilder.DropTable(
                 name: "courses");
 
             migrationBuilder.DropTable(
+                name: "groups");
+
+            migrationBuilder.DropTable(
                 name: "professors");
+
+            migrationBuilder.DropTable(
+                name: "rooms");
         }
     }
 }

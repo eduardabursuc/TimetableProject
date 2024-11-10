@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.UseCases.Commands;
 using Application.UseCases.Queries;
 using MediatR;
@@ -8,17 +8,17 @@ namespace TimeTable.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConstraintsController : ControllerBase
+    public class CoursesController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public ConstraintsController(IMediator mediator)
+        public CoursesController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateConstraint([FromBody] CreateConstraintCommand command)
+        public async Task<IActionResult> CreateCourse([FromBody] CreateCourseCommand command)
         {
             if (!ModelState.IsValid)
             {
@@ -32,15 +32,15 @@ namespace TimeTable.Controllers
                 return BadRequest(result.ErrorMessage);
             }
 
-            return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
+            return CreatedAtAction(nameof(GetByName), new { courseName = result.Data }, result.Data);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateConstraint(Guid id, [FromBody] UpdateConstraintCommand command)
+        [HttpPut("{courseName}")]
+        public async Task<IActionResult> UpdateCourse(string courseName, [FromBody] UpdateCourseCommand command)
         {
-            if (id != command.Id)
+            if (courseName != command.CourseName)
             {
-                return BadRequest("ID in the URL does not match ID in the command.");
+                return BadRequest("Name in the URL does not match Name in the command.");
             }
 
             var result = await mediator.Send(command);
@@ -53,10 +53,10 @@ namespace TimeTable.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ConstraintDto>> GetById(Guid id)
+        [HttpGet("{courseName}")]
+        public async Task<ActionResult<CourseDto>> GetByName(string courseName)
         {
-            var result = await mediator.Send(new GetConstraintByIdQuery { Id = id });
+            var result = await mediator.Send(new GetCourseByNameQuery { CourseName = courseName });
 
             if (!result.IsSuccess)
             {
@@ -67,9 +67,9 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ConstraintDto>>> GetAll()
+        public async Task<ActionResult<List<CourseDto>>> GetAll()
         {
-            var result = await mediator.Send(new GetAllConstraintsQuery());
+            var result = await mediator.Send(new GetAllCoursesQuery());
 
             if (!result.IsSuccess)
             {

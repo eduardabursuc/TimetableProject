@@ -2,11 +2,11 @@
 
 namespace Application.DTOs
 {
-    public class ConstraintDTO
+    public class ConstraintDto
     {
         public Guid Id { get; set; }
         public ConstraintType Type { get; set; }
-        public string? ProfessorId { get; set; }
+        public Guid? ProfessorId { get; set; }
         public string? CourseName { get; set; }
         public string? RoomName { get; set; }
         public string? WantedRoomName { get; set; }

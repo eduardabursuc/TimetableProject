@@ -8,7 +8,7 @@ namespace Application.UseCases.Commands
     public class CreateConstraintCommand : IRequest<Result<Guid>>
     {
         public ConstraintType Type { get; set; }
-        public string? ProfessorId { get; set; }
+        public Guid? ProfessorId { get; set; }
         public string? CourseName { get; set; }
         public string? RoomName { get; set; }
         public string? WantedRoomName { get; set; }
@@ -21,7 +21,7 @@ namespace Application.UseCases.Commands
         
         public CreateConstraintCommand() { }
 
-        public CreateConstraintCommand(ConstraintDTO constraint)
+        public CreateConstraintCommand(ConstraintDto constraint)
         {
             Type = constraint.Type;
             ProfessorId = constraint.ProfessorId;

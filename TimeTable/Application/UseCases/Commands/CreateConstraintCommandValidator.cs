@@ -7,16 +7,12 @@ namespace Application.UseCases.Commands
 {
     public class CreateConstraintCommandValidator : AbstractValidator<CreateConstraintCommand>
     {
-        private readonly IMapper mapper;
-
-        public CreateConstraintCommandValidator(ConstraintsValidator validator, IMapper mapper)
+        public CreateConstraintCommandValidator(ConstraintsValidator validator, IMapper mapper, Instance instance)
         {
-            this.mapper = mapper;
-
             RuleFor(c => c.Type)
                 .IsInEnum()
                 .WithMessage("Constraint type is required.");
-            
+
             RuleFor(c => c)
                 .Must(c =>
                 {
@@ -31,3 +27,4 @@ namespace Application.UseCases.Commands
         }
     }
 }
+

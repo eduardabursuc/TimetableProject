@@ -2,8 +2,12 @@
 using Domain.Common;
 using Domain.Entities;
 using MediatR;
+using System;
 
-public class UpdateConstraintCommand : CreateConstraintCommand, IRequest<Result<Guid>>
+namespace Application.UseCases.Commands
 {
-    public Guid Id { get; set; }
+    public class UpdateConstraintCommand : CreateConstraintCommand, IRequest<Result<Guid>>
+    {
+        public Guid Id { get; set; }
+    }
 }

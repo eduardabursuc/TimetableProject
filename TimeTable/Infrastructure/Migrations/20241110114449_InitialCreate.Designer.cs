@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241103201224_InitialCreate")]
+    [Migration("20241110114449_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,21 +25,6 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("CourseProfessor", b =>
-                {
-                    b.Property<string>("CoursesCourseName")
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("ProfessorsId")
-                        .HasColumnType("text");
-
-                    b.HasKey("CoursesCourseName", "ProfessorsId");
-
-                    b.HasIndex("ProfessorsId");
-
-                    b.ToTable("CourseProfessor");
-                });
 
             modelBuilder.Entity("Domain.Entities.Constraint", b =>
                 {
@@ -61,8 +46,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("GroupName")
                         .HasColumnType("character varying(200)");
 
-                    b.Property<string>("ProfessorId")
-                        .HasColumnType("text");
+                    b.Property<Guid?>("ProfessorId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("RoomName")
                         .HasColumnType("character varying(200)");
@@ -139,8 +124,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Professor", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -176,24 +163,17 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("RoomName")
+                        .HasColumnType("character varying(200)");
+
                     b.HasKey("Time", "Day");
 
+                    b.HasIndex("RoomName");
+
                     b.ToTable("timeslots", (string)null);
-                });
-
-            modelBuilder.Entity("CourseProfessor", b =>
-                {
-                    b.HasOne("Domain.Entities.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesCourseName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Professor", null)
-                        .WithMany()
-                        .HasForeignKey("ProfessorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Constraint", b =>
@@ -221,6 +201,14 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Room", null)
                         .WithMany()
                         .HasForeignKey("WantedRoomName");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Timeslot", b =>
+                {
+                    b.HasOne("Domain.Entities.Room", null)
+                        .WithMany()
+                        .HasForeignKey("RoomName")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

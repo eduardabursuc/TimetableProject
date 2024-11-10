@@ -12,104 +12,89 @@ var instance = new Instance(jsonFilePath);
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register the instance as a singleton
-builder.Services.AddSingleton(instance);
-
-// Register the SoftConstraintsValidator
-builder.Services.AddTransient<ConstraintsValidator>();
-
-// Configure services
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Register services
+RegisterServices(builder, instance);
 
 var app = builder.Build();
 
 // Seed database at startup
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    // Apply any pending migrations
-    dbContext.Database.Migrate();
-
-    // Seed Professors if not already present
-    foreach (var prof in instance.Professors)
-    {
-        if (!dbContext.Professors.Any(p => p.Name == prof.Name))
-        {
-            dbContext.Professors.Add(prof);
-        }
-    }
-    dbContext.SaveChanges();
-
-    // Seed unique Courses
-    foreach (var course in instance.Courses)
-    {
-        if (!dbContext.Courses.Any(c => c.CourseName == course.CourseName))
-        {
-            dbContext.Courses.Add(course);
-        }
-    }
-    dbContext.SaveChanges();
-
-    // Seed Groups
-    foreach (var group in instance.Groups)
-    {
-        var existingGroup = dbContext.Groups.Local
-            .FirstOrDefault(g => g.Name == group.Name);
-
-        if (existingGroup != null)
-        {
-            dbContext.Entry(existingGroup).State = EntityState.Detached;
-        }
-
-        if (!dbContext.Groups.Any(g => g.Name == group.Name))
-        {
-            dbContext.Groups.Add(group);
-        }
-    }
-    dbContext.SaveChanges();
-
-    // Seed Rooms
-    foreach (var room in instance.Rooms)
-    {
-        if (!dbContext.Rooms.Any(r => r.Name == room.Name))
-        {
-            dbContext.Rooms.Add(room);
-        }
-    }
-
-    // Seed Constraints
-    foreach (var constraint in instance.Constraints)
-    {
-        if (!dbContext.Constraints.Any(c => c.Type == constraint.Type))
-        {
-            dbContext.Constraints.Add(constraint);
-        }
-    }
-
-    // Seed Timeslots
-    foreach (var timeslot in instance.TimeSlots)
-    {
-        if (!dbContext.Timeslots.Any(t => t.Day == timeslot.Day && t.Time == timeslot.Time))
-        {
-            dbContext.Timeslots.Add(timeslot);
-        }
-    }
-}
+await SeedDatabaseAtStartup(app, instance);
 
 // Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+ConfigureHttpPipeline(app);
 
-app.UseHttpsRedirection();
-app.MapControllers();
-app.Run();
+await app.RunAsync();
 
 instance.UploadToJson(jsonFilePath);
+
+void RegisterServices(WebApplicationBuilder builder, Instance instance)
+{
+    builder.Services.AddSingleton(instance);
+    builder.Services.AddTransient<ConstraintsValidator>();
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+}
+
+async Task SeedDatabaseAtStartup(WebApplication app, Instance instance)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        await ApplyMigrationsAsync(dbContext);
+        await SeedDatabaseAsync(dbContext, instance);
+    }
+}
+
+void ConfigureHttpPipeline(WebApplication app)
+{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+    app.MapControllers();
+}
+
+async Task ApplyMigrationsAsync(ApplicationDbContext dbContext)
+{
+    await dbContext.Database.MigrateAsync();
+}
+
+async Task SeedDatabaseAsync(ApplicationDbContext dbContext, Instance instance)
+{
+    await SeedEntitiesAsync(dbContext, instance.Professors, dbContext.Professors, p => p.Name);
+    await SeedEntitiesAsync(dbContext, instance.Courses, dbContext.Courses, c => c.CourseName);
+    await SeedEntitiesAsync(dbContext, instance.Groups, dbContext.Groups, g => g.Name);
+    await SeedEntitiesAsync(dbContext, instance.Rooms, dbContext.Rooms, r => r.Name);
+    await SeedEntitiesAsync(dbContext, instance.Constraints, dbContext.Constraints, c => c.Type);
+    await SeedEntitiesAsync(dbContext, instance.TimeSlots, dbContext.Timeslots, t => new { t.Day, t.Time });
+}
+
+async Task SeedEntitiesAsync<TEntity, TKey>(ApplicationDbContext dbContext, IEnumerable<TEntity> entities, DbSet<TEntity> dbSet, Func<TEntity, TKey> keySelector) where TEntity : class
+{
+    foreach (var entity in entities)
+    {
+        var entityKey = keySelector(entity);
+        if (EqualityComparer<TKey>.Default.Equals(entityKey, default(TKey)))
+        {
+            continue; // Skip entities with default keys
+        }
+
+        var existingEntity = dbSet.Local.FirstOrDefault(e => EqualityComparer<TKey>.Default.Equals(keySelector(e), entityKey));
+        if (existingEntity != null)
+        {
+            dbContext.Entry(existingEntity).State = EntityState.Detached;
+        }
+
+        if (!dbSet.AsEnumerable().Any(e => EqualityComparer<TKey>.Default.Equals(keySelector(e), entityKey)))
+        {
+            dbSet.Add(entity);
+        }
+    }
+    await dbContext.SaveChangesAsync();
+}

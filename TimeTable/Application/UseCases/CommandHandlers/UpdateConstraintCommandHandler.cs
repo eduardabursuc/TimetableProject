@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using Domain.Common;
 using MediatR;
+using Application.UseCases.Commands;
 
 namespace Application.UseCases.CommandHandlers
 {
