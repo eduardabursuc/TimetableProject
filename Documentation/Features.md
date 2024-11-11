@@ -50,5 +50,13 @@ The project will be developed in stages to ensure a scalable and efficient syste
 ![C4 Diagram](C4DiagramContainers.png)
 ---
 
-## 3. Potential for Level 3
-- Expanding the system for non-educational use cases.
+## Future Vision: Building a Comprehensive Educational Platform
+
+As we look to the future, our goal is to transform the application into a comprehensive educational management platform. By continuously expanding its features and capabilities, we aspire to provide an all-encompassing solution that meets a wide array of needs for educational institutions. This would reduce the reliance on multiple, fragmented systems and streamline processes into a single, integrated platform.
+
+In this vision, our application could potentially support functions such as, and not limited to:
+- **Enhanced Student Management**: Including attendance tracking, grading, and progress reports.
+- **Event and Resource Management**: Coordinating campus events, resource reservations, and faculty-student communications.
+- **Expanded Communication Tools**: Enabling seamless communication channels between students, professors, and administrators.
+
+Our aspiration is to create a one-stop solution for educational institutions, minimizing complexity and allowing them to operate efficiently through a single, cohesive system.
