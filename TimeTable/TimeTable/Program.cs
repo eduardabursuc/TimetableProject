@@ -61,8 +61,14 @@ void ConfigureHttpPipeline(WebApplication app)
 
 async Task ApplyMigrationsAsync(ApplicationDbContext dbContext)
 {
-    await dbContext.Database.MigrateAsync();
+    if (dbContext.Database.IsRelational())
+    {
+        await dbContext.Database.MigrateAsync();
+    }
 }
+
+
+
 
 async Task SeedDatabaseAsync(ApplicationDbContext dbContext, Instance instance)
 {
@@ -73,6 +79,7 @@ async Task SeedDatabaseAsync(ApplicationDbContext dbContext, Instance instance)
     await SeedEntitiesAsync(dbContext, instance.Constraints, dbContext.Constraints, c => c.Type);
     await SeedEntitiesAsync(dbContext, instance.TimeSlots, dbContext.Timeslots, t => new { t.Day, t.Time });
 }
+
 
 async Task SeedEntitiesAsync<TEntity, TKey>(ApplicationDbContext dbContext, IEnumerable<TEntity> entities, DbSet<TEntity> dbSet, Func<TEntity, TKey> keySelector) where TEntity : class
 {
