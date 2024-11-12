@@ -49,6 +49,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.WantedTime, opt => opt.MapFrom(src => src.WantedTime))
             .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
         
+        CreateMap<DeleteConstraintCommand, Constraint>();
         
         // Mapping for Professor
         CreateMap<Professor, ProfessorDto>()
@@ -62,6 +63,8 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
         
+        CreateMap<DeleteProfessorCommand, Professor>();
+
         // Mapping for Course
         CreateMap<Course, CourseDto>()
             .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.CourseName))
@@ -83,5 +86,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Package, opt => opt.MapFrom(src => src.Package))
             .ForMember(dest => dest.Semester, opt => opt.MapFrom(src => src.Semester))
             .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level));
+        
+        CreateMap<DeleteCourseCommand, Course>();
     }
 }
