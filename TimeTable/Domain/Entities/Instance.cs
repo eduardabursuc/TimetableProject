@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Domain.Entities
 {
@@ -54,6 +55,22 @@ namespace Domain.Entities
             TimeSlots = data?.TimeSlots ?? new List<Timeslot>();
             Events = data?.Events ?? new List<Event>();
         }
+
+
+        public void LoadConstraintsFromJson(string configPath)
+        {
+            var jsonString = File.ReadAllText(configPath);
+            var constraints = JsonSerializer.Deserialize<HashSet<Constraint>>(jsonString);
+            if (constraints != null)
+            {
+                foreach (var constraint in constraints)
+                {
+                    Constraints.Add(constraint);
+                }
+            }
+        }
+
+
 
         public void UploadToJson(string configPath)
         {

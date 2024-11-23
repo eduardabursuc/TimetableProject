@@ -1,7 +1,6 @@
 namespace Application.Validators;
 using Domain.Entities;
 using System.Globalization;
-using System.Linq;
 
 enum EventType
 {
@@ -63,7 +62,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, "Constraint type is not recognized.");
     }
 
-    private Tuple<bool, string> RoomChange(Constraint constraint)
+    public Tuple<bool, string> RoomChange(Constraint constraint)
     {
         var courseExists = constraint.CourseName != null && instance.Courses.Exists(c => c.CourseName == constraint.CourseName);
         var eventExists = constraint.Event != null && (constraint.Event == Lecture || constraint.Event == Laboratory || constraint.Event == Seminary);
@@ -77,7 +76,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, "A professor, group, timeslot or course should be specified.");
     }
 
-    private Tuple<bool, string> RoomPreference(Constraint constraint)
+    public Tuple<bool, string> RoomPreference(Constraint constraint)
     {
         var wantedRoomExists = constraint.WantedRoomName != null && instance.Rooms.Exists(r => r.Name == constraint.WantedRoomName);
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
@@ -95,7 +94,7 @@ public class ConstraintsValidator
         return Tuple.Create(true, "A professor or a course and the event should be specified.");
     }
 
-    private Tuple<bool, string> TimeChange(Constraint constraint)
+    public Tuple<bool, string> TimeChange(Constraint constraint)
     {
         var dayExists = constraint.Day != null && instance.TimeSlots.Exists(t => t.Day == constraint.Day);
         var timeExists = constraint.Time != null && instance.TimeSlots.Exists(t => t.Time == constraint.Time);
@@ -108,7 +107,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, "Timeslot is not specified, neither a course, event or group.");
     }
 
-    private Tuple<bool, string> DayChange(Constraint constraint)
+    public Tuple<bool, string> DayChange(Constraint constraint)
     {
         var dayExists = constraint.Day != null && instance.TimeSlots.Exists(t => t.Day == constraint.Day);
         var timeExists = constraint.Time != null && instance.TimeSlots.Exists(t => t.Time == constraint.Time);
@@ -121,7 +120,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, "Timeslot is not specified, neither a course, event or group.");
     }
 
-    private Tuple<bool, string> IntervalAvailability(Constraint constraint)
+    public Tuple<bool, string> IntervalAvailability(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
         var dayExists = constraint.Day != null && instance.TimeSlots.Exists(t => t.Day == constraint.Day);
@@ -134,7 +133,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, TimeslotsOrProfessorNotSpecified);
     }
 
-    private Tuple<bool, string> IntervalUnavailability(Constraint constraint)
+    public Tuple<bool, string> IntervalUnavailability(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
         var dayExists = constraint.Day != null && instance.TimeSlots.Exists(t => t.Day == constraint.Day);
@@ -147,7 +146,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, TimeslotsOrProfessorNotSpecified);
     }
 
-    private Tuple<bool, string> WeekEvenness(Constraint constraint)
+    public Tuple<bool, string> WeekEvenness(Constraint constraint)
     {
         var courseExists = constraint.CourseName != null && instance.Courses.Exists(c => c.CourseName == constraint.CourseName);
 
@@ -158,7 +157,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, "Course is not specified or does not exist.");
     }
 
-    private Tuple<bool, string> AddWindow(Constraint constraint)
+    public Tuple<bool, string> AddWindow(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
         var timeExists = constraint.Time != null && TimeRangeExists(constraint.Time);
@@ -171,7 +170,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, TimeslotsOrProfessorNotSpecified);
     }
 
-    private Tuple<bool, string> RemoveWindow(Constraint constraint)
+    public Tuple<bool, string> RemoveWindow(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
         var timeExists = constraint.Time != null && instance.TimeSlots.Exists(t => t.Time == constraint.Time);
@@ -184,7 +183,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, TimeslotsOrProfessorNotSpecified);
     }
 
-    private Tuple<bool, string> DayOff(Constraint constraint)
+    public Tuple<bool, string> DayOff(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
         var dayExists = constraint.Day != null && instance.TimeSlots.Exists(t => t.Day == constraint.Day);
@@ -196,7 +195,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, TimeslotsOrProfessorNotSpecified);
     }
 
-    private Tuple<bool, string> ConsecutiveHours(Constraint constraint)
+    public Tuple<bool, string> ConsecutiveHours(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
         var dayExists = constraint.Day != null && instance.TimeSlots.Exists(t => t.Day == constraint.Day);
@@ -208,7 +207,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, TimeslotsOrProfessorNotSpecified);
     }
 
-    private Tuple<bool, string> LectureBeforeLabs(Constraint constraint)
+    public Tuple<bool, string> LectureBeforeLabs(Constraint constraint)
     {
         var professorExists = constraint.ProfessorId != null && instance.Professors.Exists(p => p.Id == constraint.ProfessorId);
         var courseExists = constraint.CourseName != null && instance.Courses.Exists(c => c.CourseName == constraint.CourseName);
@@ -220,7 +219,7 @@ public class ConstraintsValidator
         return Tuple.Create(false, "Course or professor are not specified or do not exist.");
     }
 
-    private bool TimeRangeExists(string timeRange)
+    public bool TimeRangeExists(string timeRange)
     {
         var times = timeRange.Split(" - ");
         var rangeStart = TimeSpan.Parse(times[0], CultureInfo.InvariantCulture);

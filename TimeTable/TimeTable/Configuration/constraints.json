@@ -1,0 +1,71 @@
+[
+  {
+    "Type": "SOFT_CONSECUTIVE_HOURS",
+    "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+    "Day": "Wednesday"
+  },
+  {
+    "Type": "SOFT_CONSECUTIVE_HOURS",
+    "Day": "Monday"
+  },
+  {
+    "Type": "SOFT_ROOM_CHANGE",
+    "CourseName": "Machine Learning",
+    "GroupName": "2B3",
+    "Event": "laboratory"
+  },
+  {
+    "Type": "SOFT_INTERVAL_AVAILABILITY",
+    "ProfessorId": "e1a404a2-e2e9-4e75-ac11-6518d1e4bf7f",
+    "Day": "Monday",
+    "Time": "10:00 - 18:00"
+  },
+  {
+    "Type": "SOFT_LECTURE_BEFORE_LABS",
+    "CourseName": "Computer Graphics"
+  },
+  {
+    "Type": "SOFT_ROOM_PREFERENCE",
+    "WantedRoomName": "C2",
+    "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69"
+  },
+  {
+    "Type": "SOFT_TIME_CHANGE",
+    "CourseName": "Data Science",
+    "Day": "Friday",
+    "Time": "14:00 - 16:00"
+  },
+  {
+    "Type": "SOFT_DAY_CHANGE",
+    "CourseName": "Artificial Intelligence",
+    "Day": "Thursday",
+    "Time": "08:00 - 10:00"
+  },
+  {
+    "Type": "SOFT_INTERVAL_UNAVAILABILITY",
+    "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+    "Day": "Tuesday",
+    "Time": "08:00 - 12:00"
+  },
+  {
+    "Type": "SOFT_WEEK_EVENNESS",
+    "CourseName": "Operating Systems"
+  },
+  {
+    "Type": "SOFT_ADD_WINDOW",
+    "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+    "Day": "Monday",
+    "Time": "12:00 - 14:00"
+  },
+  {
+    "Type": "SOFT_REMOVE_WINDOW",
+    "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+    "Day": "Wednesday",
+    "Time": "11:00 - 12:00"
+  },
+  {
+    "Type": "SOFT_DAY_OFF",
+    "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+    "Day": "Friday"
+  }
+]

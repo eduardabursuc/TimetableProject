@@ -4,10 +4,14 @@ using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Application.Validators;
+using Application.Services;
 
 // Load the JSON data
 var jsonFilePath = "Configuration/config.json"; // Update this path to your JSON file location
 var instance = new Instance(jsonFilePath);
+
+var constraintsJsonFilePath = "Configuration/constraints.json"; // Update this path to your constraints JSON file location
+instance.LoadConstraintsFromJson(constraintsJsonFilePath);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +22,9 @@ var app = builder.Build();
 
 // Seed database at startup
 await SeedDatabaseAtStartup(app, instance);
+
+// Apply arc consistency and print results
+ApplyArcConsistencyAndPrintResults(instance);
 
 // Configure the HTTP request pipeline
 ConfigureHttpPipeline(app);
@@ -76,7 +83,7 @@ async Task SeedDatabaseAsync(ApplicationDbContext dbContext, Instance instance)
     await SeedEntitiesAsync(dbContext, instance.Courses, dbContext.Courses, c => c.CourseName);
     await SeedEntitiesAsync(dbContext, instance.Groups, dbContext.Groups, g => g.Name);
     await SeedEntitiesAsync(dbContext, instance.Rooms, dbContext.Rooms, r => r.Name);
-    await SeedEntitiesAsync(dbContext, instance.Constraints, dbContext.Constraints, c => c.Type);
+    await SeedEntitiesAsync(dbContext, instance.Constraints, dbContext.Constraints, c => new { c.Type, c.ProfessorId, c.CourseName, c.GroupName, c.Day, c.Time });
     await SeedEntitiesAsync(dbContext, instance.TimeSlots, dbContext.Timeslots, t => new { t.Day, t.Time });
 }
 
@@ -105,7 +112,21 @@ async Task SeedEntitiesAsync<TEntity, TKey>(ApplicationDbContext dbContext, IEnu
     await dbContext.SaveChangesAsync();
 }
 
+void ApplyArcConsistencyAndPrintResults(Instance instance)
+{
+    var arcConsistency = new ArcConsistency(instance);
+    if (arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
+    {
+        Console.WriteLine("Arc consistency applied successfully. Solution found:");
+        arcConsistency.PrintSolution(solution);
+    }
+    else
+    {
+        Console.WriteLine("No solution found.");
+    }
+}
+
 public partial class Program
 {
-    protected Program(){}
+    protected Program() { }
 }
