@@ -1,6 +1,6 @@
 using Application.DTOs;
 using Application.UseCases.Commands.CourseCommands;
-using Application.UseCases.Queries;
+using Application.UseCases.Queries.CourseQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

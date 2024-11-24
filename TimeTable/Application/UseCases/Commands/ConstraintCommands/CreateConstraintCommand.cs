@@ -19,7 +19,7 @@ namespace Application.UseCases.Commands.ConstraintCommands
         public string? WantedTime { get; set; }
         public string? Event { get; set; }
 
-        protected CreateConstraintCommand() { }
+        public CreateConstraintCommand() { }
 
         public CreateConstraintCommand(ConstraintDto constraint)
         {

@@ -1,37 +1,33 @@
 using Application.DTOs;
 using Application.UseCases.Queries;
+using Application.UseCases.Queries.ConstraintQueries;
 using Application.UseCases.QueryHandlers;
+using Application.UseCases.QueryHandlers.ConstraintQueryHandlers;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
 
-namespace Application.UnitTests
+namespace TimeTable.Application.UnitTests
 {
     public class GetConstraintByIdQueryHandlerTests
     {
-        private readonly IConstraintRepository repository;
-        private readonly IMapper mapper;
-
-        public GetConstraintByIdQueryHandlerTests()
-        {
-            repository = Substitute.For<IConstraintRepository>();
-            mapper = Substitute.For<IMapper>();
-        }
+        private readonly IConstraintRepository _repository = Substitute.For<IConstraintRepository>();
+        private readonly IMapper _mapper = Substitute.For<IMapper>();
 
         [Fact]
         public async Task Given_GetConstraintByIdQueryHandler_When_HandleIsCalled_Then_ConstraintShouldBeReturned()
         {
             // Arrange
             var constraint = GenerateConstraint();
-            repository.GetByIdAsync(constraint.Id).Returns(Result<Constraint>.Success(constraint));
+            _repository.GetByIdAsync(constraint.Id).Returns(Result<Constraint>.Success(constraint));
 
             var query = new GetConstraintByIdQuery { Id = constraint.Id };
             var constraintDto = GenerateConstraintDto(constraint);
-            mapper.Map<ConstraintDto>(constraint).Returns(constraintDto);
+            _mapper.Map<ConstraintDto>(constraint).Returns(constraintDto);
 
-            var handler = new GetConstraintByIdQueryHandler(repository, mapper);
+            var handler = new GetConstraintByIdQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -47,10 +43,10 @@ namespace Application.UnitTests
         {
             // Arrange
             var constraintId = Guid.NewGuid();
-            repository.GetByIdAsync(constraintId).Returns(Result<Constraint>.Failure("Constraint not found"));
+            _repository.GetByIdAsync(constraintId).Returns(Result<Constraint>.Failure("Constraint not found"));
 
             var query = new GetConstraintByIdQuery { Id = constraintId };
-            var handler = new GetConstraintByIdQueryHandler(repository, mapper);
+            var handler = new GetConstraintByIdQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -66,12 +62,12 @@ namespace Application.UnitTests
         {
             // Arrange
             var constraint = GenerateConstraint();
-            repository.GetByIdAsync(constraint.Id).Returns(Result<Constraint>.Success(constraint));
+            _repository.GetByIdAsync(constraint.Id).Returns(Result<Constraint>.Success(constraint));
 
-            mapper.Map<ConstraintDto>(constraint).Returns(x => { throw new Exception("Mapping failed"); });
+            _mapper.Map<ConstraintDto>(constraint).Returns(x => throw new Exception("Mapping failed"));
 
             var query = new GetConstraintByIdQuery { Id = constraint.Id };
-            var handler = new GetConstraintByIdQueryHandler(repository, mapper);
+            var handler = new GetConstraintByIdQueryHandler(_repository, _mapper);
 
             // Act & Assert
             await Assert.ThrowsAsync<Exception>(() => handler.Handle(query, CancellationToken.None));
@@ -82,13 +78,13 @@ namespace Application.UnitTests
         {
             // Arrange
             var constraint = GenerateConstraint();
-            repository.GetByIdAsync(constraint.Id).Returns(Result<Constraint>.Success(constraint));
+            _repository.GetByIdAsync(constraint.Id).Returns(Result<Constraint>.Success(constraint));
 
             var constraintDto = GenerateConstraintDto(constraint);
-            mapper.Map<ConstraintDto>(constraint).Returns(constraintDto);
+            _mapper.Map<ConstraintDto>(constraint).Returns(constraintDto);
 
             var query = new GetConstraintByIdQuery { Id = constraint.Id };
-            var handler = new GetConstraintByIdQueryHandler(repository, mapper);
+            var handler = new GetConstraintByIdQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);

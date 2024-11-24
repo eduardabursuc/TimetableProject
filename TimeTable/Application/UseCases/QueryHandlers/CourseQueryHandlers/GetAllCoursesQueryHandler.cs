@@ -1,11 +1,11 @@
 using Application.DTOs;
-using Application.UseCases.Queries;
+using Application.UseCases.Queries.CourseQueries;
 using AutoMapper;
 using Domain.Common;
 using Domain.Repositories;
 using MediatR;
 
-namespace Application.UseCases.QueryHandlers
+namespace Application.UseCases.QueryHandlers.CourseQueryHandlers
 {
     public class GetAllCoursesQueryHandler(ICourseRepository repository, IMapper mapper)
         : IRequestHandler<GetAllCoursesQuery, Result<List<CourseDto>>>

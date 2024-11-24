@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.UseCases.Queries
+namespace Application.UseCases.Queries.ConstraintQueries
 {
     public abstract class GetConstraintByIdQueryValidator : AbstractValidator<GetConstraintByIdQuery>
     {

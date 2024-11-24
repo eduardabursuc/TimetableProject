@@ -12,7 +12,7 @@ namespace Application.UseCases.Commands.CourseCommands
         public required int Semester { get; init; }
         public required string Level { get; init; }
 
-        protected CreateCourseCommand() { }
+        public CreateCourseCommand() { }
 
         public CreateCourseCommand(CourseDto course)
         {

@@ -1,12 +1,12 @@
-using FluentAssertions;
 using System.Net;
 using System.Text.Json;
+using Application.DTOs;
+using Domain.Entities;
+using FluentAssertions;
+using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Application.DTOs;
-using Domain.Entities;
-using Infrastructure.Persistence;
 
 namespace TimeTable.Application.IntegrationTests
 {
@@ -15,7 +15,7 @@ namespace TimeTable.Application.IntegrationTests
         private readonly WebApplicationFactory<Program> _factory;
         private readonly ApplicationDbContext _dbContext;
         private readonly HttpClient _client;
-        private const string BaseUrl = "/api/professors";
+        private const string BaseUrl = "/api/v1/professors";
         
         // Define a static JsonSerializerOptions instance to reuse across all test cases
         private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions 

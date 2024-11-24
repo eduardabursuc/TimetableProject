@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Application.UseCases.Queries
+namespace Application.UseCases.Queries.ProfessorQueries
 {
     public abstract class GetProfessorByIdQueryValidator : AbstractValidator<GetProfessorByIdQuery>
     {

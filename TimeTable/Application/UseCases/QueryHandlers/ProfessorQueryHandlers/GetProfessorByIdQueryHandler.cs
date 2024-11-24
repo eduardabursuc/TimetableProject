@@ -1,11 +1,11 @@
 using Application.DTOs;
-using Application.UseCases.Queries;
+using Application.UseCases.Queries.ProfessorQueries;
 using AutoMapper;
 using Domain.Common;
 using Domain.Repositories;
 using MediatR;
 
-namespace Application.UseCases.QueryHandlers
+namespace Application.UseCases.QueryHandlers.ProfessorQueryHandlers
 {
     public class GetProfessorByIdQueryHandler(IProfessorRepository repository, IMapper mapper)
         : IRequestHandler<GetProfessorByIdQuery, Result<ProfessorDto>>

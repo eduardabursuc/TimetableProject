@@ -1,37 +1,33 @@
 using Application.DTOs;
 using Application.UseCases.Queries;
+using Application.UseCases.Queries.ProfessorQueries;
 using Application.UseCases.QueryHandlers;
+using Application.UseCases.QueryHandlers.ProfessorQueryHandlers;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
 
-namespace Application.UnitTests
+namespace TimeTable.Application.UnitTests
 {
     public class GetAllProfessorsQueryHandlerTests
     {
-        private readonly IProfessorRepository repository;
-        private readonly IMapper mapper;
-
-        public GetAllProfessorsQueryHandlerTests()
-        {
-            repository = Substitute.For<IProfessorRepository>();
-            mapper = Substitute.For<IMapper>();
-        }
+        private readonly IProfessorRepository _repository = Substitute.For<IProfessorRepository>();
+        private readonly IMapper _mapper = Substitute.For<IMapper>();
 
         [Fact]
         public async Task Given_GetAllProfessorsQueryHandler_When_HandleIsCalled_Then_AListOfProfessorsShouldBeReturned()
         {
             // Arrange
-            List<Professor> professors = GenerateProfessorList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
+            var professors = GenerateProfessorList();
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
 
             var query = new GetAllProfessorsQuery();
             var professorDtos = GenerateProfessorDto(professors);
-            mapper.Map<List<ProfessorDto>>(professors).Returns(professorDtos);
+            _mapper.Map<List<ProfessorDto>>(professors).Returns(professorDtos);
 
-            var handler = new GetAllProfessorsQueryHandler(repository, mapper);
+            var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -48,10 +44,10 @@ namespace Application.UnitTests
         public async Task Given_GetAllProfessorsQueryHandler_When_NoProfessorsInRepository_Then_EmptyListShouldBeReturned()
         {
             // Arrange
-            repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(new List<Professor>()));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(new List<Professor>()));
 
             var query = new GetAllProfessorsQuery();
-            var handler = new GetAllProfessorsQueryHandler(repository, mapper);
+            var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -67,12 +63,12 @@ namespace Application.UnitTests
         {
             // Arrange
             List<Professor> professors = GenerateProfessorList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
 
-            mapper.Map<List<ProfessorDto>>(professors).Returns(x => { throw new Exception("Mapping failed"); });
+            _mapper.Map<List<ProfessorDto>>(professors).Returns(x => throw new Exception("Mapping failed"));
 
             var query = new GetAllProfessorsQuery();
-            var handler = new GetAllProfessorsQueryHandler(repository, mapper);
+            var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
 
             // Act & Assert
             await Assert.ThrowsAsync<Exception>(() => handler.Handle(query, CancellationToken.None));
@@ -82,14 +78,14 @@ namespace Application.UnitTests
         public async Task Given_GetAllProfessorsQueryHandler_When_HandleIsCalled_Then_FieldsShouldMapCorrectly()
         {
             // Arrange
-            List<Professor> professors = GenerateProfessorList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
+            var professors = GenerateProfessorList();
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
 
             var professorDtos = GenerateProfessorDto(professors);
-            mapper.Map<List<ProfessorDto>>(professors).Returns(professorDtos);
+            _mapper.Map<List<ProfessorDto>>(professors).Returns(professorDtos);
 
             var query = new GetAllProfessorsQuery();
-            var handler = new GetAllProfessorsQueryHandler(repository, mapper);
+            var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -101,36 +97,38 @@ namespace Application.UnitTests
 
         private static List<Professor> GenerateProfessorList()
         {
-            return new List<Professor>
-            {
+            return
+            [
                 new Professor
                 {
                     Id = Guid.NewGuid(),
                     Name = "Professor 1",
                 },
+
                 new Professor
                 {
                     Id = Guid.NewGuid(),
                     Name = "Professor 2",
                 }
-            };
+            ];
         }
 
         private static List<ProfessorDto> GenerateProfessorDto(List<Professor> professors)
         {
-            return new List<ProfessorDto>
-            {
+            return
+            [
                 new ProfessorDto
                 {
                     Id = professors[0].Id,
                     Name = professors[0].Name
                 },
+
                 new ProfessorDto
                 {
                     Id = professors[1].Id,
                     Name = professors[1].Name
                 }
-            };
+            ];
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Application.UseCases.Commands.ProfessorCommands
     {
         public required string Name { get; init; }
 
-        protected CreateProfessorCommand() { }
+        public CreateProfessorCommand() { }
         
         public CreateProfessorCommand(ProfessorDto professor)
         {

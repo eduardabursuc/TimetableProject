@@ -1,37 +1,33 @@
 using Application.DTOs;
 using Application.UseCases.Queries;
+using Application.UseCases.Queries.CourseQueries;
 using Application.UseCases.QueryHandlers;
+using Application.UseCases.QueryHandlers.CourseQueryHandlers;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
 
-namespace Application.UnitTests
+namespace TimeTable.Application.UnitTests
 {
     public class GetAllCoursesQueryHandlerTests
     {
-        private readonly ICourseRepository repository;
-        private readonly IMapper mapper;
-
-        public GetAllCoursesQueryHandlerTests()
-        {
-            repository = Substitute.For<ICourseRepository>();
-            mapper = Substitute.For<IMapper>();
-        }
+        private readonly ICourseRepository _repository = Substitute.For<ICourseRepository>();
+        private readonly IMapper _mapper = Substitute.For<IMapper>();
 
         [Fact]
         public async Task Given_GetAllCoursesQueryHandler_When_HandleIsCalled_Then_AListOfCoursesShouldBeReturned()
         {
             // Arrange
             IEnumerable<Course> courses = GenerateCourseList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(courses));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(courses));
 
             var query = new GetAllCoursesQuery();
             var courseDtos = GenerateCourseDto(courses.ToList());
-            mapper.Map<List<CourseDto>>(courses).Returns(courseDtos);
+            _mapper.Map<List<CourseDto>>(courses).Returns(courseDtos);
 
-            var handler = new GetAllCoursesQueryHandler(repository, mapper);
+            var handler = new GetAllCoursesQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -48,10 +44,10 @@ namespace Application.UnitTests
         public async Task Given_GetAllCoursesQueryHandler_When_NoCoursesInRepository_Then_EmptyListShouldBeReturned()
         {
             // Arrange
-            repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(new List<Course>()));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(new List<Course>()));
 
             var query = new GetAllCoursesQuery();
-            var handler = new GetAllCoursesQueryHandler(repository, mapper);
+            var handler = new GetAllCoursesQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -67,12 +63,12 @@ namespace Application.UnitTests
         {
             // Arrange
             IEnumerable<Course> courses = GenerateCourseList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(courses));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(courses));
 
-            mapper.Map<List<CourseDto>>(courses).Returns(x => { throw new Exception("Mapping failed"); });
+            _mapper.Map<List<CourseDto>>(courses).Returns(x => throw new Exception("Mapping failed"));
 
             var query = new GetAllCoursesQuery();
-            var handler = new GetAllCoursesQueryHandler(repository, mapper);
+            var handler = new GetAllCoursesQueryHandler(_repository, _mapper);
 
             // Act & Assert
             await Assert.ThrowsAsync<Exception>(() => handler.Handle(query, CancellationToken.None));
@@ -83,13 +79,13 @@ namespace Application.UnitTests
         {
             // Arrange
             IEnumerable<Course> courses = GenerateCourseList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(courses));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Course>>.Success(courses));
 
             var courseDtos = GenerateCourseDto(courses.ToList());
-            mapper.Map<List<CourseDto>>(courses).Returns(courseDtos);
+            _mapper.Map<List<CourseDto>>(courses).Returns(courseDtos);
 
             var query = new GetAllCoursesQuery();
-            var handler = new GetAllCoursesQueryHandler(repository, mapper);
+            var handler = new GetAllCoursesQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -104,8 +100,8 @@ namespace Application.UnitTests
 
         private static List<Course> GenerateCourseList()
         {
-            return new List<Course>
-            {
+            return
+            [
                 new Course
                 {
                     CourseName = "Course 1",
@@ -114,6 +110,7 @@ namespace Application.UnitTests
                     Semester = 1,
                     Level = "Undergraduate"
                 },
+
                 new Course
                 {
                     CourseName = "Course 2",
@@ -122,13 +119,13 @@ namespace Application.UnitTests
                     Semester = 2,
                     Level = "Graduate"
                 }
-            };
+            ];
         }
 
         private static List<CourseDto> GenerateCourseDto(List<Course> courses)
         {
-            return new List<CourseDto>
-            {
+            return
+            [
                 new CourseDto
                 {
                     CourseName = courses[0].CourseName,
@@ -137,6 +134,7 @@ namespace Application.UnitTests
                     Semester = courses[0].Semester,
                     Level = courses[0].Level
                 },
+
                 new CourseDto
                 {
                     CourseName = courses[1].CourseName,
@@ -145,7 +143,7 @@ namespace Application.UnitTests
                     Semester = courses[1].Semester,
                     Level = courses[1].Level
                 }
-            };
+            ];
         }
     }
 }

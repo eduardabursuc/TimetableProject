@@ -1,6 +1,6 @@
 using Application.DTOs;
 using Application.UseCases.Commands.ProfessorCommands;
-using Application.UseCases.Queries;
+using Application.UseCases.Queries.ProfessorQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

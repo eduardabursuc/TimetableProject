@@ -2,7 +2,7 @@
 using Domain.Common;
 using MediatR;
 
-namespace Application.UseCases.Queries
+namespace Application.UseCases.Queries.ConstraintQueries
 {
     public class GetConstraintByIdQuery : IRequest<Result<ConstraintDto>>
     {

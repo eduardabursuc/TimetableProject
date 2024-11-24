@@ -1,11 +1,11 @@
 ﻿using Application.DTOs;
-using Application.UseCases.Queries;
+using Application.UseCases.Queries.ConstraintQueries;
 using AutoMapper;
 using Domain.Common;
 using Domain.Repositories;
 using MediatR;
 
-namespace Application.UseCases.QueryHandlers
+namespace Application.UseCases.QueryHandlers.ConstraintQueryHandlers
 {
     public class GetAllConstraintsQueryHandler(IConstraintRepository repository, IMapper mapper)
         : IRequestHandler<GetAllConstraintsQuery, Result<List<ConstraintDto>>>

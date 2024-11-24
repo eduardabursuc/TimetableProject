@@ -1,37 +1,33 @@
 using Application.DTOs;
 using Application.UseCases.Queries;
+using Application.UseCases.Queries.CourseQueries;
 using Application.UseCases.QueryHandlers;
+using Application.UseCases.QueryHandlers.CourseQueryHandlers;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
 
-namespace Application.UnitTests
+namespace TimeTable.Application.UnitTests
 {
     public class GetCourseByNameQueryHandlerTests
     {
-        private readonly ICourseRepository repository;
-        private readonly IMapper mapper;
-
-        public GetCourseByNameQueryHandlerTests()
-        {
-            repository = Substitute.For<ICourseRepository>();
-            mapper = Substitute.For<IMapper>();
-        }
+        private readonly ICourseRepository _repository = Substitute.For<ICourseRepository>();
+        private readonly IMapper _mapper = Substitute.For<IMapper>();
 
         [Fact]
         public async Task Given_GetCourseByNameQueryHandler_When_HandleIsCalled_Then_CourseShouldBeReturned()
         {
             // Arrange
             var course = GenerateCourse();
-            repository.GetByNameAsync("Course 1").Returns(Result<Course>.Success(course));
+            _repository.GetByNameAsync("Course 1").Returns(Result<Course>.Success(course));
 
             var query = new GetCourseByNameQuery { CourseName = "Course 1" };
             var courseDto = GenerateCourseDto(course);
-            mapper.Map<CourseDto>(course).Returns(courseDto);
+            _mapper.Map<CourseDto>(course).Returns(courseDto);
 
-            var handler = new GetCourseByNameQueryHandler(repository, mapper);
+            var handler = new GetCourseByNameQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -46,10 +42,10 @@ namespace Application.UnitTests
         public async Task Given_GetCourseByNameQueryHandler_When_CourseNotFound_Then_FailureResultShouldBeReturned()
         {
             // Arrange
-            repository.GetByNameAsync("Course 1").Returns(Result<Course>.Failure("Course not found"));
+            _repository.GetByNameAsync("Course 1").Returns(Result<Course>.Failure("Course not found"));
 
             var query = new GetCourseByNameQuery { CourseName = "Course 1" };
-            var handler = new GetCourseByNameQueryHandler(repository, mapper);
+            var handler = new GetCourseByNameQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -65,12 +61,12 @@ namespace Application.UnitTests
         {
             // Arrange
             var course = GenerateCourse();
-            repository.GetByNameAsync("Course 1").Returns(Result<Course>.Success(course));
+            _repository.GetByNameAsync("Course 1").Returns(Result<Course>.Success(course));
 
-            mapper.Map<CourseDto>(course).Returns(x => { throw new Exception("Mapping failed"); });
+            _mapper.Map<CourseDto>(course).Returns(x => throw new Exception("Mapping failed"));
 
             var query = new GetCourseByNameQuery { CourseName = "Course 1" };
-            var handler = new GetCourseByNameQueryHandler(repository, mapper);
+            var handler = new GetCourseByNameQueryHandler(_repository, _mapper);
 
             // Act & Assert
             await Assert.ThrowsAsync<Exception>(() => handler.Handle(query, CancellationToken.None));
@@ -81,13 +77,13 @@ namespace Application.UnitTests
         {
             // Arrange
             var course = GenerateCourse();
-            repository.GetByNameAsync("Course 1").Returns(Result<Course>.Success(course));
+            _repository.GetByNameAsync("Course 1").Returns(Result<Course>.Success(course));
 
             var courseDto = GenerateCourseDto(course);
-            mapper.Map<CourseDto>(course).Returns(courseDto);
+            _mapper.Map<CourseDto>(course).Returns(courseDto);
 
             var query = new GetCourseByNameQuery { CourseName = "Course 1" };
-            var handler = new GetCourseByNameQueryHandler(repository, mapper);
+            var handler = new GetCourseByNameQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);

@@ -1,37 +1,33 @@
 using Application.DTOs;
 using Application.UseCases.Queries;
+using Application.UseCases.Queries.ConstraintQueries;
 using Application.UseCases.QueryHandlers;
+using Application.UseCases.QueryHandlers.ConstraintQueryHandlers;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
 
-namespace Application.UnitTests
+namespace TimeTable.Application.UnitTests
 {
     public class GetAllConstraintsQueryHandlerTests
     {
-        private readonly IConstraintRepository repository;
-        private readonly IMapper mapper;
-
-        public GetAllConstraintsQueryHandlerTests()
-        {
-            repository = Substitute.For<IConstraintRepository>();
-            mapper = Substitute.For<IMapper>();
-        }
+        private readonly IConstraintRepository _repository = Substitute.For<IConstraintRepository>();
+        private readonly IMapper _mapper = Substitute.For<IMapper>();
 
         [Fact]
         public async Task Given_GetAllConstraintsQueryHandler_When_HandleIsCalled_Then_AListOfConstraintsShouldBeReturned()
         {
             // Arrange
             IEnumerable<Constraint> constraints = GenerateConstraintList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
 
             var query = new GetAllConstraintsQuery();
             var constraintDtos = GenerateConstraintDto(constraints.ToList());
-            mapper.Map<List<ConstraintDto>>(constraints).Returns(constraintDtos);
+            _mapper.Map<List<ConstraintDto>>(constraints).Returns(constraintDtos);
 
-            var handler = new GetAllConstraintsQueryHandler(repository, mapper);
+            var handler = new GetAllConstraintsQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -48,10 +44,10 @@ namespace Application.UnitTests
         public async Task Given_GetAllConstraintsQueryHandler_When_NoConstraintsInRepository_Then_EmptyListShouldBeReturned()
         {
             // Arrange
-            repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(new List<Constraint>()));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(new List<Constraint>()));
 
             var query = new GetAllConstraintsQuery();
-            var handler = new GetAllConstraintsQueryHandler(repository, mapper);
+            var handler = new GetAllConstraintsQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -67,12 +63,12 @@ namespace Application.UnitTests
         {
             // Arrange
             IEnumerable<Constraint> constraints = GenerateConstraintList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
 
-            mapper.Map<List<ConstraintDto>>(constraints).Returns(x => { throw new Exception("Mapping failed"); });
+            _mapper.Map<List<ConstraintDto>>(constraints).Returns(x => throw new Exception("Mapping failed"));
 
             var query = new GetAllConstraintsQuery();
-            var handler = new GetAllConstraintsQueryHandler(repository, mapper);
+            var handler = new GetAllConstraintsQueryHandler(_repository, _mapper);
 
             // Act & Assert
             await Assert.ThrowsAsync<Exception>(() => handler.Handle(query, CancellationToken.None));
@@ -83,13 +79,13 @@ namespace Application.UnitTests
         {
             // Arrange
             IEnumerable<Constraint> constraints = GenerateConstraintList();
-            repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
+            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
 
             var constraintDtos = GenerateConstraintDto(constraints.ToList());
-            mapper.Map<List<ConstraintDto>>(constraints).Returns(constraintDtos);
+            _mapper.Map<List<ConstraintDto>>(constraints).Returns(constraintDtos);
 
             var query = new GetAllConstraintsQuery();
-            var handler = new GetAllConstraintsQueryHandler(repository, mapper);
+            var handler = new GetAllConstraintsQueryHandler(_repository, _mapper);
 
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
@@ -111,8 +107,8 @@ namespace Application.UnitTests
 
         private static List<Constraint> GenerateConstraintList()
         {
-            return new List<Constraint>
-            {
+            return
+            [
                 new Constraint
                 {
                     Id = Guid.NewGuid(),
@@ -128,6 +124,7 @@ namespace Application.UnitTests
                     WantedTime = "11:00",
                     Event = "Event 1"
                 },
+
                 new Constraint
                 {
                     Id = Guid.NewGuid(),
@@ -143,13 +140,13 @@ namespace Application.UnitTests
                     WantedTime = "13:00",
                     Event = "Event 2"
                 }
-            };
+            ];
         }
 
         private static List<ConstraintDto> GenerateConstraintDto(List<Constraint> constraints)
         {
-            return new List<ConstraintDto>
-            {
+            return
+            [
                 new ConstraintDto
                 {
                     Id = constraints[0].Id,
@@ -165,6 +162,7 @@ namespace Application.UnitTests
                     WantedTime = constraints[0].WantedTime,
                     Event = constraints[0].Event
                 },
+
                 new ConstraintDto
                 {
                     Id = constraints[1].Id,
@@ -180,7 +178,7 @@ namespace Application.UnitTests
                     WantedTime = constraints[1].WantedTime,
                     Event = constraints[1].Event
                 }
-            };
+            ];
         }
     }
 }

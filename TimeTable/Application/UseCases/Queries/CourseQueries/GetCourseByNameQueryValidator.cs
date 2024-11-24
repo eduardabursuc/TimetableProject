@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Application.UseCases.Queries
+namespace Application.UseCases.Queries.CourseQueries
 {
     public abstract class GetCourseByNameQueryValidator : AbstractValidator<GetCourseByNameQuery>
     {

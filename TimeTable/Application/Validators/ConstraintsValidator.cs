@@ -11,41 +11,25 @@ public class ConstraintsValidator(Instance instance)
 
     public Tuple<bool, string> Validate(Constraint constraint)
     {
-        switch (constraint.Type)
+        return constraint.Type switch
         {
-            case ConstraintType.HARD_NO_OVERLAP:
-                return Tuple.Create(true, "No overlap constraint is valid.");
-            case ConstraintType.HARD_YEAR_PRIORITY:
-                return Tuple.Create(true, "Year priority constraint is valid.");
-            case ConstraintType.HARD_ROOM_CAPACITY:
-                return Tuple.Create(true, "Room capacity constraint is valid.");
-            case ConstraintType.SOFT_ROOM_CHANGE:
-                return RoomChange(constraint);
-            case ConstraintType.SOFT_ROOM_PREFERENCE:
-                return RoomPreference(constraint);
-            case ConstraintType.SOFT_TIME_CHANGE:
-                return TimeChange(constraint);
-            case ConstraintType.SOFT_DAY_CHANGE:
-                return DayChange(constraint);
-            case ConstraintType.SOFT_INTERVAL_AVAILABILITY:
-                return IntervalAvailability(constraint);
-            case ConstraintType.SOFT_INTERVAL_UNAVAILABILITY:
-                return IntervalUnavailability(constraint);
-            case ConstraintType.SOFT_WEEK_EVENNESS:
-                return WeekEvenness(constraint);
-            case ConstraintType.SOFT_ADD_WINDOW:
-                return AddWindow(constraint);
-            case ConstraintType.SOFT_REMOVE_WINDOW:
-                return RemoveWindow(constraint);
-            case ConstraintType.SOFT_DAY_OFF:
-                return DayOff(constraint);
-            case ConstraintType.SOFT_CONSECUTIVE_HOURS:
-                return ConsecutiveHours(constraint);
-            case ConstraintType.SOFT_LECTURE_BEFORE_LABS:
-                return LectureBeforeLabs(constraint);
-        }
-
-        return Tuple.Create(false, "Constraint type is not recognized.");
+            ConstraintType.HARD_NO_OVERLAP => Tuple.Create(true, "No overlap constraint is valid."),
+            ConstraintType.HARD_YEAR_PRIORITY => Tuple.Create(true, "Year priority constraint is valid."),
+            ConstraintType.HARD_ROOM_CAPACITY => Tuple.Create(true, "Room capacity constraint is valid."),
+            ConstraintType.SOFT_ROOM_CHANGE => RoomChange(constraint),
+            ConstraintType.SOFT_ROOM_PREFERENCE => RoomPreference(constraint),
+            ConstraintType.SOFT_TIME_CHANGE => TimeChange(constraint),
+            ConstraintType.SOFT_DAY_CHANGE => DayChange(constraint),
+            ConstraintType.SOFT_INTERVAL_AVAILABILITY => IntervalAvailability(constraint),
+            ConstraintType.SOFT_INTERVAL_UNAVAILABILITY => IntervalUnavailability(constraint),
+            ConstraintType.SOFT_WEEK_EVENNESS => WeekEvenness(constraint),
+            ConstraintType.SOFT_ADD_WINDOW => AddWindow(constraint),
+            ConstraintType.SOFT_REMOVE_WINDOW => RemoveWindow(constraint),
+            ConstraintType.SOFT_DAY_OFF => DayOff(constraint),
+            ConstraintType.SOFT_CONSECUTIVE_HOURS => ConsecutiveHours(constraint),
+            ConstraintType.SOFT_LECTURE_BEFORE_LABS => LectureBeforeLabs(constraint),
+            _ => Tuple.Create(false, "Constraint type is not recognized.")
+        };
     }
 
     private Tuple<bool, string> RoomChange(Constraint constraint)
