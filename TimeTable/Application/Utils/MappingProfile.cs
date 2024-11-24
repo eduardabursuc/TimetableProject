@@ -1,7 +1,9 @@
 ﻿using Application.DTOs;
 using Domain.Entities;
 using AutoMapper;
-using Application.UseCases.Commands;
+using Application.UseCases.Commands.ConstraintCommands;
+using Application.UseCases.Commands.CourseCommands;
+using Application.UseCases.Commands.ProfessorCommands;
 
 namespace Application.Utils;
 public class MappingProfile : Profile

@@ -1,9 +1,7 @@
-using Application.UseCases.Commands;
 using Domain.Common;
 using MediatR;
-using System;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands.CourseCommands
 {
     public class UpdateCourseCommand : CreateCourseCommand, IRequest<Result<string>>
     {

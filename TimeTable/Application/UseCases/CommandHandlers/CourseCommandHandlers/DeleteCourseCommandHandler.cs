@@ -1,23 +1,15 @@
-using Application.UseCases.Commands;
+using Application.UseCases.Commands.CourseCommands;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using MediatR;
 
-namespace Application.UseCases.CommandHandlers
+namespace Application.UseCases.CommandHandlers.CourseCommandHandlers
 {
-    public class DeleteCourseCommandHandler : IRequestHandler<DeleteCourseCommand, Result<Unit>>
+    public class DeleteCourseCommandHandler(ICourseRepository repository, IMapper mapper)
+        : IRequestHandler<DeleteCourseCommand, Result<Unit>>
     {
-        private readonly ICourseRepository repository;
-        private readonly IMapper mapper;
-        
-        public DeleteCourseCommandHandler(ICourseRepository repository, IMapper mapper)
-        {
-            this.repository = repository;
-            this.mapper = mapper;
-        }
-
         public async Task<Result<Unit>> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
         {
             var course = mapper.Map<Course>(request);

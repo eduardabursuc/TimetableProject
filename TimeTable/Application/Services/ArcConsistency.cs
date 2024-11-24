@@ -4,29 +4,22 @@ using System.Data;
 
 namespace Application.Services
 {
-    public class ArcConsistency
+    public class ArcConsistency(Instance instance)
     {
-        private readonly Instance instance;
-        private readonly ConstraintsValidator constraintsValidator;
-
-        public ArcConsistency(Instance instance)
-        {
-            this.instance = instance;
-            this.constraintsValidator = new ConstraintsValidator(instance);
-        }
+        private readonly ConstraintsValidator _constraintsValidator = new(instance);
 
         public bool ApplyArcConsistencyAndBacktracking(out Dictionary<Event, (Room, Timeslot)> solution)
         {
             GenerateVariablesAndDomains(out var variables);
 
-            if (AC3(variables))
+            if (Ac3(variables))
             {
                 solution = new Dictionary<Event, (Room, Timeslot)>();
                 return Backtrack(variables, solution);
             }
             else
             {
-                solution = null;
+                solution = null!;
                 return false;
             }
         }
@@ -37,54 +30,38 @@ namespace Application.Services
 
             foreach (var ev in instance.Events)
             {
-                var possibleValues = new List<(Room, Timeslot)>();
-
                 var possibleRooms = instance.Rooms.Where(r => IsRoomCapacitySufficient(r, ev.EventName)).ToList();
                 var possibleTimeslots = instance.TimeSlots;
 
-                foreach (var room in possibleRooms)
-                {
-                    foreach (var timeslot in possibleTimeslots)
-                    {
-                        possibleValues.Add((room, timeslot));
-                    }
-                }
+                var possibleValues = (from room in possibleRooms from timeslot in possibleTimeslots select (room, timeslot)).ToList();
 
                 variables[ev] = possibleValues;
             }
         }
 
-        private bool AC3(Dictionary<Event, List<(Room, Timeslot)>> variables)
+        private bool Ac3(Dictionary<Event, List<(Room, Timeslot)>> variables)
         {
             var queue = new Queue<(Event, Event)>();
             foreach (var var1 in variables.Keys)
             {
-                foreach (var var2 in variables.Keys)
+                foreach (var var2 in variables.Keys.Where(var2 => var1 != var2))
                 {
-                    if (var1 != var2)
-                    {
-                        queue.Enqueue((var1, var2));
-                    }
+                    queue.Enqueue((var1, var2));
                 }
             }
 
             while (queue.Count > 0)
             {
                 var (var1, var2) = queue.Dequeue();
-                if (Revise(var1, var2, variables, true))
+                if (!Revise(var1, var2, variables, true)) continue;
+                if (variables[var1].Count == 0)
                 {
-                    if (variables[var1].Count == 0)
-                    {
-                        return false;
-                    }
+                    return false;
+                }
 
-                    foreach (var var3 in variables.Keys)
-                    {
-                        if (var3 != var1 && var3 != var2)
-                        {
-                            queue.Enqueue((var3, var1));
-                        }
-                    }
+                foreach (var var3 in variables.Keys.Where(var3 => var3 != var1 && var3 != var2))
+                {
+                    queue.Enqueue((var3, var1));
                 }
             }
 
@@ -104,20 +81,17 @@ namespace Application.Services
                 return false;
             }
 
-            foreach (var value in variables[unassigned])
-    {
-                if (IsAssignmentConsistent(unassigned, value, assignment))
+            foreach (var value in variables[unassigned].Where(value => IsAssignmentConsistent(unassigned, value, assignment)))
+            {
+                assignment[unassigned] = value;
+
+                if (Backtrack(variables, assignment))
                 {
-                    assignment[unassigned] = value;
-
-                    if (Backtrack(variables, assignment))
-                    {
-                        return true;
-                    }
-
-                    Console.WriteLine($"Backtracking on {unassigned}");
-                    assignment.Remove(unassigned);
+                    return true;
                 }
+
+                Console.WriteLine($"Backtracking on {unassigned}");
+                assignment.Remove(unassigned);
             }
 
             return false;
@@ -125,29 +99,18 @@ namespace Application.Services
 
         private bool Revise(Event var1, Event var2, Dictionary<Event, List<(Room, Timeslot)>> variables, bool applySoftConstraints)
         {
-            bool revised = false;
+            var revised = false;
             var domain1 = variables[var1];
             var domain2 = variables[var2];
 
             for (int i = domain1.Count - 1; i >= 0; i--)
             {
                 var value1 = domain1[i];
-                bool consistent = false;
+                var consistent = domain2.Any(value2 => IsConsistent(var1, value1, var2, value2, applySoftConstraints));
 
-                foreach (var value2 in domain2)
-                {
-                    if (IsConsistent(var1, value1, var2, value2, applySoftConstraints))
-                    {
-                        consistent = true;
-                        break;
-                    }
-                }
-
-                if (!consistent)
-                {
-                    domain1.RemoveAt(i);
-                    revised = true;
-                }
+                if (consistent) continue;
+                domain1.RemoveAt(i);
+                revised = true;
             }
 
             return revised;
@@ -155,15 +118,7 @@ namespace Application.Services
 
         private bool IsAssignmentConsistent(Event var1, (Room, Timeslot) value1, Dictionary<Event, (Room, Timeslot)> assignment)
         {
-            foreach (var var2 in assignment.Keys)
-            {
-                var value2 = assignment[var2];
-                if (!IsConsistent(var1, value1, var2, value2, applySoftConstraints: true))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return !(from var2 in assignment.Keys let value2 = assignment[var2] where !IsConsistent(var1, value1, var2, value2, applySoftConstraints: true) select var2).Any();
         }
 
 
@@ -229,17 +184,11 @@ namespace Application.Services
             }
 
             // Check soft constraints if applicable
-            if (applySoftConstraints)
+            if (!applySoftConstraints) return true;
+            foreach (var result in instance.Constraints.Select(constraint => _constraintsValidator.Validate(constraint)).Where(result => !result.Item1))
             {
-                foreach (var constraint in instance.Constraints)
-                {
-                    var result = constraintsValidator.Validate(constraint);
-                    if (!result.Item1)
-                    {
-                        // Log or handle the soft constraint violation if needed
-                        // But do not return false
-                    }
-                }
+                // Log or handle the soft constraint violation if needed
+                // But do not return false
             }
 
             return true;
@@ -248,7 +197,7 @@ namespace Application.Services
 
 
 
-        private bool IsSameOrNestedGroup(string group1, string group2)
+        private static bool IsSameOrNestedGroup(string group1, string group2)
         {
             // Check if one group is a prefix of the other (e.g., 2E and 2E3, 2MISS and 2MISS1)
             return group1.StartsWith(group2) || group2.StartsWith(group1);
@@ -256,58 +205,47 @@ namespace Application.Services
 
         private bool IsYearPriorityValid(string groupName1, string groupName2)
         {
-            int year1 = GetYearFromGroupName(groupName1);
-            int year2 = GetYearFromGroupName(groupName2);
+            var year1 = GetYearFromGroupName(groupName1);
+            var year2 = GetYearFromGroupName(groupName2);
 
-            bool isBachelor1 = IsBachelor(groupName1);
-            bool isBachelor2 = IsBachelor(groupName2);
+            var isBachelor1 = IsBachelor(groupName1);
+            var isBachelor2 = IsBachelor(groupName2);
 
-            if (isBachelor1 && !isBachelor2)
+            return isBachelor1 switch
             {
-                return true; // Bachelor has higher priority over Master
-            }
-            if (!isBachelor1 && isBachelor2)
-            {
-                return false; // Master has lower priority over Bachelor
-            }
+                true when !isBachelor2 => true,
+                false when isBachelor2 => false,
+                _ => year1 <= year2
+            };
 
             // If both are Bachelor or both are Master, compare years
-            return year1 <= year2;
         }
 
-        private int GetYearFromGroupName(string groupName)
+        private static int GetYearFromGroupName(string groupName)
         {
             // Extract the year from the first character of the group name (e.g., "2B3" -> 2, "2MSI2" -> 2)
-            if (char.IsDigit(groupName[0]))
-            {
-                return int.Parse(groupName[0].ToString());
-            }
-            return int.MaxValue; // Default to a very high year if no digit is found
+            return char.IsDigit(groupName[0]) ? int.Parse(groupName[0].ToString()) : int.MaxValue; // Default to a very high year if no digit is found
         }
 
-        private bool IsBachelor(string groupName)
+        private static bool IsBachelor(string groupName)
         {
             // Determine if the group is Bachelor or Master based on the second character of the group name
-            char level = groupName[1];
+            var level = groupName[1];
             return level != 'M';
         }
 
-        private bool IsRoomCapacitySufficient(Room room, string eventName)
+        private static bool IsRoomCapacitySufficient(Room room, string eventName)
         {
-            switch (eventName.ToLower())
+            return eventName.ToLower() switch
             {
-                case "course":
-                    return room.Capacity > 90;
-                case "seminary":
-                    return room.Capacity > 30;
-                case "laboratory":
-                    return room.Capacity > 30;
-                default:
-                    return true;
-            }
+                "course" => room.Capacity > 90,
+                "seminary" => room.Capacity > 30,
+                "laboratory" => room.Capacity > 30,
+                _ => true
+            };
         }
 
-        public void PrintSolution(Dictionary<Event, (Room, Timeslot)> solution)
+        public static void PrintSolution(Dictionary<Event, (Room, Timeslot)> solution)
         {
             foreach (var kvp in solution)
             {

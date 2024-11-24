@@ -3,7 +3,7 @@ using AutoMapper;
 using Domain.Entities;
 using FluentValidation;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands.ProfessorCommands
 {
     public class CreateProfessorCommandValidator : AbstractValidator<CreateProfessorCommand>
     {

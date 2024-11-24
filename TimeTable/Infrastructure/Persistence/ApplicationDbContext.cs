@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
         public DbSet<Constraint> Constraints { get; set; }
         public DbSet<Professor> Professors { get; set; }
         public DbSet<Course> Courses { get; set; }

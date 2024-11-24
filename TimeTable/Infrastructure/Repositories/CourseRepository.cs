@@ -4,17 +4,10 @@ using Domain.Repositories;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure
+namespace Infrastructure.Repositories
 {
-    public class CourseRepository : ICourseRepository
+    public class CourseRepository(ApplicationDbContext context) : ICourseRepository
     {
-        private readonly ApplicationDbContext context;
-
-        public CourseRepository(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
-
         public async Task<Result<string>> AddAsync(Course course)
         {
             try

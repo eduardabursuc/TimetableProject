@@ -4,17 +4,10 @@ using Domain.Repositories;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure
+namespace Infrastructure.Repositories
 {
-    public class ProfessorRepository : IProfessorRepository
+    public class ProfessorRepository(ApplicationDbContext context) : IProfessorRepository
     {
-        private readonly ApplicationDbContext context;
-
-        public ProfessorRepository(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
-
         public async Task<Result<Guid>> AddAsync(Professor professor)
         {
             try

@@ -1,9 +1,9 @@
 ﻿using Application.Validators;
+using AutoMapper;
 using Domain.Entities;
 using FluentValidation;
-using AutoMapper;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands.ConstraintCommands
 {
     public class CreateConstraintCommandValidator : AbstractValidator<CreateConstraintCommand>
     {

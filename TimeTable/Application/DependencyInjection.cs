@@ -2,7 +2,9 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Application.UseCases.Commands;
+using Application.UseCases.Commands.ConstraintCommands;
+using Application.UseCases.Commands.CourseCommands;
+using Application.UseCases.Commands.ProfessorCommands;
 using Application.UseCases.Queries;
 using Application.Validators;
 using Application.Utils;

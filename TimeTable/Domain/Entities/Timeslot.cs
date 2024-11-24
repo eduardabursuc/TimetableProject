@@ -2,34 +2,21 @@
 
 namespace Domain.Entities
 {
-    public class Timeslot
+    public class Timeslot(string day, string time, string? roomName)
     {
-        public required string Day { get; set; }
-        public required string Time { get; set; }
-        public bool IsAvailable { get; set; }
+        public required string Day { get; init; } = day;
+        public required string Time { get; init; } = time;
+        public bool IsAvailable { get; set; } = true;
         [NotMapped]
         public Event Event { get; set; } = new Event("", "", "", Guid.Empty);
-        public string? RoomName { get; set; }
+        public string? RoomName { get; set; } = roomName;
 
-        public Timeslot(string day, string time)
+        public Timeslot(string day, string time) : this(day, time, null)
         {
-            Day = day;
-            Time = time;
-            IsAvailable = true;
         }
 
-        public Timeslot(string day, string time, string? roomName)
+        public Timeslot() : this(string.Empty, string.Empty, null)
         {
-            Day = day;
-            Time = time;
-            RoomName = roomName;
-            IsAvailable = true;
-        }
-
-        public Timeslot()
-        {
-            Day = string.Empty;
-            Time = string.Empty;
         }
     }
 }

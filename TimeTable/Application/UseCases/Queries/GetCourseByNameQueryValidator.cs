@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace Application.UseCases.Queries
 {
-    public class GetCourseByNameQueryValidator : AbstractValidator<GetCourseByNameQuery>
+    public abstract class GetCourseByNameQueryValidator : AbstractValidator<GetCourseByNameQuery>
     {
-        public GetCourseByNameQueryValidator()
+        protected GetCourseByNameQueryValidator()
         {
             RuleFor(t => t.CourseName).NotEmpty();
         }

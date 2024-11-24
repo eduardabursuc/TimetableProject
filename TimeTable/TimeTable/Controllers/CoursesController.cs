@@ -1,22 +1,15 @@
 using Application.DTOs;
-using Application.UseCases.Commands;
+using Application.UseCases.Commands.CourseCommands;
 using Application.UseCases.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class CoursesController : ControllerBase
+    public class CoursesController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator mediator;
-
-        public CoursesController(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] CreateCourseCommand command)
         {

@@ -4,17 +4,17 @@ namespace Application.DTOs
 {
     public class ConstraintDto
     {
-        public Guid Id { get; set; }
-        public ConstraintType Type { get; set; }
-        public Guid? ProfessorId { get; set; }
-        public string? CourseName { get; set; }
-        public string? RoomName { get; set; }
-        public string? WantedRoomName { get; set; }
-        public string? GroupName { get; set; }
-        public string? Day { get; set; }
-        public string? Time { get; set; }
-        public string? WantedDay { get; set; }
-        public string? WantedTime { get; set; }
-        public string? Event { get; set; }
+        public Guid Id { get; init; }
+        public ConstraintType Type { get; init; }
+        public Guid? ProfessorId { get; init; }
+        public string? CourseName { get; init; }
+        public string? RoomName { get; init; }
+        public string? WantedRoomName { get; init; }
+        public string? GroupName { get; init; }
+        public string? Day { get; init; }
+        public string? Time { get; init; }
+        public string? WantedDay { get; init; }
+        public string? WantedTime { get; init; }
+        public string? Event { get; init; }
     }
 }

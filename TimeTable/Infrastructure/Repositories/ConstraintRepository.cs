@@ -4,17 +4,10 @@ using Domain.Repositories;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure
+namespace Infrastructure.Repositories
 {
-    public class ConstraintRepository : IConstraintRepository
+    public class ConstraintRepository(ApplicationDbContext context) : IConstraintRepository
     {
-        private readonly ApplicationDbContext context;
-
-        public ConstraintRepository(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
-
         public async Task<Result<Guid>> AddAsync(Constraint constraint)
         {
             try

@@ -2,9 +2,9 @@
 
 namespace Application.UseCases.Queries
 {
-    public class GetConstraintByIdQueryValidator : AbstractValidator<GetConstraintByIdQuery>
+    public abstract class GetConstraintByIdQueryValidator : AbstractValidator<GetConstraintByIdQuery>
     {
-        public GetConstraintByIdQueryValidator()
+        protected GetConstraintByIdQueryValidator()
         {
             RuleFor(t => t.Id).NotEmpty();
         }

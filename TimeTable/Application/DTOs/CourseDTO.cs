@@ -4,10 +4,9 @@ namespace Application.DTOs;
 
 public class CourseDto
 {
-    public required string CourseName { get; set; }
-    public required int Credits { get; set; }
-    public required string Package { get; set; }
-    public required int Semester { get; set; }
-    public required string Level { get; set; }
-    public List<Professor> Professors { get; set; } = new List<Professor>();
+    public required string CourseName { get; init; }
+    public required int Credits { get; init; }
+    public required string Package { get; init; }
+    public required int Semester { get; init; }
+    public required string Level { get; init; }
 }

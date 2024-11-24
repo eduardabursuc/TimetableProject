@@ -1,21 +1,12 @@
 namespace Domain.Entities;
 
-public class Event
+public class Event(string group, string eventName, string courseName, Guid professorId)
 {
-    public string Group { get; set; }
-    public string EventName { get; set; }
-    public string CourseName { get; set; }
-    public Guid ProfessorId { get; set; }
-    
-    public HashSet<Constraint> Constraints { get; set; } = new HashSet<Constraint>();
-    public HashSet<Timeslot> Timeslots { get; set; } = new HashSet<Timeslot>();
+    public string Group { get; set; } = group;
+    public string EventName { get; set; } = eventName;
+    public string CourseName { get; set; } = courseName;
+    public Guid ProfessorId { get; set; } = professorId;
 
-    public Event(string group, string eventName, string courseName, Guid professorId)
-    {
-        EventName = eventName;
-        CourseName = courseName;
-        Group = group;
-        ProfessorId = professorId;
-    }
-
+    public HashSet<Constraint> Constraints { get; set; } = [];
+    public HashSet<Timeslot> Timeslots { get; set; } = [];
 }

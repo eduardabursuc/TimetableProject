@@ -6,6 +6,6 @@ namespace Application.UseCases.Queries
 {
     public class GetConstraintByIdQuery : IRequest<Result<ConstraintDto>>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
     }
 }

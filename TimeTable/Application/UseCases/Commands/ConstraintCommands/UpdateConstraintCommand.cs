@@ -1,10 +1,7 @@
-﻿using Application.UseCases.Commands;
-using Domain.Common;
-using Domain.Entities;
+﻿using Domain.Common;
 using MediatR;
-using System;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands.ConstraintCommands
 {
     public class UpdateConstraintCommand : CreateConstraintCommand, IRequest<Result<Guid>>
     {

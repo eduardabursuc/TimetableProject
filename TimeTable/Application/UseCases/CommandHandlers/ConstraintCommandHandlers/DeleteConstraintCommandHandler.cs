@@ -1,23 +1,15 @@
-using Application.UseCases.Commands;
+using Application.UseCases.Commands.ConstraintCommands;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using MediatR;
 
-namespace Application.UseCases.CommandHandlers
+namespace Application.UseCases.CommandHandlers.ConstraintCommandHandlers
 {
-    public class DeleteConstraintCommandHandler : IRequestHandler<DeleteConstraintCommand, Result<Unit>>
+    public class DeleteConstraintCommandHandler(IConstraintRepository repository, IMapper mapper)
+        : IRequestHandler<DeleteConstraintCommand, Result<Unit>>
     {
-        private readonly IConstraintRepository repository;
-        private readonly IMapper mapper;
-        
-        public DeleteConstraintCommandHandler(IConstraintRepository repository, IMapper mapper)
-        {
-            this.repository = repository;
-            this.mapper = mapper;
-        }
-
         public async Task<Result<Unit>> Handle(DeleteConstraintCommand request, CancellationToken cancellationToken)
         {
             var constraint = mapper.Map<Constraint>(request);

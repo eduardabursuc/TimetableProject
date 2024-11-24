@@ -1,22 +1,15 @@
 using Application.DTOs;
-using Application.UseCases.Commands;
+using Application.UseCases.Commands.ProfessorCommands;
 using Application.UseCases.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class ProfessorsController : ControllerBase
+    public class ProfessorsController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator mediator;
-
-        public ProfessorsController(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateProfessor([FromBody] CreateProfessorCommand command)
         {
@@ -35,7 +28,7 @@ namespace TimeTable.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateProfessor(Guid id, [FromBody] UpdateProfessorCommand command)
         {
             if (id != command.Id)
@@ -53,7 +46,7 @@ namespace TimeTable.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProfessorDto>> GetById(Guid id)
         {
             var result = await mediator.Send(new GetProfessorByIdQuery { Id = id });
@@ -79,7 +72,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteProfessor(Guid id)
         {
             var result = await mediator.Send(new DeleteProfessorCommand(id));

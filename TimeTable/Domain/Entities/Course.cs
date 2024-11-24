@@ -2,10 +2,10 @@
 {
     public class Course
     {
-        public required string CourseName { get; set; }
-        public required int Credits { get; set; }
-        public required string Package { get; set; }
-        public required int Semester { get; set; }
-        public required string Level { get; set; }
+        public required string CourseName { get; init; }
+        public required int Credits { get; init; }
+        public required string Package { get; init; }
+        public required int Semester { get; init; }
+        public required string Level { get; init; }
     }
 }

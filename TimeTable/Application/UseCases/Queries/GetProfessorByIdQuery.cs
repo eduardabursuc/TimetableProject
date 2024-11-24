@@ -6,6 +6,6 @@ namespace Application.UseCases.Queries
 {
     public class GetProfessorByIdQuery : IRequest<Result<ProfessorDto>>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
     }
 }

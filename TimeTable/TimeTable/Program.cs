@@ -1,17 +1,16 @@
 using Application;
+using Application.Validators;
+using Domain.Repositories;
 using Infrastructure;
-using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Application.Validators;
 using Application.Services;
+using Domain.Entities;
+using Infrastructure.Repositories;
 
 // Load the JSON data
-var jsonFilePath = "Configuration/config.json"; // Update this path to your JSON file location
+const string jsonFilePath = "Configuration/config.json"; // Update this path to your JSON file location
 var instance = new Instance(jsonFilePath);
-
-var constraintsJsonFilePath = "Configuration/constraints.json"; // Update this path to your constraints JSON file location
-instance.LoadConstraintsFromJson(constraintsJsonFilePath);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +18,9 @@ var builder = WebApplication.CreateBuilder(args);
 RegisterServices(builder, instance);
 
 var app = builder.Build();
+
+// Resolve ConstraintService and fetch constraints
+await FetchConstraintsAsync(app, instance);
 
 // Seed database at startup
 await SeedDatabaseAtStartup(app, instance);
@@ -32,11 +34,14 @@ ConfigureHttpPipeline(app);
 await app.RunAsync();
 
 instance.UploadToJson(jsonFilePath);
+return;
 
 void RegisterServices(WebApplicationBuilder builder, Instance instance)
 {
     builder.Services.AddSingleton(instance);
     builder.Services.AddTransient<ConstraintsValidator>();
+    builder.Services.AddTransient<ConstraintService>();
+    builder.Services.AddTransient<IConstraintRepository, ConstraintRepository>();
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddControllers();
@@ -44,14 +49,19 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
     builder.Services.AddSwaggerGen();
 }
 
+async Task FetchConstraintsAsync(WebApplication app, Instance instance)
+{
+    using var scope = app.Services.CreateScope();
+    var constraintService = scope.ServiceProvider.GetRequiredService<ConstraintService>();
+    instance.Constraints = await constraintService.GetConstraintsAsync();
+}
+
 async Task SeedDatabaseAtStartup(WebApplication app, Instance instance)
 {
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        await ApplyMigrationsAsync(dbContext);
-        await SeedDatabaseAsync(dbContext, instance);
-    }
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await ApplyMigrationsAsync(dbContext);
+    await SeedDatabaseAsync(dbContext, instance);
 }
 
 void ConfigureHttpPipeline(WebApplication app)
@@ -74,9 +84,6 @@ async Task ApplyMigrationsAsync(ApplicationDbContext dbContext)
     }
 }
 
-
-
-
 async Task SeedDatabaseAsync(ApplicationDbContext dbContext, Instance instance)
 {
     await SeedEntitiesAsync(dbContext, instance.Professors, dbContext.Professors, p => p.Name);
@@ -86,7 +93,6 @@ async Task SeedDatabaseAsync(ApplicationDbContext dbContext, Instance instance)
     await SeedEntitiesAsync(dbContext, instance.Constraints, dbContext.Constraints, c => new { c.Type, c.ProfessorId, c.CourseName, c.GroupName, c.Day, c.Time });
     await SeedEntitiesAsync(dbContext, instance.TimeSlots, dbContext.Timeslots, t => new { t.Day, t.Time });
 }
-
 
 async Task SeedEntitiesAsync<TEntity, TKey>(ApplicationDbContext dbContext, IEnumerable<TEntity> entities, DbSet<TEntity> dbSet, Func<TEntity, TKey> keySelector) where TEntity : class
 {
@@ -118,7 +124,7 @@ void ApplyArcConsistencyAndPrintResults(Instance instance)
     if (arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
     {
         Console.WriteLine("Arc consistency applied successfully. Solution found:");
-        arcConsistency.PrintSolution(solution);
+        ArcConsistency.PrintSolution(solution);
     }
     else
     {
@@ -126,7 +132,7 @@ void ApplyArcConsistencyAndPrintResults(Instance instance)
     }
 }
 
-public partial class Program
+public abstract partial class Program
 {
     protected Program() { }
 }

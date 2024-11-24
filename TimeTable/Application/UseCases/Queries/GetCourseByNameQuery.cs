@@ -6,6 +6,6 @@ namespace Application.UseCases.Queries
 {
     public class GetCourseByNameQuery : IRequest<Result<CourseDto>>
     {
-        public required string CourseName { get; set; }
+        public required string CourseName { get; init; }
     }
 }

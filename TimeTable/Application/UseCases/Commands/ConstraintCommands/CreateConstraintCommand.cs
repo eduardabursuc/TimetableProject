@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
-using MediatR;
-using Application.DTOs;
+﻿using Application.DTOs;
 using Domain.Common;
+using Domain.Entities;
+using MediatR;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands.ConstraintCommands
 {
     public class CreateConstraintCommand : IRequest<Result<Guid>>
     {
@@ -18,8 +18,8 @@ namespace Application.UseCases.Commands
         public string? WantedDay { get; set; }
         public string? WantedTime { get; set; }
         public string? Event { get; set; }
-        
-        public CreateConstraintCommand() { }
+
+        protected CreateConstraintCommand() { }
 
         public CreateConstraintCommand(ConstraintDto constraint)
         {

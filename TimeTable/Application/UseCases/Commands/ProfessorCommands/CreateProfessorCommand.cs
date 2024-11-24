@@ -1,14 +1,14 @@
+using Application.DTOs;
 using Domain.Common;
 using MediatR;
-using Application.DTOs;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands.ProfessorCommands
 {
     public class CreateProfessorCommand : IRequest<Result<Guid>>
     {
-        public required string Name { get; set; }
+        public required string Name { get; init; }
 
-        public CreateProfessorCommand() { }
+        protected CreateProfessorCommand() { }
         
         public CreateProfessorCommand(ProfessorDto professor)
         {

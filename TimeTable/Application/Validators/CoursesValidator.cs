@@ -2,15 +2,8 @@ using Domain.Entities;
 
 namespace Application.Validators
 {
-    public class CoursesValidator
+    public class CoursesValidator(Instance instance)
     {
-        private readonly Instance instance;
-
-        public CoursesValidator(Instance instance)
-        {
-            this.instance = instance;
-        }
-
         public Tuple<bool, string> Validate(Course course)
         {
             if (string.IsNullOrEmpty(course.CourseName))
@@ -38,12 +31,7 @@ namespace Application.Validators
                 return Tuple.Create(false, "Level is required.");
             }
 
-            if (instance.Courses.Exists(c => c.CourseName == course.CourseName))
-            {
-                return Tuple.Create(false, "Course name must be unique.");
-            }
-
-            return Tuple.Create(true, "Course is valid.");
+            return instance.Courses.Exists(c => c.CourseName == course.CourseName) ? Tuple.Create(false, "Course name must be unique.") : Tuple.Create(true, "Course is valid.");
         }
     }
 }

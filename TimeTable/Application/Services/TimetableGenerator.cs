@@ -2,42 +2,19 @@ namespace Application.Services;
 using Domain.Entities;
 using Domain.Common;
 
-public class TimetableGenerator
+public class TimetableGenerator(Instance instance)
 {
-    private readonly Instance instance;
-
-    public TimetableGenerator(Instance instance)
-    {
-        this.instance = instance;
-    }
-
     public Result<Timetable> Generate()
     {
         foreach (var evt in instance.Events)
         {
-            foreach (var constraint in instance.Constraints)
+            foreach (var constraint in instance.Constraints.Where(constraint => constraint.ProfessorId == evt.ProfessorId))
             {
-                if (constraint.ProfessorId == evt.ProfessorId)
-                {
-                    evt.Constraints.Add(constraint);
-                }
+                evt.Constraints.Add(constraint);
             }
         }
 
-        List<Timeslot> timeslots = new List<Timeslot>();
-
-        foreach (var time in instance.TimeSlots)
-        {
-            foreach (var room in instance.Rooms)
-            {
-                timeslots.Add(new Timeslot
-                {
-                    Day = time.Day,
-                    Time = time.Time,
-                    RoomName = room.Name
-                });
-            }
-        }
+        var timeslots = (from time in instance.TimeSlots from room in instance.Rooms select new Timeslot { Day = time.Day, Time = time.Time, RoomName = room.Name }).ToList();
 
         // Ideea:
         // 0. Pentru fiecare eveniment, adauga toate constrangerile care se aplica

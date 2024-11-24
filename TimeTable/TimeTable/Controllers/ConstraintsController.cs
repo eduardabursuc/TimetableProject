@@ -1,22 +1,15 @@
 ﻿using Application.DTOs;
-using Application.UseCases.Commands;
+using Application.UseCases.Commands.ConstraintCommands;
 using Application.UseCases.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class ConstraintsController : ControllerBase
+    public class ConstraintsController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator mediator;
-
-        public ConstraintsController(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateConstraint([FromBody] CreateConstraintCommand command)
         {
@@ -35,7 +28,7 @@ namespace TimeTable.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateConstraint(Guid id, [FromBody] UpdateConstraintCommand command)
         {
             if (id != command.Id)
@@ -53,7 +46,7 @@ namespace TimeTable.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<ConstraintDto>> GetById(Guid id)
         {
             var result = await mediator.Send(new GetConstraintByIdQuery { Id = id });
@@ -79,7 +72,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteConstraint(Guid id)
         {
             var result = await mediator.Send(new DeleteConstraintCommand(id));
