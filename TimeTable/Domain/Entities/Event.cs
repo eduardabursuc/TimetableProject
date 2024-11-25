@@ -8,5 +8,4 @@ public class Event(string group, string eventName, string courseName, Guid profe
     public Guid ProfessorId { get; set; } = professorId;
 
     public HashSet<Constraint> Constraints { get; set; } = [];
-    public HashSet<Timeslot> Timeslots { get; set; } = [];
 }

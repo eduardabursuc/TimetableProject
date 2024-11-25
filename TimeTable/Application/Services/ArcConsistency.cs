@@ -1,17 +1,15 @@
 ﻿using Application.Validators;
 using Domain.Entities;
-using System.Data;
 
 namespace Application.Services
 {
     public class ArcConsistency(Instance instance)
     {
-        private readonly ConstraintsValidator _constraintsValidator = new(instance);
 
         public bool ApplyArcConsistencyAndBacktracking(out Dictionary<Event, (Room, Timeslot)> solution)
         {
             GenerateVariablesAndDomains(out var variables);
-
+      
             if (Ac3(variables))
             {
                 solution = new Dictionary<Event, (Room, Timeslot)>();
@@ -30,13 +28,19 @@ namespace Application.Services
 
             foreach (var ev in instance.Events)
             {
-                var possibleRooms = instance.Rooms.Where(r => IsRoomCapacitySufficient(r, ev.EventName)).ToList();
+                var possibleRooms = instance.Rooms;
                 var possibleTimeslots = instance.TimeSlots;
 
-                var possibleValues = (from room in possibleRooms from timeslot in possibleTimeslots select (room, timeslot)).ToList();
+                var possibleValues = (from room in possibleRooms
+                                      from timeslot in possibleTimeslots
+                                      select (room, timeslot)).ToList();
 
                 variables[ev] = possibleValues;
             }
+            
+            // HARD_YEAR_PRIORITY
+            var sortedVariables = variables.OrderBy(kvp => GetPriority(kvp.Key.Group)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value); 
+            variables = sortedVariables;
         }
 
         private bool Ac3(Dictionary<Event, List<(Room, Timeslot)>> variables)
@@ -53,7 +57,7 @@ namespace Application.Services
             while (queue.Count > 0)
             {
                 var (var1, var2) = queue.Dequeue();
-                if (!Revise(var1, var2, variables, true)) continue;
+                if (!Revise(var1, var2, variables, applySoftConstraints: true)) continue;
                 if (variables[var1].Count == 0)
                 {
                     return false;
@@ -89,8 +93,7 @@ namespace Application.Services
                 {
                     return true;
                 }
-
-                Console.WriteLine($"Backtracking on {unassigned}");
+                
                 assignment.Remove(unassigned);
             }
 
@@ -109,6 +112,8 @@ namespace Application.Services
                 var consistent = domain2.Any(value2 => IsConsistent(var1, value1, var2, value2, applySoftConstraints));
 
                 if (consistent) continue;
+
+                // Remove inconsistent value from domain1
                 domain1.RemoveAt(i);
                 revised = true;
             }
@@ -118,7 +123,7 @@ namespace Application.Services
 
         private bool IsAssignmentConsistent(Event var1, (Room, Timeslot) value1, Dictionary<Event, (Room, Timeslot)> assignment)
         {
-            return !(from var2 in assignment.Keys let value2 = assignment[var2] where !IsConsistent(var1, value1, var2, value2, applySoftConstraints: true) select var2).Any();
+            return (from var2 in assignment.Keys let value2 = assignment[var2] select IsConsistent(var1, value1, var2, value2, applySoftConstraints: true)).All(consistent => consistent);
         }
 
 
@@ -127,136 +132,71 @@ namespace Application.Services
             // Check if the same room and timeslot are assigned to different events
             if (value1.Item1 == value2.Item1 && value1.Item2 == value2.Item2)
             {
-               return false;
+                return false;
             }
+            
+            // HARD constraints validation
+            HardConstraintValidator hardConstraintValidator = new(instance);
+            var valid = hardConstraintValidator.ValidateGroupOverlap(var1, var2, value1, value2)
+                        && hardConstraintValidator.ValidateRoomCapacity(value1.Item1, var1.EventName)
+                        && hardConstraintValidator.ValidateRoomCapacity(value2.Item1, var2.EventName);
+            
+            if (!valid) return false;
 
-            // Check HARD_ROOM_CAPACITY constraint
-            if (!IsRoomCapacitySufficient(value1.Item1, var1.EventName) || !IsRoomCapacitySufficient(value2.Item1, var2.EventName))
+            // SOFT constraints validation
+            if (!applySoftConstraints || instance.Constraints.Count == 0) return true;
+            
+            SoftConstraintValidator softConstraintValidator = new(instance);
+
+            foreach (var constraint in instance.Constraints)
             {
-               return false;
+                valid = softConstraintValidator.ValidateLectureBeforeLabs(constraint, var1, var2, value1.Item2, value2.Item2)
+                            && softConstraintValidator.ValidateConsecutiveHours(constraint, var1, var2, value1.Item2, value2.Item2)
+                            && softConstraintValidator.Validate(constraint, var1, value1)
+                            && softConstraintValidator.Validate(constraint, var2, value2);
+                    
             }
-
-            // Check if the events are from the same or nested group
-            if (IsSameOrNestedGroup(var1.Group, var2.Group))
-            {
-                var course1 = instance.Courses.FirstOrDefault(c => c.CourseName == var1.CourseName);
-                var course2 = instance.Courses.FirstOrDefault(c => c.CourseName == var2.CourseName);
-
-                if (course1 != null && course2 != null)
-                {
-                    // Check if both courses are in the 'compulsory' package and have the same level and semester
-                    if (course1.Package == "compulsory" && course2.Package == "compulsory" && course1.Level == course2.Level && course1.Semester == course2.Semester)
-                    {
-                        if (value1.Item1 == value2.Item1 && value1.Item2 == value2.Item2)
-                        {
-                            return false;
-                        }
-                    }
-                    // Check if courses are in different packages but with the same level and semester
-                    else if (course1.Package != course2.Package && course1.Level == course2.Level && course1.Semester == course2.Semester)
-                    {
-                        if (value1.Item1 == value2.Item1 && value1.Item2 == value2.Item2)
-                        {
-                            return false;
-                        }
-                    }
-                    // Check if the events are the same course but different types (course vs. laboratory)
-                    else if (var1.CourseName == var2.CourseName && var1.EventName != var2.EventName)
-                    {
-                        // Laboratories can overlap with each other but not with the course
-                        if (var1.EventName == "course" || var2.EventName == "course")
-                        {
-                            if (value1.Item1 == value2.Item1 && value1.Item2 == value2.Item2)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // Events from the same or nested group cannot overlap
-                        if (value1.Item1 == value2.Item1 && value1.Item2 == value2.Item2)
-                        {
-                               return false;
-                        }
-                    }
-                }
-            }
-
-            // Check soft constraints if applicable
-            if (!applySoftConstraints) return true;
-            foreach (var result in instance.Constraints.Select(constraint => _constraintsValidator.Validate(constraint)).Where(result => !result.Item1))
-            {
-                // Log or handle the soft constraint violation if needed
-                // But do not return false
-            }
-
-            return true;
+            return valid;
         }
-
-
-
-
-        private static bool IsSameOrNestedGroup(string group1, string group2)
-        {
-            // Check if one group is a prefix of the other (e.g., 2E and 2E3, 2MISS and 2MISS1)
-            return group1.StartsWith(group2) || group2.StartsWith(group1);
-        }
-
-        private bool IsYearPriorityValid(string groupName1, string groupName2)
-        {
-            var year1 = GetYearFromGroupName(groupName1);
-            var year2 = GetYearFromGroupName(groupName2);
-
-            var isBachelor1 = IsBachelor(groupName1);
-            var isBachelor2 = IsBachelor(groupName2);
-
-            return isBachelor1 switch
-            {
-                true when !isBachelor2 => true,
-                false when isBachelor2 => false,
-                _ => year1 <= year2
-            };
-
-            // If both are Bachelor or both are Master, compare years
-        }
-
-        private static int GetYearFromGroupName(string groupName)
-        {
-            // Extract the year from the first character of the group name (e.g., "2B3" -> 2, "2MSI2" -> 2)
-            return char.IsDigit(groupName[0]) ? int.Parse(groupName[0].ToString()) : int.MaxValue; // Default to a very high year if no digit is found
-        }
-
-        private static bool IsBachelor(string groupName)
-        {
-            // Determine if the group is Bachelor or Master based on the second character of the group name
-            var level = groupName[1];
-            return level != 'M';
-        }
-
-        private static bool IsRoomCapacitySufficient(Room room, string eventName)
-        {
-            return eventName.ToLower() switch
-            {
-                "course" => room.Capacity > 90,
-                "seminary" => room.Capacity > 30,
-                "laboratory" => room.Capacity > 30,
-                _ => true
-            };
-        }
+        
 
         public static void PrintSolution(Dictionary<Event, (Room, Timeslot)> solution)
         {
-            foreach (var kvp in solution)
+            SortSolution(solution, out var sortedSolution);
+            foreach (var kvp in sortedSolution)
             {
                 var ev = kvp.Key;
                 var (room, timeslot) = kvp.Value;
 
-                Console.WriteLine($"Event: {ev.EventName}, Course: {ev.CourseName}, Group: {ev.Group}");
+                Console.WriteLine($"Event: {ev.EventName}, Course: {ev.CourseName}, Group: {ev.Group}, Professor: {ev.ProfessorId}");
                 Console.WriteLine($"Assigned Room: {room.Name}");
                 Console.WriteLine($"Assigned Timeslot: Day: {timeslot.Day}, Time: {timeslot.Time}");
                 Console.WriteLine();
             }
         }
+        
+
+        private static void SortSolution(Dictionary<Event, (Room, Timeslot)> inputSolution, out Dictionary<Event, (Room, Timeslot)> sortedSolution)
+        {
+            // Initialize the out parameter
+            sortedSolution = new Dictionary<Event, (Room, Timeslot)>();
+
+            // Perform the sorting and assignment
+            sortedSolution = inputSolution.OrderBy(kvp => kvp.Value.Item2.Day)
+                .ThenBy(kvp => kvp.Value.Item2.Time)
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+        
+        private int GetPriority(string groupName) 
+        { 
+            // Extract the year from the first character of the group name
+            var year = char.IsDigit(groupName[0]) ? int.Parse(groupName[0].ToString()) : int.MaxValue; 
+            // Check if the group is a master group
+            var isMaster = groupName.Length > 1 && groupName[1] == 'M'; 
+            // Assign higher priority to bachelor groups and lower to master groups
+            return isMaster ? year + 10 : year; 
+        }
+        
+
     }
 }
