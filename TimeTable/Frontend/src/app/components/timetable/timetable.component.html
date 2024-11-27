@@ -1,1 +1,19 @@
-<p>timetable works!</p>
+<h2>Timetable</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Time</th>
+      <th>Room</th>
+      <th>Event</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let timeslot of timetables[0]?.timeslots">
+      <td>{{ timeslot.day }}</td>
+      <td>{{ timeslot.time }}</td>
+      <td>{{ timeslot.roomName || 'N/A' }}</td>
+      <td>{{ timeslot.event?.name || 'No Event' }}</td>
+    </tr>
+  </tbody>
+</table>

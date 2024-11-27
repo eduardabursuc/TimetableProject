@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { TimetableService } from '../../services/timetable.service';
 import { Router } from '@angular/router';
 import { Timetable } from '../../models/timetable.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-timetable',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './timetable.component.html',
-  styleUrl: './timetable.component.css'
+  styleUrls: ['./timetable.component.css'],
 })
 export class TimetableComponent implements OnInit {
   timetables: Timetable[] = [];
