@@ -11,6 +11,8 @@ namespace Infrastructure.Persistence
         public DbSet<Group> Groups { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Timeslot> Timeslots { get; set; }
+        
+        public DbSet<Timetable> Timetables { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -118,6 +120,13 @@ namespace Infrastructure.Persistence
                     .HasForeignKey(e => e.RoomName)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired(false);
+            });
+            
+            // TODO
+            modelBuilder.Entity<Timetable>(entity =>
+            {
+                entity.ToTable("timetables");
+
             });
         }
     }
