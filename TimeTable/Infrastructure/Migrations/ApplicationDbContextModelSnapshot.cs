@@ -150,27 +150,15 @@ namespace Infrastructure.Migrations
                     b.ToTable("rooms", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Timeslot", b =>
+            modelBuilder.Entity("Domain.Entities.Timetable", b =>
                 {
-                    b.Property<string>("Time")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("Day")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.HasKey("Id");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("RoomName")
-                        .HasColumnType("character varying(200)");
-
-                    b.HasKey("Time", "Day");
-
-                    b.HasIndex("RoomName");
-
-                    b.ToTable("timeslots", (string)null);
+                    b.ToTable("timetables", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Constraint", b =>
@@ -200,12 +188,78 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("WantedRoomName");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Timeslot", b =>
+            modelBuilder.Entity("Domain.Entities.Timetable", b =>
                 {
-                    b.HasOne("Domain.Entities.Room", null)
-                        .WithMany()
-                        .HasForeignKey("RoomName")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.OwnsMany("Domain.Entities.Timeslot", "Timeslots", b1 =>
+                        {
+                            b1.Property<string>("Time")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Day")
+                                .HasColumnType("text");
+
+                            b1.Property<bool>("IsAvailable")
+                                .HasColumnType("boolean");
+
+                            b1.Property<string>("RoomName")
+                                .HasColumnType("text");
+
+                            b1.Property<Guid>("TimetableId")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("Time", "Day");
+
+                            b1.HasIndex("TimetableId");
+
+                            b1.ToTable("timeslots", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("TimetableId");
+
+                            b1.OwnsOne("Domain.Entities.Event", "Event", b2 =>
+                                {
+                                    b2.Property<string>("TimeslotTime")
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("TimeslotDay")
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("CourseName")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("CourseName");
+
+                                    b2.Property<string>("EventName")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("EventName");
+
+                                    b2.Property<string>("Group")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("Group");
+
+                                    b2.Property<Guid>("ProfessorId")
+                                        .HasColumnType("uuid")
+                                        .HasColumnName("ProfessorId");
+
+                                    b2.Property<bool>("WeekEvenness")
+                                        .HasColumnType("boolean")
+                                        .HasColumnName("WeekEvenness");
+
+                                    b2.HasKey("TimeslotTime", "TimeslotDay");
+
+                                    b2.ToTable("timeslots");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("TimeslotTime", "TimeslotDay");
+                                });
+
+                            b1.Navigation("Event")
+                                .IsRequired();
+                        });
+
+                    b.Navigation("Timeslots");
                 });
 #pragma warning restore 612, 618
         }

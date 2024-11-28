@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain.Entities;
 
 public class Event(string group, string eventName, string courseName, Guid professorId)
@@ -6,6 +8,12 @@ public class Event(string group, string eventName, string courseName, Guid profe
     public string EventName { get; set; } = eventName;
     public string CourseName { get; set; } = courseName;
     public Guid ProfessorId { get; set; } = professorId;
-
-    public HashSet<Constraint> Constraints { get; set; } = [];
+    public bool WeekEvenness { get; set; } = false;
+    
+    [NotMapped]
+    public string ProfessorName { get; set; } = "";
+    [NotMapped]
+    public int CourseCredits { get; set; } = 0;
+    [NotMapped]
+    public string CoursePackage { get; set; } = "";
 }

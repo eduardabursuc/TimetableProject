@@ -26,7 +26,7 @@ await FetchConstraintsAsync(app, instance);
 await SeedDatabaseAtStartup(app, instance);
 
 // Apply arc consistency and print results
-ApplyArcConsistencyAndPrintResults(instance);
+//ApplyArcConsistencyAndPrintResults(instance);
 
 // Configure the HTTP request pipeline
 ConfigureHttpPipeline(app);
@@ -91,7 +91,6 @@ async Task SeedDatabaseAsync(ApplicationDbContext dbContext, Instance instance)
     await SeedEntitiesAsync(dbContext, instance.Groups, dbContext.Groups, g => g.Name);
     await SeedEntitiesAsync(dbContext, instance.Rooms, dbContext.Rooms, r => r.Name);
     await SeedEntitiesAsync(dbContext, instance.Constraints, dbContext.Constraints, c => new { c.Type, c.ProfessorId, c.CourseName, c.GroupName, c.Day, c.Time });
-    await SeedEntitiesAsync(dbContext, instance.TimeSlots, dbContext.Timeslots, t => new { t.Day, t.Time });
 }
 
 async Task SeedEntitiesAsync<TEntity, TKey>(ApplicationDbContext dbContext, IEnumerable<TEntity> entities, DbSet<TEntity> dbSet, Func<TEntity, TKey> keySelector) where TEntity : class

@@ -89,6 +89,10 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Semester, opt => opt.MapFrom(src => src.Semester))
             .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level));
         
+        CreateMap<Timetable, TimetableDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Timeslots, opt => opt.MapFrom(src => src.Timeslots));
+        
         CreateMap<DeleteCourseCommand, Course>();
     }
 }

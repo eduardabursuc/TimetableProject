@@ -6,7 +6,7 @@ namespace Application.Validators
     {
         private readonly Instance _instance = instance;
 
-        public bool Validate(Constraint constraint, Event evnt, (Room, Timeslot) roomTimeTuple)
+        public static bool Validate(Constraint constraint, Event evnt, (Room, Timeslot) roomTimeTuple)
         {
             return constraint.Type switch
             {
@@ -19,7 +19,7 @@ namespace Application.Validators
             };
         }
         
-        public bool ValidateLectureBeforeLabs(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
+        public static bool ValidateLectureBeforeLabs(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
         {
             if ( constraint.Type != ConstraintType.SOFT_LECTURE_BEFORE_LABS ) return true;
             if ( evnt1.CourseName != evnt2.CourseName ) return true;
@@ -41,7 +41,7 @@ namespace Application.Validators
             return courseTime.isEarlier(labTime);
         }
         
-        public bool ValidateConsecutiveHours(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
+        public static bool ValidateConsecutiveHours(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
         {
             if (constraint.Type != ConstraintType.SOFT_CONSECUTIVE_HOURS) return true;
             if (constraint.ProfessorId == evnt1.ProfessorId && constraint.ProfessorId == evnt2.ProfessorId)
@@ -53,7 +53,7 @@ namespace Application.Validators
     
         private static bool ValidateRoomPreference(Constraint constraint, Event evnt, Room room)
         {
-            return constraint.ProfessorId != evnt.ProfessorId || constraint.RoomName == room.Name;
+            return constraint.ProfessorId != evnt.ProfessorId || constraint.WantedRoomName == room.Name;
         }
     
         private static bool ValidateDayOff(Constraint constraint, Event evnt, Timeslot timeslot)

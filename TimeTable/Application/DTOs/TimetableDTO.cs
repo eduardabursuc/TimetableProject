@@ -1,6 +1,8 @@
-namespace Domain.Entities;
+using Domain.Entities;
 
-public class Timetable
+namespace Application.DTOs;
+
+public class TimetableDto
 {
     public Guid Id { get; set; }
     public List<Timeslot> Timeslots { get; set; } = [];

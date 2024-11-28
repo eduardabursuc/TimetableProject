@@ -28,6 +28,8 @@ namespace Application.Services
 
             foreach (var ev in instance.Events)
             {
+                if (HasWeekEvennessConstraint(ev)) ev.WeekEvenness = true;
+                
                 var possibleRooms = instance.Rooms;
                 var possibleTimeslots = instance.TimeSlots;
 
@@ -140,7 +142,6 @@ namespace Application.Services
             var valid = hardConstraintValidator.ValidateGroupOverlap(var1, var2, value1, value2)
                         && hardConstraintValidator.ValidateRoomCapacity(value1.Item1, var1.EventName)
                         && hardConstraintValidator.ValidateRoomCapacity(value2.Item1, var2.EventName);
-            
             if (!valid) return false;
 
             // SOFT constraints validation
@@ -150,16 +151,44 @@ namespace Application.Services
 
             foreach (var constraint in instance.Constraints)
             {
-                valid = softConstraintValidator.ValidateLectureBeforeLabs(constraint, var1, var2, value1.Item2, value2.Item2)
-                            && softConstraintValidator.ValidateConsecutiveHours(constraint, var1, var2, value1.Item2, value2.Item2)
-                            && softConstraintValidator.Validate(constraint, var1, value1)
-                            && softConstraintValidator.Validate(constraint, var2, value2);
+                valid = SoftConstraintValidator.ValidateLectureBeforeLabs(constraint, var1, var2, value1.Item2, value2.Item2)
+                            && SoftConstraintValidator.ValidateConsecutiveHours(constraint, var1, var2, value1.Item2, value2.Item2)
+                            && SoftConstraintValidator.Validate(constraint, var1, value1)
+                            && SoftConstraintValidator.Validate(constraint, var2, value2);
                     
             }
             return valid;
         }
         
+        public Timetable GetTimetablet(Dictionary<Event, (Room, Timeslot)> solution)
+        {
+            var timetable = new Timetable
+            {
+                Id = Guid.NewGuid()
+            };
+            foreach (var kvp in solution)
+            {
+                var ev = kvp.Key;
+                var (room, timeslot) = kvp.Value;
+                
+                ev.CoursePackage = instance.Courses.Find(course => course.CourseName == ev.CourseName)?.Package ?? "";
+                ev.CourseCredits = instance.Courses.Find(course => course.CourseName == ev.CourseName)?.Credits ?? 0;
+                ev.ProfessorName = instance.Professors.Find(professor => professor.Id == ev.ProfessorId)?.Name ?? "";
+                timeslot.Event = ev;
+                timeslot.RoomName = room.Name;
+                timetable.Timeslots.Add(timeslot);
 
+            }
+
+            return timetable;
+
+        }
+
+        private bool HasWeekEvennessConstraint(Event evnt)
+        {
+            return instance.Constraints.Where(constraint => constraint.Type == ConstraintType.SOFT_WEEK_EVENNESS).Any(constraint => constraint.CourseName == evnt.CourseName);
+        }
+        
         public static void PrintSolution(Dictionary<Event, (Room, Timeslot)> solution)
         {
             SortSolution(solution, out var sortedSolution);
