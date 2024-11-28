@@ -95,7 +95,7 @@ namespace Application.Services
                 {
                     return true;
                 }
-                
+
                 assignment.Remove(unassigned);
             }
 
@@ -136,7 +136,13 @@ namespace Application.Services
             {
                 return false;
             }
-            
+
+            // Check if the same professor is assigned to different events at the same time
+            if (var1.ProfessorId == var2.ProfessorId && value1.Item2 == value2.Item2)
+            {
+                return false;
+            }
+
             // HARD constraints validation
             HardConstraintValidator hardConstraintValidator = new(instance);
             var valid = hardConstraintValidator.ValidateGroupOverlap(var1, var2, value1, value2)
