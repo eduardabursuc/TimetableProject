@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241110154124_InitialCreate")]
+    [Migration("20241128224542_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
@@ -153,27 +153,14 @@ namespace Infrastructure.Migrations
                     b.ToTable("rooms", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Timeslot", b =>
+            modelBuilder.Entity("Domain.Entities.Timetable", b =>
                 {
-                    b.Property<string>("Time")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("Day")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.HasKey("Id");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("RoomName")
-                        .HasColumnType("character varying(200)");
-
-                    b.HasKey("Time", "Day");
-
-                    b.HasIndex("RoomName");
-
-                    b.ToTable("timeslots", (string)null);
+                    b.ToTable("timetables", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Constraint", b =>
@@ -203,12 +190,82 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("WantedRoomName");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Timeslot", b =>
+            modelBuilder.Entity("Domain.Entities.Timetable", b =>
                 {
-                    b.HasOne("Domain.Entities.Room", null)
-                        .WithMany()
-                        .HasForeignKey("RoomName")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.OwnsMany("Domain.Entities.Timeslot", "Timeslots", b1 =>
+                        {
+                            b1.Property<Guid>("TimetableId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Time")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Day")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("RoomName")
+                                .HasColumnType("text");
+
+                            b1.Property<bool>("IsAvailable")
+                                .HasColumnType("boolean");
+
+                            b1.HasKey("TimetableId", "Time", "Day", "RoomName");
+
+                            b1.ToTable("timeslots", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("TimetableId");
+
+                            b1.OwnsOne("Domain.Entities.Event", "Event", b2 =>
+                                {
+                                    b2.Property<Guid>("TimeslotTimetableId")
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<string>("TimeslotTime")
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("TimeslotDay")
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("TimeslotRoomName")
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("CourseName")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("CourseName");
+
+                                    b2.Property<string>("EventName")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("EventName");
+
+                                    b2.Property<string>("Group")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("Group");
+
+                                    b2.Property<Guid>("ProfessorId")
+                                        .HasColumnType("uuid")
+                                        .HasColumnName("ProfessorId");
+
+                                    b2.Property<bool>("WeekEvenness")
+                                        .HasColumnType("boolean")
+                                        .HasColumnName("WeekEvenness");
+
+                                    b2.HasKey("TimeslotTimetableId", "TimeslotTime", "TimeslotDay", "TimeslotRoomName");
+
+                                    b2.ToTable("timeslots");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("TimeslotTimetableId", "TimeslotTime", "TimeslotDay", "TimeslotRoomName");
+                                });
+
+                            b1.Navigation("Event")
+                                .IsRequired();
+                        });
+
+                    b.Navigation("Timeslots");
                 });
 #pragma warning restore 612, 618
         }

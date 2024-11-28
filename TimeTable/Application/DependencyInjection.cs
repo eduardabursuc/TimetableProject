@@ -10,6 +10,7 @@ using Application.UseCases.Queries.CourseQueries;
 using Application.UseCases.Queries.ProfessorQueries;
 using Application.Validators;
 using Application.Utils;
+using Domain.Entities;
 
 namespace Application
 {

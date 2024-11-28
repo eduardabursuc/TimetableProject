@@ -5,12 +5,13 @@ namespace Infrastructure.Persistence
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
-        public DbSet<Constraint> Constraints { get; set; }
-        public DbSet<Professor> Professors { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<Timeslot> Timeslots { get; set; }
+        public DbSet<Constraint> Constraints { get; init; }
+        public DbSet<Professor> Professors { get; init; }
+        public DbSet<Course> Courses { get; init; }
+        public DbSet<Group> Groups { get; init; }
+        public DbSet<Room> Rooms { get; init; }
+        public DbSet<Timeslot> Timeslots { get; init; }
+        public DbSet<Timetable> Timetables { get; init; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -106,18 +107,30 @@ namespace Infrastructure.Persistence
                 entity.Property(e => e.Capacity).IsRequired();
             });
 
-            modelBuilder.Entity<Timeslot>(entity =>
+            modelBuilder.Entity<Timetable>(entity =>
             {
-                entity.ToTable("timeslots");
-                entity.HasKey(e => new { e.Time, e.Day });
-                entity.Property(e => e.Day).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.Time).IsRequired().HasMaxLength(50);
+                entity.ToTable("timetables");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.HasOne<Room>()
-                    .WithMany()
-                    .HasForeignKey(e => e.RoomName)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired(false);
+                entity.OwnsMany(e => e.Timeslots, timeslot =>
+                {
+                    timeslot.ToTable("timeslots");
+                    timeslot.HasKey(e => new { e.TimetableId, e.Time, e.Day, e.RoomName });
+
+                    timeslot.Property(e => e.TimetableId).IsRequired();
+                    timeslot.Property(e => e.Day).IsRequired();
+                    timeslot.Property(e => e.Time).IsRequired();
+                    timeslot.Property(e => e.RoomName).IsRequired();
+                    timeslot.OwnsOne(e => e.Event, e =>
+                    {
+                        e.Property(ev => ev.Group).HasColumnName("Group");
+                        e.Property(ev => ev.EventName).HasColumnName("EventName");
+                        e.Property(ev => ev.CourseName).HasColumnName("CourseName");
+                        e.Property(ev => ev.ProfessorId).HasColumnName("ProfessorId");
+                        e.Property(ev => ev.WeekEvenness).HasColumnName("WeekEvenness");
+                    });
+                });
             });
         }
     }

@@ -19,7 +19,8 @@ namespace Infrastructure
             services.AddScoped<IConstraintRepository, ConstraintRepository>();
             services.AddScoped<IProfessorRepository, ProfessorRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
-
+            services.AddScoped<ITimetableRepository, TimetableRepository>();
+            
             return services;
         }
     }

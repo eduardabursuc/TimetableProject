@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241128222157_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,9 +194,6 @@ namespace Infrastructure.Migrations
                 {
                     b.OwnsMany("Domain.Entities.Timeslot", "Timeslots", b1 =>
                         {
-                            b1.Property<Guid>("TimetableId")
-                                .HasColumnType("uuid");
-
                             b1.Property<string>("Time")
                                 .HasColumnType("text");
 
@@ -206,7 +206,12 @@ namespace Infrastructure.Migrations
                             b1.Property<bool>("IsAvailable")
                                 .HasColumnType("boolean");
 
-                            b1.HasKey("TimetableId", "Time", "Day", "RoomName");
+                            b1.Property<Guid>("TimetableId")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("Time", "Day", "RoomName");
+
+                            b1.HasIndex("TimetableId");
 
                             b1.ToTable("timeslots", (string)null);
 
@@ -215,9 +220,6 @@ namespace Infrastructure.Migrations
 
                             b1.OwnsOne("Domain.Entities.Event", "Event", b2 =>
                                 {
-                                    b2.Property<Guid>("TimeslotTimetableId")
-                                        .HasColumnType("uuid");
-
                                     b2.Property<string>("TimeslotTime")
                                         .HasColumnType("text");
 
@@ -250,12 +252,12 @@ namespace Infrastructure.Migrations
                                         .HasColumnType("boolean")
                                         .HasColumnName("WeekEvenness");
 
-                                    b2.HasKey("TimeslotTimetableId", "TimeslotTime", "TimeslotDay", "TimeslotRoomName");
+                                    b2.HasKey("TimeslotTime", "TimeslotDay", "TimeslotRoomName");
 
                                     b2.ToTable("timeslots");
 
                                     b2.WithOwner()
-                                        .HasForeignKey("TimeslotTimetableId", "TimeslotTime", "TimeslotDay", "TimeslotRoomName");
+                                        .HasForeignKey("TimeslotTime", "TimeslotDay", "TimeslotRoomName");
                                 });
 
                             b1.Navigation("Event")
