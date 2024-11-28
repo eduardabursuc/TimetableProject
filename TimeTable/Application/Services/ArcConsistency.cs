@@ -176,6 +176,7 @@ namespace Application.Services
                 ev.ProfessorName = instance.Professors.Find(professor => professor.Id == ev.ProfessorId)?.Name ?? "";
                 timeslot.Event = ev;
                 timeslot.RoomName = room.Name;
+                timeslot.TimetableId = timetable.Id;
                 timetable.Timeslots.Add(timeslot);
 
             }
@@ -211,9 +212,24 @@ namespace Application.Services
             sortedSolution = new Dictionary<Event, (Room, Timeslot)>();
 
             // Perform the sorting and assignment
-            sortedSolution = inputSolution.OrderBy(kvp => kvp.Value.Item2.Day)
+            sortedSolution = inputSolution.OrderBy(kvp => GetDayIndex(kvp.Value.Item2.Day))
                 .ThenBy(kvp => kvp.Value.Item2.Time)
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+        
+        private static int GetDayIndex(string day)
+        {
+            return day switch
+            {
+                "Monday" => 0,
+                "Tuesday" => 1,
+                "Wednesday" => 2,
+                "Thursday" => 3,
+                "Friday" => 4,
+                "Saturday" => 5,
+                "Sunday" => 6,
+                _ => -1
+            };
         }
         
         private int GetPriority(string groupName) 

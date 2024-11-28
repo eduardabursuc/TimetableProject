@@ -4,6 +4,7 @@ namespace Domain.Entities
 {
     public class Timeslot(string day, string time, string? roomName)
     {
+        public Guid TimetableId { get; set; }
         public required string Day { get; init; } = day;
         public required string Time { get; init; } = time;
         public bool IsAvailable { get; set; } = true;

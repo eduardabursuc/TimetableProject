@@ -116,12 +116,12 @@ namespace Infrastructure.Persistence
                 entity.OwnsMany(e => e.Timeslots, timeslot =>
                 {
                     timeslot.ToTable("timeslots");
-                    timeslot.HasKey(e => new { e.Time, e.Day, e.RoomName });
+                    timeslot.HasKey(e => new { e.TimetableId, e.Time, e.Day, e.RoomName });
 
+                    timeslot.Property(e => e.TimetableId).IsRequired();
                     timeslot.Property(e => e.Day).IsRequired();
                     timeslot.Property(e => e.Time).IsRequired();
                     timeslot.Property(e => e.RoomName).IsRequired();
-
                     timeslot.OwnsOne(e => e.Event, e =>
                     {
                         e.Property(ev => ev.Group).HasColumnName("Group");
