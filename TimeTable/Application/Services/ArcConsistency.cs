@@ -160,7 +160,7 @@ namespace Application.Services
             return valid;
         }
         
-        public Timetable GetTimetablet(Dictionary<Event, (Room, Timeslot)> solution)
+        public Timetable GetTimetable(Dictionary<Event, (Room, Timeslot)> solution)
         {
             var timetable = new Timetable
             {
