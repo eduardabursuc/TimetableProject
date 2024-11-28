@@ -1,35 +1,71 @@
 ﻿using Application.Validators;
 using Domain.Entities;
+using Infrastructure.Persistence;
 
 namespace Application.Services
 {
-    public class ArcConsistency(Instance instance)
+    public class ArcConsistency
     {
+        private readonly Instance _instance;
+        private readonly ApplicationDbContext _dbContext;
 
+        public ArcConsistency(Instance instance, ApplicationDbContext dbContext)
+        {
+            _instance = instance;
+            _dbContext = dbContext;
+        }
+        
         public bool ApplyArcConsistencyAndBacktracking(out Dictionary<Event, (Room, Timeslot)> solution)
         {
             GenerateVariablesAndDomains(out var variables);
-      
+
             if (Ac3(variables))
             {
                 solution = new Dictionary<Event, (Room, Timeslot)>();
-                return Backtrack(variables, solution);
+                if (Backtrack(variables, solution))
+                {
+                    SaveSolutionToDatabase(solution);
+                    return true;
+                }
             }
-            else
+
+            solution = null!;
+            return false;
+        }
+        
+        private void SaveSolutionToDatabase(Dictionary<Event, (Room, Timeslot)> solution)
+        {
+            foreach (var kvp in solution)
             {
-                solution = null!;
-                return false;
+                var eventEntity = kvp.Key;
+                var (room, timeslot) = kvp.Value;
+
+                var timetableEntry = new Timetable
+                {
+                    Day = timeslot.Day,
+                    Time = timeslot.Time,
+                    CourseName = eventEntity.CourseName,
+                    EventName = eventEntity.EventName,
+                    Group = eventEntity.Group,
+                    RoomName = room.Name,
+                    Credits = _instance.Courses.First(c => c.CourseName == eventEntity.CourseName).Credits,
+                    IsOptional = _instance.Courses.First(c => c.CourseName == eventEntity.CourseName).Level == "Optional"
+                };
+
+                _dbContext.Timetables.Add(timetableEntry);
             }
+
+            _dbContext.SaveChanges();
         }
 
         private void GenerateVariablesAndDomains(out Dictionary<Event, List<(Room, Timeslot)>> variables)
         {
             variables = new Dictionary<Event, List<(Room, Timeslot)>>();
 
-            foreach (var ev in instance.Events)
+            foreach (var ev in _instance.Events)
             {
-                var possibleRooms = instance.Rooms;
-                var possibleTimeslots = instance.TimeSlots;
+                var possibleRooms = _instance.Rooms;
+                var possibleTimeslots = _instance.TimeSlots;
 
                 var possibleValues = (from room in possibleRooms
                                       from timeslot in possibleTimeslots
@@ -136,7 +172,7 @@ namespace Application.Services
             }
             
             // HARD constraints validation
-            HardConstraintValidator hardConstraintValidator = new(instance);
+            HardConstraintValidator hardConstraintValidator = new(_instance);
             var valid = hardConstraintValidator.ValidateGroupOverlap(var1, var2, value1, value2)
                         && hardConstraintValidator.ValidateRoomCapacity(value1.Item1, var1.EventName)
                         && hardConstraintValidator.ValidateRoomCapacity(value2.Item1, var2.EventName);
@@ -144,11 +180,11 @@ namespace Application.Services
             if (!valid) return false;
 
             // SOFT constraints validation
-            if (!applySoftConstraints || instance.Constraints.Count == 0) return true;
+            if (!applySoftConstraints || _instance.Constraints.Count == 0) return true;
             
-            SoftConstraintValidator softConstraintValidator = new(instance);
+            SoftConstraintValidator softConstraintValidator = new(_instance);
 
-            foreach (var constraint in instance.Constraints)
+            foreach (var constraint in _instance.Constraints)
             {
                 valid = softConstraintValidator.ValidateLectureBeforeLabs(constraint, var1, var2, value1.Item2, value2.Item2)
                             && softConstraintValidator.ValidateConsecutiveHours(constraint, var1, var2, value1.Item2, value2.Item2)

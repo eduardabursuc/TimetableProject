@@ -28,6 +28,7 @@ public class TimetableGenerator(Instance instance)
         // 6. Daca gasim un conflict ne intoarcem cu un pas si incercam sa alegem alt timeslot pentru evenimentul
         // curent din timeslot 
 
-        return Result<Timetable>.Success(new Timetable());
+        return Result<Timetable>.Success(//new Timetable()
+        null);
     }
 }

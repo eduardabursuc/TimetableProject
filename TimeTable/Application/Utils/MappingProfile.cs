@@ -92,8 +92,6 @@ public class MappingProfile : Profile
         CreateMap<DeleteCourseCommand, Course>();
         
         // Mapping for Timetable
-
-        CreateMap<Timetable, TimetableDto>()
-            .ForMember(dest => dest.Timeslots, opt => opt.MapFrom(src => src.Timeslots));
+        
     }
 }

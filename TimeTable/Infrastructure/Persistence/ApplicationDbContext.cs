@@ -122,11 +122,43 @@ namespace Infrastructure.Persistence
                     .IsRequired(false);
             });
             
-            // TODO
             modelBuilder.Entity<Timetable>(entity =>
             {
                 entity.ToTable("timetables");
 
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Day)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Time)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CourseName)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Credits)
+                    .IsRequired();
+
+                entity.Property(e => e.IsOptional)
+                    .IsRequired();
+
+                entity.Property(e => e.Group)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(e => e.Event)
+                    .WithMany()
+                    .HasForeignKey(e => e.EventName)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(e => e.Room)
+                    .WithMany()
+                    .HasForeignKey(e => e.RoomName)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

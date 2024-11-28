@@ -26,7 +26,7 @@ await FetchConstraintsAsync(app, instance);
 await SeedDatabaseAtStartup(app, instance);
 
 // Apply arc consistency and print results
-ApplyArcConsistencyAndPrintResults(instance);
+ApplyArcConsistencyAndPrintResults(app, instance);
 
 // Configure the HTTP request pipeline
 ConfigureHttpPipeline(app);
@@ -42,6 +42,7 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
     builder.Services.AddTransient<ConstraintsValidator>();
     builder.Services.AddTransient<ConstraintService>();
     builder.Services.AddTransient<IConstraintRepository, ConstraintRepository>();
+    builder.Services.AddTransient<ArcConsistency>();
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddControllers();
@@ -118,9 +119,12 @@ async Task SeedEntitiesAsync<TEntity, TKey>(ApplicationDbContext dbContext, IEnu
     await dbContext.SaveChangesAsync();
 }
 
-void ApplyArcConsistencyAndPrintResults(Instance instance)
+void ApplyArcConsistencyAndPrintResults(WebApplication app, Instance instance)
 {
-    var arcConsistency = new ArcConsistency(instance);
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var arcConsistency = new ArcConsistency(instance, dbContext);
+
     if (arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
     {
         Console.WriteLine("Arc consistency applied successfully. Solution found:");
