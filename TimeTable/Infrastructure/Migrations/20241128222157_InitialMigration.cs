@@ -6,18 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
-        const string ROOMS = "rooms";
-        const string CONSTRAINTS = "constraints";
-        
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            const string INTEGER = "integer";
-            const string CHARACTER_VARYING_200 = "character varying(200)";
-            const string CHARACTER_VARYING_50 = "character varying(50)";
-            
             migrationBuilder.AlterDatabase()
                 .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
 
@@ -25,10 +18,10 @@ namespace Infrastructure.Migrations
                 name: "courses",
                 columns: table => new
                 {
-                    CourseName = table.Column<string>(type: CHARACTER_VARYING_200, maxLength: 200, nullable: false),
-                    Credits = table.Column<int>(type: INTEGER, nullable: false),
-                    Package = table.Column<string>(type: CHARACTER_VARYING_200, maxLength: 200, nullable: false),
-                    Semester = table.Column<int>(type: INTEGER, nullable: false),
+                    CourseName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Credits = table.Column<int>(type: "integer", nullable: false),
+                    Package = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Semester = table.Column<int>(type: "integer", nullable: false),
                     Level = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -40,7 +33,7 @@ namespace Infrastructure.Migrations
                 name: "groups",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: CHARACTER_VARYING_200, maxLength: 200, nullable: false)
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +45,7 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
-                    Name = table.Column<string>(type: CHARACTER_VARYING_200, maxLength: 200, nullable: false)
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,11 +53,11 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: ROOMS,
+                name: "rooms",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: CHARACTER_VARYING_200, maxLength: 200, nullable: false),
-                    Capacity = table.Column<int>(type: INTEGER, nullable: false)
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Capacity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,21 +65,32 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: CONSTRAINTS,
+                name: "timetables",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_timetables", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "constraints",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
-                    Type = table.Column<int>(type: INTEGER, nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
                     ProfessorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CourseName = table.Column<string>(type: CHARACTER_VARYING_200, nullable: true),
-                    RoomName = table.Column<string>(type: CHARACTER_VARYING_200, nullable: true),
-                    WantedRoomName = table.Column<string>(type: CHARACTER_VARYING_200, nullable: true),
-                    GroupName = table.Column<string>(type: CHARACTER_VARYING_200, nullable: true),
+                    CourseName = table.Column<string>(type: "character varying(200)", nullable: true),
+                    RoomName = table.Column<string>(type: "character varying(200)", nullable: true),
+                    WantedRoomName = table.Column<string>(type: "character varying(200)", nullable: true),
+                    GroupName = table.Column<string>(type: "character varying(200)", nullable: true),
                     Day = table.Column<string>(type: "text", nullable: true),
                     Time = table.Column<string>(type: "text", nullable: true),
-                    WantedDay = table.Column<string>(type: CHARACTER_VARYING_50, maxLength: 50, nullable: true),
-                    WantedTime = table.Column<string>(type: CHARACTER_VARYING_50, maxLength: 50, nullable: true),
-                    Event = table.Column<string>(type: CHARACTER_VARYING_50, maxLength: 50, nullable: true)
+                    WantedDay = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    WantedTime = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Event = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -112,13 +116,13 @@ namespace Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_constraints_rooms_RoomName",
                         column: x => x.RoomName,
-                        principalTable: ROOMS,
+                        principalTable: "rooms",
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_constraints_rooms_WantedRoomName",
                         column: x => x.WantedRoomName,
-                        principalTable: ROOMS,
+                        principalTable: "rooms",
                         principalColumn: "Name");
                 });
 
@@ -126,58 +130,64 @@ namespace Infrastructure.Migrations
                 name: "timeslots",
                 columns: table => new
                 {
-                    Day = table.Column<string>(type: CHARACTER_VARYING_50, maxLength: 50, nullable: false),
-                    Time = table.Column<string>(type: CHARACTER_VARYING_50, maxLength: 50, nullable: false),
+                    Day = table.Column<string>(type: "text", nullable: false),
+                    Time = table.Column<string>(type: "text", nullable: false),
+                    RoomName = table.Column<string>(type: "text", nullable: false),
                     IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
-                    RoomName = table.Column<string>(type: CHARACTER_VARYING_200, nullable: true)
+                    Group = table.Column<string>(type: "text", nullable: false),
+                    EventName = table.Column<string>(type: "text", nullable: false),
+                    CourseName = table.Column<string>(type: "text", nullable: false),
+                    ProfessorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    WeekEvenness = table.Column<bool>(type: "boolean", nullable: false),
+                    TimetableId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_timeslots", x => new { x.Time, x.Day });
+                    table.PrimaryKey("PK_timeslots", x => new { x.Time, x.Day, x.RoomName });
                     table.ForeignKey(
-                        name: "FK_timeslots_rooms_RoomName",
-                        column: x => x.RoomName,
-                        principalTable: ROOMS,
-                        principalColumn: "Name",
+                        name: "FK_timeslots_timetables_TimetableId",
+                        column: x => x.TimetableId,
+                        principalTable: "timetables",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_constraints_CourseName",
-                table: CONSTRAINTS,
+                table: "constraints",
                 column: "CourseName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_constraints_GroupName",
-                table: CONSTRAINTS,
+                table: "constraints",
                 column: "GroupName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_constraints_ProfessorId",
-                table: CONSTRAINTS,
+                table: "constraints",
                 column: "ProfessorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_constraints_RoomName",
-                table: CONSTRAINTS,
+                table: "constraints",
                 column: "RoomName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_constraints_WantedRoomName",
-                table: CONSTRAINTS,
+                table: "constraints",
                 column: "WantedRoomName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_timeslots_RoomName",
+                name: "IX_timeslots_TimetableId",
                 table: "timeslots",
-                column: "RoomName");
+                column: "TimetableId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: CONSTRAINTS);
+                name: "constraints");
 
             migrationBuilder.DropTable(
                 name: "timeslots");
@@ -192,7 +202,10 @@ namespace Infrastructure.Migrations
                 name: "professors");
 
             migrationBuilder.DropTable(
-                name: ROOMS);
+                name: "rooms");
+
+            migrationBuilder.DropTable(
+                name: "timetables");
         }
     }
 }
