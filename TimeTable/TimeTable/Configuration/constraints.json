@@ -22,24 +22,12 @@
   },
   {
     "Type": "SOFT_LECTURE_BEFORE_LABS",
-    "CourseName": "Computer Graphics"
+    "CourseName": "Cybersecurity"
   },
   {
     "Type": "SOFT_ROOM_PREFERENCE",
     "WantedRoomName": "C2",
     "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69"
-  },
-  {
-    "Type": "SOFT_TIME_CHANGE",
-    "CourseName": "Data Science",
-    "Day": "Friday",
-    "Time": "14:00 - 16:00"
-  },
-  {
-    "Type": "SOFT_DAY_CHANGE",
-    "CourseName": "Artificial Intelligence",
-    "Day": "Thursday",
-    "Time": "08:00 - 10:00"
   },
   {
     "Type": "SOFT_INTERVAL_UNAVAILABILITY",
@@ -49,7 +37,7 @@
   },
   {
     "Type": "SOFT_WEEK_EVENNESS",
-    "CourseName": "Operating Systems"
+    "CourseName": "Software Testing"
   },
   {
     "Type": "SOFT_ADD_WINDOW",

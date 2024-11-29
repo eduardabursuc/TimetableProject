@@ -24,10 +24,10 @@ namespace Application.Validators
             if ( constraint.Type != ConstraintType.SOFT_LECTURE_BEFORE_LABS ) return true;
             if ( evnt1.CourseName != evnt2.CourseName ) return true;
             if ( evnt1.EventName == evnt2.EventName ) return true;
-            if ( evnt1.EventName != "lecture" && evnt2.EventName != "lecture" ) return true;
+            if ( evnt1.EventName != "course" && evnt2.EventName != "course" ) return true;
             Timeslot courseTime;
             Timeslot labTime;
-            if (evnt2.EventName == "lecture")
+            if (evnt2.EventName == "course")
             {
                 courseTime = ts2;
                 labTime = ts1;
