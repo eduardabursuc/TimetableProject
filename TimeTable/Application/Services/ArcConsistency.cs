@@ -8,6 +8,7 @@ namespace Application.Services
 
         public bool ApplyArcConsistencyAndBacktracking(out Dictionary<Event, (Room, Timeslot)> solution)
         {
+            
             GenerateVariablesAndDomains(out var variables);
       
             if (Ac3(variables))

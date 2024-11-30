@@ -1285,43 +1285,9 @@
   ],
   "TimeSlots": [
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Monday",
       "Time": "08:00 - 10:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "1MAI1",
-        "EventName": "seminary",
-        "CourseName": "Deep Learning",
-        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Bob Smith",
-        "CourseCredits": 5,
-        "CoursePackage": "AI"
-      },
-      "RoomName": "C905"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Monday",
-      "Time": "10:00 - 12:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "1MAI1",
-        "EventName": "laboratory",
-        "CourseName": "Artificial Intelligence",
-        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Frank Evans",
-        "CourseCredits": 6,
-        "CoursePackage": "AI"
-      },
-      "RoomName": "C905"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Monday",
-      "Time": "12:00 - 14:00",
       "IsAvailable": false,
       "Event": {
         "Group": "1MAI2",
@@ -1333,12 +1299,12 @@
         "CourseCredits": 6,
         "CoursePackage": "AI"
       },
-      "RoomName": "C905"
+      "RoomName": "C305"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Monday",
-      "Time": "14:00 - 16:00",
+      "Time": "10:00 - 12:00",
       "IsAvailable": false,
       "Event": {
         "Group": "2MSI1",
@@ -1350,12 +1316,12 @@
         "CourseCredits": 5,
         "CoursePackage": "DataScience"
       },
-      "RoomName": "C905"
+      "RoomName": "C305"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Monday",
-      "Time": "16:00 - 18:00",
+      "Time": "12:00 - 14:00",
       "IsAvailable": false,
       "Event": {
         "Group": "2MSI2",
@@ -1367,216 +1333,165 @@
         "CourseCredits": 5,
         "CoursePackage": "DataScience"
       },
-      "RoomName": "C905"
+      "RoomName": "C305"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Monday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI1",
+        "EventName": "laboratory",
+        "CourseName": "Natural Language Processing",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Monday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI2",
+        "EventName": "laboratory",
+        "CourseName": "Natural Language Processing",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Monday",
       "Time": "18:00 - 20:00",
       "IsAvailable": false,
       "Event": {
         "Group": "2MAI1",
         "EventName": "laboratory",
-        "CourseName": "Natural Language Processing",
-        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Frank Evans",
-        "CourseCredits": 5,
-        "CoursePackage": "AI"
-      },
-      "RoomName": "C905"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Tuesday",
-      "Time": "08:00 - 10:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "2MAI2",
-        "EventName": "laboratory",
-        "CourseName": "Natural Language Processing",
-        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Frank Evans",
-        "CourseCredits": 5,
-        "CoursePackage": "AI"
-      },
-      "RoomName": "C905"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Tuesday",
-      "Time": "10:00 - 12:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "2MAI1",
-        "EventName": "laboratory",
         "CourseName": "Distributed Systems",
         "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
         "WeekEvenness": false,
         "ProfessorName": "Prof. David Thompson",
         "CourseCredits": 5,
         "CoursePackage": "Systems"
-      },
-      "RoomName": "C905"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Tuesday",
-      "Time": "12:00 - 14:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "2MAI2",
-        "EventName": "laboratory",
-        "CourseName": "Distributed Systems",
-        "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. David Thompson",
-        "CourseCredits": 5,
-        "CoursePackage": "Systems"
-      },
-      "RoomName": "C905"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Tuesday",
-      "Time": "14:00 - 16:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3B",
-        "EventName": "course",
-        "CourseName": "Cybersecurity",
-        "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Henry Adams",
-        "CourseCredits": 6,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C910"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Tuesday",
-      "Time": "16:00 - 18:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3B1",
-        "EventName": "laboratory",
-        "CourseName": "Software Engineering",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 6,
-        "CoursePackage": "compulsory"
       },
       "RoomName": "C305"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Tuesday",
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI2",
+        "EventName": "laboratory",
+        "CourseName": "Distributed Systems",
+        "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. David Thompson",
+        "CourseCredits": 5,
+        "CoursePackage": "Systems"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Tuesday",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3A",
+        "EventName": "course",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Tuesday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E",
+        "EventName": "course",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Tuesday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3B",
+        "EventName": "course",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Tuesday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3A",
+        "EventName": "course",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Tuesday",
       "Time": "18:00 - 20:00",
       "IsAvailable": false,
       "Event": {
-        "Group": "3B",
+        "Group": "3E",
         "EventName": "course",
-        "CourseName": "Software Engineering",
+        "CourseName": "Software Testing",
         "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": false,
+        "WeekEvenness": true,
         "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 6,
+        "CourseCredits": 5,
         "CoursePackage": "compulsory"
       },
       "RoomName": "C910"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Wednesday",
       "Time": "08:00 - 10:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3A",
-        "EventName": "course",
-        "CourseName": "Software Engineering",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 6,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C910"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Wednesday",
-      "Time": "10:00 - 12:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3E",
-        "EventName": "course",
-        "CourseName": "Software Engineering",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 6,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C910"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Wednesday",
-      "Time": "12:00 - 14:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3B",
-        "EventName": "course",
-        "CourseName": "Software Testing",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": true,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 5,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C910"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Wednesday",
-      "Time": "14:00 - 16:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3A",
-        "EventName": "course",
-        "CourseName": "Software Testing",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": true,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 5,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C910"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Wednesday",
-      "Time": "16:00 - 18:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3E",
-        "EventName": "course",
-        "CourseName": "Software Testing",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": true,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 5,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C910"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Wednesday",
-      "Time": "18:00 - 20:00",
       "IsAvailable": false,
       "Event": {
         "Group": "1MAI",
@@ -1591,9 +1506,9 @@
       "RoomName": "C910"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Thursday",
-      "Time": "08:00 - 10:00",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Wednesday",
+      "Time": "10:00 - 12:00",
       "IsAvailable": false,
       "Event": {
         "Group": "1MAI",
@@ -1608,9 +1523,9 @@
       "RoomName": "C910"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Thursday",
-      "Time": "10:00 - 12:00",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Wednesday",
+      "Time": "12:00 - 14:00",
       "IsAvailable": false,
       "Event": {
         "Group": "1MAI",
@@ -1625,9 +1540,26 @@
       "RoomName": "C910"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Thursday",
-      "Time": "12:00 - 14:00",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Wednesday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI",
+        "EventName": "course",
+        "CourseName": "Natural Language Processing",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Wednesday",
+      "Time": "16:00 - 18:00",
       "IsAvailable": false,
       "Event": {
         "Group": "2MSI",
@@ -1642,26 +1574,9 @@
       "RoomName": "C910"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Thursday",
-      "Time": "14:00 - 16:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "2MAI",
-        "EventName": "course",
-        "CourseName": "Natural Language Processing",
-        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
-        "WeekEvenness": false,
-        "ProfessorName": "Prof. Frank Evans",
-        "CourseCredits": 5,
-        "CoursePackage": "AI"
-      },
-      "RoomName": "C910"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Thursday",
-      "Time": "16:00 - 18:00",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Wednesday",
+      "Time": "18:00 - 20:00",
       "IsAvailable": false,
       "Event": {
         "Group": "2MAI",
@@ -1676,9 +1591,60 @@
       "RoomName": "C910"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Thursday",
-      "Time": "18:00 - 20:00",
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3B2",
+        "EventName": "laboratory",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Thursday",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E2",
+        "EventName": "laboratory",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Thursday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E1",
+        "EventName": "laboratory",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Thursday",
+      "Time": "14:00 - 16:00",
       "IsAvailable": false,
       "Event": {
         "Group": "3B3",
@@ -1690,46 +1656,12 @@
         "CourseCredits": 5,
         "CoursePackage": "compulsory"
       },
-      "RoomName": "C305"
+      "RoomName": "C309"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Friday",
-      "Time": "08:00 - 10:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3A3",
-        "EventName": "laboratory",
-        "CourseName": "Software Testing",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": true,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 5,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C305"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Friday",
-      "Time": "10:00 - 12:00",
-      "IsAvailable": false,
-      "Event": {
-        "Group": "3E2",
-        "EventName": "laboratory",
-        "CourseName": "Software Testing",
-        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
-        "WeekEvenness": true,
-        "ProfessorName": "Prof. Emily Clark",
-        "CourseCredits": 5,
-        "CoursePackage": "compulsory"
-      },
-      "RoomName": "C305"
-    },
-    {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Friday",
-      "Time": "12:00 - 14:00",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Thursday",
+      "Time": "16:00 - 18:00",
       "IsAvailable": false,
       "Event": {
         "Group": "1MAI2",
@@ -1741,12 +1673,12 @@
         "CourseCredits": 6,
         "CoursePackage": "AI"
       },
-      "RoomName": "C305"
+      "RoomName": "C309"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
-      "Day": "Friday",
-      "Time": "14:00 - 16:00",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Thursday",
+      "Time": "18:00 - 20:00",
       "IsAvailable": false,
       "Event": {
         "Group": "1MAI1",
@@ -1758,12 +1690,12 @@
         "CourseCredits": 6,
         "CoursePackage": "AI"
       },
-      "RoomName": "C305"
+      "RoomName": "C309"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Friday",
-      "Time": "16:00 - 18:00",
+      "Time": "08:00 - 10:00",
       "IsAvailable": false,
       "Event": {
         "Group": "1MAI2",
@@ -1775,12 +1707,46 @@
         "CourseCredits": 5,
         "CoursePackage": "AI"
       },
-      "RoomName": "C305"
+      "RoomName": "C309"
     },
     {
-      "TimetableId": "483c066a-7b72-4484-9ec2-39740370ccb2",
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
       "Day": "Friday",
-      "Time": "18:00 - 20:00",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3A3",
+        "EventName": "laboratory",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Friday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E2",
+        "EventName": "laboratory",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Friday",
+      "Time": "14:00 - 16:00",
       "IsAvailable": false,
       "Event": {
         "Group": "3E1",
@@ -1792,7 +1758,41 @@
         "CourseCredits": 5,
         "CoursePackage": "compulsory"
       },
-      "RoomName": "C305"
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Friday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI1",
+        "EventName": "seminary",
+        "CourseName": "Deep Learning",
+        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Bob Smith",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "b43d6104-fa52-442a-ab35-8cda817589b5",
+      "Day": "Friday",
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI1",
+        "EventName": "laboratory",
+        "CourseName": "Artificial Intelligence",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 6,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C309"
     }
   ]
 }

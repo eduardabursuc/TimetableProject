@@ -14,6 +14,7 @@ namespace Application.UseCases.CommandHandlers.ConstraintCommandHandlers
         {
             var constraint = mapper.Map<Constraint>(request);
             var result = await repository.AddAsync(constraint);
+            
             return result.IsSuccess ? Result<Guid>.Success(result.Data) : Result<Guid>.Failure(result.ErrorMessage);
         }
     }
