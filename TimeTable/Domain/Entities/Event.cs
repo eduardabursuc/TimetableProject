@@ -9,11 +9,7 @@ public class Event(string group, string eventName, string courseName, Guid profe
     public string CourseName { get; set; } = courseName;
     public Guid ProfessorId { get; set; } = professorId;
     public bool WeekEvenness { get; set; } = false;
-    
-    [NotMapped]
     public string ProfessorName { get; set; } = "";
-    [NotMapped]
     public int CourseCredits { get; set; } = 0;
-    [NotMapped]
     public string CoursePackage { get; set; } = "";
 }

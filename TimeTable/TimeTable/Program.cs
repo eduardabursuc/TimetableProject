@@ -26,7 +26,7 @@ await FetchConstraintsAsync(app, instance);
 await SeedDatabaseAtStartup(app, instance);
 
 // Apply arc consistency and print results
-//ApplyArcConsistencyAndPrintResults(instance);
+ApplyArcConsistencyAndPrintResults(instance);
 
 // Configure the HTTP request pipeline
 ConfigureHttpPipeline(app);
@@ -123,7 +123,7 @@ void ApplyArcConsistencyAndPrintResults(Instance instance)
     if (arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
     {
         Console.WriteLine("Arc consistency applied successfully. Solution found:");
-        ArcConsistency.PrintSolution(solution);
+        ArcConsistency.PrintSolution(solution, instance);
     }
     else
     {

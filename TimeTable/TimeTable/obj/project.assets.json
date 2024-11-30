@@ -55,6 +55,18 @@
           }
         }
       },
+      "Gridify/2.15.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "[9.0.0, 10.0.0)"
+        },
+        "compile": {
+          "lib/net9.0/Gridify.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/Gridify.dll": {}
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1069,6 +1081,7 @@
           "Domain": "1.0.0",
           "FluentValidation": "11.11.0",
           "FluentValidation.DependencyInjectionExtensions": "11.11.0",
+          "Gridify": "2.15.1",
           "MediatR": "12.4.1",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
           "Microsoft.Extensions.Options": "9.0.0",
@@ -1206,6 +1219,24 @@
         "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml",
         "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll",
         "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.xml"
+      ]
+    },
+    "Gridify/2.15.1": {
+      "sha512": "ynxHVOISZzfdLmBAraoQXlt9iku5pmDKua3oc0kfmNAuSKvJaqW76+5zswh9QdKs6kw/SyzvoXRqobKYJbjBKw==",
+      "type": "package",
+      "path": "gridify/2.15.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "gridify.2.15.1.nupkg.sha512",
+        "gridify.nuspec",
+        "lib/net6.0/Gridify.dll",
+        "lib/net7.0/Gridify.dll",
+        "lib/net8.0/Gridify.dll",
+        "lib/net9.0/Gridify.dll",
+        "lib/netstandard2.0/Gridify.dll",
+        "lib/netstandard2.1/Gridify.dll"
       ]
     },
     "Humanizer.Core/2.14.1": {

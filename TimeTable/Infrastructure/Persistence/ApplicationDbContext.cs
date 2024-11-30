@@ -127,7 +127,10 @@ namespace Infrastructure.Persistence
                         e.Property(ev => ev.Group).HasColumnName("Group");
                         e.Property(ev => ev.EventName).HasColumnName("EventName");
                         e.Property(ev => ev.CourseName).HasColumnName("CourseName");
+                        e.Property(ev => ev.CourseCredits).HasColumnName("CourseCredits");
+                        e.Property(ev => ev.CoursePackage).HasColumnName("CoursePackage");
                         e.Property(ev => ev.ProfessorId).HasColumnName("ProfessorId");
+                        e.Property(ev => ev.ProfessorName).HasColumnName("ProfessorName");
                         e.Property(ev => ev.WeekEvenness).HasColumnName("WeekEvenness");
                     });
                 });

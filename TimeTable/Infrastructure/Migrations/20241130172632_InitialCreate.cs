@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -130,6 +130,7 @@ namespace Infrastructure.Migrations
                 name: "timeslots",
                 columns: table => new
                 {
+                    TimetableId = table.Column<Guid>(type: "uuid", nullable: false),
                     Day = table.Column<string>(type: "text", nullable: false),
                     Time = table.Column<string>(type: "text", nullable: false),
                     RoomName = table.Column<string>(type: "text", nullable: false),
@@ -139,11 +140,13 @@ namespace Infrastructure.Migrations
                     CourseName = table.Column<string>(type: "text", nullable: false),
                     ProfessorId = table.Column<Guid>(type: "uuid", nullable: false),
                     WeekEvenness = table.Column<bool>(type: "boolean", nullable: false),
-                    TimetableId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ProfessorName = table.Column<string>(type: "text", nullable: false),
+                    CourseCredits = table.Column<int>(type: "integer", nullable: false),
+                    CoursePackage = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_timeslots", x => new { x.Time, x.Day, x.RoomName });
+                    table.PrimaryKey("PK_timeslots", x => new { x.TimetableId, x.Time, x.Day, x.RoomName });
                     table.ForeignKey(
                         name: "FK_timeslots_timetables_TimetableId",
                         column: x => x.TimetableId,
@@ -176,11 +179,6 @@ namespace Infrastructure.Migrations
                 name: "IX_constraints_WantedRoomName",
                 table: "constraints",
                 column: "WantedRoomName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_timeslots_TimetableId",
-                table: "timeslots",
-                column: "TimetableId");
         }
 
         /// <inheritdoc />
