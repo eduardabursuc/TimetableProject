@@ -1,5 +1,6 @@
 using Domain.Common;
 using Domain.Entities;
+using MediatR;
 
 namespace Domain.Repositories
 {
@@ -12,7 +13,7 @@ namespace Domain.Repositories
         Task<Result<Timetable>> GetByProfessorAsync(Guid id, Guid professorId);
         Task<Result<Timetable>> GetByRoomAsync(Guid id, string roomName);
         Task<Result<Guid>> UpdateAsync(Timetable timetable);
-        Task<Result<Guid>> DeleteAsync(Guid id);
+        Task<Result<Unit>> DeleteAsync(Guid id);
         
     }
 }

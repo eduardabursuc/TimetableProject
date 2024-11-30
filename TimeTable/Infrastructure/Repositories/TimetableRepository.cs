@@ -2,6 +2,7 @@ using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -110,20 +111,20 @@ namespace Infrastructure.Repositories
              }
          } 
  
-         public async Task<Result<Guid>> DeleteAsync(Guid id)
+         public async Task<Result<Unit>> DeleteAsync(Guid id)
          {
              try
              {
                  var timetable = await context.Timetables.FindAsync(id);
-                 if (timetable == null) return Result<Guid>.Failure("Timetable not found.");
+                 if (timetable == null) return Result<Unit>.Failure("Timetable not found.");
  
                  context.Timetables.Remove(timetable);
                  await context.SaveChangesAsync();
-                 return Result<Guid>.Success(timetable.Id);
+                 return Result<Unit>.Success(Unit.Value);
              }
              catch (Exception e)
              {
-                 return Result<Guid>.Failure(e.Message);
+                 return Result<Unit>.Failure(e.Message);
              }
          }
      }
