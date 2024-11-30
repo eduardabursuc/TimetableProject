@@ -1,6 +1,7 @@
 using Application.DTOs;
 using Application.UseCases.Commands.TimetableCommands;
 using Application.UseCases.Queries.TimetableQueries;
+using Application.Utils;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,6 +59,45 @@ namespace TimeTable.Controllers
 
             return Ok(result.Data);
         }
+ 
+        [HttpGet("byRoom")]
+        public async Task<ActionResult<TimetableDto>> GetTimetableByRoom([FromQuery] Guid id, [FromQuery] string roomName)
+        {
+            var result = await mediator.Send(new GetTimetableByRoomQuery { Id = id, RoomName = roomName });
+
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
+        }
+        
+        [HttpGet("byGroup")]
+        public async Task<ActionResult<TimetableDto>> GetTimetableByGroup([FromQuery] Guid id, [FromQuery] string groupName)
+        {
+            var result = await mediator.Send(new GetTimetableByGroupQuery { Id = id, GroupName = groupName });
+       
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.ErrorMessage);
+            }
+       
+            return Ok(result.Data);
+        }
+        
+        [HttpGet("byProfessor")]
+        public async Task<ActionResult<TimetableDto>> GetTimetableByProfessor([FromQuery] Guid id, [FromQuery] Guid professorId)
+        {
+            var result = await mediator.Send(new GetTimetableByProfessorQuery { Id = id, ProfessorId = professorId });
+   
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.ErrorMessage);
+            }
+   
+            return Ok(result.Data);
+        }
 
         [HttpGet]
         public async Task<ActionResult<List<TimetableDto>>> GetAllTimetables()
@@ -82,6 +122,24 @@ namespace TimeTable.Controllers
                 return NoContent();
             }
 
+            return NotFound(result.ErrorMessage);
+        }
+        
+        [HttpGet("paginated")]
+        public async Task<ActionResult<PagedResult<TimetableDto>>> GetFilteredTimetables([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var query = new GetFilteredTimetablesQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            };
+            var result = await mediator.Send(query);
+            
+            if (result.IsSuccess)
+            {
+                return Ok(result.Data);
+            }
+            
             return NotFound(result.ErrorMessage);
         }
 

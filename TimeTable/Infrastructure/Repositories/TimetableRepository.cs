@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Infrastructure.Repositories
 {
@@ -47,6 +48,53 @@ namespace Infrastructure.Repositories
                  return Result<Timetable>.Failure(e.Message);
              }
          }
+         
+         public async Task<Result<Timetable>> GetByGroupAsync(Guid id, string groupName)
+         {
+            try
+            {
+                var timetable = await context.Timetables.FirstOrDefaultAsync(t => t.Id == id);
+                if (timetable == null) return Result<Timetable>.Failure("Timetable not found.");
+                
+                timetable.Timeslots = timetable.Timeslots.Where(t => t.Event.Group == groupName).ToList();
+                return timetable.Timeslots.Count == 0 ? Result<Timetable>.Failure("No records.") : Result<Timetable>.Success(timetable);
+            }
+            catch (Exception e)
+            {
+                return Result<Timetable>.Failure(e.Message);
+            }
+         }
+         
+        public async Task<Result<Timetable>> GetByProfessorAsync(Guid id, Guid professorId)
+        {
+            try
+            {
+                var timetable = await context.Timetables.FirstOrDefaultAsync(t => t.Id == id);
+                if (timetable == null) return Result<Timetable>.Failure("Timetable not found.");
+                
+                timetable.Timeslots = timetable.Timeslots.Where(t => t.Event.ProfessorId == professorId).ToList();
+                return timetable.Timeslots.Count == 0 ? Result<Timetable>.Failure("No records.") : Result<Timetable>.Success(timetable);
+            }
+            catch (Exception e)
+            {
+                return Result<Timetable>.Failure(e.Message);
+            }
+        }
+
+        public async Task<Result<Timetable>> GetByRoomAsync(Guid id, string roomName)
+        {
+            try
+            {
+                var timetable = await context.Timetables.FirstOrDefaultAsync(t => t.Id == id);
+                if (timetable == null) return Result<Timetable>.Failure("Timetable not found.");
+                timetable.Timeslots = timetable.Timeslots.Where(t => t.RoomName == roomName).ToList();
+                return timetable.Timeslots.Count == 0 ? Result<Timetable>.Failure("No records.") : Result<Timetable>.Success(timetable);
+            }
+            catch (Exception e)
+            {
+                return Result<Timetable>.Failure(e.Message);
+            }
+        }
  
          public async Task<Result<Guid>> UpdateAsync(Timetable timetable)
          {
