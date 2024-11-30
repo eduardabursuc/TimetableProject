@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241128224542_InitialCreate")]
+    [Migration("20241130172632_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -230,10 +230,19 @@ namespace Infrastructure.Migrations
                                     b2.Property<string>("TimeslotRoomName")
                                         .HasColumnType("text");
 
+                                    b2.Property<int>("CourseCredits")
+                                        .HasColumnType("integer")
+                                        .HasColumnName("CourseCredits");
+
                                     b2.Property<string>("CourseName")
                                         .IsRequired()
                                         .HasColumnType("text")
                                         .HasColumnName("CourseName");
+
+                                    b2.Property<string>("CoursePackage")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("CoursePackage");
 
                                     b2.Property<string>("EventName")
                                         .IsRequired()
@@ -248,6 +257,11 @@ namespace Infrastructure.Migrations
                                     b2.Property<Guid>("ProfessorId")
                                         .HasColumnType("uuid")
                                         .HasColumnName("ProfessorId");
+
+                                    b2.Property<string>("ProfessorName")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("ProfessorName");
 
                                     b2.Property<bool>("WeekEvenness")
                                         .HasColumnType("boolean")
