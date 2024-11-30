@@ -1,0 +1,44 @@
+<table>
+  <thead>
+    <tr class="th-weekly">
+      <th>Interval</th>
+      <th>Disciplina</th>
+      <th>Tip</th>
+      <th>Profesor</th>
+      <th>Sala</th>
+      <th>Frecvența</th>
+      <th>Pachet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let group of groupedTimetables | keyvalue">
+      <tr>
+        <td colspan="7" class="group-header">
+          <b>Grup: {{ group.key }}</b>
+        </td>
+      </tr>
+      <ng-container *ngFor="let timeslot of group.value; let i = index">
+        <!-- Add a new day row only when the day changes -->
+        <tr *ngIf="i === 0 || timeslot.day !== group.value[i - 1].day">
+          <td colspan="7" class="td-weekly">
+            <b>{{ timeslot.day }}</b>
+          </td>
+        </tr>
+        <!-- Timeslot row -->
+        <tr>
+          <td style="text-align: center;">{{ timeslot.time }}</td>
+          <td>{{ timeslot.event.courseName }}</td>
+          <td>{{ timeslot.event.eventName }}</td>
+          <td>{{ timeslot.event.professorName }}</td>
+          <td>{{ timeslot.roomName || '&nbsp;' }}</td>
+          <td style="text-align: center;">
+            {{ timeslot.event.weekEvenness ? 'Pară' : '' }}
+          </td>
+          <td style="text-align: center;">
+            {{ timeslot.event.coursePackage === 'compulsory' ? '' : timeslot.event.coursePackage }}
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </tbody>
+</table>
