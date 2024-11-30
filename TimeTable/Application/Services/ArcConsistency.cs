@@ -196,20 +196,74 @@ namespace Application.Services
             return instance.Constraints.Where(constraint => constraint.Type == ConstraintType.SOFT_WEEK_EVENNESS).Any(constraint => constraint.CourseName == evnt.CourseName);
         }
         
-        public static void PrintSolution(Dictionary<Event, (Room, Timeslot)> solution)
+        public static void PrintSolution(Dictionary<Event, (Room, Timeslot)> solution, Instance instance)
         {
+            Console.WriteLine("Constraints Applied:");
+            Console.WriteLine("--------------------------------------------------");
+
+            foreach (var constraint in instance.Constraints)
+            {
+                Console.WriteLine($"Type: {constraint.Type}");
+        
+                if (constraint.ProfessorId != null)
+                {
+                    Console.WriteLine($"Professor ID: {constraint.ProfessorId}");
+                }
+
+                if (!string.IsNullOrWhiteSpace(constraint.CourseName))
+                {
+                    Console.WriteLine($"Course: {constraint.CourseName}");
+                }
+
+                if (!string.IsNullOrWhiteSpace(constraint.GroupName))
+                {
+                    Console.WriteLine($"Group: {constraint.GroupName}");
+                }
+                
+                if (!string.IsNullOrWhiteSpace(constraint.RoomName))
+                {
+                    Console.WriteLine($"Group: {constraint.RoomName}");
+                }
+                
+                if (!string.IsNullOrWhiteSpace(constraint.WantedRoomName))
+                {
+                    Console.WriteLine($"Group: {constraint.WantedRoomName}");
+                }
+                
+                if (!string.IsNullOrWhiteSpace(constraint.Day))
+                {
+                    Console.WriteLine($"Day: {constraint.Day}");
+                }
+
+                if (!string.IsNullOrWhiteSpace(constraint.Time))
+                {
+                    Console.WriteLine($"Time: {constraint.Time}");
+                }
+
+                Console.WriteLine("--------------------------------------------------");
+            }
+
             SortSolution(solution, out var sortedSolution);
+
+            Console.WriteLine("Scheduled Events:");
+            Console.WriteLine("--------------------------------------------------");
+
             foreach (var kvp in sortedSolution)
             {
                 var ev = kvp.Key;
                 var (room, timeslot) = kvp.Value;
 
-                Console.WriteLine($"Event: {ev.EventName}, Course: {ev.CourseName}, Group: {ev.Group}, Professor: {ev.ProfessorId}");
+                Console.WriteLine($"Event: {ev.EventName}");
+                Console.WriteLine($"Course: {ev.CourseName}");
+                Console.WriteLine($"Group: {ev.Group}");
+                Console.WriteLine($"Professor: {ev.ProfessorId}");
                 Console.WriteLine($"Assigned Room: {room.Name}");
+                Console.WriteLine($"Week Evenness: {ev.WeekEvenness}");
                 Console.WriteLine($"Assigned Timeslot: Day: {timeslot.Day}, Time: {timeslot.Time}");
-                Console.WriteLine();
+                Console.WriteLine("--------------------------------------------------");
             }
         }
+
         
 
         private static void SortSolution(Dictionary<Event, (Room, Timeslot)> inputSolution, out Dictionary<Event, (Room, Timeslot)> sortedSolution)

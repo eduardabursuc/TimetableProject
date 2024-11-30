@@ -56,12 +56,14 @@ namespace Domain.Entities
         {
             // Compare days first
             if (GetDayIndex(Day) != GetDayIndex(timeslot.Day)) return false;
+
+            var split = Time.Split('-');
+            var t1StartTime = split[0];
+            var t1EndTime = split[1];
             
-            var t1StartTime = Time.Split('-')[0].Trim();
-            var t1EndTime = Time.Split('-')[1].Trim();
-            
-            var t2StartTime = timeslot.Time.Split('-')[0].Trim();
-            var t2EndTime = timeslot.Time.Split('-')[1].Trim();
+            split = timeslot.Time.Split('-');
+            var t2StartTime = split[0];
+            var t2EndTime = split[1];
 
             // Convert to TimeSpan for comparison
             var t1Start = TimeSpan.Parse(t1StartTime);
@@ -77,12 +79,14 @@ namespace Domain.Entities
         {
             // Compare days first
             if (GetDayIndex(Day) != GetDayIndex(timeslot.Day)) return false;
+
+            var split = Time.Split('-');
+            var t1StartTime = split[0];
+            var t1EndTime = split[1];
             
-            var t1StartTime = Time.Split('-')[0].Trim();
-            var t1EndTime = Time.Split('-')[1].Trim();
-            
-            var t2StartTime = timeslot.Time.Split('-')[0].Trim();
-            var t2EndTime = timeslot.Time.Split('-')[1].Trim();
+            split = timeslot.Time.Split('-');
+            var t2StartTime = split[0];
+            var t2EndTime = split[1];
 
             // Convert to TimeSpan for comparison
             var t1Start = TimeSpan.Parse(t1StartTime);

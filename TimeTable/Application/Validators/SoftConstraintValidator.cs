@@ -37,13 +37,13 @@ namespace Application.Validators
                 courseTime = ts1;
                 labTime = ts2;
             }
-
             return courseTime.isEarlier(labTime);
         }
         
         public static bool ValidateConsecutiveHours(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
         {
             if (constraint.Type != ConstraintType.SOFT_CONSECUTIVE_HOURS) return true;
+            if (constraint.Day != ts1.Day) return true;
             if (constraint.ProfessorId == evnt1.ProfessorId && constraint.ProfessorId == evnt2.ProfessorId)
             {
                 return ts1.IsConsecutive(ts2);
