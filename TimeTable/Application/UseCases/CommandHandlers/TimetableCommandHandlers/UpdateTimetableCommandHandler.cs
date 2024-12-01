@@ -8,20 +8,14 @@ using MediatR;
 
 namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
 {
-    public class UpdateTimetableCommandHandler(ITimetableRepository repository, IMapper mapper, Instance instance)
+    public class UpdateTimetableCommandHandler(ITimetableRepository repository, IMapper mapper)
             : IRequestHandler<UpdateTimetableCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(UpdateTimetableCommand request, CancellationToken cancellationToken)
         {
-            var arcConsistency = new ArcConsistency(instance);
-            if(arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
-            {
-                var timetable = arcConsistency.GetTimetable(solution);
-                await repository.UpdateAsync(timetable);
-                return Result<Guid>.Success(timetable.Id);
-            } else {
-                return Result<Guid>.Failure("Solution can't be updated.");
-            }
+            var timetable = mapper.Map<Timetable>(request);
+            var result = await repository.UpdateAsync(timetable);
+            return result.IsSuccess ? Result<Guid>.Success(result.Data) : Result<Guid>.Failure(result.ErrorMessage);
         }
     }
 }

@@ -4,6 +4,7 @@ using AutoMapper;
 using Application.UseCases.Commands.ConstraintCommands;
 using Application.UseCases.Commands.CourseCommands;
 using Application.UseCases.Commands.ProfessorCommands;
+using Application.UseCases.Commands.TimetableCommands;
 
 namespace Application.Utils;
 public class MappingProfile : Profile
@@ -92,7 +93,8 @@ public class MappingProfile : Profile
         CreateMap<Timetable, TimetableDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Timeslots, opt => opt.MapFrom(src => src.Timeslots));
-        
+
+        CreateMap<UpdateTimetableCommand, Timetable>();
         CreateMap<DeleteCourseCommand, Course>();
     }
 }

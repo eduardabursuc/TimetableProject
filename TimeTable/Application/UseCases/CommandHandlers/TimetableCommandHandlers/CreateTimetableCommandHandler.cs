@@ -13,6 +13,7 @@ namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
     {
         public async Task<Result<Guid>> Handle(CreateTimetableCommand request, CancellationToken cancellationToken)
         {
+            instance.Events = request.Events;
             var arcConsistency = new ArcConsistency(instance);
             if(arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
             {
