@@ -9,18 +9,18 @@ using MediatR;
 namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
 {
     public class CreateTimetableCommandHandler(ITimetableRepository repository, IMapper mapper, Instance instance)
-        : IRequestHandler<CreateTimetableCommand, Result<Timetable>>
+        : IRequestHandler<CreateTimetableCommand, Result<Guid>>
     {
-        public async Task<Result<Timetable>> Handle(CreateTimetableCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(CreateTimetableCommand request, CancellationToken cancellationToken)
         {
             var arcConsistency = new ArcConsistency(instance);
             if(arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
             {
                 var timetable = arcConsistency.GetTimetable(solution);
                 await repository.AddAsync(timetable);
-                return Result<Timetable>.Success(timetable);
+                return Result<Guid>.Success(timetable.Id);
             } else {
-                return Result<Timetable>.Failure("No solution found");
+                return Result<Guid>.Failure("No solution found");
             }
         }
     }

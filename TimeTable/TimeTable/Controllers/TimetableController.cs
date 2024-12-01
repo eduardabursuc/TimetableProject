@@ -29,7 +29,7 @@ namespace TimeTable.Controllers
 
             return CreatedAtAction(
                 actionName: nameof(GetTimetableById),
-                routeValues: new { id = result.Data.Id },
+                routeValues: new { id = result.Data },
                 value: result.Data
             );
         }
