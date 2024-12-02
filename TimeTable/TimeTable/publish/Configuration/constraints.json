@@ -1,0 +1,53 @@
+[
+  {
+    "Type": "SOFT_ROOM_PREFERENCE",
+    "WantedRoomName": "C910",
+    "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69"
+  },
+  {
+    "Type": "SOFT_INTERVAL_UNAVAILABILITY",
+    "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+    "Day": "Tuesday",
+    "Time": "08:00 - 16:00"
+  },
+  {
+    "Type": "SOFT_WEEK_EVENNESS",
+    "CourseName": "Software Testing"
+  },
+  
+  
+  
+  {
+    "Type": "SOFT_DAY_OFF",
+    "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+    "Day": "Friday"
+  },
+  {
+  "Type": "SOFT_CONSECUTIVE_HOURS",
+  "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+  "Day": "Wednesday"
+  },
+
+  
+  
+  {
+    "Type": "SOFT_CONSECUTIVE_HOURS",
+    "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+    "Day": "Tuesday"
+  },
+  {
+    "Type": "SOFT_DAY_OFF",
+    "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+    "Day": "Thursday"
+  },
+  {
+    "Type": "SOFT_DAY_OFF",
+    "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+    "Day": "Thursday"
+  },
+  {
+    "Type": "SOFT_DAY_OFF",
+    "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+    "Day": "Monday"
+  }
+]

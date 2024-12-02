@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TimetableService {
-  private apiUrl = 'http://localhost:5088/api/v1/timetables';
+  private apiUrl = 'https://timetablegenerator.best/api/v1/timetables';
 
   constructor(private http: HttpClient) {}
 
