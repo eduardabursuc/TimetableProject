@@ -8,7 +8,8 @@ namespace Application.UseCases.Commands.TimetableCommands
     {
         protected UpdateTimetableCommandValidator(IMapper mapper, Instance instance)
         {
-            RuleFor(t => t.Timetable).NotEmpty();
+            RuleFor(t => t.Id).NotEmpty();
+            RuleFor(t => t.Timeslots).NotEmpty();
         }
     }
 }

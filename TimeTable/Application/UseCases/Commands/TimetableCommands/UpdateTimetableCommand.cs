@@ -4,9 +4,10 @@ using MediatR;
 
 namespace Application.UseCases.Commands.TimetableCommands
 {
-    public class UpdateTimetableCommand : IRequest<Result<Guid>>
+    public class UpdateTimetableCommand : IRequest<Result<Unit>>
     {
-        public required Timetable Timetable { get; set; }
+        public required Guid Id { get; init; }
+        public required List<Timeslot> Timeslots { get; init; }
     }
 }
 

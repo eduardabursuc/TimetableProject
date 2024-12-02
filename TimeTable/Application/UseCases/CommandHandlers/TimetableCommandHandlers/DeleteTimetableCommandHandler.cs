@@ -12,8 +12,7 @@ namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
     {
         public async Task<Result<Unit>> Handle(DeleteTimetableCommand request, CancellationToken cancellationToken)
         {
-            var timetable = mapper.Map<Timetable>(request);
-            var result = await repository.DeleteAsync(timetable.Id);
+            var result = await repository.DeleteAsync(request.Id);
             return result.IsSuccess ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure(result.ErrorMessage);
         }
     }

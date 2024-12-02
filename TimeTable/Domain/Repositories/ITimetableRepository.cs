@@ -12,8 +12,7 @@ namespace Domain.Repositories
         Task<Result<Timetable>> GetByGroupAsync(Guid id, string groupName);
         Task<Result<Timetable>> GetByProfessorAsync(Guid id, Guid professorId);
         Task<Result<Timetable>> GetByRoomAsync(Guid id, string roomName);
-        Task<Result<Guid>> UpdateAsync(Timetable timetable);
+        Task<Result<Unit>> UpdateAsync(Timetable? timetable);
         Task<Result<Unit>> DeleteAsync(Guid id);
-        
     }
 }
