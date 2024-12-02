@@ -24,7 +24,7 @@ export class TimetableService {
   }
 
   update(id: string, timetable: Timetable): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, {timetable});
+    return this.http.put<void>(`${this.apiUrl}/${id}`, timetable);
   }
 
   delete(id: string): Observable<void> {

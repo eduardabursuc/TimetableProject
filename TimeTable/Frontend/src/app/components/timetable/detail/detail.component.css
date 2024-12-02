@@ -1,0 +1,100 @@
+.detail-container {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1200px;
+  }
+  
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .timetable-id {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .edit-mode-button,
+  .delete-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-mode-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .edit-mode-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  .update-button {
+    display: inline-block;
+  }
+  
+  .detail-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px; /* Add some spacing from the buttons above */
+  }
+  
+  .detail-container th,
+  .detail-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .detail-container th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  
+  .detail-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .detail-container tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .detail-container input[type="text"],
+  .detail-container select {
+    width: 95%;
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .detail-container select {
+    background-color: #fff;
+  }
+  
+  .detail-container td {
+    vertical-align: middle;
+  }

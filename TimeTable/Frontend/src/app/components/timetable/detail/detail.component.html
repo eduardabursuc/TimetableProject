@@ -1,121 +1,85 @@
 <div class="detail-container">
-  <h2>Timetable Details</h2>
-
   <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
   <div *ngIf="timetable; else noTimetable">
-    <p><strong>Timetable ID:</strong> {{ timetable.id }}</p>
-
-    <div style="text-align: center; margin-bottom: 16px;">
-      <button (click)="toggleEditMode()" class="edit-mode-button">
-        {{ isEditMode ? 'Cancel Edit' : 'Edit Timetable' }}
-      </button>
+    <div class="header-row">
+      <p class="timetable-id"><strong>Timetable ID:</strong> {{ timetable.id }}</p>
+      <div class="button-group">
+        <button (click)="toggleEditMode()" class="edit-mode-button">
+          {{ isEditMode ? 'Cancel Edit' : 'Edit Timetable' }}
+        </button>
+        <button (click)="deleteTimetable(timetable.id)" class="delete-button">
+          Delete Timetable
+        </button>
+        <button *ngIf="isFiltered" (click)="resetFilters()" class="reset-button">
+          Reset Filters
+        </button>
+        <app-update
+          [timetable]="timetable"
+          (updateResult)="handleUpdateResult($event)"
+          class="update-button"
+        ></app-update>
+      </div>
     </div>
 
     <table>
       <thead>
         <tr>
-          <th>Grupă</th>
+          <th>Grupa</th>
           <th>Zi</th>
           <th>Interval</th>
           <th>Materie</th>
-          <th>Tip Eveniment</th>
-          <th>Nume Profesor</th>
-          <th>Număr Cameră</th>
-          <th>Frecvența</th>
+          <th>Tip</th>
+          <th>Profesor</th>
+          <th>Camera</th>
+          <th>Frecventa</th>
           <th>Pachet</th>
-          <th>Credite</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let timeslot of timetable.timeslots">
-          <td>
+        <tr *ngFor="let timeslot of filteredTimeslots">
+          <td (click)="filterByField('group', timeslot.event.group)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.event.group }}</span>
-            <input
-              *ngIf="isEditMode"
-              [(ngModel)]="timeslot.event.group"
-              type="text"
-            />
+            <input *ngIf="isEditMode" [(ngModel)]="timeslot.event.group" type="text" />
           </td>
-          <td>
+          <td (click)="filterByField('day', timeslot.day)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.day }}</span>
             <input *ngIf="isEditMode" [(ngModel)]="timeslot.day" type="text" />
           </td>
-          <td>
+          <td (click)="filterByField('time', timeslot.time)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.time }}</span>
             <input *ngIf="isEditMode" [(ngModel)]="timeslot.time" type="text" />
           </td>
-          <td>
+          <td (click)="filterByField('courseName', timeslot.event.courseName)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.event.courseName }}</span>
-            <input
-              *ngIf="isEditMode"
-              [(ngModel)]="timeslot.event.courseName"
-              type="text"
-            />
+            <input *ngIf="isEditMode" [(ngModel)]="timeslot.event.courseName" type="text" />
           </td>
-          <td>
+          <td (click)="filterByField('eventName', timeslot.event.eventName)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.event.eventName }}</span>
-            <input
-              *ngIf="isEditMode"
-              [(ngModel)]="timeslot.event.eventName"
-              type="text"
-            />
+            <input *ngIf="isEditMode" [(ngModel)]="timeslot.event.eventName" type="text" />
           </td>
-          <td>
+          <td (click)="filterByField('professorName', timeslot.event.professorName)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.event.professorName }}</span>
-            <input
-              *ngIf="isEditMode"
-              [(ngModel)]="timeslot.event.professorName"
-              type="text"
-            />
+            <input *ngIf="isEditMode" [(ngModel)]="timeslot.event.professorName" type="text" />
           </td>
-          <td>
+          <td (click)="filterByField('roomName', timeslot.roomName)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.roomName }}</span>
-            <input
-              *ngIf="isEditMode"
-              [(ngModel)]="timeslot.roomName"
-              type="text"
-            />
+            <input *ngIf="isEditMode" [(ngModel)]="timeslot.roomName" type="text" />
           </td>
-          <td>
-            <span *ngIf="!isEditMode">
-              {{ timeslot.event.weekEvenness ? 'Par' : 'Impar' }}
-            </span>
+          <td (click)="filterByField('weekEvenness', timeslot.event.weekEvenness)" [class.clickable]="!isEditMode">
+            <span *ngIf="!isEditMode">{{ timeslot.event.weekEvenness ? 'Par' : 'Saptamanal' }}</span>
             <select *ngIf="isEditMode" [(ngModel)]="timeslot.event.weekEvenness">
               <option [value]="true">Par</option>
-              <option [value]="false">Impar</option>
+              <option [value]="false">Saptamanal</option>
             </select>
           </td>
-          <td>
+          <td (click)="filterByField('coursePackage', timeslot.event.coursePackage)" [class.clickable]="!isEditMode">
             <span *ngIf="!isEditMode">{{ timeslot.event.coursePackage }}</span>
-            <input
-              *ngIf="isEditMode"
-              [(ngModel)]="timeslot.event.coursePackage"
-              type="text"
-            />
-          </td>
-          <td>
-            <span *ngIf="!isEditMode">{{ timeslot.event.courseCredits }}</span>
-            <input
-              *ngIf="isEditMode"
-              [(ngModel)]="timeslot.event.courseCredits"
-              type="number"
-            />
+            <input *ngIf="isEditMode" [(ngModel)]="timeslot.event.coursePackage" type="text" />
           </td>
         </tr>
       </tbody>
     </table>
-
-    <div style="text-align: center; margin-top: 16px;">
-      <button (click)="deleteTimetable(timetable.id)" class="delete-button">
-        Delete Timetable
-      </button>
-      <app-update
-        [timetable]="timetable"
-        (updateResult)="handleUpdateResult($event)"
-        class="update-button"
-      ></app-update>
-    </div>
   </div>
 
   <ng-template #noTimetable>
