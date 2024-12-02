@@ -25,15 +25,15 @@
     <table>
       <thead>
         <tr>
-          <th>Grupa</th>
-          <th>Zi</th>
-          <th>Interval</th>
-          <th>Materie</th>
-          <th>Tip</th>
-          <th>Profesor</th>
-          <th>Camera</th>
-          <th>Frecventa</th>
-          <th>Pachet</th>
+          <th (click)="sortByColumn('group')">Grupa</th>
+          <th (click)="sortByColumn('day')">Zi</th>
+          <th (click)="sortByColumn('time')">Interval</th>
+          <th (click)="sortByColumn('courseName')">Materie</th>
+          <th (click)="sortByColumn('eventName')">Tip</th>
+          <th (click)="sortByColumn('professorName')">Profesor</th>
+          <th (click)="sortByColumn('roomName')">Camera</th>
+          <th (click)="sortByColumn('weekEvenness')">Frecventa</th>
+          <th (click)="sortByColumn('coursePackage')">Pachet</th>
         </tr>
       </thead>
       <tbody>
