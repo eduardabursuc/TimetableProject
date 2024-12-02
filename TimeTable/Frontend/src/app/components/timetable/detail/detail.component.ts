@@ -96,6 +96,7 @@ export class DetailComponent implements OnInit {
     // Reapply sorting after filtering
     if (this.currentSortColumn) {
       this.sortByColumn(this.currentSortColumn);
+      this.sortByColumn(this.currentSortColumn); // have to apply twice to maintain sort order
     }
   }
 
