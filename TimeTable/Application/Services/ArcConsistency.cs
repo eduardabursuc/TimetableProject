@@ -169,11 +169,12 @@ namespace Application.Services
         
         public Timetable GetTimetable(Dictionary<Event, (Room, Timeslot)> solution)
         {
+            SortSolution(solution, out var sortedSolution);
             var timetable = new Timetable
             {
                 Id = Guid.NewGuid()
             };
-            foreach (var kvp in solution)
+            foreach (var kvp in sortedSolution)
             {
                 var ev = kvp.Key;
                 var (room, timeslot) = kvp.Value;
