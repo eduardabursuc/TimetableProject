@@ -1,0 +1,21 @@
+<div class="create-timetable-container">
+  <h2 class="create-timetable-header">Add Timetable Events</h2>
+
+  <textarea
+    [(ngModel)]="jsonInput"
+    placeholder="Enter JSON data for Events here"
+    rows="8"
+    cols="50"
+    class="create-timetable-textarea"
+  ></textarea>
+
+  <div class="create-timetable-button-container">
+    <button (click)="createTimetable()" class="create-timetable-button">
+      Create
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="create-timetable-error">
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>

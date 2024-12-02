@@ -1,44 +1,50 @@
-<table>
-  <thead>
-    <tr class="th-weekly">
-      <th>Interval</th>
-      <th>Disciplina</th>
-      <th>Tip</th>
-      <th>Profesor</th>
-      <th>Sala</th>
-      <th>Frecvența</th>
-      <th>Pachet</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let group of groupedTimetables | keyvalue">
-      <tr>
-        <td colspan="7" class="group-header">
-          <b>Grup: {{ group.key }}</b>
-        </td>
-      </tr>
-      <ng-container *ngFor="let timeslot of group.value; let i = index">
-        <!-- Add a new day row only when the day changes -->
-        <tr *ngIf="i === 0 || timeslot.day !== group.value[i - 1].day">
-          <td colspan="7" class="td-weekly">
-            <b>{{ timeslot.day }}</b>
-          </td>
-        </tr>
-        <!-- Timeslot row -->
-        <tr>
-          <td style="text-align: center;">{{ timeslot.time }}</td>
-          <td>{{ timeslot.event.courseName }}</td>
-          <td>{{ timeslot.event.eventName }}</td>
-          <td>{{ timeslot.event.professorName }}</td>
-          <td>{{ timeslot.roomName || '&nbsp;' }}</td>
-          <td style="text-align: center;">
-            {{ timeslot.event.weekEvenness ? 'Pară' : '' }}
-          </td>
-          <td style="text-align: center;">
-            {{ timeslot.event.coursePackage === 'compulsory' ? '' : timeslot.event.coursePackage }}
-          </td>
-        </tr>
-      </ng-container>
-    </ng-container>
-  </tbody>
-</table>
+<div class="container">
+  <div class="top-section">
+    <button class="nav-button" (click)="previousTimetable()" [disabled]="currentIndex === 0">⬅</button>
+    <div class="timetable-id-display">
+      <p *ngIf="currentTimetable">
+        <a [routerLink]="['/detail', currentTimetable.id]" class="clickable-id">Current Timetable ID: {{ currentTimetable.id }}</a>
+      </p>
+      <p *ngIf="!currentTimetable">No Timetables Available</p>
+    </div>
+    <button class="nav-button" (click)="nextTimetable()" [disabled]="currentIndex === timetables.length - 1">➡</button>
+  </div>
+
+  <div class="middle-section">
+    <div class="timetable-details" *ngIf="currentTimetable">
+      <table>
+        <thead>
+          <tr>
+            <th>Grupa</th>
+            <th>Zi</th>
+            <th>Interval</th>
+            <th>Materie</th>
+            <th>Tip</th>
+            <th>Profesor</th>
+            <th>Camera</th>
+            <th>Frecvența</th>
+            <th>Pachet</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let timeslot of currentTimetable.timeslots">
+            <td>{{ timeslot.event.group }}</td>
+            <td>{{ timeslot.day }}</td>
+            <td>{{ timeslot.time }}</td>
+            <td>{{ timeslot.event.courseName }}</td>
+            <td>{{ timeslot.event.eventName }}</td>
+            <td>{{ timeslot.event.professorName }}</td>
+            <td>{{ timeslot.roomName }}</td>
+            <td>{{ timeslot.event.weekEvenness ? 'Par' : '' }}</td>
+            <td>{{ timeslot.event.coursePackage }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p *ngIf="!currentTimetable">No timetable to display</p>
+  </div>
+
+  <div class="bottom-section">
+    <button routerLink="/create" class="add-button">+</button>
+  </div>
+</div>

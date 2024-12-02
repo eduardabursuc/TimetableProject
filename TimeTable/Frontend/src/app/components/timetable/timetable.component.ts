@@ -1,36 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { TimetableService } from '../../services/timetable.service';
 import { Timetable } from '../../models/timetable.model';
-import { Timeslot } from '../../models/timeslot.model';
-
+import { TimetableService } from '../../services/timetable.service';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
-  styleUrls: ['./timetable.component.css']
+  styleUrls: ['./timetable.component.css'],
+  imports: [RouterModule, CommonModule]
 })
 export class TimetableComponent implements OnInit {
   timetables: Timetable[] = [];
-  groupedTimetables: { [key: string]: Timeslot[] } = {};
+  currentIndex: number = 0;
 
   constructor(private timetableService: TimetableService) {}
 
   ngOnInit(): void {
-    this.timetableService.createTimetable({} as Timetable).subscribe(
-      (data: Timetable) => {
-        this.timetables.push(data);
-        this.groupTimeslotsByGroup(data.timeslots);
-      }
-    );
+    this.fetchAllTimetables();
   }
 
-  private groupTimeslotsByGroup(timeslots: Timeslot[]): void {
-    this.groupedTimetables = timeslots.reduce((groups, timeslot) => {
-      const group = timeslot.event.group;
-      if (!groups[group]) {
-        groups[group] = [];
+  get currentTimetable(): Timetable | null {
+    return this.timetables[this.currentIndex] || null;
+  }
+
+  fetchAllTimetables(): void {
+    this.timetableService.getAll().subscribe({
+      next: (response) => {
+        this.timetables = response;
+      },
+      error: (error) => {
+        console.error('Failed to fetch timetables:', error);
       }
-      groups[group].push(timeslot);
-      return groups;
-    }, {} as { [key: string]: Timeslot[] });
+    });
+  }
+
+  nextTimetable(): void {
+    if (this.currentIndex < this.timetables.length - 1) {
+      this.currentIndex++;
+    }
+  }
+
+  previousTimetable(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
   }
 }

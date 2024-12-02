@@ -17,6 +17,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Register services
 RegisterServices(builder, instance);
 
+// Add CORS Policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()                    
+              .AllowAnyMethod();                   
+    });
+});
+
 var app = builder.Build();
 
 // Resolve ConstraintService and fetch constraints
@@ -73,6 +84,10 @@ void ConfigureHttpPipeline(WebApplication app)
     }
 
     app.UseHttpsRedirection();
+
+    // Enable the CORS policy
+    app.UseCors("AllowAngularApp");
+
     app.MapControllers();
 }
 

@@ -97,19 +97,70 @@ namespace Infrastructure.Repositories
             }
         }
  
-         public async Task<Result<Guid>> UpdateAsync(Timetable timetable)
-         {
-             try
-             {
-                 context.Entry(timetable).State = EntityState.Modified;
-                 await context.SaveChangesAsync();
-                 return Result<Guid>.Success(timetable.Id);
-             }
-             catch (Exception e)
-             {
-                 return Result<Guid>.Failure(e.Message);
-             }
-         } 
+public async Task<Result<Guid>> UpdateAsync(Timetable timetable)
+{
+    try
+    {
+        // Load the existing timetable with related timeslots
+        var existingTimetable = await context.Timetables
+            .Include(t => t.Timeslots)
+            .ThenInclude(ts => ts.Event)
+            .FirstOrDefaultAsync(t => t.Id == timetable.Id);
+
+        if (existingTimetable == null)
+        {
+            return Result<Guid>.Failure("Timetable not found.");
+        }
+
+        // Update timetable-level properties
+        context.Entry(existingTimetable).CurrentValues.SetValues(timetable);
+
+        // Update Timeslots
+        foreach (var incomingTimeslot in timetable.Timeslots)
+        {
+            var existingTimeslot = existingTimetable.Timeslots
+                .FirstOrDefault(ts =>
+                    ts.TimetableId == incomingTimeslot.TimetableId &&
+                    ts.Time == incomingTimeslot.Time &&
+                    ts.Day == incomingTimeslot.Day &&
+                    ts.RoomName == incomingTimeslot.RoomName);
+
+            if (existingTimeslot == null)
+            {
+                // Add new timeslot
+                existingTimetable.Timeslots.Add(incomingTimeslot);
+            }
+            else
+            {
+                // Update existing timeslot
+                context.Entry(existingTimeslot).CurrentValues.SetValues(incomingTimeslot);
+
+                // Update the Event (owned entity)
+                context.Entry(existingTimeslot.Event).CurrentValues.SetValues(incomingTimeslot.Event);
+            }
+        }
+
+        // Remove deleted timeslots
+        foreach (var existingTimeslot in existingTimetable.Timeslots.ToList())
+        {
+            if (!timetable.Timeslots.Any(ts =>
+                ts.TimetableId == existingTimeslot.TimetableId &&
+                ts.Time == existingTimeslot.Time &&
+                ts.Day == existingTimeslot.Day &&
+                ts.RoomName == existingTimeslot.RoomName))
+            {
+                context.Timeslots.Remove(existingTimeslot);
+            }
+        }
+
+        await context.SaveChangesAsync();
+        return Result<Guid>.Success(timetable.Id);
+    }
+    catch (Exception e)
+    {
+        return Result<Guid>.Failure(e.Message);
+    }
+}
  
          public async Task<Result<Unit>> DeleteAsync(Guid id)
          {
