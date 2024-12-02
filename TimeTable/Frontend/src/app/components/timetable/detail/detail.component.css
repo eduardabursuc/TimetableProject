@@ -57,7 +57,7 @@
   .detail-container table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px; /* Add some spacing from the buttons above */
+    margin-top: 16px;
   }
   
   .detail-container th,

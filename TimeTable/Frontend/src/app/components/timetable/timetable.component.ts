@@ -3,15 +3,17 @@ import { Timetable } from '../../models/timetable.model';
 import { TimetableService } from '../../services/timetable.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
   styleUrls: ['./timetable.component.css'],
-  imports: [RouterModule, CommonModule]
+  imports: [RouterModule, CommonModule],
 })
 export class TimetableComponent implements OnInit {
-  timetables: Timetable[] = [];
-  currentIndex: number = 0;
+  timetables: Timetable[] = []; // List of all timetables
+  currentPage: number = 0; // Current page index
+  pageSize: number = 7; // Number of timetables per page
 
   constructor(private timetableService: TimetableService) {}
 
@@ -19,8 +21,13 @@ export class TimetableComponent implements OnInit {
     this.fetchAllTimetables();
   }
 
-  get currentTimetable(): Timetable | null {
-    return this.timetables[this.currentIndex] || null;
+  get totalPages(): number {
+    return Math.ceil(this.timetables.length / this.pageSize);
+  }
+
+  get paginatedTimetables(): Timetable[] {
+    const startIndex = this.currentPage * this.pageSize;
+    return this.timetables.slice(startIndex, startIndex + this.pageSize);
   }
 
   fetchAllTimetables(): void {
@@ -30,19 +37,19 @@ export class TimetableComponent implements OnInit {
       },
       error: (error) => {
         console.error('Failed to fetch timetables:', error);
-      }
+      },
     });
   }
 
-  nextTimetable(): void {
-    if (this.currentIndex < this.timetables.length - 1) {
-      this.currentIndex++;
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
     }
   }
 
-  previousTimetable(): void {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
     }
   }
 }
