@@ -1,0 +1,6 @@
+projectKey=Timetable-FRONTEND
+serverUrl=http://localhost:9000
+serverVersion=10.7.0.96327
+dashboardUrl=http://localhost:9000/dashboard?id=Timetable-FRONTEND
+ceTaskId=b44f08af-e848-4513-a7ed-c92749eda441
+ceTaskUrl=http://localhost:9000/api/ce/task?id=b44f08af-e848-4513-a7ed-c92749eda441
