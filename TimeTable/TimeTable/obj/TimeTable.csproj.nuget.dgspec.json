@@ -13,6 +13,7 @@
         "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
         "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Application/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
@@ -113,6 +114,7 @@
         "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
         "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Domain/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
@@ -177,6 +179,7 @@
         "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
         "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/Infrastructure/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],
@@ -261,6 +264,7 @@
         "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
         "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
         ],

@@ -1,0 +1,1741 @@
+{
+  "Professors": [
+    {
+      "Id": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "Name": "Prof. Alice Johnson"
+    },
+    {
+      "Id": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "Name": "Prof. Bob Smith"
+    },
+    {
+      "Id": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "Name": "Prof. Carol Davis"
+    },
+    {
+      "Id": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "Name": "Prof. David Thompson"
+    },
+    {
+      "Id": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "Name": "Prof. Emily Clark"
+    },
+    {
+      "Id": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "Name": "Prof. Frank Evans"
+    },
+    {
+      "Id": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "Name": "Prof. Grace Walker"
+    },
+    {
+      "Id": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "Name": "Prof. Henry Adams"
+    },
+    {
+      "Id": "b03eafd2-fa71-4d63-becd-d872c2dedc2f",
+      "Name": "Prof. Irene Carter"
+    },
+    {
+      "Id": "e1a404a2-e2e9-4e75-ac11-6518d1e4bf7f",
+      "Name": "Prof. John Mitchell"
+    }
+  ],
+  "Courses": [
+    {
+      "CourseName": "Introduction to Programming",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 1,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Advanced Algorithms",
+      "Credits": 5,
+      "Package": "compulsory",
+      "Semester": 4,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Machine Learning",
+      "Credits": 6,
+      "Package": "AI",
+      "Semester": 1,
+      "Level": "master"
+    },
+    {
+      "CourseName": "Deep Learning",
+      "Credits": 5,
+      "Package": "AI",
+      "Semester": 2,
+      "Level": "master"
+    },
+    {
+      "CourseName": "Operating Systems",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 3,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Computer Networks",
+      "Credits": 5,
+      "Package": "compulsory",
+      "Semester": 4,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Database Systems",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 3,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Distributed Systems",
+      "Credits": 5,
+      "Package": "Systems",
+      "Semester": 3,
+      "Level": "master"
+    },
+    {
+      "CourseName": "Software Engineering",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 6,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Software Testing",
+      "Credits": 5,
+      "Package": "compulsory",
+      "Semester": 6,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Artificial Intelligence",
+      "Credits": 6,
+      "Package": "AI",
+      "Semester": 1,
+      "Level": "master"
+    },
+    {
+      "CourseName": "Natural Language Processing",
+      "Credits": 5,
+      "Package": "AI",
+      "Semester": 3,
+      "Level": "master"
+    },
+    {
+      "CourseName": "Data Science",
+      "Credits": 6,
+      "Package": "DataScience",
+      "Semester": 2,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Big Data Analysis",
+      "Credits": 5,
+      "Package": "DataScience",
+      "Semester": 3,
+      "Level": "master"
+    },
+    {
+      "CourseName": "Cybersecurity",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 5,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Ethical Hacking",
+      "Credits": 5,
+      "Package": "Security",
+      "Semester": 5,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Mobile App Development",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 6,
+      "Level": "license"
+    },
+    {
+      "CourseName": "Cross-Platform App Development",
+      "Credits": 5,
+      "Package": "MobileDev",
+      "Semester": 2,
+      "Level": "master"
+    },
+    {
+      "CourseName": "Computer Graphics",
+      "Credits": 6,
+      "Package": "compulsory",
+      "Semester": 2,
+      "Level": "license"
+    },
+    {
+      "CourseName": "3D Modeling and Animation",
+      "Credits": 5,
+      "Package": "Graphics",
+      "Semester": 3,
+      "Level": "license"
+    }
+  ],
+  "Events": [
+    {
+      "Group": "1A",
+      "EventName": "course",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1B",
+      "EventName": "course",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1E",
+      "EventName": "course",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1B1",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1E1",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1B2",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1E2",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1B3",
+      "EventName": "laboratory",
+      "CourseName": "Computer Graphics",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1E1",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "Graphics"
+    },
+    {
+      "Group": "1E2",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "Graphics"
+    },
+    {
+      "Group": "1B1",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "Graphics"
+    },
+    {
+      "Group": "1B2",
+      "EventName": "seminary",
+      "CourseName": "3D Modeling and Animation",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "Graphics"
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2A1",
+      "EventName": "seminary",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B1",
+      "EventName": "seminary",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E1",
+      "EventName": "seminary",
+      "CourseName": "Advanced Algorithms",
+      "ProfessorId": "efa8d4b7-5e3d-4823-bce2-6576efdd0ffe",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Alice Johnson",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "1MAI",
+      "EventName": "course",
+      "CourseName": "Machine Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Bob Smith",
+      "CourseCredits": 6,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "1MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Machine Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Bob Smith",
+      "CourseCredits": 6,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "1MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Machine Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Bob Smith",
+      "CourseCredits": 6,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "1MAI",
+      "EventName": "course",
+      "CourseName": "Deep Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Bob Smith",
+      "CourseCredits": 5,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "1MAI2",
+      "EventName": "seminary",
+      "CourseName": "Deep Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Bob Smith",
+      "CourseCredits": 5,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "1MAI1",
+      "EventName": "seminary",
+      "CourseName": "Deep Learning",
+      "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Bob Smith",
+      "CourseCredits": 5,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "3A",
+      "EventName": "course",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3B",
+      "EventName": "course",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E",
+      "EventName": "course",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3X1",
+      "EventName": "laboratory",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E1",
+      "EventName": "laboratory",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E2",
+      "EventName": "laboratory",
+      "CourseName": "Cybersecurity",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E1",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 5,
+      "CoursePackage": "Security"
+    },
+    {
+      "Group": "3E2",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 5,
+      "CoursePackage": "Security"
+    },
+    {
+      "Group": "3A3",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 5,
+      "CoursePackage": "Security"
+    },
+    {
+      "Group": "3B1",
+      "EventName": "seminary",
+      "CourseName": "Ethical Hacking",
+      "ProfessorId": "5499a2ba-3979-420a-9696-71fa801ca431",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Henry Adams",
+      "CourseCredits": 5,
+      "CoursePackage": "Security"
+    },
+    {
+      "Group": "1X1",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Grace Walker",
+      "CourseCredits": 6,
+      "CoursePackage": "DataScience"
+    },
+    {
+      "Group": "1B1",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Grace Walker",
+      "CourseCredits": 6,
+      "CoursePackage": "DataScience"
+    },
+    {
+      "Group": "1B2",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Grace Walker",
+      "CourseCredits": 6,
+      "CoursePackage": "DataScience"
+    },
+    {
+      "Group": "1A1",
+      "EventName": "seminary",
+      "CourseName": "Data Science",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Grace Walker",
+      "CourseCredits": 6,
+      "CoursePackage": "DataScience"
+    },
+    {
+      "Group": "2MSI",
+      "EventName": "course",
+      "CourseName": "Big Data Analysis",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Grace Walker",
+      "CourseCredits": 5,
+      "CoursePackage": "DataScience"
+    },
+    {
+      "Group": "2MSI1",
+      "EventName": "laboratory",
+      "CourseName": "Big Data Analysis",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Grace Walker",
+      "CourseCredits": 5,
+      "CoursePackage": "DataScience"
+    },
+    {
+      "Group": "2MSI2",
+      "EventName": "laboratory",
+      "CourseName": "Big Data Analysis",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Grace Walker",
+      "CourseCredits": 5,
+      "CoursePackage": "DataScience"
+    },
+    {
+      "Group": "1MAI",
+      "EventName": "course",
+      "CourseName": "Artificial Intelligence",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Frank Evans",
+      "CourseCredits": 6,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "1MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Artificial Intelligence",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Frank Evans",
+      "CourseCredits": 6,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "1MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Artificial Intelligence",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Frank Evans",
+      "CourseCredits": 6,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "2MAI",
+      "EventName": "course",
+      "CourseName": "Natural Language Processing",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Frank Evans",
+      "CourseCredits": 5,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "2MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Natural Language Processing",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Frank Evans",
+      "CourseCredits": 5,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "2MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Natural Language Processing",
+      "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Frank Evans",
+      "CourseCredits": 5,
+      "CoursePackage": "AI"
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3B",
+      "EventName": "course",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3A",
+      "EventName": "course",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E",
+      "EventName": "course",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3B1",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3A1",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3A2",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3B2",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E2",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E1",
+      "EventName": "laboratory",
+      "CourseName": "Software Engineering",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3B",
+      "EventName": "course",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": true,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3A",
+      "EventName": "course",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": true,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E",
+      "EventName": "course",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": true,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3B3",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": true,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3A3",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": true,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E2",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": true,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "3E1",
+      "EventName": "laboratory",
+      "CourseName": "Software Testing",
+      "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+      "WeekEvenness": true,
+      "ProfessorName": "Prof. Emily Clark",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B1",
+      "EventName": "laboratory",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2A1",
+      "EventName": "laboratory",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E1",
+      "EventName": "laboratory",
+      "CourseName": "Database Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2MAI",
+      "EventName": "course",
+      "CourseName": "Distributed Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 5,
+      "CoursePackage": "Systems"
+    },
+    {
+      "Group": "2MAI1",
+      "EventName": "laboratory",
+      "CourseName": "Distributed Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 5,
+      "CoursePackage": "Systems"
+    },
+    {
+      "Group": "2MAI2",
+      "EventName": "laboratory",
+      "CourseName": "Distributed Systems",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. David Thompson",
+      "CourseCredits": 5,
+      "CoursePackage": "Systems"
+    },
+    {
+      "Group": "2A",
+      "EventName": "course",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B",
+      "EventName": "course",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E",
+      "EventName": "course",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2A1",
+      "EventName": "laboratory",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B1",
+      "EventName": "laboratory",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E1",
+      "EventName": "laboratory",
+      "CourseName": "Operating Systems",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 6,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2A2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2B2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2E2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    },
+    {
+      "Group": "2A2",
+      "EventName": "seminary",
+      "CourseName": "Computer Networks",
+      "ProfessorId": "85699f21-e9e8-4569-a6c7-6e4057f1f3a5",
+      "WeekEvenness": false,
+      "ProfessorName": "Prof. Carol Davis",
+      "CourseCredits": 5,
+      "CoursePackage": "compulsory"
+    }
+  ],
+  "Groups": [
+    {
+      "Name": "1A"
+    },
+    {
+      "Name": "1A1"
+    },
+    {
+      "Name": "1A2"
+    },
+    {
+      "Name": "1A3"
+    },
+    {
+      "Name": "1B"
+    },
+    {
+      "Name": "1B1"
+    },
+    {
+      "Name": "1B2"
+    },
+    {
+      "Name": "1B3"
+    },
+    {
+      "Name": "1E"
+    },
+    {
+      "Name": "1E1"
+    },
+    {
+      "Name": "1E2"
+    },
+    {
+      "Name": "2A"
+    },
+    {
+      "Name": "2A1"
+    },
+    {
+      "Name": "2A2"
+    },
+    {
+      "Name": "2B"
+    },
+    {
+      "Name": "2B1"
+    },
+    {
+      "Name": "2B2"
+    },
+    {
+      "Name": "2B3"
+    },
+    {
+      "Name": "2E"
+    },
+    {
+      "Name": "2E1"
+    },
+    {
+      "Name": "2E2"
+    },
+    {
+      "Name": "3A"
+    },
+    {
+      "Name": "3A1"
+    },
+    {
+      "Name": "3A2"
+    },
+    {
+      "Name": "3A3"
+    },
+    {
+      "Name": "3B"
+    },
+    {
+      "Name": "3B1"
+    },
+    {
+      "Name": "3B2"
+    },
+    {
+      "Name": "3B3"
+    },
+    {
+      "Name": "3E"
+    },
+    {
+      "Name": "3E1"
+    },
+    {
+      "Name": "3E2"
+    },
+    {
+      "Name": "2MAI"
+    },
+    {
+      "Name": "1MAI"
+    },
+    {
+      "Name": "2MSI"
+    },
+    {
+      "Name": "1MSI"
+    },
+    {
+      "Name": "1MSI1"
+    },
+    {
+      "Name": "1MSI2"
+    },
+    {
+      "Name": "1MAI1"
+    },
+    {
+      "Name": "1MAI2"
+    },
+    {
+      "Name": "2MAI"
+    },
+    {
+      "Name": "2MSI"
+    },
+    {
+      "Name": "2MSI1"
+    },
+    {
+      "Name": "2MSI2"
+    },
+    {
+      "Name": "2MAI1"
+    },
+    {
+      "Name": "2MAI2"
+    },
+    {
+      "Name": "1X1"
+    },
+    {
+      "Name": "1X2"
+    },
+    {
+      "Name": "2X1"
+    },
+    {
+      "Name": "3X1"
+    }
+  ],
+  "Rooms": [
+    {
+      "Name": "C902",
+      "Capacity": 120
+    },
+    {
+      "Name": "C309",
+      "Capacity": 40
+    },
+    {
+      "Name": "C305",
+      "Capacity": 80
+    },
+    {
+      "Name": "C905",
+      "Capacity": 40
+    },
+    {
+      "Name": "C910",
+      "Capacity": 150
+    },
+    {
+      "Name": "C806",
+      "Capacity": 40
+    },
+    {
+      "Name": "C419",
+      "Capacity": 35
+    },
+    {
+      "Name": "C2",
+      "Capacity": 100
+    },
+    {
+      "Name": "C112",
+      "Capacity": 40
+    }
+  ],
+  "Constraints": [],
+  "TimeSlots": [
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Monday",
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI2",
+        "EventName": "laboratory",
+        "CourseName": "Artificial Intelligence",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 6,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Monday",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MSI1",
+        "EventName": "laboratory",
+        "CourseName": "Big Data Analysis",
+        "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Grace Walker",
+        "CourseCredits": 5,
+        "CoursePackage": "DataScience"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Monday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MSI2",
+        "EventName": "laboratory",
+        "CourseName": "Big Data Analysis",
+        "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Grace Walker",
+        "CourseCredits": 5,
+        "CoursePackage": "DataScience"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Monday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI1",
+        "EventName": "laboratory",
+        "CourseName": "Natural Language Processing",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Monday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI2",
+        "EventName": "laboratory",
+        "CourseName": "Natural Language Processing",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Monday",
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI1",
+        "EventName": "laboratory",
+        "CourseName": "Distributed Systems",
+        "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. David Thompson",
+        "CourseCredits": 5,
+        "CoursePackage": "Systems"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Tuesday",
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI2",
+        "EventName": "laboratory",
+        "CourseName": "Distributed Systems",
+        "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. David Thompson",
+        "CourseCredits": 5,
+        "CoursePackage": "Systems"
+      },
+      "RoomName": "C305"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Tuesday",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3A",
+        "EventName": "course",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Tuesday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E",
+        "EventName": "course",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Tuesday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3B",
+        "EventName": "course",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Tuesday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3A",
+        "EventName": "course",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Tuesday",
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E",
+        "EventName": "course",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Wednesday",
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI",
+        "EventName": "course",
+        "CourseName": "Machine Learning",
+        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Bob Smith",
+        "CourseCredits": 6,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Wednesday",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI",
+        "EventName": "course",
+        "CourseName": "Deep Learning",
+        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Bob Smith",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Wednesday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI",
+        "EventName": "course",
+        "CourseName": "Artificial Intelligence",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 6,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Wednesday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI",
+        "EventName": "course",
+        "CourseName": "Natural Language Processing",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Wednesday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MSI",
+        "EventName": "course",
+        "CourseName": "Big Data Analysis",
+        "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Grace Walker",
+        "CourseCredits": 5,
+        "CoursePackage": "DataScience"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Wednesday",
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "2MAI",
+        "EventName": "course",
+        "CourseName": "Distributed Systems",
+        "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. David Thompson",
+        "CourseCredits": 5,
+        "CoursePackage": "Systems"
+      },
+      "RoomName": "C910"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Thursday",
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3B2",
+        "EventName": "laboratory",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Thursday",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E2",
+        "EventName": "laboratory",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Thursday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E1",
+        "EventName": "laboratory",
+        "CourseName": "Software Engineering",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 6,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Thursday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3B3",
+        "EventName": "laboratory",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Thursday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI2",
+        "EventName": "laboratory",
+        "CourseName": "Machine Learning",
+        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Bob Smith",
+        "CourseCredits": 6,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Thursday",
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI1",
+        "EventName": "laboratory",
+        "CourseName": "Machine Learning",
+        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Bob Smith",
+        "CourseCredits": 6,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Friday",
+      "Time": "08:00 - 10:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI2",
+        "EventName": "seminary",
+        "CourseName": "Deep Learning",
+        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Bob Smith",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Friday",
+      "Time": "10:00 - 12:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3A3",
+        "EventName": "laboratory",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Friday",
+      "Time": "12:00 - 14:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E2",
+        "EventName": "laboratory",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Friday",
+      "Time": "14:00 - 16:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "3E1",
+        "EventName": "laboratory",
+        "CourseName": "Software Testing",
+        "ProfessorId": "d43ca857-02ae-4449-8f86-2c7e2e1bca69",
+        "WeekEvenness": true,
+        "ProfessorName": "Prof. Emily Clark",
+        "CourseCredits": 5,
+        "CoursePackage": "compulsory"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Friday",
+      "Time": "16:00 - 18:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI1",
+        "EventName": "seminary",
+        "CourseName": "Deep Learning",
+        "ProfessorId": "fbd68d92-4c4d-44ac-922c-5200efb49cee",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Bob Smith",
+        "CourseCredits": 5,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C309"
+    },
+    {
+      "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",
+      "Day": "Friday",
+      "Time": "18:00 - 20:00",
+      "IsAvailable": false,
+      "Event": {
+        "Group": "1MAI1",
+        "EventName": "laboratory",
+        "CourseName": "Artificial Intelligence",
+        "ProfessorId": "4e1b6938-8428-4d26-bfa1-bd881dba1f4c",
+        "WeekEvenness": false,
+        "ProfessorName": "Prof. Frank Evans",
+        "CourseCredits": 6,
+        "CoursePackage": "AI"
+      },
+      "RoomName": "C309"
+    }
+  ]
+}

@@ -7,7 +7,6 @@ import { Timeslot } from '../../../models/timeslot.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Event } from '../../../models/event.model';
-
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -21,6 +20,9 @@ export class DetailComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode: boolean = false;
   isFiltered: boolean = false;
+
+  currentSortColumn: keyof Timeslot | keyof Event | null = null;
+  isAscending: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,9 +49,12 @@ export class DetailComponent implements OnInit {
     this.timetableService.getById(id).subscribe({
       next: (response) => {
         this.timetable = response;
-        this.originalTimeslots = response.timeslots; // Save the original data
-        this.filteredTimeslots = response.timeslots; // Initialize filtered data
+        this.originalTimeslots = response.timeslots;
+        this.filteredTimeslots = [...this.originalTimeslots];
         this.errorMessage = null;
+
+        // Default sorting by "day"
+        this.sortByColumn('day');
       },
       error: (error) => {
         this.errorMessage = `Failed to fetch details for ID: ${id}.`;
@@ -65,7 +70,6 @@ export class DetailComponent implements OnInit {
         this.timetable = null;
         this.filteredTimeslots = [];
         this.errorMessage = null;
-        console.log('Timetable deleted successfully.');
         this.router.navigate(['/timetable']);
       },
       error: (error) => {
@@ -76,25 +80,64 @@ export class DetailComponent implements OnInit {
   }
 
   filterByField(field: keyof Timeslot | keyof Event, value: any): void {
-    if (this.isEditMode) return; // Disable filtering in edit mode
-  
+    if (this.isEditMode) return;
+
     this.filteredTimeslots = this.originalTimeslots.filter((timeslot) => {
       if (field in timeslot) {
-        // Field exists directly in Timeslot
         return timeslot[field as keyof Timeslot] === value;
       } else if (field in timeslot.event) {
-        // Field exists in the Event object
         return timeslot.event[field as keyof Event] === value;
       }
-      return false; // Field not found in either Timeslot or Event
+      return false;
     });
-  
+
     this.isFiltered = true;
+
+    // Reapply sorting after filtering
+    if (this.currentSortColumn) {
+      this.sortByColumn(this.currentSortColumn);
+      this.sortByColumn(this.currentSortColumn); // have to apply twice to maintain sort order
+    }
   }
 
   resetFilters(): void {
     this.filteredTimeslots = [...this.originalTimeslots];
     this.isFiltered = false;
+
+    // Reapply sorting after resetting filters
+    if (this.currentSortColumn) {
+      this.sortByColumn(this.currentSortColumn);
+    }
+  }
+
+  sortByColumn(column: keyof Timeslot | keyof Event): void {
+    if (this.currentSortColumn === column) {
+      this.isAscending = !this.isAscending; // Toggle sort order
+    } else {
+      this.currentSortColumn = column;
+      this.isAscending = true; // Default to ascending
+    }
+
+    if (column === 'day') {
+      const dayOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+      this.filteredTimeslots.sort((a, b) => {
+        const aIndex = dayOrder.indexOf(a.day);
+        const bIndex = dayOrder.indexOf(b.day);
+
+        return this.isAscending ? aIndex - bIndex : bIndex - aIndex;
+      });
+    } else {
+      this.filteredTimeslots.sort((a, b) => {
+        const aValue =
+          column in a ? a[column as keyof Timeslot] : a.event[column as keyof Event];
+        const bValue =
+          column in b ? b[column as keyof Timeslot] : b.event[column as keyof Event];
+
+        if (aValue < bValue) return this.isAscending ? -1 : 1;
+        if (aValue > bValue) return this.isAscending ? 1 : -1;
+        return 0;
+      });
+    }
   }
 
   handleUpdateResult(message: string): void {

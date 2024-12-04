@@ -3282,6 +3282,7 @@
       "packagesPath": "/Users/edwardabursuc/.nuget/packages/",
       "outputPath": "/Users/edwardabursuc/Desktop/AI/TimetableProject/TimeTable/TimeTable/obj/",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "/Users/edwardabursuc/.nuget/NuGet/NuGet.Config"
       ],

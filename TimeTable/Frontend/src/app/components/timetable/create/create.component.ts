@@ -64,11 +64,7 @@ export class CreateComponent {
       event.Group &&
       event.EventName &&
       event.CourseName &&
-      event.ProfessorId &&
-      typeof event.WeekEvenness === 'boolean' &&
-      event.ProfessorName &&
-      typeof event.CourseCredits === 'number' &&
-      event.CoursePackage
+      event.ProfessorId
     );
   }
 }

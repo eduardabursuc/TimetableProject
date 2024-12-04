@@ -1,50 +1,33 @@
 <div class="container">
-  <div class="top-section">
-    <button class="nav-button" (click)="previousTimetable()" [disabled]="currentIndex === 0">⬅</button>
-    <div class="timetable-id-display">
-      <p *ngIf="currentTimetable">
-        <a [routerLink]="['/detail', currentTimetable.id]" class="clickable-id">Current Timetable ID: {{ currentTimetable.id }}</a>
-      </p>
-      <p *ngIf="!currentTimetable">No Timetables Available</p>
+  <div class="main-container">
+    <!-- Page Info Section -->
+    <div class="top-section">
+      <div class="timetable-id-display">
+        <p *ngIf="timetables.length > 0" class="info-text">
+          Timetable IDs: Page {{ currentPage + 1 }} of {{ totalPages }}
+        </p>
+        <p *ngIf="timetables.length === 0" class="info-text no-timetables">
+          No Timetables Available
+        </p>
+      </div>
     </div>
-    <button class="nav-button" (click)="nextTimetable()" [disabled]="currentIndex === timetables.length - 1">➡</button>
-  </div>
 
-  <div class="middle-section">
-    <div class="timetable-details" *ngIf="currentTimetable">
-      <table>
-        <thead>
-          <tr>
-            <th>Grupa</th>
-            <th>Zi</th>
-            <th>Interval</th>
-            <th>Materie</th>
-            <th>Tip</th>
-            <th>Profesor</th>
-            <th>Camera</th>
-            <th>Frecventa</th>
-            <th>Pachet</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let timeslot of currentTimetable.timeslots">
-            <td>{{ timeslot.event.group }}</td>
-            <td>{{ timeslot.day }}</td>
-            <td>{{ timeslot.time }}</td>
-            <td>{{ timeslot.event.courseName }}</td>
-            <td>{{ timeslot.event.eventName }}</td>
-            <td>{{ timeslot.event.professorName }}</td>
-            <td>{{ timeslot.roomName }}</td>
-            <td>{{ timeslot.event.weekEvenness ? 'Par' : '' }}</td>
-            <td>{{ timeslot.event.coursePackage }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Navigation and ID List Section -->
+    <div class="middle-section">
+      <div class="navigation-container">
+        <button class="nav-button prev" (click)="previousPage()" [disabled]="currentPage === 0">⬅</button>
+        <ul class="id-list">
+          <li *ngFor="let timetable of paginatedTimetables">
+            <a [routerLink]="['/detail', timetable.id]" class="clickable-id">{{ timetable.id }}</a>
+          </li>
+        </ul>
+        <button class="nav-button next" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">➡</button>
+      </div>
     </div>
-    <p *ngIf="!currentTimetable">No timetable to display</p>
-  </div>
 
-  <div class="bottom-section">
-    <button routerLink="/create" class="add-button">+</button>
+    <!-- Add Timetable Button Section -->
+    <div class="bottom-section">
+      <button routerLink="/create" class="add-button" title="Create Timetable">+</button>
+    </div>
   </div>
 </div>
