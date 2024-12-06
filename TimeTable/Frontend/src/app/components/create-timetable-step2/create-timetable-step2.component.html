@@ -1,0 +1,94 @@
+<header>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</header>
+
+<div class="timetable-wrapper">
+  <!-- Sidebar -->
+  <app-sidebar-menu></app-sidebar-menu>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="main-container">
+      <!-- Title and Subtitle -->
+      <h1 class="title">Creating Timetable</h1>
+      <h2 class="subtitle">Step 2: Add Events</h2>
+      
+      <!-- Wrapper for Select Fields -->
+      <div class="selection-wrapper">
+        <h2 class="event-subtitle">Add an event:</h2>
+        <div class="select-group">
+          <label>Course:</label>
+          <select [(ngModel)]="selectedCourse">
+            <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseName }}</option>
+          </select>
+        </div>
+
+        <div class="select-group">
+          <label>Professor:</label>
+          <select [(ngModel)]="selectedProfessor">
+            <option *ngFor="let professor of professors" [ngValue]="professor">{{ professor.name }}</option>
+          </select>
+        </div>
+
+        <div class="select-group">
+          <label>Group:</label>
+          <select [(ngModel)]="selectedGroup">
+            <option *ngFor="let group of groups" [ngValue]="group">{{ group.name }}</option>
+          </select>
+        </div>
+
+        <!-- New Event Type Selection -->
+        <div class="select-group">
+          <label>Event Type:</label>
+          <select [(ngModel)]="eventType">
+            <option value="course">Course</option>
+            <option value="laboratory">Laboratory</option>
+            <option value="seminary">Seminary</option>
+          </select>
+        </div>
+
+        <!-- New Event Duration Selection -->
+        <div class="select-group">
+          <label>Event Duration (hours):</label>
+          <input type="number" [(ngModel)]="eventDuration" min="1" step="1" />
+        </div>
+
+        <button (click)="addEvent()" class="add-button">Add</button>
+      </div>
+
+      <!-- Display the added events -->
+      <div class="added-events" *ngIf="addedEvents.length > 0">
+        <h2 class="added-events-header">Added Events:</h2>
+        <div *ngFor="let event of addedEvents" class="event-card">
+          <span class="event-description">{{ event.course }} - {{ event.professor }} - {{ event.group }} - {{ event.duration }} hours - {{ event.type }}</span>
+          <button class="delete-button" (click)="deleteEvent(event)">
+            <i class="fas fa-times"></i>
+          </button>
+          <button class="edit-button" (click)="editEvent(event)">
+            <i class="fas fa-edit"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="bottom-buttons">
+        <button (click)="onBack()" class="back-button">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button (click)="onGenerate()" class="generate-button"> Generate Timetable</button>
+      </div>
+    </div>
+
+    <app-generic-modal 
+      [isVisible]="isModalVisible"
+      [title]="modalTitle"
+      [message]="modalMessage"
+      [isInputRequired]="modalType === 'generate' && addedEvents.length > 0"
+      [inputPlaceholder]="inputPlaceholder"
+      [inputValue]="inputValue"
+      [showCancelButton]="(modalType === 'generate' && addedEvents.length > 0) || modalType === 'delete' || modalType === 'edit'"
+      (confirmEvent)="handleModalConfirm($event)">
+    </app-generic-modal>
+
+  </div>
+</div>

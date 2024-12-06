@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins("https://timetable-project.vercel.app")
+        policy.WithOrigins("*")
               .AllowAnyHeader()                    
               .AllowAnyMethod();                   
     });
