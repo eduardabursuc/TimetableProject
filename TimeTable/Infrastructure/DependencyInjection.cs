@@ -20,7 +20,9 @@ namespace Infrastructure
             services.AddScoped<IProfessorRepository, ProfessorRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<ITimetableRepository, TimetableRepository>();
-            
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+
             return services;
         }
     }

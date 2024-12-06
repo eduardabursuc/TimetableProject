@@ -1,0 +1,29 @@
+<header>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+</header>
+
+<div class="modal-overlay" *ngIf="isVisible">
+  <div class="modal-content">
+    <h2>{{ title }}</h2>
+    
+    <div *ngIf="isInputRequired" class="input-container">
+      <label for="inputField">{{ message }}</label>
+      <input 
+        id="inputField"
+        [(ngModel)]="inputValue" 
+        [placeholder]="inputPlaceholder" 
+        type="text" 
+        (input)="checkInputValidity()"
+      />
+    </div>
+    
+    <div *ngIf="!isInputRequired">
+      <p>{{ message }}</p>
+    </div>
+    
+    <div class="modal-actions">
+      <button *ngIf="showCancelButton" class="cancel-button" (click)="cancel()">Cancel</button>
+      <button class="confirm-button" (click)="confirm()" [disabled]="isInputRequired && !inputValue.trim()">Confirm</button>
+    </div>
+  </div>
+</div>

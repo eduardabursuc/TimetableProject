@@ -1,0 +1,313 @@
+/* General body styles */
+body {
+  font-family: 'Lora', serif;
+  background-color: #f4f6f9;
+  color: #4a4a4a;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+.timetable-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* Main content area */
+.main-content {
+  padding: 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-left: 240px;
+  width: calc(100% - 240px);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: calc(100% - 240px);
+  max-width: calc(100% - 240px);
+  height: auto;
+  padding: 50px 80px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  margin: 0 auto;
+}
+
+/* Title and Subtitle styles */
+h1, h2, .interval-card {
+  font-family: 'Lora', serif;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+h1.title {
+  font-size: 2.5em;
+  margin-bottom: 1em;
+}
+
+h2.subtitle{
+  font-size: 1.8em;
+  color: #34495e;
+  margin-bottom: 1.5em;
+  margin-left: 3.5em;
+}
+
+.days-subtitle, .time-subtitle, .interval-card{
+  font-size: 1.3em;
+  color: #34495e;
+  margin-bottom: 1.5em;
+  margin-left: 5em;
+}
+
+.selected-intervals{
+  margin-top: 4em;
+  margin-bottom:1em;
+  margin-left: 4em;
+}
+
+h2.selected-intervals{
+  font-size: 1.5em;
+}
+
+
+.interval-card {
+  display: flex;
+  flex-direction: row; /* Display intervals horizontally */
+  align-items: center; /* Align items in a row */
+  gap: 20px; /* Space between the day and the time interval */
+  padding: 10px 0;
+  width: 100%;
+  margin-left: 10em; 
+  font-size: 0.8em;
+}
+
+.subtitle {
+  padding-bottom: 30px;
+  border-bottom: 1px solid black;
+  width: 82%;
+}
+
+/* Days container */
+.days-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.day-card {
+  flex: 0 1 auto;
+  max-width: auto;
+  border-radius: 12px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: auto;
+}
+
+.day-name, .time-range {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.bullet-circle {
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background: #ff9d9d;
+  transition: background 0.3s;
+}
+
+.bullet-circle.valid {
+  background: #8cf3b7;
+}
+
+.bullet-circle.invalid {
+  background: #ff9d9d;
+}
+
+.bullet-circle.selected {
+  background: #faff6f;
+}
+
+/* Time Selectors */
+.time-selectors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.time-header {
+  width: 100%;
+  text-align: left;
+}
+
+.subtitle-time {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.time-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.time-selector {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 10px 0;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #34495e;
+  font-size: 20px;
+}
+
+input[type="time"] {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px;
+  width: 300px;
+  height: 50px;
+  font-size: 1em;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="time"]:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+}
+
+/* Buttons */
+.add-button {
+  padding: 12px 25px;
+  background: #66c2ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.add-button:hover{
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between; /* Align buttons to the left and right */
+  margin-top: 50px; /* Space above the buttons */
+  padding: 0 50px; /* Space on the left and right sides of the wrapper */
+}
+
+.next-button {
+  padding: 12px 25px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 50px;
+  margin-right: 50px;
+  align-self: flex-end;
+}
+
+.back-button {
+  padding: 12px 25px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 50px;
+  margin-right: 50px;
+  align-self: flex-start;
+}
+
+.next-button:hover, .back-button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
+  color: #c0392b; /* Darker red on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .main-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .day-card {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .bullet-circle {
+    width: 3em;
+    height: 3em;
+  }
+
+  .day-name {
+    font-size: 1em;
+  }
+
+  .time-selectors {
+    align-items: flex-start;
+  }
+}

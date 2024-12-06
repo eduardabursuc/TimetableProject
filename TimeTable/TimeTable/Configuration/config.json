@@ -1225,7 +1225,36 @@
       "Capacity": 40
     }
   ],
-  "Constraints": [],
+  "Constraints": [
+    {
+      "Id": "88bbed20-29e7-4bd9-b7db-fb0d6cd40686",
+      "Type": "SOFT_DAY_OFF",
+      "ProfessorId": "fe059d2e-4fb1-46b8-81bf-d8cb1932c18f",
+      "CourseName": null,
+      "RoomName": null,
+      "WantedRoomName": null,
+      "GroupName": null,
+      "Day": "Friday",
+      "Time": null,
+      "WantedDay": null,
+      "WantedTime": null,
+      "Event": null
+    },
+    {
+      "Id": "fb93a009-35f3-4f52-9c9e-965f52bed263",
+      "Type": "SOFT_CONSECUTIVE_HOURS",
+      "ProfessorId": "1cf940ce-6dad-45a5-985f-35afd00e10f0",
+      "CourseName": null,
+      "RoomName": null,
+      "WantedRoomName": null,
+      "GroupName": null,
+      "Day": "Wednesday",
+      "Time": null,
+      "WantedDay": null,
+      "WantedTime": null,
+      "Event": null
+    }
+  ],
   "TimeSlots": [
     {
       "TimetableId": "e933ecb2-4c61-4037-a181-ec75baf01396",

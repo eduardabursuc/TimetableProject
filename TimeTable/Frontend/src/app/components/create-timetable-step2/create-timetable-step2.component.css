@@ -1,0 +1,251 @@
+/* General body styles */
+body {
+  font-family: 'Lora', serif;
+  background-color: #f4f6f9;
+  color: #4a4a4a;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+.timetable-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* Main content area */
+.main-content {
+  padding: 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-left: 240px;
+  width: calc(100% - 240px);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: calc(100% - 240px);
+  max-width: calc(100% - 240px);
+  height: auto;
+  padding: 50px 80px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  margin: 0 auto;
+}
+
+/* Title and Subtitle styles */
+h1, h2, .event-description, select, option {
+  font-family: 'Lora', serif;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+h1.title {
+  font-size: 2.5em;
+  margin-bottom: 1em;
+}
+
+h2.subtitle {
+  font-size: 1.8em;
+  color: #34495e;
+  margin-bottom: 1.5em;
+  margin-left: 3.5em;
+}
+
+.event-subtitle, .added-events-header, .event-card {
+  font-size: 1.3em;
+  color: #34495e;
+  margin-bottom: 1.5em;
+  margin-left: 5em;
+}
+
+.event-subtitle{
+  font-size: 1.6em;
+}
+
+.event-description {
+  font-size: 1.2em;
+}
+
+.added-events-header {
+  margin-top: 4em;
+  margin-bottom:1em;
+}
+
+h2.added-events-header {
+  font-size: 1.6em;
+}
+
+.event-card {
+  display: flex;
+  flex-direction: row; /* Display horizontally */
+  align-items: center; /* Align items in a row */
+  gap: 20px; /* Space between the day and the time interval */
+  padding: 10px 0;
+  width: 100%;
+  margin-left: 10em;
+  font-size: 1em;
+}
+
+.subtitle {
+  padding-bottom: 30px;
+  border-bottom: 1px solid black;
+  width: 82%;
+}
+
+/* Selection wrapper */
+.selection-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center everything except event-subtitle */
+  gap: 20px; /* Space between the select fields */
+  width: 100%;
+}
+
+.selection-wrapper .event-subtitle {
+  margin-left: 0; /* No left margin for the event subtitle */
+  text-align: left; /* Align the subtitle to the left */
+  width: 70%; /* Make sure the subtitle takes up full width */
+}
+
+/* Select group layout */
+.select-group {
+  display: flex;
+  align-items: center; /* Align items horizontally */
+  gap: 10px; /* Space between the label and the select/input */
+  width: 100%; /* Ensure it spans the full width */
+  max-width: 400px; /* Optional: limit the width of the select group */
+}
+
+label {
+  font-weight: bold;
+  color: #34495e;
+  font-size: 1.3em;
+  width: 150px;
+}
+
+select, input[type="number"] {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height: 35px;
+  font-size: 1em;
+  width: 100%; /* Make select/input fill the remaining space */
+  max-width: 200px; /* Optional: limit width of the input/select */
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus, input[type="number"]:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+}
+
+/* Adjustments for the rest of the page */
+.add-button {
+  padding: 12px 25px;
+  background: #66c2ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.add-button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between; /* Align buttons to the left and right */
+  margin-top: 50px; /* Space above the buttons */
+  padding: 0 50px; /* Space on the left and right sides of the wrapper */
+}
+
+.back-button {
+  padding: 12px 25px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 50px;
+  margin-right: 50px;
+  align-self: flex-start;
+}
+
+.back-button:hover, .generate-button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
+  color: #c0392b; /* Darker red on hover */
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: 10px;
+}
+
+.edit-button:hover {
+  color: #3498db;
+}
+
+.generate-button {
+  padding: 12px 25px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 2em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 50px;
+  margin-right: 50px;
+  align-self: flex-end;
+}
+
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .main-container {
+    width: 90%;
+    padding: 20px;
+  }
+}

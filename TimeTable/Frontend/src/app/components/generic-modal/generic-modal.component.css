@@ -1,0 +1,103 @@
+/* Modal overlay background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  pointer-events: auto; /* Ensure overlay captures pointer events */
+}
+
+/* Modal content box */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Lora', serif; /* Add Lora font */
+  pointer-events: all; /* Ensure modal content captures pointer events */
+}
+
+/* Modal title */
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+  font-family: 'Lora', serif; /* Add Lora font */
+}
+
+/* Input container styling */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+/* Modal actions (buttons) */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Buttons styling */
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: 'Lora', serif; /* Add Lora font */
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  display: inline-block;
+}
+
+.confirm-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  margin-left: auto;  /* Push confirm button to the right */
+}
+
+/* Input styling */
+input[type="text"] {
+  padding: 8px 12px;
+  width: 50%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  font-family: 'Lora', serif; /* Add Lora font */
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #2980b9;
+}
+
+/* Add transition effects */
+button:hover {
+  opacity: 0.8;
+}
+
+button:disabled:hover {
+  opacity: 1;
+}
