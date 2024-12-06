@@ -12,4 +12,5 @@ public class Event(string group, string eventName, string courseName, Guid profe
     public string ProfessorName { get; set; } = "";
     public int CourseCredits { get; set; } = 0;
     public string CoursePackage { get; set; } = "";
+    public int TimeInterval { get; set; } = 1;
 }

@@ -98,6 +98,7 @@ namespace TimeTable.Application.UnitTests
         {
             return new Professor
             {
+                UserEmail = "some1@gmail.com",
                 Id = Guid.NewGuid(),
                 Name = "Professor 1"
             };
@@ -107,6 +108,7 @@ namespace TimeTable.Application.UnitTests
         {
             return new ProfessorDto
             {
+                UserEmail = professor.UserEmail,
                 Id = professor.Id,
                 Name = professor.Name
             };

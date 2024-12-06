@@ -73,9 +73,9 @@ namespace TimeTable.Controllers
         }
         
         [HttpDelete("{name}")]
-        public async Task<IActionResult> DeleteCourse(string name)
+        public async Task<IActionResult> DeleteCourse(string userEmail, string courseName)
         {
-            var result = await mediator.Send(new DeleteCourseCommand(name));
+            var result = await mediator.Send(new DeleteCourseCommand(userEmail, courseName));
 
             if (result.IsSuccess)
             {

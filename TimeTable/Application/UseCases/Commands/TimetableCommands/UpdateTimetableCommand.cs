@@ -7,6 +7,7 @@ namespace Application.UseCases.Commands.TimetableCommands
     public class UpdateTimetableCommand : IRequest<Result<Unit>>
     {
         public required Guid Id { get; init; }
+        public required string Name { get; init; }
         public required List<Timeslot> Timeslots { get; init; }
     }
 }

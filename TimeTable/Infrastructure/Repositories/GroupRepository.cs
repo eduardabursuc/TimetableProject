@@ -21,6 +21,21 @@ namespace Infrastructure.Repositories
                 return Result<IEnumerable<Group>>.Failure(e.Message);
             }
         }
+        
+        public async Task<Result<Group>> GetByNameAsync(string name)
+        {
+            try
+            {
+                var group = await context.Groups.FirstOrDefaultAsync(r => r.Name == name);
+                return group == null
+                    ? Result<Group>.Failure($"Group with name {name} not found.")
+                    : Result<Group>.Success(group);
+            }
+            catch (Exception e)
+            {
+                return Result<Group>.Failure(e.Message);
+            }
+        }
 
 
     }       

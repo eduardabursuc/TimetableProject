@@ -1,18 +1,19 @@
 using Domain.Entities;
+using Domain.Repositories;
 using FluentValidation;
 
 namespace Application.UseCases.Queries.TimetableQueries;
 
 public class GetTimetableByRoomQueryValidator : AbstractValidator<GetTimetableByRoomQuery>
 {
-    public GetTimetableByRoomQueryValidator(Instance instance)
+    public GetTimetableByRoomQueryValidator(IRoomRepository repository)
     {
         RuleFor(t => t.Id).NotEmpty();
 
         RuleFor(t => t.RoomName)
             .NotEmpty()
             .Must(
-                roomName => instance.Rooms.Any(r => r.Name == roomName)) 
+                roomName => repository.GetByNameAsync(roomName).Result.IsSuccess )
             .WithMessage("Room does not exist.");
     }
 }

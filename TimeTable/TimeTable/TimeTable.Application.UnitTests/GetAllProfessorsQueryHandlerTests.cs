@@ -101,12 +101,14 @@ namespace TimeTable.Application.UnitTests
             [
                 new Professor
                 {
+                    UserEmail = "some1@gmail.com",
                     Id = Guid.NewGuid(),
                     Name = "Professor 1",
                 },
 
                 new Professor
                 {
+                    UserEmail = "some2@gmail.com",
                     Id = Guid.NewGuid(),
                     Name = "Professor 2",
                 }
@@ -119,12 +121,14 @@ namespace TimeTable.Application.UnitTests
             [
                 new ProfessorDto
                 {
+                    UserEmail = professors[0].UserEmail,
                     Id = professors[0].Id,
                     Name = professors[0].Name
                 },
 
                 new ProfessorDto
                 {
+                    UserEmail = professors[1].UserEmail,
                     Id = professors[1].Id,
                     Name = professors[1].Name
                 }

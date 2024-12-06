@@ -4,12 +4,13 @@ using MediatR;
 
 namespace Application.UseCases.Commands.TimetableCommands
 {
-    public class CreateTimetableCommand(List<Event> events) : IRequest<Result<Guid>>
+    public class CreateTimetableCommand : IRequest<Result<Guid>>
     {
-        public required List<Event> Events { get; set; } = events;
+        public required string UserEmail { get; set; }
+        public required string Name { get; set; }
+        public required List<Event> Events { get; init; } 
+        public required List<Timeslot> Timeslots { get; set; } 
 
-        public CreateTimetableCommand() : this(new List<Event>())
-        {
-        }
+        public CreateTimetableCommand() { }
     }
 }

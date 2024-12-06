@@ -100,6 +100,7 @@ namespace TimeTable.Application.UnitTests
         {
             return new Course
             {
+                UserEmail = "some1@gmail.com",
                 CourseName = "Course 1",
                 Credits = 3,
                 Package = "Package 1",
@@ -112,6 +113,7 @@ namespace TimeTable.Application.UnitTests
         {
             return new CourseDto
             {
+                UserEmail = course.UserEmail,
                 CourseName = course.CourseName,
                 Credits = course.Credits,
                 Package = course.Package,

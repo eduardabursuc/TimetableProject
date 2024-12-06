@@ -21,6 +21,21 @@ namespace Infrastructure.Repositories
                 return Result<IEnumerable<Room>>.Failure(e.Message);
             }
         }
+        
+        public async Task<Result<Room>> GetByNameAsync(string name)
+        {
+            try
+            {
+                var room = await context.Rooms.FirstOrDefaultAsync(r => r.Name == name);
+                return room == null
+                    ? Result<Room>.Failure($"Room with name {name} not found.")
+                    : Result<Room>.Success(room);
+            }
+            catch (Exception e)
+            {
+                return Result<Room>.Failure(e.Message);
+            }
+        }
 
 
     }

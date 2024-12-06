@@ -6,7 +6,7 @@ namespace Application.Validators
     {
         private readonly Instance _instance = instance;
 
-        public static bool Validate(Constraint constraint, Event evnt, (Room, Timeslot) roomTimeTuple)
+        public bool Validate(Constraint constraint, Event evnt, (Room, Timeslot) roomTimeTuple)
         {
             return constraint.Type switch
             {

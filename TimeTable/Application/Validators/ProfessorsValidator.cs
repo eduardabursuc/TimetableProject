@@ -1,8 +1,9 @@
 using Domain.Entities;
+using Domain.Repositories;
 
 namespace Application.Validators
 {
-    public class ProfessorsValidator(Instance instance)
+    public class ProfessorsValidator(IProfessorRepository repository)
     {
         public Tuple<bool, string> Validate(Professor professor)
         {
@@ -10,8 +11,7 @@ namespace Application.Validators
             {
                 return Tuple.Create(false, "Professor name is required.");
             }
-
-            return instance.Professors.Exists(p => p.Name == professor.Name && p.Id != professor.Id) ? Tuple.Create(false, "A professor with the same name already exists.") : Tuple.Create(true, "Professor is valid.");
+            return new Tuple<bool, string>(true, "Professor is valid.");
         }
     }
 }

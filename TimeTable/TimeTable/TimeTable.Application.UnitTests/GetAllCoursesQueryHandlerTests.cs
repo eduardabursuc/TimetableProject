@@ -104,6 +104,7 @@ namespace TimeTable.Application.UnitTests
             [
                 new Course
                 {
+                    UserEmail = "some1@gmail.com",
                     CourseName = "Course 1",
                     Credits = 3,
                     Package = "Package 1",
@@ -113,6 +114,7 @@ namespace TimeTable.Application.UnitTests
 
                 new Course
                 {
+                    UserEmail = "some2@gmail.com",
                     CourseName = "Course 2",
                     Credits = 4,
                     Package = "Package 2",
@@ -128,6 +130,7 @@ namespace TimeTable.Application.UnitTests
             [
                 new CourseDto
                 {
+                    UserEmail = courses[0].UserEmail,
                     CourseName = courses[0].CourseName,
                     Credits = courses[0].Credits,
                     Package = courses[0].Package,
@@ -137,6 +140,7 @@ namespace TimeTable.Application.UnitTests
 
                 new CourseDto
                 {
+                    UserEmail = courses[1].UserEmail,
                     CourseName = courses[1].CourseName,
                     Credits = courses[1].Credits,
                     Package = courses[1].Package,
