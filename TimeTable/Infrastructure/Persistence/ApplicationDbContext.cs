@@ -56,8 +56,8 @@ public class ApplicationDbContext : DbContext
                   .HasMaxLength(200);
 
             entity.HasOne<User>()
-                  .WithMany(u => u.Professors)
-                  .HasForeignKey("UserId")
+                  .WithMany()
+                  .HasForeignKey(e => e.UserEmail)
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -77,8 +77,8 @@ public class ApplicationDbContext : DbContext
                     .HasMaxLength(200);
 
               entity.HasOne<User>()
-                    .WithMany(u => u.Groups)
-                    .HasForeignKey("UserId")
+                    .WithMany()
+                    .HasForeignKey(e => e.UserEmail)
                     .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -103,8 +103,8 @@ public class ApplicationDbContext : DbContext
               entity.Property(e => e.Level).IsRequired().HasMaxLength(100);
 
               entity.HasOne<User>()
-                    .WithMany(u => u.Courses)
-                    .HasForeignKey("UserId")
+                    .WithMany()
+                    .HasForeignKey(e => e.UserEmail)
                     .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -112,7 +112,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Room>(entity =>
         {
               entity.ToTable("rooms");
-              entity.HasKey(e => e.Id); // Use Id as primary key
+              entity.HasKey(e => e.Id);
 
               entity.Property(e => e.Id)
                     .HasColumnType("uuid")
@@ -124,12 +124,13 @@ public class ApplicationDbContext : DbContext
                     .HasMaxLength(200);
 
               entity.Property(e => e.Capacity).IsRequired();
-              
+
               entity.HasOne<User>()
-                    .WithMany(u => u.Rooms)
-                    .HasForeignKey("UserId")
+                    .WithMany()
+                    .HasForeignKey(e => e.UserEmail)
                     .OnDelete(DeleteBehavior.Cascade);
         });
+
 
 
         // Configure Timetable ownership
@@ -143,8 +144,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedAt).IsRequired();
 
             entity.HasOne<User>()
-                  .WithMany(u => u.Timetables)
-                  .HasForeignKey("UserId")
+                  .WithMany()
+                  .HasForeignKey(e => e.UserEmail)
                   .OnDelete(DeleteBehavior.Cascade);
 
             entity.OwnsMany(e => e.Timeslots, timeslot =>

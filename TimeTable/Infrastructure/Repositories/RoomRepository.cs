@@ -57,17 +57,17 @@ namespace Infrastructure.Repositories
             }
         }
         
-        public async Task<Result<Unit>> UpdateAsync(Room room)
+        public async Task<Result<Guid>> UpdateAsync(Room room)
         {
             try
             {
                 context.Entry(room).State = EntityState.Modified;
                 await context.SaveChangesAsync();
-                return Result<Unit>.Success(Unit.Value);
+                return Result<Guid>.Success(room.Id);
             }
             catch (Exception e)
             {
-                return Result<Unit>.Failure(e.Message);
+                return Result<Guid>.Failure(e.Message);
             }
         }
         

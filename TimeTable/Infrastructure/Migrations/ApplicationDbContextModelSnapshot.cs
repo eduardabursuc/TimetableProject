@@ -114,14 +114,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("courses", (string)null);
                 });
@@ -140,14 +137,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("groups", (string)null);
                 });
@@ -166,14 +160,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("professors", (string)null);
                 });
@@ -195,14 +186,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("rooms", (string)null);
                 });
@@ -222,14 +210,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("timetables", (string)null);
                 });
@@ -285,41 +270,46 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
                     b.HasOne("Domain.Entities.User", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Group", b =>
                 {
                     b.HasOne("Domain.Entities.User", null)
-                        .WithMany("Groups")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Professor", b =>
                 {
                     b.HasOne("Domain.Entities.User", null)
-                        .WithMany("Professors")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Room", b =>
                 {
                     b.HasOne("Domain.Entities.User", null)
-                        .WithMany("Rooms")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Timetable", b =>
                 {
                     b.HasOne("Domain.Entities.User", null)
-                        .WithMany("Timetables")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsMany("Domain.Entities.Timeslot", "Timeslots", b1 =>
                         {
@@ -423,19 +413,6 @@ namespace Infrastructure.Migrations
                         });
 
                     b.Navigation("Timeslots");
-                });
-
-            modelBuilder.Entity("Domain.Entities.User", b =>
-                {
-                    b.Navigation("Courses");
-
-                    b.Navigation("Groups");
-
-                    b.Navigation("Professors");
-
-                    b.Navigation("Rooms");
-
-                    b.Navigation("Timetables");
                 });
 #pragma warning restore 612, 618
         }

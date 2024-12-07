@@ -31,8 +31,9 @@ namespace Application.Validators
             {
                 return Tuple.Create(false, "Level is required.");
             }
-
-            return Tuple.Create(true, "Course is valid.");
+            
+            var courses = repository.GetAllAsync(course.UserEmail).Result.Data;
+            return courses.Any(c => c.CourseName == course.CourseName) ? Tuple.Create(false, "Course name already exists.") : Tuple.Create(true, "Course is valid.");
         }
     }
 }

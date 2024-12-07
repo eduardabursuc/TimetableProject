@@ -57,17 +57,18 @@ namespace Infrastructure.Repositories
             }
         }
         
-        public async Task<Result<Unit>> UpdateAsync(Group group)
+        public async Task<Result<Guid>> UpdateAsync(Group group)
         {
             try
             {
                 context.Entry(group).State = EntityState.Modified;
+                Console.WriteLine(group);
                 await context.SaveChangesAsync();
-                return Result<Unit>.Success(Unit.Value);
+                return Result<Guid>.Success(group.Id);
             }
             catch (Exception e)
             {
-                return Result<Unit>.Failure(e.Message);
+                return Result<Guid>.Failure(e.Message);
             }
         }
         
@@ -76,6 +77,10 @@ namespace Infrastructure.Repositories
             try
             {
                 var group = await context.Groups.FindAsync(id);
+                if (group == null)
+                {
+                    return Result<Unit>.Failure($"Group not found.");
+                }
                 context.Groups.Remove(group);
                 await context.SaveChangesAsync();
                 return Result<Unit>.Success(Unit.Value);

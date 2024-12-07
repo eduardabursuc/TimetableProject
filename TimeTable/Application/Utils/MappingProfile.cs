@@ -3,7 +3,9 @@ using Domain.Entities;
 using AutoMapper;
 using Application.UseCases.Commands.ConstraintCommands;
 using Application.UseCases.Commands.CourseCommands;
+using Application.UseCases.Commands.GroupCommands;
 using Application.UseCases.Commands.ProfessorCommands;
+using Application.UseCases.Commands.RoomCommands;
 using Application.UseCases.Commands.TimetableCommands;
 
 namespace Application.Utils;
@@ -66,5 +68,12 @@ public class MappingProfile : Profile
         CreateMap<DeleteCourseCommand, Course>();
         CreateMap<Room, RoomDto>().ReverseMap();
         CreateMap<Group, GroupDto>().ReverseMap();
+        CreateMap<CreateGroupCommand, Group>().ReverseMap();
+        CreateMap<UpdateGroupCommand, Group>().ReverseMap();
+        CreateMap<DeleteGroupCommand, Group>().ReverseMap();
+        CreateMap<CreateRoomCommand, Room>().ReverseMap();
+        CreateMap<UpdateRoomCommand, Room>().ReverseMap();
+        CreateMap<DeleteRoomCommand, Room>().ReverseMap();
+        
     }
 }

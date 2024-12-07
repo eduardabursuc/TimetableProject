@@ -19,6 +19,7 @@ namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
             try
             {
                 var timetable = timetableGenerator.GenerateBestTimetable(out var solution);
+                timetable.CreatedAt = DateTime.Now;
                 await repository.AddAsync(timetable);
                 return Result<Guid>.Success(timetable.Id);
             } catch (Exception e)

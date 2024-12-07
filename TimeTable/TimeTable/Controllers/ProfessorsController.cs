@@ -31,6 +31,11 @@ namespace TimeTable.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateProfessor(Guid id, [FromBody] UpdateProfessorCommand command)
         {
+            if (id != command.Id)
+            {
+                return BadRequest("The ID in the URL does not match the ID in the body");
+            }
+            
             var result = await mediator.Send(command);
 
             if (!result.IsSuccess)

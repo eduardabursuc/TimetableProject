@@ -1,14 +1,14 @@
 using Domain.Common;
 using MediatR;
 
-namespace Application.UseCases.Commands.ProfessorCommands
+namespace Application.UseCases.Commands.GroupCommands
 {
-    public class CreateProfessorCommand : IRequest<Result<Guid>>
+    public class CreateGroupCommand : IRequest<Result<Guid>>
     {
         public required string UserEmail { get; init; }
         public required string Name { get; init; }
 
-        public CreateProfessorCommand() { }
+        public CreateGroupCommand() { }
         
     }
 }
