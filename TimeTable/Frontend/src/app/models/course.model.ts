@@ -1,8 +1,9 @@
 export interface Course {
-    courseName: string;
-    credits: number;
-    package: string;
-    semester: number;
-    level: string;
-  }
-  
+  userEmail: string;
+  id: string;
+  courseName: string;
+  credits: number;
+  package: string;
+  semester: number;
+  level: string;
+}
