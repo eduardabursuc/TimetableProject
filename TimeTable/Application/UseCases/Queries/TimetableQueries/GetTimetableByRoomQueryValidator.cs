@@ -9,12 +9,6 @@ public class GetTimetableByRoomQueryValidator : AbstractValidator<GetTimetableBy
     public GetTimetableByRoomQueryValidator(IRoomRepository repository)
     {
         RuleFor(t => t.Id).NotEmpty();
-
-        RuleFor(t => t.RoomName)
-            .NotEmpty()
-            .Must(
-                roomName => repository.GetByNameAsync(roomName).Result.IsSuccess )
-            .WithMessage("Room does not exist.");
     }
 }
 

@@ -100,9 +100,9 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TimetableDto>>> GetAllTimetables()
+        public async Task<ActionResult<List<TimetableDto>>> GetAllTimetables(string userEmail)
         {
-            var result = await mediator.Send(new GetAllTimetablesQuery());
+            var result = await mediator.Send(new GetAllTimetablesQuery {UserEmail = userEmail});
 
             if (!result.IsSuccess)
             {

@@ -28,7 +28,6 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
 {
     builder.Services.AddSingleton(instance);
     builder.Services.AddTransient<ConstraintsValidator>();
-    builder.Services.AddTransient<ConstraintService>();
     builder.Services.AddTransient<IConstraintRepository, ConstraintRepository>();
     builder.Services.AddTransient<ICourseRepository, CourseRepository>();
     builder.Services.AddTransient<IRoomRepository, RoomRepository>();

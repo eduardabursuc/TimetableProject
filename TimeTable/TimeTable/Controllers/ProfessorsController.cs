@@ -31,11 +31,6 @@ namespace TimeTable.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateProfessor(Guid id, [FromBody] UpdateProfessorCommand command)
         {
-            if (id != command.Id)
-            {
-                return BadRequest("ID in the URL does not match ID in the command.");
-            }
-
             var result = await mediator.Send(command);
 
             if (!result.IsSuccess)
@@ -60,9 +55,9 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProfessorDto>>> GetAll()
+        public async Task<ActionResult<List<ProfessorDto>>> GetAll(string userEmail)
         {
-            var result = await mediator.Send(new GetAllProfessorsQuery());
+            var result = await mediator.Send(new GetAllProfessorsQuery { UserEmail = userEmail });
 
             if (!result.IsSuccess)
             {
@@ -73,9 +68,9 @@ namespace TimeTable.Controllers
         }
         
         [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeleteProfessor(string userEmail, Guid id)
+        public async Task<IActionResult> DeleteProfessor(Guid id)
         {
-            var result = await mediator.Send(new DeleteProfessorCommand(userEmail, id));
+            var result = await mediator.Send(new DeleteProfessorCommand(id));
 
             if (result.IsSuccess)
             {

@@ -12,7 +12,7 @@ namespace Application.UseCases.QueryHandlers.ConstraintQueryHandlers
     {
         public async Task<Result<List<ConstraintDto>>> Handle(GetAllConstraintsQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetAllAsync();
+            var result = await repository.GetAllAsync(request.TimetableId);
 
             if (!result.IsSuccess) return Result<List<ConstraintDto>>.Failure(result.ErrorMessage);
             

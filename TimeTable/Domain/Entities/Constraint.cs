@@ -30,13 +30,14 @@ namespace Domain.Entities
     
     public class Constraint
     {
+        public Guid TimetableId { get; init; }
         public Guid Id { get; init; }
         public ConstraintType Type { get; init; }
         public Guid? ProfessorId { get; init; }
-        public string? CourseName { get; init; }
-        public string? RoomName { get; init; }
-        public string? WantedRoomName { get; init; }
-        public string? GroupName { get; init; }
+        public Guid? CourseId { get; init; }
+        public Guid? RoomId { get; init; }
+        public Guid? WantedRoomId { get; init; }
+        public Guid? GroupId { get; init; }
         public string? Day { get; init; }
         public string? Time { get; init; }
         public string? WantedDay { get; init; }

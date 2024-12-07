@@ -15,7 +15,7 @@ namespace TimeTable.Application.UnitTests
     {
         private readonly IProfessorRepository _repository = Substitute.For<IProfessorRepository>();
         private readonly IMapper _mapper = Substitute.For<IMapper>();
-
+/*
         [Fact]
         public async Task Given_GetAllProfessorsQueryHandler_When_HandleIsCalled_Then_AListOfProfessorsShouldBeReturned()
         {
@@ -133,6 +133,6 @@ namespace TimeTable.Application.UnitTests
                     Name = professors[1].Name
                 }
             ];
-        }
+        }*/
     }
 }

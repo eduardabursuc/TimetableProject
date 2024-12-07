@@ -25,19 +25,19 @@ namespace TimeTable.Controllers
                 return BadRequest(result.ErrorMessage);
             }
 
-            return CreatedAtAction(nameof(GetByName), new { courseName = result.Data }, result.Data);
+            return CreatedAtAction(nameof(GetById), new { courseId = result.Data }, result.Data);
         }
 
-        [HttpPut("{courseName}")]
-        public async Task<IActionResult> UpdateCourse(string courseName, [FromBody] UpdateCourseCommand command)
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] UpdateCourseCommand command)
         {
-            if (courseName != command.CourseName)
+            if (id != command.Id)
             {
                 return BadRequest("Name in the URL does not match Name in the command.");
             }
 
             var result = await mediator.Send(command);
-
+            
             if (!result.IsSuccess)
             {
                 return BadRequest(result.ErrorMessage);
@@ -46,10 +46,10 @@ namespace TimeTable.Controllers
             return NoContent();
         }
 
-        [HttpGet("{courseName}")]
-        public async Task<ActionResult<CourseDto>> GetByName(string courseName)
+        [HttpGet("{courseId}")]
+        public async Task<ActionResult<CourseDto>> GetById(Guid courseId)
         {
-            var result = await mediator.Send(new GetCourseByNameQuery { CourseName = courseName });
+            var result = await mediator.Send(new GetCourseByIdQuery { CourseId = courseId });
 
             if (!result.IsSuccess)
             {
@@ -60,9 +60,9 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CourseDto>>> GetAll()
+        public async Task<ActionResult<List<CourseDto>>> GetAll(string userEmail)
         {
-            var result = await mediator.Send(new GetAllCoursesQuery());
+            var result = await mediator.Send(new GetAllCoursesQuery { UserEmail = userEmail});
 
             if (!result.IsSuccess)
             {
@@ -72,10 +72,10 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
-        [HttpDelete("{name}")]
-        public async Task<IActionResult> DeleteCourse(string userEmail, string courseName)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteCourse(Guid id)
         {
-            var result = await mediator.Send(new DeleteCourseCommand(userEmail, courseName));
+            var result = await mediator.Send(new DeleteCourseCommand(id));
 
             if (result.IsSuccess)
             {

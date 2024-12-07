@@ -61,60 +61,76 @@ public class ApplicationDbContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Configure Course ownership
-        modelBuilder.Entity<Course>(entity =>
-        {
-            entity.ToTable("courses");
-            entity.HasKey(e => e.CourseName);
-
-            entity.Property(e => e.CourseName)
-                  .IsRequired()
-                  .HasMaxLength(200);
-
-            entity.Property(e => e.Credits).IsRequired();
-            entity.Property(e => e.Package).IsRequired().HasMaxLength(200);
-            entity.Property(e => e.Semester).IsRequired();
-            entity.Property(e => e.Level).IsRequired().HasMaxLength(100);
-
-            entity.HasOne<User>()
-                  .WithMany(u => u.Courses)
-                  .HasForeignKey("UserId")
-                  .OnDelete(DeleteBehavior.Cascade);
-        });
-
         // Configure Group ownership
         modelBuilder.Entity<Group>(entity =>
         {
-            entity.ToTable("groups");
-            entity.HasKey(e => e.Name);
+              entity.ToTable("groups");
+              entity.HasKey(e => e.Id); // Use Id as primary key
 
-            entity.Property(e => e.Name)
-                  .IsRequired()
-                  .HasMaxLength(200);
+              entity.Property(e => e.Id)
+                    .HasColumnType("uuid")
+                    .HasDefaultValueSql("uuid_generate_v4()")
+                    .ValueGeneratedOnAdd();
 
-            entity.HasOne<User>()
-                  .WithMany(u => u.Groups)
-                  .HasForeignKey("UserId")
-                  .OnDelete(DeleteBehavior.Cascade);
+              entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+              entity.HasOne<User>()
+                    .WithMany(u => u.Groups)
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Configure Course ownership
+        modelBuilder.Entity<Course>(entity =>
+        {
+              entity.ToTable("courses");
+              entity.HasKey(e => e.Id); // Use Id as primary key
+
+              entity.Property(e => e.Id)
+                    .HasColumnType("uuid")
+                    .HasDefaultValueSql("uuid_generate_v4()")
+                    .ValueGeneratedOnAdd();
+
+              entity.Property(e => e.CourseName)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+              entity.Property(e => e.Credits).IsRequired();
+              entity.Property(e => e.Package).IsRequired().HasMaxLength(200);
+              entity.Property(e => e.Semester).IsRequired();
+              entity.Property(e => e.Level).IsRequired().HasMaxLength(100);
+
+              entity.HasOne<User>()
+                    .WithMany(u => u.Courses)
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade);
         });
 
         // Configure Room ownership
         modelBuilder.Entity<Room>(entity =>
         {
-            entity.ToTable("rooms");
-            entity.HasKey(e => e.Name);
+              entity.ToTable("rooms");
+              entity.HasKey(e => e.Id); // Use Id as primary key
 
-            entity.Property(e => e.Name)
-                  .IsRequired()
-                  .HasMaxLength(200);
+              entity.Property(e => e.Id)
+                    .HasColumnType("uuid")
+                    .HasDefaultValueSql("uuid_generate_v4()")
+                    .ValueGeneratedOnAdd();
 
-            entity.Property(e => e.Capacity).IsRequired();
+              entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
 
-            entity.HasOne<User>()
-                  .WithMany(u => u.Rooms)
-                  .HasForeignKey("UserId")
-                  .OnDelete(DeleteBehavior.Cascade);
+              entity.Property(e => e.Capacity).IsRequired();
+              
+              entity.HasOne<User>()
+                    .WithMany(u => u.Rooms)
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade);
         });
+
 
         // Configure Timetable ownership
         modelBuilder.Entity<Timetable>(entity =>
@@ -143,8 +159,10 @@ public class ApplicationDbContext : DbContext
 
                 timeslot.OwnsOne(e => e.Event, e =>
                 {
+                    e.Property(ev => ev.GroupId).HasColumnName("GroupId");  
                     e.Property(ev => ev.Group).HasColumnName("Group");
                     e.Property(ev => ev.EventName).HasColumnName("EventName");
+                    e.Property(ev => ev.CourseId).HasColumnName("CourseId");
                     e.Property(ev => ev.CourseName).HasColumnName("CourseName");
                     e.Property(ev => ev.CourseCredits).HasColumnName("CourseCredits");
                     e.Property(ev => ev.CoursePackage).HasColumnName("CoursePackage");
@@ -169,10 +187,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Type).IsRequired();
             entity.Property(e => e.Event).HasMaxLength(50).IsRequired(false);
             entity.Property(e => e.ProfessorId).HasColumnType("uuid").IsRequired(false);
-            entity.Property(e => e.CourseName).IsRequired(false);
-            entity.Property(e => e.RoomName).IsRequired(false);
-            entity.Property(e => e.WantedRoomName).IsRequired(false);
-            entity.Property(e => e.GroupName).IsRequired(false);
+            entity.Property(e => e.CourseId).HasColumnType("uuid").IsRequired(false);
+            entity.Property(e => e.RoomId).HasColumnType("uuid").IsRequired(false);
+            entity.Property(e => e.WantedRoomId).HasColumnType("uuid").IsRequired(false);
+            entity.Property(e => e.GroupId).HasColumnType("uuid").IsRequired(false);
             entity.Property(e => e.WantedDay).HasMaxLength(50).IsRequired(false);
             entity.Property(e => e.WantedTime).HasMaxLength(50).IsRequired(false);
 
@@ -185,25 +203,25 @@ public class ApplicationDbContext : DbContext
 
             entity.HasOne<Course>()
                   .WithMany()
-                  .HasForeignKey(e => e.CourseName)
+                  .HasForeignKey(e => e.CourseId)
                   .OnDelete(DeleteBehavior.Cascade)
                   .IsRequired(false);
 
             entity.HasOne<Room>()
                   .WithMany()
-                  .HasForeignKey(e => e.RoomName)
+                  .HasForeignKey(e => e.RoomId)
                   .OnDelete(DeleteBehavior.Cascade)
                   .IsRequired(false);
 
             entity.HasOne<Group>()
                   .WithMany()
-                  .HasForeignKey(e => e.GroupName)
+                  .HasForeignKey(e => e.GroupId)
                   .OnDelete(DeleteBehavior.Cascade)
                   .IsRequired(false);
 
             entity.HasOne<Room>()
                   .WithMany()
-                  .HasForeignKey(e => e.WantedRoomName)
+                  .HasForeignKey(e => e.WantedRoomId)
                   .IsRequired(false);
         });
     }

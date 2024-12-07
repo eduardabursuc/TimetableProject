@@ -11,9 +11,9 @@ namespace TimeTable.Controllers
     public class RoomsController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<List<RoomDto>>> GetAll()
+        public async Task<ActionResult<List<RoomDto>>> GetAll(string userEmail)
         {
-            var result = await mediator.Send(new GetAllRoomsQuery());
+            var result = await mediator.Send(new GetAllRoomsQuery { UserEmail = userEmail });
 
             if (!result.IsSuccess)
             {

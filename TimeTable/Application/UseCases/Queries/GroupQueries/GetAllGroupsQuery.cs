@@ -6,5 +6,6 @@ namespace Application.UseCases.Queries.GroupQueries
 {
     public class GetAllGroupsQuery : IRequest<Result<List<GroupDto>>>
     {
+        public required string UserEmail { get; init; }
     }
 }

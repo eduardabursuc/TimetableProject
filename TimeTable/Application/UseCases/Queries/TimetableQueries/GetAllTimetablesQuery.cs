@@ -6,6 +6,7 @@ namespace Application.UseCases.Queries.TimetableQueries
 {
     public class GetAllTimetablesQuery : IRequest<Result<List<TimetableDto>>>
     {
+        public required string UserEmail { get; init; }
     }
 }
 

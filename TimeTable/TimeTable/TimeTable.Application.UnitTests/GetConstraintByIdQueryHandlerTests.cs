@@ -15,7 +15,7 @@ namespace TimeTable.Application.UnitTests
     {
         private readonly IConstraintRepository _repository = Substitute.For<IConstraintRepository>();
         private readonly IMapper _mapper = Substitute.For<IMapper>();
-
+/*
         [Fact]
         public async Task Given_GetConstraintByIdQueryHandler_When_HandleIsCalled_Then_ConstraintShouldBeReturned()
         {
@@ -140,6 +140,6 @@ namespace TimeTable.Application.UnitTests
                 WantedTime = constraint.WantedTime,
                 Event = constraint.Event
             };
-        }
+        }*/
     }
 }

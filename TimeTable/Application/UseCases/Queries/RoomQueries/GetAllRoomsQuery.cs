@@ -6,5 +6,6 @@ namespace Application.UseCases.Queries.RoomQueries
 {
     public class GetAllRoomsQuery : IRequest<Result<List<RoomDto>>>
     {
+        public required string UserEmail { get; init; }
     }
 }

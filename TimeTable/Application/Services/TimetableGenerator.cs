@@ -5,12 +5,14 @@ using Domain.Repositories;
 namespace Application.Services
 {
     public class TimetableGenerator(
+        string userEmail,
         Instance instance,
         IRoomRepository roomRepository,
         IGroupRepository groupRepository,
         IProfessorRepository professorRepository,
         ICourseRepository courseRepository,
-        IConstraintRepository constraintRepository)
+        IConstraintRepository constraintRepository,
+        Guid? timetableId = null)
     {
         private readonly IGroupRepository _groupRepository = groupRepository;
 
@@ -44,12 +46,13 @@ namespace Application.Services
 
             foreach (var ev in instance.Events)
             {
-                var possibleRooms = roomRepository.GetAllAsync().Result?.Data ?? new List<Room>();
+                var possibleRooms = roomRepository.GetAllAsync(userEmail).Result?.Data ?? new List<Room>();
                 var splitTimeslots = SplitTimeslots(instance.Timeslots, ev.TimeInterval);
-
+                HardConstraintValidator hardValidator = new(courseRepository);
+                
                 var domain = (from room in possibleRooms
                     from timeslot in splitTimeslots
-                    where ValidateHardConstraints(ev, room, timeslot)
+                    where hardValidator.ValidateRoomCapacity(room, ev.EventName)
                     select (room, timeslot)).ToList();
 
                 variables[ev] = domain;
@@ -88,13 +91,27 @@ namespace Application.Services
         }
 
 
-        private bool ValidateHardConstraints(Event ev, Room room, Timeslot timeslot)
+        private bool ValidateHardConstraints(Event ev, Room room, Timeslot timeslot, Dictionary<Event, (Room, Timeslot)> currentSolution)
         {
             var hardValidator = new HardConstraintValidator(courseRepository);
-            return hardValidator.ValidateRoomCapacity(room, ev.EventName);// &&
-                   //hardValidator.ValidateNoOverlap(ev, room, timeslot) &&
-                   //hardValidator.ValidateGroupOverlap(ev, room, timeslot);
+
+            // Validate the basic constraints
+            if (!hardValidator.ValidateRoomCapacity(room, ev.EventName))
+                return false;
+
+            // Validate NoOverlap and GroupOverlap constraints
+            foreach (var (assignedEvent, (assignedRoom, assignedTimeslot)) in currentSolution)
+            {
+                if (!hardValidator.ValidateNoOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)) ||
+                    !hardValidator.ValidateGroupOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
+
 
         private List<TimetableSolution> GenerateAllPossibleTimetables(Dictionary<Event, List<(Room, Timeslot)>> variables)
         {
@@ -129,43 +146,58 @@ namespace Application.Services
 
         private bool IsAssignmentConsistent(Event ev, (Room, Timeslot) value, Dictionary<Event, (Room, Timeslot)> assignment)
         {
-            return assignment.All(kvp => ValidateHardConstraints(ev, value.Item1, value.Item2));
+            return ValidateHardConstraints(ev, value.Item1, value.Item2, assignment);
         }
+
 
         private List<ScoredTimetable> ScoreTimetables(List<TimetableSolution> solutions)
         {
             var scoredSolutions = new List<ScoredTimetable>();
             const int hardWeight = 10;
-            var softWeight = 1;
+            const int softWeight = 1;
 
             foreach (var solution in solutions)
             {
                 var hardScore = 0;
                 var softScore = 0;
 
-                foreach (var (ev, value) in solution.Assignment)
+                // Iterate through the assignments to evaluate constraints
+                foreach (var (currentEvent, currentAssignment) in solution.Assignment)
                 {
-                    var (room, timeslot) = value;
+                    var (room, timeslot) = currentAssignment;
 
-                    hardScore += ValidateHardConstraints(ev, room, timeslot) ? hardWeight : 0;
-                    softScore += ValidateSoftConstraints(ev, room, timeslot);
+                    // Validate hard constraints in the context of the full assignment
+                    if (ValidateHardConstraints(currentEvent, room, timeslot, solution.Assignment))
+                    {
+                        hardScore += hardWeight;
+                    }
+
+                    // Validate soft constraints (assumes these are independent of other assignments)
+                    softScore += ValidateSoftConstraints(currentEvent, room, timeslot);
                 }
 
+                // Add the scored solution
                 scoredSolutions.Add(new ScoredTimetable
                 {
                     Assignment = solution.Assignment,
-                    Score = hardScore + softScore
+                    Score = hardScore + (softScore * softWeight)
                 });
             }
 
             return scoredSolutions;
         }
 
+
         private int ValidateSoftConstraints(Event ev, Room room, Timeslot timeslot)
         {
+            if( timetableId == null)
+            {
+                return 0;
+            }
+            
             var softValidator = new SoftConstraintValidator(instance);
 
-            var constraints = constraintRepository.GetAllAsync().Result?.Data ?? new List<Constraint>();
+            var constraints = constraintRepository.GetAllAsync(timetableId.Value).Result?.Data ?? new List<Constraint>();
 
             return constraints.Count(constraint => softValidator.Validate(constraint, ev, (room, timeslot)));
         }
@@ -174,15 +206,13 @@ namespace Application.Services
         {
             var timetable = new Timetable { Id = Guid.NewGuid() };
 
-            foreach (var kvp in solution)
+            foreach (var (ev, value) in solution)
             {
-                var ev = kvp.Key;
-                var (room, timeslot) = kvp.Value;
+                var (room, timeslot) = value;
 
-                var course = courseRepository.GetByNameAsync(ev.CourseName).Result;
-                if (!course.IsSuccess) continue;
-                ev.CoursePackage = course.Data.Package ?? "";
-                ev.CourseCredits = course.Data?.Credits ?? 0;
+                var course = courseRepository.GetByIdAsync(ev.CourseId).Result?.Data;
+                ev.CoursePackage = course?.Package ?? "";
+                ev.CourseCredits = course?.Credits ?? 0;
                 ev.ProfessorName = professorRepository.GetByIdAsync(ev.ProfessorId).Result?.Data?.Name ?? "";
                 timeslot.Event = ev;
                 timeslot.RoomName = room.Name;

@@ -27,7 +27,7 @@ namespace Application
             // Course Validators
             services.AddValidatorsFromAssemblyContaining<CreateCourseCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateCourseCommandValidator>();
-            services.AddValidatorsFromAssemblyContaining<GetCourseByNameQueryValidator>();
+            services.AddValidatorsFromAssemblyContaining<GetCourseByIdQueryValidator>();
             
             // Professor Validators
             services.AddValidatorsFromAssemblyContaining<CreateProfessorCommandValidator>();

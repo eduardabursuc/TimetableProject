@@ -26,8 +26,8 @@ public class HardConstraintValidator(ICourseRepository repository)
     {
         if (!IsSameOrNestedGroup(event1.Group, event2.Group)) return true;
 
-        var course1 = repository.GetByNameAsync(event1.CourseName).Result;
-        var course2 = repository.GetByNameAsync(event1.CourseName).Result;
+        var course1 = repository.GetByIdAsync(event1.CourseId).Result;
+        var course2 = repository.GetByIdAsync(event1.CourseId).Result;
 
         if (!course1.IsSuccess || !course2.IsSuccess) return true;
 

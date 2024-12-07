@@ -7,12 +7,12 @@ using MediatR;
 
 namespace Application.UseCases.QueryHandlers.CourseQueryHandlers
 {
-    public class GetCourseByNameQueryHandler(ICourseRepository repository, IMapper mapper)
-        : IRequestHandler<GetCourseByNameQuery, Result<CourseDto>>
+    public class GetCourseByIdQueryHandler(ICourseRepository repository, IMapper mapper)
+        : IRequestHandler<GetCourseByIdQuery, Result<CourseDto>>
     {
-        public async Task<Result<CourseDto>> Handle(GetCourseByNameQuery request, CancellationToken cancellationToken)
+        public async Task<Result<CourseDto>> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetByNameAsync(request.CourseName);
+            var result = await repository.GetByIdAsync(request.CourseId);
 
             if (!result.IsSuccess) return Result<CourseDto>.Failure(result.ErrorMessage);
 

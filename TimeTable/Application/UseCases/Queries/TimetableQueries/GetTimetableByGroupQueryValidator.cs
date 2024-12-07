@@ -8,11 +8,5 @@ public class GetTimetableByGroupQueryValidator : AbstractValidator<GetTimetableB
     public GetTimetableByGroupQueryValidator(IGroupRepository repository)
     {
         RuleFor(t => t.Id).NotEmpty();
-
-        RuleFor(t => t.GroupName)
-            .NotEmpty()
-            .Must(
-                groupName => repository.GetByNameAsync(groupName).Result.IsSuccess )
-            .WithMessage("Group does not exist.");
     }
 }

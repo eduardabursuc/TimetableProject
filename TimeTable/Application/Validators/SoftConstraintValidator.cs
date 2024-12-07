@@ -53,7 +53,7 @@ namespace Application.Validators
     
         private static bool ValidateRoomPreference(Constraint constraint, Event evnt, Room room)
         {
-            return constraint.ProfessorId != evnt.ProfessorId || constraint.WantedRoomName == room.Name;
+            return constraint.ProfessorId != evnt.ProfessorId || constraint.WantedRoomId == room.Id;
         }
     
         private static bool ValidateDayOff(Constraint constraint, Event evnt, Timeslot timeslot)

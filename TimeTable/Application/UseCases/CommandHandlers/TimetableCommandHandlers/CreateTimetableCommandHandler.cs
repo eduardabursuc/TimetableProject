@@ -15,7 +15,7 @@ namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
         {
             instance.Timeslots = request.Timeslots;
             instance.Events = request.Events;
-            var timetableGenerator = new TimetableGenerator(instance, roomRepository, groupRepository, professorRepository, courseRepository, constraintRepository);
+            var timetableGenerator = new TimetableGenerator(request.UserEmail, instance, roomRepository, groupRepository, professorRepository, courseRepository, constraintRepository);
             try
             {
                 var timetable = timetableGenerator.GenerateBestTimetable(out var solution);

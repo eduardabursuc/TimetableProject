@@ -24,11 +24,15 @@ namespace Infrastructure.Repositories
              }
          }
          
-         public async Task<Result<IEnumerable<Timetable>>> GetAllAsync()
+         public async Task<Result<IEnumerable<Timetable>>> GetAllAsync(string userEmail)
          {
              try
              {
-                 var timetables = await context.Timetables.ToListAsync();
+                 // Query timetables where UserEmail matches the provided email
+                 var timetables = await context.Timetables
+                     .Where(t => t.UserEmail == userEmail)
+                     .ToListAsync();
+
                  return Result<IEnumerable<Timetable>>.Success(timetables);
              }
              catch (Exception e)
@@ -36,6 +40,7 @@ namespace Infrastructure.Repositories
                  return Result<IEnumerable<Timetable>>.Failure(e.Message);
              }
          }
+
  
          public async Task<Result<Timetable>> GetByIdAsync(Guid id)
          {

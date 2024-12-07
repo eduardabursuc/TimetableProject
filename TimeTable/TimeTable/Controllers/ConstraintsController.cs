@@ -38,11 +38,6 @@ namespace TimeTable.Controllers
 
             var result = await mediator.Send(command);
 
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result.ErrorMessage);
-            }
-
             return NoContent();
         }
 
@@ -60,9 +55,9 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ConstraintDto>>> GetAll()
+        public async Task<ActionResult<List<ConstraintDto>>> GetAll(Guid timetableId)
         {
-            var result = await mediator.Send(new GetAllConstraintsQuery());
+            var result = await mediator.Send(new GetAllConstraintsQuery{ TimetableId = timetableId });
 
             if (!result.IsSuccess)
             {

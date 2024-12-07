@@ -12,7 +12,7 @@ namespace Application.UseCases.QueryHandlers.ProfessorQueryHandlers
     {
         public async Task<Result<List<ProfessorDto>>> Handle(GetAllProfessorsQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetAllAsync();
+            var result = await repository.GetAllAsync(request.UserEmail);
 
             if (!result.IsSuccess) return Result<List<ProfessorDto>>.Failure(result.ErrorMessage);
             

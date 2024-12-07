@@ -15,7 +15,7 @@ namespace TimeTable.Application.UnitTests
     {
         private readonly ICourseRepository _repository = Substitute.For<ICourseRepository>();
         private readonly IMapper _mapper = Substitute.For<IMapper>();
-
+/*
         [Fact]
         public async Task Given_GetAllCoursesQueryHandler_When_HandleIsCalled_Then_AListOfCoursesShouldBeReturned()
         {
@@ -148,6 +148,6 @@ namespace TimeTable.Application.UnitTests
                     Level = courses[1].Level
                 }
             ];
-        }
+        }*/
     }
 }

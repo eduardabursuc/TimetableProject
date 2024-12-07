@@ -11,8 +11,8 @@ namespace Application.UseCases.Commands.TimetableCommands
         {
             RuleForEach(c => c.Events)
                 .Must(e => 
-                    groupRepository.GetByNameAsync(e.Group).Result.IsSuccess &&
-                    courseRepository.GetByNameAsync(e.CourseName).Result.IsSuccess &&
+                    groupRepository.GetByIdAsync(e.GroupId).Result.IsSuccess &&
+                    courseRepository.GetByIdAsync(e.CourseId).Result.IsSuccess &&
                     professorRepository.GetByIdAsync(e.ProfessorId).Result.IsSuccess
                     )
                 .WithMessage(e => $"Event validation failed.");

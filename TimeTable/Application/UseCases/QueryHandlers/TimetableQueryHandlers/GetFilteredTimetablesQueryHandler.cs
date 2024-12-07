@@ -14,7 +14,7 @@ namespace Application.UseCases.QueryHandlers.TimetableQueryHandlers
     {
         public async Task<Result<PagedResult<TimetableDto>>> Handle(GetFilteredTimetablesQuery request, CancellationToken cancellationToken)
         {
-            var timetables = await repository.GetAllAsync();
+            var timetables = await repository.GetAllAsync(request.UserEmail);
             var timetablesList = timetables.Data;
             var query = timetablesList.AsQueryable();
     

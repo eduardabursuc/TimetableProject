@@ -32,7 +32,7 @@ namespace Application.Validators
                 return Tuple.Create(false, "Level is required.");
             }
 
-            return !repository.GetByNameAsync(course.CourseName).Result.IsSuccess ? Tuple.Create(false, "Course name must be unique.") : Tuple.Create(true, "Course is valid.");
+            return Tuple.Create(true, "Course is valid.");
         }
     }
 }

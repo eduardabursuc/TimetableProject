@@ -11,10 +11,10 @@ namespace TimeTable.Controllers
     public class GroupsController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<List<GroupDto>>> GetAll()
+        public async Task<ActionResult<List<GroupDto>>> GetAll(string userEmail)
 
         {
-            var result = await mediator.Send(new GetAllGroupsQuery());
+            var result = await mediator.Send(new GetAllGroupsQuery { UserEmail = userEmail });
 
             if (!result.IsSuccess)
             {

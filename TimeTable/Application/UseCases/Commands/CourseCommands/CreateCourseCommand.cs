@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.UseCases.Commands.CourseCommands
 {
-    public class CreateCourseCommand : IRequest<Result<string>>
+    public class CreateCourseCommand : IRequest<Result<Guid>>
     {
         public required string UserEmail { get; init; }
         public required string CourseName { get; init; }

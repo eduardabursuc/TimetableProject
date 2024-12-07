@@ -8,13 +8,13 @@ using MediatR;
 namespace Application.UseCases.CommandHandlers.CourseCommandHandlers
 {
     public class UpdateCourseCommandHandler(ICourseRepository repository, IMapper mapper)
-        : IRequestHandler<UpdateCourseCommand, Result<string>>
+        : IRequestHandler<UpdateCourseCommand, Result<Guid>>
     {
-        public async Task<Result<string>> Handle(UpdateCourseCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(UpdateCourseCommand request, CancellationToken cancellationToken)
         {
             var course = mapper.Map<Course>(request);
             var result = await repository.UpdateAsync(course);
-            return result.IsSuccess ? Result<string>.Success(result.Data) : Result<string>.Failure(result.ErrorMessage);
+            return result.IsSuccess ? Result<Guid>.Success(result.Data) : Result<Guid>.Failure(result.ErrorMessage);
         }
     }
 }

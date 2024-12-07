@@ -7,7 +7,7 @@ namespace Domain.Repositories
     public interface ITimetableRepository
     {
         Task<Result<Guid>> AddAsync(Timetable timetable);
-        Task<Result<IEnumerable<Timetable>>> GetAllAsync();
+        Task<Result<IEnumerable<Timetable>>> GetAllAsync(string userEmail);
         Task<Result<Timetable>> GetByIdAsync(Guid id);
         Task<Result<Timetable>> GetByGroupAsync(Guid id, string groupName);
         Task<Result<Timetable>> GetByProfessorAsync(Guid id, Guid professorId);

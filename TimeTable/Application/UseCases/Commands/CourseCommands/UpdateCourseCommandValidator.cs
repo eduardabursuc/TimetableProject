@@ -8,7 +8,7 @@ namespace Application.UseCases.Commands.CourseCommands
     {
         protected UpdateCourseCommandValidator(CoursesValidator validator, IMapper mapper)
         {
-            RuleFor(t => t.CourseName).NotEmpty();
+            RuleFor(t => t.Id).NotEmpty();
             Include(new CreateCourseCommandValidator(validator, mapper));
         }
     }
