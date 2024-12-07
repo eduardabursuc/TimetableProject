@@ -16,7 +16,7 @@
 /* Modal content box */
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 35px;
   border-radius: 8px;
   width: 400px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -27,7 +27,7 @@
 
 /* Modal title */
 h2 {
-  font-size: 1.8em;
+  font-size: 1.5em;
   margin-bottom: 1em;
   font-family: 'Lora', serif; /* Add Lora font */
 }
@@ -65,14 +65,14 @@ button:disabled {
 }
 
 .cancel-button {
-  background-color: #f44336;
+  background-color: #ee7a72;
   color: white;
   border: none;
   display: inline-block;
 }
 
 .confirm-button {
-  background-color: #4CAF50;
+  background-color: #79af7a;
   color: white;
   border: none;
   margin-left: auto;  /* Push confirm button to the right */

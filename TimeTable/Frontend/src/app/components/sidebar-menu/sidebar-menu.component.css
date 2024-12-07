@@ -1,7 +1,7 @@
 /* General body styles */
 body {
   font-family: 'Lora', serif; /* Elegant and professional font */
-  background-color: #fefefe; /* Light pastel gray for a clean background */
+  background-color: #ffffff; /* Light pastel gray for a clean background */
   color: #2c3e50; /* Muted navy blue text for readability */
   margin: 0;
   padding: 0;
@@ -9,13 +9,14 @@ body {
   justify-content: center;
   align-items: flex-start;
   height: 100vh;
+  width: 100%;
 }
 
 /* Sidebar Styles */
 .sidebar {
-  width: 240px;
-  background-color: #e0f0fa; /* Soft pastel blue for sidebar */
-  color: #4a4a4a; /* Neutral gray text for contrast */
+  width: 20%;
+  background-color: #b5d3e6; /* Soft pastel blue for sidebar */
+  color: #646366; /* Neutral gray text for contrast */
   display: flex;
   flex-direction: column;
   padding: 0; /* Remove all padding for the sidebar */
@@ -28,10 +29,10 @@ body {
 }
 
 /* Menu item styles */
-.menu-item {
+.menu-item, .menu-my-account {
   display: flex;
   align-items: center;
-  padding: 14px 20px;
+  padding: 5% 0px 5% 5%;
   margin: 0; /* Removed margin to avoid spacing at the top */
   border-radius: 0px;
   transition: background 0.3s ease, transform 0.2s ease;
@@ -44,18 +45,23 @@ body {
   padding-left: 0; /* Remove left padding from menu items */
 }
 
+.menu-my-account {
+  margin-top: auto;
+  padding-bottom: 20px;
+}
+
 /* Selected Menu Item */
-.menu-item.selected {
+.menu-item.selected, .menu-my-account.selected {
   background-color: #f8f9fa; /* Light gray background for selected item */
   color: #5a5a5a; /* Slightly darker gray for contrast */
   font-weight: bold;
 }
 
 /* Hover effect on menu item */
-.menu-item:hover {
-  background-color: #ffffff; /* White background for hover state */
-  transform: translateY(-2px); /* Soft lift effect */
+.menu-item:hover, .menu-my-account:hover {
+  background-color: #ffffff; /* White background for hover state */ /* Soft lift effect */
   color: #2c3e50; /* Darker muted navy for hover */
+
 }
 
 /* Sidebar Title */
@@ -69,11 +75,15 @@ body {
 }
 
 /* Icon Styles */
-.menu-item i {
-  margin-right: 12px; /* Space between icon and text */
+.menu-item i, .menu-my-account i{
+  margin-right: 12px ; /* Space between icon and text */
   font-size: 1.4em;
-  color: #5a5a5a; /* Neutral gray for icons */
-  padding-left: 15px; 
+  color: #58585b; /* Neutral gray for icons */
+  padding-left: 10%; 
+}
+
+.menu-my-account i{
+  color: #2c3e50;
 }
 
 /* Responsive Styles */
