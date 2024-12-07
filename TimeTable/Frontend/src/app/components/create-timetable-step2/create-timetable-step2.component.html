@@ -19,21 +19,21 @@
         <h2 class="event-subtitle">Add an event:</h2>
         <div class="select-group">
           <label>Course:</label>
-          <select [(ngModel)]="selectedCourse">
+          <select class="select-events" [(ngModel)]="selectedCourse">
             <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseName }}</option>
           </select>
         </div>
 
         <div class="select-group">
           <label>Professor:</label>
-          <select [(ngModel)]="selectedProfessor">
+          <select class="select-events" [(ngModel)]="selectedProfessor">
             <option *ngFor="let professor of professors" [ngValue]="professor">{{ professor.name }}</option>
           </select>
         </div>
 
         <div class="select-group">
           <label>Group:</label>
-          <select [(ngModel)]="selectedGroup">
+          <select class="select-events" [(ngModel)]="selectedGroup">
             <option *ngFor="let group of groups" [ngValue]="group">{{ group.name }}</option>
           </select>
         </div>
@@ -41,7 +41,7 @@
         <!-- New Event Type Selection -->
         <div class="select-group">
           <label>Event Type:</label>
-          <select [(ngModel)]="eventType">
+          <select class="select-events" [(ngModel)]="eventType">
             <option value="course">Course</option>
             <option value="laboratory">Laboratory</option>
             <option value="seminary">Seminary</option>
@@ -51,7 +51,7 @@
         <!-- New Event Duration Selection -->
         <div class="select-group">
           <label>Event Duration (hours):</label>
-          <input type="number" [(ngModel)]="eventDuration" min="1" step="1" />
+          <input class="input-events" type="number" [(ngModel)]="eventDuration" min="1" max="12" step="1" />
         </div>
 
         <button (click)="addEvent()" class="add-button">Add</button>
@@ -61,13 +61,22 @@
       <div class="added-events" *ngIf="addedEvents.length > 0">
         <h2 class="added-events-header">Added Events:</h2>
         <div *ngFor="let event of addedEvents" class="event-card">
-          <span class="event-description">{{ event.course }} - {{ event.professor }} - {{ event.group }} - {{ event.duration }} hours - {{ event.type }}</span>
+          <div class="event-description">
+            <p>Course: {{ event.course }}</p>
+            <p>Professor: {{ event.professor }}</p>
+            <p>Group: {{ event.group }}</p>
+            <p>Duration: {{ event.duration }} hours</p>
+            <p>Event type: {{ event.type }}</p>
+          </div>  
+          <div class="edit-delete-buttons">
+            <button class="edit-button" (click)="editEvent(event)">
+            <i class="fas fa-edit"></i>
+          </button>
           <button class="delete-button" (click)="deleteEvent(event)">
             <i class="fas fa-times"></i>
           </button>
-          <button class="edit-button" (click)="editEvent(event)">
-            <i class="fas fa-edit"></i>
-          </button>
+          </div>        
+          
         </div>
       </div>
 
@@ -80,15 +89,16 @@
     </div>
 
     <app-generic-modal 
-      [isVisible]="isModalVisible"
-      [title]="modalTitle"
-      [message]="modalMessage"
-      [isInputRequired]="modalType === 'generate' && addedEvents.length > 0"
-      [inputPlaceholder]="inputPlaceholder"
-      [inputValue]="inputValue"
-      [showCancelButton]="(modalType === 'generate' && addedEvents.length > 0) || modalType === 'delete' || modalType === 'edit'"
-      (confirmEvent)="handleModalConfirm($event)">
-    </app-generic-modal>
+  [isVisible]="isModalVisible"
+  [title]="modalTitle"
+  [message]="modalMessage"
+  [isInputRequired]="modalType === 'generate' && addedEvents.length > 0"
+  [inputPlaceholder]="inputPlaceholder"
+  [inputValue]="inputValue"
+  [showCancelButton]="(modalType === 'generate' && addedEvents.length > 0) || modalType === 'delete' || modalType === 'edit'"
+  (confirmEvent)="handleModalConfirm($event)">
+  </app-generic-modal>
+
 
   </div>
 </div>

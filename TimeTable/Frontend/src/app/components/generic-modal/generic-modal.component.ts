@@ -16,9 +16,11 @@ export class GenericModalComponent {
   @Input() isInputRequired: boolean = false;
   @Input() inputPlaceholder: string = '';
   @Input() inputValue: string = '';
+
   @Input() showCancelButton: boolean = true;
   
-  @Output() confirmEvent = new EventEmitter<{ confirmed: boolean }>();
+  @Output() confirmEvent = new EventEmitter<{ confirmed: boolean, inputValue?: string }>(); // Emit inputValue on confirm
+  @Output() inputChange = new EventEmitter<string>(); // Emit whenever the input value changes
 
   close() {
     this.isVisible = false;
@@ -31,10 +33,17 @@ export class GenericModalComponent {
 
   confirm() {
     this.isVisible = false;
-    this.confirmEvent.emit({ confirmed: true });
+    // Emit confirmed as true and also send the current inputValue
+    this.confirmEvent.emit({ confirmed: true, inputValue: this.inputValue });
+  }
+
+  onInputChange() {
+    // This method will emit the new value whenever the user changes the input
+    this.inputChange.emit(this.inputValue);
   }
 
   checkInputValidity() {
     // This function is used to trigger Angular's change detection on input change
   }
+
 }

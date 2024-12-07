@@ -1,10 +1,9 @@
 export interface Event {
-    group: string;
+    timetableId: string;
+    groupId: string;
     eventName: string;
-    courseName: string;
+    courseId: string;
     professorId: string;
     weekEvenness: boolean;
-    professorName: string;
-    courseCredits: number;
-    coursePackage: string;
+    duration: number;
   }

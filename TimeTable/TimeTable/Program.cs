@@ -39,6 +39,17 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
     builder.Services.AddControllers(); // Registers services for controllers
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    
+    // Register the CORS policy
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAngularApp", policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")  // Allow frontend origin
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    });
 }
 
 // Method to configure the HTTP request pipeline
