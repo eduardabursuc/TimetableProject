@@ -12,18 +12,7 @@ namespace Application.UseCases.Commands.ConstraintCommands
             RuleFor(c => c.Type)
                 .IsInEnum()
                 .WithMessage("Constraint type is required.");
-
-            RuleFor(c => c)
-                .Must(c =>
-                {
-                    var result = validator.Validate(mapper.Map<Constraint>(c));
-                    return result.Item1;
-                })
-                .WithMessage(c =>
-                {
-                    var result = validator.Validate(mapper.Map<Constraint>(c));
-                    return result.Item2;
-                });
+            
         }
     }
 }

@@ -1,15 +1,32 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Domain.Entities;
 
-public class Event(string group, string eventName, string courseName, Guid professorId)
+public class Event
 {
-    public string Group { get; set; } = group;
-    public string EventName { get; set; } = eventName;
-    public string CourseName { get; set; } = courseName;
-    public Guid ProfessorId { get; set; } = professorId;
-    public bool WeekEvenness { get; set; } = false;
-    public string ProfessorName { get; set; } = "";
-    public int CourseCredits { get; set; } = 0;
-    public string CoursePackage { get; set; } = "";
+    public Guid? TimetableId { get; set; }
+    public Guid? Id { get; set; }
+    
+    public required string EventName { get; init; }
+    public required Guid CourseId { get; init; }
+    public required Guid ProfessorId { get; init; }
+    public required Guid GroupId { get; init; }
+    public required int Duration { get; init; }
+    
+    public Guid? RoomId { get; set; }
+    public Timeslot? Timeslot { get; set; } = new Timeslot { Day = "", Time = "" };
+    
+    public Event() { Id = Guid.NewGuid(); }
+    
+    [JsonConstructor]
+    public Event(string eventName, Guid courseId, Guid professorId, Guid groupId, int duration)
+    {
+        Id = Guid.NewGuid();
+        EventName = eventName;
+        CourseId = courseId;
+        ProfessorId = professorId;
+        GroupId = groupId;
+        Duration = duration;
+    }
 }

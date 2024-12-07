@@ -12,7 +12,7 @@ namespace Application.UseCases.QueryHandlers.CourseQueryHandlers
     {
         public async Task<Result<List<CourseDto>>> Handle(GetAllCoursesQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetAllAsync();
+            var result = await repository.GetAllAsync(request.UserEmail);
 
             if (!result.IsSuccess) return Result<List<CourseDto>>.Failure(result.ErrorMessage);
             

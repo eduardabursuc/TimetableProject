@@ -12,7 +12,7 @@ namespace Application.UseCases.QueryHandlers.GroupQueryHandlers
     {
         public async Task<Result<List<GroupDto>>> Handle(GetAllGroupsQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetAllAsync();
+            var result = await repository.GetAllAsync(request.UserEmail);
 
             if (!result.IsSuccess) return Result<List<GroupDto>>.Failure(result.ErrorMessage);
 

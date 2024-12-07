@@ -8,20 +8,26 @@ using MediatR;
 
 namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
 {
-    public class CreateTimetableCommandHandler(ITimetableRepository repository, IMapper mapper, Instance instance)
+    public class CreateTimetableCommandHandler(ITimetableRepository repository, IMapper mapper, Instance instance, IGroupRepository groupRepository, IProfessorRepository professorRepository, ICourseRepository courseRepository, IConstraintRepository constraintRepository, IRoomRepository roomRepository)
         : IRequestHandler<CreateTimetableCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateTimetableCommand request, CancellationToken cancellationToken)
         {
+            instance.Timeslots = request.Timeslots;
             instance.Events = request.Events;
-            var arcConsistency = new ArcConsistency(instance);
-            if(arcConsistency.ApplyArcConsistencyAndBacktracking(out var solution))
+            Console.WriteLine("Creating timetable");
+            var timetableGenerator = new TimetableGenerator(request.UserEmail, instance, roomRepository, groupRepository, professorRepository, courseRepository, constraintRepository);
+            try
             {
-                var timetable = arcConsistency.GetTimetable(solution);
+                var timetable = timetableGenerator.GenerateBestTimetable(out var solution);
+                timetable.CreatedAt = DateTime.Now.ToUniversalTime();
+                timetable.Name = request.Name;
+                timetable.UserEmail = request.UserEmail;
                 await repository.AddAsync(timetable);
                 return Result<Guid>.Success(timetable.Id);
-            } else {
-                return Result<Guid>.Failure("No solution found");
+            } catch (Exception e)
+            {
+                return Result<Guid>.Failure(e.Message);
             }
         }
     }

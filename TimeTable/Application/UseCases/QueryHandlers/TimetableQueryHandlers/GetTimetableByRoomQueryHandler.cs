@@ -12,7 +12,7 @@ namespace Application.UseCases.QueryHandlers.TimetableQueryHandlers
     {
         public async Task<Result<TimetableDto>> Handle(GetTimetableByRoomQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetByRoomAsync(request.Id, request.RoomName);
+            var result = await repository.GetByRoomAsync(request.Id, request.RoomId);
     
             if (!result.IsSuccess) return Result<TimetableDto>.Failure(result.ErrorMessage);
     

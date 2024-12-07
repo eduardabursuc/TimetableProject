@@ -1,12 +1,12 @@
 using Domain.Entities;
+using Domain.Repositories;
 
 namespace Application.Validators
 {
-    public class SoftConstraintValidator(Instance instance)
+    public class SoftConstraintValidator(ICourseRepository courseRepo)
     {
-        private readonly Instance _instance = instance;
 
-        public static bool Validate(Constraint constraint, Event evnt, (Room, Timeslot) roomTimeTuple)
+        public bool Validate(Constraint constraint, Event evnt, (Room, Timeslot) roomTimeTuple)
         {
             return constraint.Type switch
             {
@@ -19,10 +19,13 @@ namespace Application.Validators
             };
         }
         
-        public static bool ValidateLectureBeforeLabs(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
+        public bool ValidateLectureBeforeLabs(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
         {
+            var course1 = courseRepo.GetByIdAsync(evnt1.CourseId).Result;
+            var course2 = courseRepo.GetByIdAsync(evnt2.CourseId).Result;
+            
             if ( constraint.Type != ConstraintType.SOFT_LECTURE_BEFORE_LABS ) return true;
-            if ( evnt1.CourseName != evnt2.CourseName ) return true;
+            if ( course1.Data.CourseName != course2.Data.CourseName ) return true;
             if ( evnt1.EventName == evnt2.EventName ) return true;
             if ( evnt1.EventName != "course" && evnt2.EventName != "course" ) return true;
             Timeslot courseTime;
@@ -53,7 +56,7 @@ namespace Application.Validators
     
         private static bool ValidateRoomPreference(Constraint constraint, Event evnt, Room room)
         {
-            return constraint.ProfessorId != evnt.ProfessorId || constraint.WantedRoomName == room.Name;
+            return constraint.ProfessorId != evnt.ProfessorId || constraint.WantedRoomId == room.Id;
         }
     
         private static bool ValidateDayOff(Constraint constraint, Event evnt, Timeslot timeslot)

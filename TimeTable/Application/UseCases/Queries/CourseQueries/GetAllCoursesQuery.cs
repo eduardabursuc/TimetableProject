@@ -6,5 +6,6 @@ namespace Application.UseCases.Queries.CourseQueries
 {
     public class GetAllCoursesQuery : IRequest<Result<List<CourseDto>>>
     {
+        public required string UserEmail { get; init; }
     }
 }

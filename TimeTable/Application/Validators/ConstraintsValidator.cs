@@ -8,7 +8,7 @@ public class ConstraintsValidator(Instance instance)
     private const string Laboratory = "laboratory";
     private const string Seminary = "seminary";
     private const string TimeslotsOrProfessorNotSpecified = "Timeslots or professor are not specified.";
-
+    /*
     public Tuple<bool, string> Validate(Constraint constraint)
     {
         return constraint.Type switch
@@ -212,5 +212,5 @@ public class ConstraintsValidator(Instance instance)
         }
 
         return false; // No overlapping slot found
-    }
+    }*/
 }

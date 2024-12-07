@@ -1,8 +1,9 @@
 using Domain.Entities;
+using Domain.Repositories;
 
 namespace Application.Validators
 {
-    public class CoursesValidator(Instance instance)
+    public class CoursesValidator(ICourseRepository repository)
     {
         public Tuple<bool, string> Validate(Course course)
         {
@@ -30,8 +31,9 @@ namespace Application.Validators
             {
                 return Tuple.Create(false, "Level is required.");
             }
-
-            return instance.Courses.Exists(c => c.CourseName == course.CourseName) ? Tuple.Create(false, "Course name must be unique.") : Tuple.Create(true, "Course is valid.");
+            
+            var courses = repository.GetAllAsync(course.UserEmail).Result.Data;
+            return courses.Any(c => c.CourseName == course.CourseName) ? Tuple.Create(false, "Course name already exists.") : Tuple.Create(true, "Course is valid.");
         }
     }
 }

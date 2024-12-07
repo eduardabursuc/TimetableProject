@@ -52,8 +52,10 @@
     <div class="added-intervals" *ngIf="validatedIntervals.length > 0">
       <h2 class="selected-intervals">Added Time Intervals:</h2>
       <div *ngFor="let interval of validatedIntervals" class="interval-card">
-        <span class="day-name">{{ interval.day }}:</span>
+        <div class="input-interval">
+          <span class="day-name">{{ interval.day }}:</span>
         <span class="time-range">{{ interval.startTime }} - {{ interval.endTime }}</span>
+        </div>
         <button class="delete-button" (click)="showDeleteModal(interval)">
           <i class="fas fa-times"></i>
         </button>

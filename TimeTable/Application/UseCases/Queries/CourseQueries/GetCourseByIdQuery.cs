@@ -4,8 +4,8 @@ using MediatR;
 
 namespace Application.UseCases.Queries.CourseQueries
 {
-    public class GetCourseByNameQuery : IRequest<Result<CourseDto>>
+    public class GetCourseByIdQuery : IRequest<Result<CourseDto>>
     {
-        public required string CourseName { get; init; }
+        public required Guid CourseId { get; init; }
     }
 }

@@ -2,31 +2,36 @@ using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class CourseRepository(ApplicationDbContext context) : ICourseRepository
     {
-        public async Task<Result<string>> AddAsync(Course course)
+        public async Task<Result<Guid>> AddAsync(Course course)
         {
             try
             {
                 await context.Courses.AddAsync(course);
                 await context.SaveChangesAsync();
-                return Result<string>.Success(course.CourseName);
+                return Result<Guid>.Success(course.Id);
             }
             catch (Exception e)
             {
-                return Result<string>.Failure(e.Message);
+                return Result<Guid>.Failure(e.Message);
             }
         }
 
-        public async Task<Result<IEnumerable<Course>>> GetAllAsync()
+        public async Task<Result<IEnumerable<Course>>> GetAllAsync(string userEmail)
         {
             try
             {
-                var courses = await context.Courses.ToListAsync();
+                // Query courses where UserEmail matches the provided email
+                var courses = await context.Courses
+                    .Where(c => c.UserEmail == userEmail)
+                    .ToListAsync();
+
                 return Result<IEnumerable<Course>>.Success(courses);
             }
             catch (Exception e)
@@ -35,11 +40,12 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<Course>> GetByNameAsync(string courseName)
+
+        public async Task<Result<Course>> GetByIdAsync(Guid id)
         {
             try
             {
-                var course = await context.Courses.FindAsync(courseName);
+                var course = await context.Courses.FindAsync(id);
                 return course == null ? Result<Course>.Failure("Course not found.") : Result<Course>.Success(course);
             }
             catch (Exception e)
@@ -48,34 +54,34 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<string>> UpdateAsync(Course course)
+        public async Task<Result<Guid>> UpdateAsync(Course course)
         {
             try
             {
                 context.Entry(course).State = EntityState.Modified;
                 await context.SaveChangesAsync();
-                return Result<string>.Success(course.CourseName);
+                return Result<Guid>.Success(course.Id);
             }
             catch (Exception e)
             {
-                return Result<string>.Failure(e.Message);
+                return Result<Guid>.Failure(e.Message);
             }
         }
 
-        public async Task<Result<string>> DeleteAsync(string courseName)
+        public async Task<Result<Unit>> DeleteAsync(Guid id)
         {
             try
             {
-                var course = await context.Courses.FindAsync(courseName);
-                if (course == null) return Result<string>.Failure("Course not found.");
+                var course = await context.Courses.FindAsync(id);
+                if (course == null) return Result<Unit>.Failure("Course not found.");
 
                 context.Courses.Remove(course);
                 await context.SaveChangesAsync();
-                return Result<string>.Success(course.CourseName);
+                return Result<Unit>.Success(Unit.Value);
             }
             catch (Exception e)
             {
-                return Result<string>.Failure(e.Message);
+                return Result<Unit>.Failure(e.Message);
             }
         }
     }

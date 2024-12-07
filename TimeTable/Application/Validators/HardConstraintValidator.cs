@@ -1,9 +1,17 @@
 using Domain.Entities;
+using Domain.Repositories;
 
 namespace Application.Validators;
 
-public class HardConstraintValidator(Instance instance)
+public class HardConstraintValidator(ICourseRepository courseRepo, IGroupRepository groupRepo)
 {
+    
+    public bool ValidateNoOverlap((Room, Timeslot) value1, (Room, Timeslot) value2)
+    {
+        return value1.Item1 != value2.Item1 || value1.Item2 != value2.Item2;
+    }
+
+    
     public bool ValidateRoomCapacity(Room room, string eventName)
     {
         return eventName.ToLower() switch
@@ -17,15 +25,18 @@ public class HardConstraintValidator(Instance instance)
 
     public bool ValidateGroupOverlap(Event event1, Event event2, (Room, Timeslot) value1, (Room, Timeslot) value2)
     {
-        if (!IsSameOrNestedGroup(event1.Group, event2.Group)) return true;
+        var group1 = groupRepo.GetByIdAsync(event1.GroupId).Result.Data;
+        var group2 = groupRepo.GetByIdAsync(event2.GroupId).Result.Data;
+        
+        if (!IsSameOrNestedGroup(group1.Name, group2.Name)) return true;
 
-        var course1 = instance.Courses.FirstOrDefault(c => c.CourseName == event1.CourseName);
-        var course2 = instance.Courses.FirstOrDefault(c => c.CourseName == event2.CourseName);
+        var course1 = courseRepo.GetByIdAsync(event1.CourseId).Result;
+        var course2 = courseRepo.GetByIdAsync(event1.CourseId).Result;
 
-        if (course1 == null || course2 == null) return true;
+        if (!course1.IsSuccess || !course2.IsSuccess) return true;
 
         // Apply group-specific validation logic
-        return course1.Package != course2.Package || course1.Level != course2.Level || course1.Semester != course2.Semester ||
+        return course1.Data.Package != course2.Data.Package || course1.Data.Level != course2.Data.Level || course1.Data.Semester != course2.Data.Semester ||
                value1.Item2 != value2.Item2 || value1.Item1 != value2.Item1;
     }
 

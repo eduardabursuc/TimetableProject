@@ -2,6 +2,7 @@ using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
@@ -22,11 +23,15 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<IEnumerable<Professor>>> GetAllAsync()
+        public async Task<Result<IEnumerable<Professor>>> GetAllAsync(string userEmail)
         {
             try
             {
-                var professors = await context.Professors.ToListAsync();
+                // Query professors where UserEmail matches the provided email
+                var professors = await context.Professors
+                    .Where(p => p.UserEmail == userEmail)
+                    .ToListAsync();
+
                 return Result<IEnumerable<Professor>>.Success(professors);
             }
             catch (Exception e)
@@ -34,6 +39,7 @@ namespace Infrastructure.Repositories
                 return Result<IEnumerable<Professor>>.Failure(e.Message);
             }
         }
+
 
         public async Task<Result<Professor>> GetByIdAsync(Guid id)
         {
@@ -62,20 +68,20 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<Guid>> DeleteAsync(Guid id)
+        public async Task<Result<Unit>> DeleteAsync(Guid id)
         {
             try
             {
                 var professor = await context.Professors.FindAsync(id);
-                if (professor == null) return Result<Guid>.Failure("Professor not found.");
+                if (professor == null) return Result<Unit>.Failure("Professor not found.");
 
                 context.Professors.Remove(professor);
                 await context.SaveChangesAsync();
-                return Result<Guid>.Success(professor.Id);
+                return Result<Unit>.Success(Unit.Value);
             }
             catch (Exception e)
             {
-                return Result<Guid>.Failure(e.Message);
+                return Result<Unit>.Failure(e.Message);
             }
         }
     }

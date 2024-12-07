@@ -9,6 +9,7 @@ namespace Application.UseCases.Queries.TimetableQueries
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
+        public string UserEmail { get; set; }
     }
 }
 

@@ -55,19 +55,24 @@ export class CreateTimetableStep2Component implements OnInit {
   }
 
   fetchData() {
-    this.http.get<Course[]>(`${this.apiUrl}/courses`).subscribe(
+    const userEmail = 'admin@gmail.com'; // Set userEmail value
+  
+    this.http.get<Course[]>(`${this.apiUrl}/courses?userEmail=${userEmail}`).subscribe(
       (data) => this.courses = data,
       (error) => console.error("Error loading courses: ", error)
     );
-    this.http.get<Professor[]>(`${this.apiUrl}/professors`).subscribe(
+  
+    this.http.get<Professor[]>(`${this.apiUrl}/professors?userEmail=${userEmail}`).subscribe(
       (data) => this.professors = data,
       (error) => console.error("Error loading professors: ", error)
     );
-    this.http.get<Group[]>(`${this.apiUrl}/groups`).subscribe(
+  
+    this.http.get<Group[]>(`${this.apiUrl}/groups?userEmail=${userEmail}`).subscribe(
       (data) => this.groups = data,
       (error) => console.error("Error loading groups: ", error)
     );
   }
+  
 
   addEvent() {
     if (!this.selectedCourse || !this.selectedProfessor || !this.selectedGroup) {

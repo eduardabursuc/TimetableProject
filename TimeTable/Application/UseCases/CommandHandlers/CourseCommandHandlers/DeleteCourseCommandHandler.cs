@@ -13,7 +13,7 @@ namespace Application.UseCases.CommandHandlers.CourseCommandHandlers
         public async Task<Result<Unit>> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
         {
             var course = mapper.Map<Course>(request);
-            var result = await repository.DeleteAsync(course.CourseName);
+            var result = await repository.DeleteAsync(course.Id);
             return result.IsSuccess ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure(result.ErrorMessage);
         }
     }

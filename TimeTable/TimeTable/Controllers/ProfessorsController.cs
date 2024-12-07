@@ -33,9 +33,9 @@ namespace TimeTable.Controllers
         {
             if (id != command.Id)
             {
-                return BadRequest("ID in the URL does not match ID in the command.");
+                return BadRequest("The ID in the URL does not match the ID in the body");
             }
-
+            
             var result = await mediator.Send(command);
 
             if (!result.IsSuccess)
@@ -60,9 +60,9 @@ namespace TimeTable.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProfessorDto>>> GetAll()
+        public async Task<ActionResult<List<ProfessorDto>>> GetAll(string userEmail)
         {
-            var result = await mediator.Send(new GetAllProfessorsQuery());
+            var result = await mediator.Send(new GetAllProfessorsQuery { UserEmail = userEmail });
 
             if (!result.IsSuccess)
             {

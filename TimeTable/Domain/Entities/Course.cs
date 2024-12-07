@@ -2,6 +2,8 @@
 {
     public class Course
     {
+        public required string UserEmail { get; init; }
+        public Guid Id { get; init; }
         public required string CourseName { get; init; }
         public required int Credits { get; init; }
         public required string Package { get; init; }

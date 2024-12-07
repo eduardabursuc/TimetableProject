@@ -4,8 +4,9 @@ using MediatR;
 
 namespace Application.UseCases.Commands.CourseCommands
 {
-    public class CreateCourseCommand : IRequest<Result<string>>
+    public class CreateCourseCommand : IRequest<Result<Guid>>
     {
+        public required string UserEmail { get; init; }
         public required string CourseName { get; init; }
         public required int Credits { get; init; }
         public required string Package { get; init; }
@@ -13,14 +14,6 @@ namespace Application.UseCases.Commands.CourseCommands
         public required string Level { get; init; }
 
         public CreateCourseCommand() { }
-
-        public CreateCourseCommand(CourseDto course)
-        {
-            CourseName = course.CourseName;
-            Credits = course.Credits;
-            Package = course.Package;
-            Semester = course.Semester;
-            Level = course.Level;
-        }
+        
     }
 }

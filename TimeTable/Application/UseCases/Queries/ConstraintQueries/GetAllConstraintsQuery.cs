@@ -6,5 +6,6 @@ namespace Application.UseCases.Queries.ConstraintQueries
 {
     public class GetAllConstraintsQuery : IRequest<Result<List<ConstraintDto>>>
     {
+        public required Guid TimetableId { get; init; }
     }
 }

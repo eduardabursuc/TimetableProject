@@ -4,6 +4,7 @@ namespace Application.DTOs
 {
     public class ConstraintDto
     {
+        public Guid TimetableId { get; init; }
         public Guid Id { get; init; }
         public ConstraintType Type { get; init; }
         public Guid? ProfessorId { get; init; }

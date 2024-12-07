@@ -12,7 +12,7 @@ namespace Application.UseCases.QueryHandlers.TimetableQueryHandlers
     {
         public async Task<Result<List<TimetableDto>>> Handle(GetAllTimetablesQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetAllAsync();
+            var result = await repository.GetAllAsync(request.UserEmail);
 
             if (!result.IsSuccess) return Result<List<TimetableDto>>.Failure(result.ErrorMessage);
             

@@ -64,6 +64,7 @@ namespace TimeTable.Application.IntegrationTests
             // Arrange
             var professor = new Professor
             {
+                UserEmail = "some1@gmail.com",
                 Id = Guid.NewGuid(),
                 Name = "Professor 1"
             };
@@ -85,7 +86,7 @@ namespace TimeTable.Application.IntegrationTests
         {
             // Arrange
             var professorId = Guid.NewGuid();
-            var professor = new Professor { Id = professorId, Name = "Professor 1" };
+            var professor = new Professor {UserEmail = "some1@gmail.com", Id = professorId, Name = "Professor 1" };
             _dbContext.Professors.Add(professor);
             _dbContext.SaveChanges();
 
