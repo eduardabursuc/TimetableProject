@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
+import { DayInterval } from '../../models/day-interval.model';
 
 @Component({
   selector: 'app-create-timetable-step2',
@@ -39,6 +40,8 @@ export class CreateTimetableStep2Component implements OnInit {
   eventToEdit: any = null;
   showCancelButton: boolean = true;
 
+  validatedIntervals: DayInterval[] = [];
+
   private apiUrl = 'http://localhost:5088/api/v1';
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -50,6 +53,13 @@ export class CreateTimetableStep2Component implements OnInit {
       const storedEvents = localStorage.getItem('addedEvents');
       if (storedEvents) {
         this.addedEvents = JSON.parse(storedEvents);
+      }
+  
+      // Retrieve validated intervals
+      const storedIntervals = localStorage.getItem('timeIntervals');
+      if (storedIntervals) {
+        this.validatedIntervals = JSON.parse(storedIntervals);
+        console.log(storedIntervals);
       }
     }
   }
@@ -84,18 +94,18 @@ export class CreateTimetableStep2Component implements OnInit {
     }
   
     const newEvent = {
-      course: this.selectedCourse.courseName,
-      professor: this.selectedProfessor.name,
-      group: this.selectedGroup.name,
+      course: this.selectedCourse.courseId,
+      professor: this.selectedProfessor.id,
+      group: this.selectedGroup.id,
       duration: this.eventDuration,
       type: this.eventType
     };
   
     // Check if the event already exists
     const existingEvent = this.addedEvents.find(event =>
-      event.course === newEvent.course &&
-      event.professor === newEvent.professor &&
-      event.group === newEvent.group &&
+      event.courseId === newEvent.course &&
+      event.professorId === newEvent.professor &&
+      event.groupId === newEvent.group &&
       event.duration === newEvent.duration &&
       event.type === newEvent.type
     );
@@ -156,7 +166,7 @@ export class CreateTimetableStep2Component implements OnInit {
     this.isModalVisible = true;
   }
 
-  handleModalConfirm(event: { confirmed: boolean }) {
+  handleModalConfirm(event: { confirmed: boolean, inputValue?: string }) {
     if (event.confirmed) {
       if (this.modalType === 'add') {
         // Handle add event confirmation, if needed
@@ -175,11 +185,9 @@ export class CreateTimetableStep2Component implements OnInit {
           // If no events are added, close the modal
           this.isModalVisible = false;
         } else {
-          const timetableName = this.inputValue.trim();
-          if (timetableName) {
-            console.log('Generated Timetable Name:', timetableName);
-            // You can send the timetable data to backend or save it here
-            this.router.navigate(['/generate-timetable']);
+          this.inputValue = event.inputValue? event.inputValue : "";
+          if (this.inputValue) {
+            this.generateTimetable();
           }
         }
       }
@@ -218,9 +226,49 @@ export class CreateTimetableStep2Component implements OnInit {
       this.isModalVisible = true;
       this.isInputRequired = true;   // Show input field for name
       this.inputPlaceholder = 'Timetable Name';  // Placeholder for the input field
-      this.inputValue = ''; // Clear previous value
       this.showCancelButton = true; // Show the cancel button when input is required
     }
+  }
+
+  generateTimetable() {
+    if (!this.inputValue.trim()) {
+      console.error('Timetable name is required.');
+      return;
+    }
+  
+    // Prepare timeslot data from validated intervals
+    const timeslots = this.validatedIntervals.map(interval => ({
+      day: interval.day,
+      time: `${interval.startTime} - ${interval.endTime}`
+    }));
+  
+    // Construct the body
+    const requestBody = {
+      userEmail: 'admin@gmail.com', // Replace with the actual user's email
+      name: this.inputValue.trim(),
+      events: this.addedEvents.map(event => ({
+        EventName: event.type,
+        CourseId: event.courseId,
+        ProfessorId: event.professorId,
+        GroupId: event.groupId,
+        Duration: event.duration
+      })),
+      timeslots: timeslots 
+    };
+
+    console.log(requestBody.events[0]);
+  
+    // Make the POST request
+     this.http.post(`${this.apiUrl}/timetables`, requestBody).subscribe(
+       response => {
+         console.log('Timetable generated successfully:', response);
+         this.router.navigate(['/generate-timetable']); // Navigate after success
+       },
+       error => {
+         console.error('Error generating timetable:', error);
+       }
+     );
+
   }
 
   onBack() {
@@ -238,4 +286,6 @@ export class CreateTimetableStep2Component implements OnInit {
       return false;
     }
   }
+  
+
 }
