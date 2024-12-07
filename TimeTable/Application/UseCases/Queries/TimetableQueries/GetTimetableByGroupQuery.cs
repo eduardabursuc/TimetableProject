@@ -7,7 +7,7 @@ namespace Application.UseCases.Queries.TimetableQueries
     public class GetTimetableByGroupQuery : IRequest<Result<TimetableDto>>
     {
         public Guid Id { get; set; }
-        public string GroupName { get; set; }
+        public Guid GroupId { get; set; }
     }
 }
 

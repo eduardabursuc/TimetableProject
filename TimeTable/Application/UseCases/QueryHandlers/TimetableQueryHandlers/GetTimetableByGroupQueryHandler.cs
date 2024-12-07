@@ -12,7 +12,7 @@ namespace Application.UseCases.QueryHandlers.TimetableQueryHandlers
     {
         public async Task<Result<TimetableDto>> Handle(GetTimetableByGroupQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetByGroupAsync(request.Id, request.GroupName);
+            var result = await repository.GetByGroupAsync(request.Id, request.GroupId);
     
             if (!result.IsSuccess) return Result<TimetableDto>.Failure(result.ErrorMessage);
     

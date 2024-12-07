@@ -4,15 +4,9 @@ namespace Domain.Entities
 {
     public class Timeslot(string day, string time, string? roomName)
     {
-        public Guid TimetableId { get; set; }
         public required string Day { get; init; } = day;
         public required string Time { get; init; } = time;
-        public bool IsAvailable { get; set; } = true;
-        [NotMapped]
-        public Event Event { get; set; } = new Event(Guid.Empty,"", "", Guid.Empty,"", Guid.Empty);
-        public Guid RoomId { get; set; } = Guid.Empty;
-        public string? RoomName { get; set; } = roomName;
-
+        
         public Timeslot(string day, string time) : this(day, time, null)
         {
         }

@@ -4,82 +4,110 @@ using Domain.Repositories;
 using Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace Infrastructure.Repositories
 {
-    public class TimetableRepository(ApplicationDbContext context) : ITimetableRepository
-     {
-         public async Task<Result<Guid>> AddAsync(Timetable timetable)
-         {
-             try
-             {
-                 await context.Timetables.AddAsync(timetable);
-                 await context.SaveChangesAsync();
-                 return Result<Guid>.Success(timetable.Id);
-             }
-             catch (Exception e)
-             {
-                 return Result<Guid>.Failure(e.Message);
-             }
-         }
-         
-         public async Task<Result<IEnumerable<Timetable>>> GetAllAsync(string userEmail)
-         {
-             try
-             {
-                 // Query timetables where UserEmail matches the provided email
-                 var timetables = await context.Timetables
-                     .Where(t => t.UserEmail == userEmail)
-                     .ToListAsync();
+    public class TimetableRepository : ITimetableRepository
+    {
+        private readonly ApplicationDbContext _context;
 
-                 return Result<IEnumerable<Timetable>>.Success(timetables);
-             }
-             catch (Exception e)
-             {
-                 return Result<IEnumerable<Timetable>>.Failure(e.Message);
-             }
-         }
+        public TimetableRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
- 
-         public async Task<Result<Timetable>> GetByIdAsync(Guid id)
-         {
-             try
-             {
-                 var timetable = await context.Timetables.FindAsync(id);
-                 return timetable == null ? Result<Timetable>.Failure("Timetable not found.") : Result<Timetable>.Success(timetable);
-             }
-             catch (Exception e)
-             {
-                 return Result<Timetable>.Failure(e.Message);
-             }
-         }
-         
-         public async Task<Result<Timetable>> GetByGroupAsync(Guid id, string groupName)
-         {
+        public async Task<Result<Guid>> AddAsync(Timetable timetable)
+        {
             try
             {
-                var timetable = await context.Timetables.FirstOrDefaultAsync(t => t.Id == id);
-                if (timetable == null) return Result<Timetable>.Failure("Timetable not found.");
-                
-                timetable.Timeslots = timetable.Timeslots.Where(t => t.Event.Group == groupName).ToList();
-                return timetable.Timeslots.Count == 0 ? Result<Timetable>.Failure("No records.") : Result<Timetable>.Success(timetable);
+                await _context.Timetables.AddAsync(timetable);
+                await _context.SaveChangesAsync();
+                return Result<Guid>.Success(timetable.Id);
+            }
+            catch (Exception e)
+            {
+                return Result<Guid>.Failure(e.Message);
+            }
+        }
+
+        public async Task<Result<IEnumerable<Timetable>>> GetAllAsync(string userEmail)
+        {
+            try
+            {
+                var timetables = await _context.Timetables
+                    .Where(t => t.UserEmail == userEmail)
+                    .ToListAsync();
+
+                return Result<IEnumerable<Timetable>>.Success(timetables);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<Timetable>>.Failure(e.Message);
+            }
+        }
+
+        public async Task<Result<Timetable>> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var timetable = await _context.Timetables
+                    .Include(t => t.Events)
+                    .ThenInclude(e => e.Timeslot)
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
+                return timetable == null
+                    ? Result<Timetable>.Failure("Timetable not found.")
+                    : Result<Timetable>.Success(timetable);
             }
             catch (Exception e)
             {
                 return Result<Timetable>.Failure(e.Message);
             }
-         }
-         
+        }
+
+        public async Task<Result<Timetable>> GetByGroupAsync(Guid id, Guid groupId)
+        {
+            try
+            {
+                var timetable = await _context.Timetables
+                    .Include(t => t.Events)
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
+                if (timetable == null)
+                    return Result<Timetable>.Failure("Timetable not found.");
+
+                timetable.Events = timetable.Events
+                    .Where(e => e.GroupId == groupId)
+                    .ToList();
+
+                return timetable.Events.Any()
+                    ? Result<Timetable>.Success(timetable)
+                    : Result<Timetable>.Failure("No records found.");
+            }
+            catch (Exception e)
+            {
+                return Result<Timetable>.Failure(e.Message);
+            }
+        }
+
         public async Task<Result<Timetable>> GetByProfessorAsync(Guid id, Guid professorId)
         {
             try
             {
-                var timetable = await context.Timetables.FirstOrDefaultAsync(t => t.Id == id);
-                if (timetable == null) return Result<Timetable>.Failure("Timetable not found.");
-                
-                timetable.Timeslots = timetable.Timeslots.Where(t => t.Event.ProfessorId == professorId).ToList();
-                return timetable.Timeslots.Count == 0 ? Result<Timetable>.Failure("No records.") : Result<Timetable>.Success(timetable);
+                var timetable = await _context.Timetables
+                    .Include(t => t.Events)
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
+                if (timetable == null)
+                    return Result<Timetable>.Failure("Timetable not found.");
+
+                timetable.Events = timetable.Events
+                    .Where(e => e.ProfessorId == professorId)
+                    .ToList();
+
+                return timetable.Events.Any()
+                    ? Result<Timetable>.Success(timetable)
+                    : Result<Timetable>.Failure("No records found.");
             }
             catch (Exception e)
             {
@@ -87,72 +115,85 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<Timetable>> GetByRoomAsync(Guid id, string roomName)
+        public async Task<Result<Timetable>> GetByRoomAsync(Guid id, Guid roomId)
         {
             try
             {
-                var timetable = await context.Timetables.FirstOrDefaultAsync(t => t.Id == id);
-                if (timetable == null) return Result<Timetable>.Failure("Timetable not found.");
-                timetable.Timeslots = timetable.Timeslots.Where(t => t.RoomName == roomName).ToList();
-                return timetable.Timeslots.Count == 0 ? Result<Timetable>.Failure("No records.") : Result<Timetable>.Success(timetable);
+                var timetable = await _context.Timetables
+                    .Include(t => t.Events)
+                    .ThenInclude(e => e.Timeslot)
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
+                if (timetable == null)
+                    return Result<Timetable>.Failure("Timetable not found.");
+
+                timetable.Events = timetable.Events
+                    .Where(e => e?.RoomId == roomId)
+                    .ToList();
+
+                return timetable.Events.Any()
+                    ? Result<Timetable>.Success(timetable)
+                    : Result<Timetable>.Failure("No records found.");
             }
             catch (Exception e)
             {
                 return Result<Timetable>.Failure(e.Message);
             }
         }
-        
+
         public async Task<Result<Unit>> UpdateAsync(Timetable timetable)
         {
             try
             {
-                // Load the existing timetable with its owned timeslots
-                var existingTimetable = await context.Timetables
-                    .Include(t => t.Timeslots)
+                var existingTimetable = await _context.Timetables
+                    .Include(t => t.Events)
+                    .ThenInclude(e => e.Timeslot)
                     .FirstOrDefaultAsync(t => t.Id == timetable.Id);
 
                 if (existingTimetable == null)
-                {
                     return Result<Unit>.Failure($"Timetable with ID '{timetable.Id}' not found.");
-                }
 
-                // Update the timetable properties
-                context.Entry(existingTimetable).CurrentValues.SetValues(timetable);
+                // Update main timetable details
+                _context.Entry(existingTimetable).CurrentValues.SetValues(timetable);
 
-                // Update owned Timeslots
-                foreach (var incomingTimeslot in timetable.Timeslots)
+                // Sync Events
+                foreach (var incomingEvent in timetable.Events)
                 {
-                    var existingTimeslot = existingTimetable.Timeslots
-                        .FirstOrDefault(ts =>
-                            ts.Time == incomingTimeslot.Time &&
-                            ts.Day == incomingTimeslot.Day &&
-                            ts.RoomName == incomingTimeslot.RoomName);
+                    var existingEvent = existingTimetable.Events
+                        .FirstOrDefault(e => e.EventName == incomingEvent.EventName);
 
-                    if (existingTimeslot == null)
+                    if (existingEvent == null)
                     {
-                        // Add new timeslot
-                        existingTimetable.Timeslots.Add(incomingTimeslot);
+                        existingTimetable.Events.Add(incomingEvent);
                     }
                     else
                     {
-                        // Update existing timeslot
-                        context.Entry(existingTimeslot).CurrentValues.SetValues(incomingTimeslot);
+                        _context.Entry(existingEvent).CurrentValues.SetValues(incomingEvent);
+
+                        if (incomingEvent.Timeslot != null)
+                        {
+                            if (existingEvent.Timeslot == null)
+                            {
+                                existingEvent.Timeslot = incomingEvent.Timeslot;
+                            }
+                            else
+                            {
+                                _context.Entry(existingEvent.Timeslot).CurrentValues.SetValues(incomingEvent.Timeslot);
+                            }
+                        }
                     }
                 }
 
-                // Remove deleted timeslots
-                foreach (var existingTimeslot in existingTimetable.Timeslots.ToList())
+                // Remove deleted events
+                foreach (var existingEvent in existingTimetable.Events.ToList())
                 {
-                    if (!timetable.Timeslots.Any(ts =>
-                            ts.Time == existingTimeslot.Time &&
-                            ts.Day == existingTimeslot.Day &&
-                            ts.RoomName == existingTimeslot.RoomName))
+                    if (!timetable.Events.Any(e => e.EventName == existingEvent.EventName))
                     {
-                        existingTimetable.Timeslots.Remove(existingTimeslot);
+                        existingTimetable.Events.Remove(existingEvent);
                     }
                 }
 
-                await context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Result<Unit>.Success(Unit.Value);
             }
             catch (Exception e)
@@ -161,25 +202,22 @@ namespace Infrastructure.Repositories
             }
         }
 
+        public async Task<Result<Unit>> DeleteAsync(Guid id)
+        {
+            try
+            {
+                var timetable = await _context.Timetables.FindAsync(id);
+                if (timetable == null)
+                    return Result<Unit>.Failure("Timetable not found.");
 
- 
-         public async Task<Result<Unit>> DeleteAsync(Guid id)
-         {
-             try
-             {
-                 var timetable = await context.Timetables.FindAsync(id);
-                 if (timetable == null) return Result<Unit>.Failure("Timetable not found.");
- 
-                 context.Timetables.Remove(timetable);
-                 await context.SaveChangesAsync();
-                 return Result<Unit>.Success(Unit.Value);
-             }
-             catch (Exception e)
-             {
-                 return Result<Unit>.Failure(e.Message);
-             }
-         }
-     }
-    
+                _context.Timetables.Remove(timetable);
+                await _context.SaveChangesAsync();
+                return Result<Unit>.Success(Unit.Value);
+            }
+            catch (Exception e)
+            {
+                return Result<Unit>.Failure(e.Message);
+            }
+        }
+    }
 }
-

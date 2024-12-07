@@ -13,13 +13,8 @@ namespace TimeTable.Controllers
     public class TimetablesController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult<TimetableDto>> CreateTimetable([FromBody] CreateTimetableCommand command)
+        public async Task<ActionResult<TimetableDto>> Create([FromBody] CreateTimetableCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var result = await mediator.Send(command);
 
             if (!result.IsSuccess)
@@ -61,9 +56,9 @@ namespace TimeTable.Controllers
         }
  
         [HttpGet("byRoom")]
-        public async Task<ActionResult<TimetableDto>> GetTimetableByRoom([FromQuery] Guid id, [FromQuery] string roomName)
+        public async Task<ActionResult<TimetableDto>> GetTimetableByRoom([FromQuery] Guid id, [FromQuery] Guid roomId)
         {
-            var result = await mediator.Send(new GetTimetableByRoomQuery { Id = id, RoomName = roomName });
+            var result = await mediator.Send(new GetTimetableByRoomQuery { Id = id, RoomId = roomId });
 
             if (!result.IsSuccess)
             {
@@ -74,9 +69,9 @@ namespace TimeTable.Controllers
         }
         
         [HttpGet("byGroup")]
-        public async Task<ActionResult<TimetableDto>> GetTimetableByGroup([FromQuery] Guid id, [FromQuery] string groupName)
+        public async Task<ActionResult<TimetableDto>> GetTimetableByGroup([FromQuery] Guid id, [FromQuery] Guid groupId)
         {
-            var result = await mediator.Send(new GetTimetableByGroupQuery { Id = id, GroupName = groupName });
+            var result = await mediator.Send(new GetTimetableByGroupQuery { Id = id, GroupId = groupId });
        
             if (!result.IsSuccess)
             {

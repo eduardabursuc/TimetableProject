@@ -3,18 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext
-{
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
-    public DbSet<User> Users { get; init; }
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+{ 
+      public DbSet<User> Users { get; init; }
     public DbSet<Constraint> Constraints { get; init; }
     public DbSet<Professor> Professors { get; init; }
     public DbSet<Course> Courses { get; init; }
     public DbSet<Group> Groups { get; init; }
     public DbSet<Room> Rooms { get; init; }
     public DbSet<Timetable> Timetables { get; init; }
-    public DbSet<Timeslot> Timeslots { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -130,46 +127,46 @@ public class ApplicationDbContext : DbContext
                     .HasForeignKey(e => e.UserEmail)
                     .OnDelete(DeleteBehavior.Cascade);
         });
-
-
-
-        // Configure Timetable ownership
+        
+        // Configure Timetable
         modelBuilder.Entity<Timetable>(entity =>
         {
             entity.ToTable("timetables");
             entity.HasKey(e => e.Id);
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
-            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.Id)
+                  .ValueGeneratedNever();
+
+            entity.Property(e => e.Name)
+                  .IsRequired()
+                  .HasMaxLength(200);
+
+            entity.Property(e => e.CreatedAt)
+                  .IsRequired();
 
             entity.HasOne<User>()
                   .WithMany()
                   .HasForeignKey(e => e.UserEmail)
                   .OnDelete(DeleteBehavior.Cascade);
-
-            entity.OwnsMany(e => e.Timeslots, timeslot =>
+            
+            // Configure Events within Timetable
+            entity.OwnsMany(e => e.Events, eventEntity =>
             {
-                timeslot.ToTable("timeslots");
-                timeslot.HasKey(e => new { e.TimetableId, e.Time, e.Day, e.RoomName });
+                eventEntity.ToTable("events");
+                eventEntity.HasKey(e => e.Id );
 
-                timeslot.Property(e => e.TimetableId).IsRequired();
-                timeslot.Property(e => e.Day).IsRequired();
-                timeslot.Property(e => e.Time).IsRequired();
-                timeslot.Property(e => e.RoomName).IsRequired();
+                eventEntity.Property(e => e.GroupId).IsRequired();
+                eventEntity.Property(e => e.EventName).IsRequired();
+                eventEntity.Property(e => e.CourseId).IsRequired();
+                eventEntity.Property(e => e.RoomId).IsRequired();
+                eventEntity.Property(e => e.ProfessorId).IsRequired();
+                eventEntity.Property(e => e.Duration);
 
-                timeslot.OwnsOne(e => e.Event, e =>
+                // Configure Timeslot within Event
+                eventEntity.OwnsOne(e => e.Timeslot, timeslot =>
                 {
-                    e.Property(ev => ev.GroupId).HasColumnName("GroupId");  
-                    e.Property(ev => ev.Group).HasColumnName("Group");
-                    e.Property(ev => ev.EventName).HasColumnName("EventName");
-                    e.Property(ev => ev.CourseId).HasColumnName("CourseId");
-                    e.Property(ev => ev.CourseName).HasColumnName("CourseName");
-                    e.Property(ev => ev.CourseCredits).HasColumnName("CourseCredits");
-                    e.Property(ev => ev.CoursePackage).HasColumnName("CoursePackage");
-                    e.Property(ev => ev.ProfessorId).HasColumnName("ProfessorId");
-                    e.Property(ev => ev.ProfessorName).HasColumnName("ProfessorName");
-                    e.Property(ev => ev.WeekEvenness).HasColumnName("WeekEvenness");
+                    timeslot.Property(t => t.Day).IsRequired().HasMaxLength(50);
+                    timeslot.Property(t => t.Time).IsRequired().HasMaxLength(50);
                 });
             });
         });
@@ -223,6 +220,7 @@ public class ApplicationDbContext : DbContext
             entity.HasOne<Room>()
                   .WithMany()
                   .HasForeignKey(e => e.WantedRoomId)
+                  .OnDelete(DeleteBehavior.Cascade)
                   .IsRequired(false);
         });
     }

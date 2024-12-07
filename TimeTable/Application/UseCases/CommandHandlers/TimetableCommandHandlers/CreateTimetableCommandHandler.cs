@@ -15,11 +15,14 @@ namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
         {
             instance.Timeslots = request.Timeslots;
             instance.Events = request.Events;
+            Console.WriteLine("Creating timetable");
             var timetableGenerator = new TimetableGenerator(request.UserEmail, instance, roomRepository, groupRepository, professorRepository, courseRepository, constraintRepository);
             try
             {
                 var timetable = timetableGenerator.GenerateBestTimetable(out var solution);
-                timetable.CreatedAt = DateTime.Now;
+                timetable.CreatedAt = DateTime.Now.ToUniversalTime();
+                timetable.Name = request.Name;
+                timetable.UserEmail = request.UserEmail;
                 await repository.AddAsync(timetable);
                 return Result<Guid>.Success(timetable.Id);
             } catch (Exception e)

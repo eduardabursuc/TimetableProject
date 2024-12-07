@@ -64,6 +64,7 @@ public class MappingProfile : Profile
         CreateMap<CreateCourseCommand, Course>().ReverseMap();
         CreateMap<UpdateCourseCommand, Course>().ReverseMap();
         CreateMap<Timetable, TimetableDto>().ReverseMap();
+        CreateMap<CreateTimetableCommand, Timetable>().ReverseMap();
         CreateMap<UpdateTimetableCommand, Timetable>().ReverseMap();
         CreateMap<DeleteCourseCommand, Course>();
         CreateMap<Room, RoomDto>().ReverseMap();

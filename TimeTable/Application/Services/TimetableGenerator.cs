@@ -14,7 +14,6 @@ namespace Application.Services
         IConstraintRepository constraintRepository,
         Guid? timetableId = null)
     {
-        private readonly IGroupRepository _groupRepository = groupRepository;
 
         public Timetable GenerateBestTimetable(out Dictionary<Event, (Room, Timeslot)> bestSolution)
         {
@@ -47,8 +46,8 @@ namespace Application.Services
             foreach (var ev in instance.Events)
             {
                 var possibleRooms = roomRepository.GetAllAsync(userEmail).Result?.Data ?? new List<Room>();
-                var splitTimeslots = SplitTimeslots(instance.Timeslots, ev.TimeInterval);
-                HardConstraintValidator hardValidator = new(courseRepository);
+                var splitTimeslots = SplitTimeslots(instance.Timeslots, ev.Duration);
+                HardConstraintValidator hardValidator = new(courseRepository, groupRepository);
                 
                 var domain = (from room in possibleRooms
                     from timeslot in splitTimeslots
@@ -91,31 +90,48 @@ namespace Application.Services
         }
 
 
+
         private bool ValidateHardConstraints(Event ev, Room room, Timeslot timeslot, Dictionary<Event, (Room, Timeslot)> currentSolution)
         {
-            var hardValidator = new HardConstraintValidator(courseRepository);
+            var hardValidator = new HardConstraintValidator(courseRepository, groupRepository);
 
-            // Validate the basic constraints
-            if (!hardValidator.ValidateRoomCapacity(room, ev.EventName))
-                return false;
-
-            // Validate NoOverlap and GroupOverlap constraints
+            // Check for overlap with existing assignments
             foreach (var (assignedEvent, (assignedRoom, assignedTimeslot)) in currentSolution)
             {
-                if (!hardValidator.ValidateNoOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)) ||
-                    !hardValidator.ValidateGroupOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)))
+                // Check room and timeslot overlap
+                var roomsAreEqual = room.Id == assignedRoom.Id;
+                var timeslotsOverlap = 
+                    timeslot.Day == assignedTimeslot.Day &&
+                    (timeslot.Time.StartsWith(assignedTimeslot.Time.Split(" - ")[0]) ||
+                     timeslot.Time.Split(" - ")[1].StartsWith(assignedTimeslot.Time.Split(" - ")[0]));
+
+                // Only allow assignments where both room and timeslot don't overlap
+                if (roomsAreEqual && timeslotsOverlap)
+                {
+                    return false;
+                }
+
+                // Check group overlap
+                if (!hardValidator.ValidateGroupOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)))
                 {
                     return false;
                 }
             }
 
+            // If no conflicts, the assignment is valid
             return true;
         }
 
 
-        private List<TimetableSolution> GenerateAllPossibleTimetables(Dictionary<Event, List<(Room, Timeslot)>> variables)
+        private bool IsAssignmentConsistent(Event ev, (Room, Timeslot) value, Dictionary<Event, (Room, Timeslot)> assignment)
         {
-            var solutions = new List<TimetableSolution>();
+            return ValidateHardConstraints(ev, value.Item1, value.Item2, assignment);
+        }
+
+
+        private List<ScoredTimetable> GenerateAllPossibleTimetables(Dictionary<Event, List<(Room, Timeslot)>> variables)
+        {
+            var solutions = new List<ScoredTimetable>();
             GenerateSolutionsRecursive(variables, new Dictionary<Event, (Room, Timeslot)>(), solutions);
             return solutions;
         }
@@ -123,11 +139,11 @@ namespace Application.Services
         private void GenerateSolutionsRecursive(
             Dictionary<Event, List<(Room, Timeslot)>> variables,
             Dictionary<Event, (Room, Timeslot)> currentSolution,
-            List<TimetableSolution> solutions)
+            List<ScoredTimetable> solutions)
         {
             if (currentSolution.Count == variables.Count)
             {
-                solutions.Add(new TimetableSolution
+                solutions.Add(new ScoredTimetable()
                 {
                     Assignment = new Dictionary<Event, (Room, Timeslot)>(currentSolution),
                     Score = 0 // Will be computed later
@@ -136,7 +152,11 @@ namespace Application.Services
             }
 
             var unassigned = variables.Keys.First(ev => !currentSolution.ContainsKey(ev));
-            foreach (var value in variables[unassigned].Where(value => IsAssignmentConsistent(unassigned, value, currentSolution)))
+    
+            // Filter the domain of unassigned events based on consistency check
+            var validDomain = variables[unassigned].Where(value => IsAssignmentConsistent(unassigned, value, currentSolution)).ToList();
+
+            foreach (var value in validDomain)
             {
                 currentSolution[unassigned] = value;
                 GenerateSolutionsRecursive(variables, currentSolution, solutions);
@@ -144,13 +164,9 @@ namespace Application.Services
             }
         }
 
-        private bool IsAssignmentConsistent(Event ev, (Room, Timeslot) value, Dictionary<Event, (Room, Timeslot)> assignment)
-        {
-            return ValidateHardConstraints(ev, value.Item1, value.Item2, assignment);
-        }
 
 
-        private List<ScoredTimetable> ScoreTimetables(List<TimetableSolution> solutions)
+        private List<ScoredTimetable> ScoreTimetables(List<ScoredTimetable> solutions)
         {
             var scoredSolutions = new List<ScoredTimetable>();
             const int hardWeight = 10;
@@ -195,7 +211,7 @@ namespace Application.Services
                 return 0;
             }
             
-            var softValidator = new SoftConstraintValidator(instance);
+            var softValidator = new SoftConstraintValidator(courseRepository);
 
             var constraints = constraintRepository.GetAllAsync(timetableId.Value).Result?.Data ?? new List<Constraint>();
 
@@ -209,26 +225,17 @@ namespace Application.Services
             foreach (var (ev, value) in solution)
             {
                 var (room, timeslot) = value;
-
-                var course = courseRepository.GetByIdAsync(ev.CourseId).Result?.Data;
-                ev.CoursePackage = course?.Package ?? "";
-                ev.CourseCredits = course?.Credits ?? 0;
-                ev.ProfessorName = professorRepository.GetByIdAsync(ev.ProfessorId).Result?.Data?.Name ?? "";
-                timeslot.Event = ev;
-                timeslot.RoomName = room.Name;
-                timeslot.TimetableId = timetable.Id;
-                timetable.Timeslots.Add(timeslot);
+                Console.WriteLine($"{ev.EventName} - {ev.CourseId} - {room} - {timeslot}");
+                ev.RoomId = room.Id;
+                ev.Timeslot = timeslot;
+                ev.TimetableId = timetable.Id;
+                timetable.Events.Add(ev);
             }
 
             return timetable;
         }
     }
-
-    public class TimetableSolution
-    {
-        public Dictionary<Event, (Room, Timeslot)> Assignment { get; init; } = new();
-        public int Score { get; set; }
-    }
+    
 
     public class ScoredTimetable
     {

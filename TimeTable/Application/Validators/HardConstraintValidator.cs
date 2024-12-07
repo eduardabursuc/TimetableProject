@@ -3,13 +3,14 @@ using Domain.Repositories;
 
 namespace Application.Validators;
 
-public class HardConstraintValidator(ICourseRepository repository)
+public class HardConstraintValidator(ICourseRepository courseRepo, IGroupRepository groupRepo)
 {
     
-    public bool ValidateNoOverlap(Event event1, Event event2, (Room, Timeslot) value1, (Room, Timeslot) value2)
+    public bool ValidateNoOverlap((Room, Timeslot) value1, (Room, Timeslot) value2)
     {
-        return event1.CourseName != event2.CourseName || value1.Item2 != value2.Item2 || value1.Item1 != value2.Item1;
+        return value1.Item1 != value2.Item1 || value1.Item2 != value2.Item2;
     }
+
     
     public bool ValidateRoomCapacity(Room room, string eventName)
     {
@@ -24,10 +25,13 @@ public class HardConstraintValidator(ICourseRepository repository)
 
     public bool ValidateGroupOverlap(Event event1, Event event2, (Room, Timeslot) value1, (Room, Timeslot) value2)
     {
-        if (!IsSameOrNestedGroup(event1.Group, event2.Group)) return true;
+        var group1 = groupRepo.GetByIdAsync(event1.GroupId).Result.Data;
+        var group2 = groupRepo.GetByIdAsync(event2.GroupId).Result.Data;
+        
+        if (!IsSameOrNestedGroup(group1.Name, group2.Name)) return true;
 
-        var course1 = repository.GetByIdAsync(event1.CourseId).Result;
-        var course2 = repository.GetByIdAsync(event1.CourseId).Result;
+        var course1 = courseRepo.GetByIdAsync(event1.CourseId).Result;
+        var course2 = courseRepo.GetByIdAsync(event1.CourseId).Result;
 
         if (!course1.IsSuccess || !course2.IsSuccess) return true;
 
