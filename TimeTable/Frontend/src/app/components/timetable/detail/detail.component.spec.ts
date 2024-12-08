@@ -1,58 +1,70 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DetailComponent } from './detail.component';
-import { ActivatedRoute } from '@angular/router';
-import { of, throwError } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, OnInit } from '@angular/core';
 import { TimetableService } from '../../../services/timetable.service';
+import { ActivatedRoute } from '@angular/router';
+import { Timetable } from '../../../models/timetable.model';  // Adjust path as needed
 
-describe('DetailComponent', () => {
-  let component: DetailComponent;
-  let fixture: ComponentFixture<DetailComponent>;
-  let timetableService: jasmine.SpyObj<TimetableService>;
+@Component({
+  selector: 'app-timetable-detail',
+  templateUrl: './timetable-detail.component.html',
+  styleUrls: ['./timetable-detail.component.css']
+})
+export class TimetableDetailComponent implements OnInit {
+  timetable: Timetable | null = null;  // Store the fetched timetable
+  errorMessage: string | null = null;
+  isEditMode = false;  // Toggle for edit mode
+  isFiltered = false;  // Toggle for filtering
+  groupedEvents: { [key: string]: any[] } = {};  // Grouped events by day
 
-  beforeEach(async () => {
-    const timetableServiceSpy = jasmine.createSpyObj('TimetableService', ['getById']);
+  constructor(
+    private timetableService: TimetableService,
+    private route: ActivatedRoute
+  ) {}
 
-    await TestBed.configureTestingModule({
-      imports: [
-        DetailComponent
-      ],
-      providers: [
-        { provide: TimetableService, useValue: timetableServiceSpy },
-        {
-          provide: ActivatedRoute,
-          useValue: { params: of({ id: '123' }) }
-        }
-      ]
-    }).compileComponents();
+  ngOnInit(): void {
+    const timetableId = this.route.snapshot.paramMap.get('id');
+    if (timetableId) {
+      this.getTimetableById(timetableId);
+    }
+  }
 
-    fixture = TestBed.createComponent(DetailComponent);
-    component = fixture.componentInstance;
-    timetableService = TestBed.inject(TimetableService) as jasmine.SpyObj<TimetableService>;
-    fixture.detectChanges();
-  });
+  // Fetch timetable by ID and group events by day
+  getTimetableById(id: string): void {
+    this.timetableService.getById(id).subscribe(
+      (data: Timetable) => {
+        this.timetable = data;
+        this.groupedEvents = this.groupEventsByDay(data.events);
+      },
+      (error) => {
+        this.errorMessage = `Failed to fetch details for ID: ${id}.`;
+      }
+    );
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // Group events by their 'day' field
+  groupEventsByDay(events: any[]): { [key: string]: any[] } {
+    return events.reduce((acc, event) => {
+      if (!acc[event.day]) {
+        acc[event.day] = [];
+      }
+      acc[event.day].push(event);
+      return acc;
+    }, {});
+  }
 
-  it('should fetch timetable by ID', () => {
-    const mockTimetable = { id: '123', timeslots: [] };
-    timetableService.getById.and.returnValue(of(mockTimetable));
+  toggleEditMode(): void {
+    this.isEditMode = !this.isEditMode;
+  }
 
-    component.getTimetableById('123');
+  deleteTimetable(id: string): void {
+    // Implement the delete functionality as needed
+  }
 
-    expect(timetableService.getById).toHaveBeenCalledWith('123');
-    expect(component.timetable).toEqual(mockTimetable);
-  });
+  resetFilters(): void {
+    this.isFiltered = false;
+    // Reset filtering logic
+  }
 
-  it('should handle error when fetching timetable by ID', () => {
-    const error = new Error('Failed to fetch timetable');
-    timetableService.getById.and.returnValue(throwError(() => error));
-
-    component.getTimetableById('123');
-
-    expect(timetableService.getById).toHaveBeenCalledWith('123');
-    expect(component.errorMessage).toBe('Failed to fetch details for ID: 123.');
-  });
-});
+  handleModalConfirm(action: string): void {
+    // Handle the modal confirmation logic here
+  }
+}

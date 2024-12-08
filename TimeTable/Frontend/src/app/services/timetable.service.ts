@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Timetable } from '../models/timetable.model';
+import { Course } from '../models/course.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,16 +10,18 @@ import { Observable } from 'rxjs';
 export class TimetableService {
   //private apiUrl = 'https://timetablegenerator.best/api/v1/timetables';
 
-  private apiUrl = 'http://localhost:5000/api/v1/timetables';
+  private apiUrl = 'http://localhost:5088/api/v1/timetables';
   constructor(private http: HttpClient) {}
 
   create(data: { Events: any[] }): Observable<{ id: string }> {
     return this.http.post<{ id: string }>(this.apiUrl, data);
   }
 
-  getAll(): Observable<Timetable[]> {
-    return this.http.get<Timetable[]>(`${this.apiUrl}`);
+  getAll(userEmail: string): Observable<Timetable[]> {
+    const params = new HttpParams().set('userEmail', userEmail);
+    return this.http.get<Timetable[]>(`${this.apiUrl}`, { params });
   }
+  
 
   getById(id: string): Observable<Timetable> {
     return this.http.get<Timetable>(`${this.apiUrl}/${id}`);
@@ -59,4 +62,5 @@ export class TimetableService {
       .set('pageSize', pageSize.toString());
     return this.http.get<Timetable[]>(`${this.apiUrl}/paginated`, { params });
   }
+
 }

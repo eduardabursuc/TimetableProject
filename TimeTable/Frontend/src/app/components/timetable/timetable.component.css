@@ -9,12 +9,7 @@
 }
 
 .main-container {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 600px;
-  width: 100%;
+  min-height: 80vh;
 }
 
 /* Top Section */
@@ -115,3 +110,66 @@
 .add-button:hover {
   background-color: #218838;
 }
+
+.timetable-card {
+  display: flex;
+  flex-direction: row; /* Display horizontally */
+  align-items: center; /* Align items in a row */
+  padding: 10px 30px;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
+  font-size: 1em;
+  border: 1px lightblue solid;
+  border-radius: 5px;
+  background-color: #dee7ef;
+}
+
+button {
+  padding: 12px 25px;
+  background: #71a5c6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  align-self: center;
+}
+
+button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+.pagination-controls {
+  margin: auto;
+  margin-bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generate-button {
+  margin-right: 0;
+  margin-left: 55%;
+  position: fixed;
+  margin-top: 2%;
+  padding: 15px 25px;
+  background-color: #0056b3;
+}
+
+.generate-button:hover {
+  background-color: #002955;
+}
+
+.timetable-list {
+  margin-top: 5%;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+

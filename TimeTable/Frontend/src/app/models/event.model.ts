@@ -1,10 +1,18 @@
+import { Timeslot } from './timeslot.model';
+
 export interface Event {
-    group: string;
+    timetableId: string;
+    groupId: string;
     eventName: string;
-    courseName: string;
+    courseId: string;
     professorId: string;
     weekEvenness: boolean;
+    duration: number;
+    group: string;
+    coursePackage: number;
+    courseName: string;
+    roomId: string;
+    roomName: string;
     professorName: string;
-    courseCredits: number;
-    coursePackage: string;
+    timeslot: Timeslot;
   }

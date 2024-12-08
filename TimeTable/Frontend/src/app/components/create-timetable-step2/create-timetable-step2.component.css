@@ -15,38 +15,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: #f8f9fa;
-}
-
-/* Main content area */
-.main-content {
-  padding: 0px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  flex-grow: 1;
-  margin-left: 20%;
-  width: 80%;
-  height: 100%;
-}
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-  width: 100%;
-  min-width: calc(100% - 240px);
-  max-width: calc(100% - 240px);
-  height: auto;
-  padding: 50px 80px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  margin: 20px;
 }
 
 /* Title and Subtitle styles */
@@ -61,18 +29,18 @@ h1.title {
   margin-bottom: 1em;
 }
 
-h2.subtitle {
+h2.subtitle{
   font-size: 1.8em;
   color: #34495e;
   margin-bottom: 1.5em;
-  margin-left: 3.5em;
+  margin-left: 2em;
 }
 
 .event-subtitle, .added-events-header, .event-card {
   font-size: 1.3em;
   color: #34495e;
   margin-bottom: 1.5em;
-  margin-left: 5em;
+  margin-left: 20%;
 }
 
 .event-subtitle{
@@ -97,16 +65,20 @@ h2.added-events-header {
   flex-direction: row; /* Display horizontally */
   align-items: center; /* Align items in a row */
   gap: 20px; /* Space between the day and the time interval */
-  padding: 10px 0;
-  width: 100%;
+  padding: 10px 30px;
+  width: 65%;
   margin-left: 10em;
-  font-size: 1em;
+  justify-content: space-between;
+  font-size: 0.8em;
+  border: 1px lightblue solid;
+  border-radius: 5px;
+  background-color: #dee7ef;
 }
 
 .subtitle {
   padding-bottom: 30px;
   border-bottom: 1px solid black;
-  width: 82%;
+  width: 86%;
 }
 
 /* Selection wrapper */
@@ -114,30 +86,30 @@ h2.added-events-header {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center everything except event-subtitle */
-  gap: 20px; /* Space between the select fields */
+  gap: 30px; /* Space between the select fields */
   width: 100%;
 }
 
 .selection-wrapper .event-subtitle {
   margin-left: 0; /* No left margin for the event subtitle */
   text-align: left; /* Align the subtitle to the left */
-  width: 70%; /* Make sure the subtitle takes up full width */
+  width: 80%; /* Make sure the subtitle takes up full width */
 }
 
 /* Select group layout */
 .select-group {
   display: flex;
   align-items: center; /* Align items horizontally */
-  gap: 10px; /* Space between the label and the select/input */
+  gap: 30px; /* Space between the label and the select/input */
   width: 100%; /* Ensure it spans the full width */
-  max-width: 400px; /* Optional: limit the width of the select group */
+  max-width: 600px; /* Optional: limit the width of the select group */
 }
 
 label {
   font-weight: bold;
   color: #34495e;
   font-size: 1.3em;
-  width: 150px;
+  width: 50%;
 }
 
 select, input[type="number"] {
@@ -209,7 +181,7 @@ select:focus, input[type="number"]:focus {
   background: none;
   border: none;
   color: #e74c3c;
-  font-size: 1.5em;
+  font-size: 2em;
   cursor: pointer;
   transition: color 0.3s;
   margin-left: 10px;
@@ -223,7 +195,7 @@ select:focus, input[type="number"]:focus {
   background: none;
   border: none;
   color: #2980b9;
-  font-size: 1.5em;
+  font-size: 2em;
   cursor: pointer;
   transition: color 0.3s;
   margin-left: 10px;
@@ -235,18 +207,53 @@ select:focus, input[type="number"]:focus {
 
 .generate-button {
   padding: 12px 25px;
-  background: #2980b9;
+  background: #71a5c6;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 2em;
+  font-size: 1.5em;
   cursor: pointer;
   transition: background 0.3s, transform 0.3s;
-  margin-top: 50px;
-  margin-right: 50px;
   align-self: flex-end;
 }
 
+.select-events {
+  -webkit-appearance: none; /* Remove default styling on Safari/Chrome */
+  -moz-appearance: none; /* Remove default styling on Firefox */
+  appearance: none; /* Standardized appearance reset */
+  border: 1px solid #ccc; /* Light border for visibility */
+  border-radius: 4px; /* Rounded corners */
+  padding: 8px 12px; /* Spacing for text inside */
+  background: none; /* No background color */
+  font-size: 16px; /* Comfortable font size */
+  color: #333; /* Text color */
+  cursor: pointer; /* Pointer cursor for interactive feel */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth interaction effect */
+}
+
+.select-events:focus {
+  border-color: #007bff; /* Highlight border on focus */
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* Subtle focus glow */
+  outline: none; /* Remove focus outline */
+}
+
+.select-events option {
+  background-color: white; /* White background for options */
+  color: #333; /* Text color for options */
+  padding: 8px; /* Space around option text */
+}
+
+/* Optional: Style the wrapper for consistent alignment */
+.select-group label {
+  display: block;
+  margin-bottom: 4px; /* Space between label and select */
+  font-weight: bold; /* Highlight the label */
+  color: #555; /* Softer label color */
+}
+
+input {
+  padding-left: 15px;
+}
 
 /* Responsive styles */
 @media (max-width: 600px) {

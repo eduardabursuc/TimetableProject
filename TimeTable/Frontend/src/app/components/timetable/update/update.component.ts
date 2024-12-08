@@ -41,12 +41,12 @@ export class UpdateComponent {
       return false;
     }
 
-    if (!Array.isArray(timetable.timeslots) || timetable.timeslots.length === 0) {
+    if (!Array.isArray(timetable.events) || timetable.events.length === 0) {
       console.error('Timetable must contain at least one timeslot.');
       return false;
     }
 
-    for (const timeslot of timetable.timeslots) {
+    for (const timeslot of timetable.events) {
       if (!this.validateTimeslot(timeslot)) {
         console.error('Invalid timeslot found in timetable:', timeslot);
         return false;
