@@ -69,6 +69,7 @@ export class CreateTimetableStep2Component implements OnInit {
   
     this.http.get<Course[]>(`${this.apiUrl}/courses?userEmail=${userEmail}`).subscribe(
       (data) => this.courses = data,
+      
       (error) => console.error("Error loading courses: ", error)
     );
   
@@ -94,18 +95,21 @@ export class CreateTimetableStep2Component implements OnInit {
     }
   
     const newEvent = {
-      course: this.selectedCourse.courseId,
-      professor: this.selectedProfessor.id,
-      group: this.selectedGroup.id,
+      course: this.selectedCourse.courseName,
+      courseId: this.selectedCourse.id,  
+      professor: this.selectedProfessor.name,
+      professorId: this.selectedProfessor.id,
+      group: this.selectedGroup.name,
+      groupId: this.selectedGroup.id,
       duration: this.eventDuration,
       type: this.eventType
     };
   
     // Check if the event already exists
     const existingEvent = this.addedEvents.find(event =>
-      event.courseId === newEvent.course &&
-      event.professorId === newEvent.professor &&
-      event.groupId === newEvent.group &&
+      event.course === newEvent.course &&
+      event.professor === newEvent.professor &&
+      event.group === newEvent.group &&
       event.duration === newEvent.duration &&
       event.type === newEvent.type
     );
@@ -241,6 +245,7 @@ export class CreateTimetableStep2Component implements OnInit {
       day: interval.day,
       time: `${interval.startTime} - ${interval.endTime}`
     }));
+
   
     // Construct the body
     const requestBody = {
@@ -256,12 +261,12 @@ export class CreateTimetableStep2Component implements OnInit {
       timeslots: timeslots 
     };
 
-    console.log(requestBody.events[0]);
   
     // Make the POST request
      this.http.post(`${this.apiUrl}/timetables`, requestBody).subscribe(
        response => {
          console.log('Timetable generated successfully:', response);
+         // localStorage.clear();
          this.router.navigate(['/generate-timetable']); // Navigate after success
        },
        error => {

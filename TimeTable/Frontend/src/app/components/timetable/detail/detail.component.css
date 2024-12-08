@@ -16,6 +16,11 @@
     font-size: 18px;
     font-weight: bold;
   }
+
+  .timetable-table {
+    margin-top: 30px;
+    width: 100%;
+  }
   
   .button-group {
     display: flex;
@@ -57,14 +62,17 @@
   .detail-container table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
+    margin-top: 30px;
   }
   
   .detail-container th,
   .detail-container td {
     border: 1px solid #ddd;
-    padding: 8px;
     text-align: left;
+  }
+
+  .detail-container tr {
+    width: 100%;
   }
   
   .detail-container th {
@@ -73,10 +81,7 @@
     text-transform: uppercase;
     font-size: 14px;
   }
-  
-  .detail-container tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+
   
   .detail-container tbody tr:hover {
     background-color: #f1f1f1;
@@ -97,4 +102,21 @@
   
   .detail-container td {
     vertical-align: middle;
+  }
+
+  .day-column {
+    padding: 15px;
+  }
+
+  .event-column {
+    padding: 0;
+  }
+
+  .event-component {
+    padding: 5px;
+    margin: 0px;
+  }
+
+  #evenness {
+    width: 20px;
   }

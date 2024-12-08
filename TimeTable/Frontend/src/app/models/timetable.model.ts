@@ -1,7 +1,10 @@
 import { Timeslot } from './timeslot.model';
+import { Event } from './event.model';
 
 export interface Timetable {
-  owner: string;
+  userEmail: string;
   id: string;
-  timeslots: Timeslot[];
+  name: string;
+  createdAt: Date;
+  events: any[];
 }
