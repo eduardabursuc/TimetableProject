@@ -6,7 +6,7 @@ import { Group } from '../models/group.model';
 @Injectable({
   providedIn: 'root'
 })
-export class GroupsService {
+export class GroupService {
   private apiUrl = 'http://localhost:5088/api/v1/groups';
 
   constructor(private http: HttpClient) {}

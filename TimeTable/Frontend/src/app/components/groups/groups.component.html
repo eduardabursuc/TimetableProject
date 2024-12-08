@@ -1,0 +1,10 @@
+<div class="group-page">
+    <app-table
+      [data]="groups"
+      [columns]="columns"
+      [entityTemplate]="emptyGroup"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+      (delete)="onDelete($event)"
+    ></app-table>
+  </div>

@@ -6,7 +6,7 @@ import { Room } from '../models/room.model';
 @Injectable({
   providedIn: 'root'
 })
-export class RoomsService {
+export class RoomService {
   private apiUrl = 'http://localhost:5088/api/v1/rooms';
 
   constructor(private http: HttpClient) {}

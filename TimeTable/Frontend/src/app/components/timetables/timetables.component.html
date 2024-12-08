@@ -1,0 +1,10 @@
+<div class="timetable-page">
+    <app-table
+      [data]="timetables"
+      [columns]="columns"
+      [entityTemplate]="emptyTimetable"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+      (delete)="onDelete($event)"
+    ></app-table>
+  </div>

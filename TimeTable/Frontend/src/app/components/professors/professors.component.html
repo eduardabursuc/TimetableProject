@@ -1,0 +1,10 @@
+<div class="professor-page">
+    <app-table
+      [data]="professors"
+      [columns]="columns"
+      [entityTemplate]="emptyProfessor"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+      (delete)="onDelete($event)"
+    ></app-table>
+  </div>

@@ -23,7 +23,10 @@
     
     <div class="modal-actions">
       <button *ngIf="showCancelButton" class="cancel-button" (click)="cancel()">Cancel</button>
-      <button class="confirm-button" (click)="confirm()" [disabled]="isInputRequired && !inputValue.trim()">Confirm</button>
+      <button 
+        class="confirm-button" 
+        (click)="confirm()" 
+        [disabled]="isInputRequired && !inputValue.trim()">Confirm</button>
     </div>
   </div>
 </div>

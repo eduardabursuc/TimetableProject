@@ -31,7 +31,7 @@ export class TimetableComponent implements OnInit {
   }
 
   fetchAllTimetables(): void {
-    this.timetableService.getAll().subscribe({
+    this.timetableService.getAll("admin@gmail.com").subscribe({
       next: (response) => {
         this.timetables = response;
       },

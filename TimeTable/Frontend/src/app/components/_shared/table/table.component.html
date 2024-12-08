@@ -1,0 +1,73 @@
+<div class="table-container">
+  <!-- Search Bar and Create Button -->
+  <div class="header-container">
+    <div class="search-container">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search..."
+        (input)="onSearch()"
+      />
+    </div>
+    <button
+      class="create-button"
+      (click)="startCreate()"
+      [disabled]="isCreating"
+      title="Add New Entry"
+    >
+      +
+    </button>
+  </div>
+
+  <!-- Entity Table -->
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns" (click)="sortBy(col.field)">
+          {{ col.label }}
+          <!-- Show sorting direction indicator -->
+          <span *ngIf="sortField === col.field">
+            {{ sortDirection === 'asc' ? '↑' : '↓' }}
+          </span>
+        </th>
+        <th *ngIf="showActions || isCreating">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entity of filteredData">
+        <td *ngFor="let col of columns">
+          <ng-container *ngIf="entity !== editingEntity && entity !== newEntity">
+            {{ entity[col.field] }}
+          </ng-container>
+          <ng-container *ngIf="entity === editingEntity || entity === newEntity">
+            <input
+              [(ngModel)]="entity[col.field]"
+              [placeholder]="col.label"
+              required
+            />
+          </ng-container>
+        </td>
+        <td *ngIf="showActions || isCreating" class="actions">
+          <ng-container *ngIf="entity !== newEntity && entity !== editingEntity">
+            <button (click)="startEdit(entity)" class="update-button">
+              Update
+            </button>
+            <button (click)="onDelete(entity)" class="delete-button">
+              Delete
+            </button>
+          </ng-container>
+          <ng-container *ngIf="entity === newEntity">
+            <button (click)="finishCreate()" class="done-button">Done</button>
+            <button (click)="cancelCreate()" class="cancel-button">
+              Cancel
+            </button>
+          </ng-container>
+          <ng-container *ngIf="entity === editingEntity">
+            <button (click)="finishUpdate()" class="done-button">Save</button>
+            <button (click)="cancelEdit()" class="cancel-button">Cancel</button>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

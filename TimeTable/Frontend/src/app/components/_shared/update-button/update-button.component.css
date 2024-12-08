@@ -1,0 +1,21 @@
+.update-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .update-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .update-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }

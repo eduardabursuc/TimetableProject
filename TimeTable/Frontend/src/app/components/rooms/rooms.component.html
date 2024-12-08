@@ -1,0 +1,10 @@
+<div class="room-page">
+    <app-table
+      [data]="rooms"
+      [columns]="columns"
+      [entityTemplate]="emptyRoom"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+      (delete)="onDelete($event)"
+    ></app-table>
+  </div>
