@@ -65,6 +65,9 @@ void ConfigureHttpPipeline(WebApplication app)
 
     // Enable the CORS policy
     app.UseCors("AllowAngularApp");
+    
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     app.MapControllers(); // Maps controller routes
 }

@@ -9,7 +9,6 @@ namespace Application.Services
         Instance instance,
         IRoomRepository roomRepository,
         IGroupRepository groupRepository,
-        IProfessorRepository professorRepository,
         ICourseRepository courseRepository,
         IConstraintRepository constraintRepository,
         Guid? timetableId = null)
@@ -100,6 +99,7 @@ namespace Application.Services
             {
                 // Check room and timeslot overlap
                 var roomsAreEqual = room.Id == assignedRoom.Id;
+                var professorsAreEqual = ev.ProfessorId == assignedEvent.ProfessorId;
                 var timeslotsOverlap = 
                     timeslot.Day == assignedTimeslot.Day &&
                     (timeslot.Time.StartsWith(assignedTimeslot.Time.Split(" - ")[0]) ||
@@ -107,6 +107,16 @@ namespace Application.Services
 
                 // Only allow assignments where both room and timeslot don't overlap
                 if (roomsAreEqual && timeslotsOverlap)
+                {
+                    return false;
+                }
+                
+                if (roomsAreEqual && professorsAreEqual)
+                {
+                    return false;
+                }
+                
+                if (professorsAreEqual && timeslotsOverlap)
                 {
                     return false;
                 }

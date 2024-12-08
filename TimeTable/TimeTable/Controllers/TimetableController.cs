@@ -3,6 +3,7 @@ using Application.UseCases.Commands.TimetableCommands;
 using Application.UseCases.Queries.TimetableQueries;
 using Application.Utils;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers

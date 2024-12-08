@@ -1,24 +1,33 @@
-﻿using System.Text;
-using Domain.Repositories;
-using Infrastructure.Persistence;
-using Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Domain.Entities;
+using Domain.Repositories;
+using Identity.Repositories;
+using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure
+namespace Identity
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {
+            // Use the existing ApplicationDbContext for Identity
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Infrastructure")));
-            
+                    b => b.MigrationsAssembly("Identity")));
+
+            // Add Identity services
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Add Authentication with JWT Bearer
             var key = Encoding.ASCII.GetBytes("NeMmhbO1OQUb9BcUgsywIIBdTaxx56pxK7P6ZuTvw6Q=");
             services.AddAuthentication(options =>
                 {
@@ -37,12 +46,6 @@ namespace Infrastructure
                     };
                 });
 
-            services.AddScoped<IConstraintRepository, ConstraintRepository>();
-            services.AddScoped<IProfessorRepository, ProfessorRepository>();
-            services.AddScoped<ICourseRepository, CourseRepository>();
-            services.AddScoped<ITimetableRepository, TimetableRepository>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             return services;

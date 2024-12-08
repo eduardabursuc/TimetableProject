@@ -76,5 +76,7 @@ public class MappingProfile : Profile
         CreateMap<UpdateRoomCommand, Room>().ReverseMap();
         CreateMap<DeleteRoomCommand, Room>().ReverseMap();
         
+        CreateMap<User, UserDto>().ReverseMap();
+        
     }
 }
