@@ -40,8 +40,7 @@ export class LoginComponent implements OnInit {
         console.log('Login successful, token:', response.token);
 
         // Store the token in localStorage and cookies
-        localStorage.setItem('authToken', response.token);
-        this.cookieService.set('authToken', response.token, 1); // Set token with an expiration time of 1 day
+        this.cookieService.set('authToken', response.token, 1);
 
         // Navigate to /timetable
         this.router.navigate(['/timetable']);

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class SidebarMenuComponent {
   currentRoute: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cookieService: CookieService) {
     this.router.events.subscribe(() => {
       this.updateSelectedRoute();
     });
@@ -31,5 +32,10 @@ export class SidebarMenuComponent {
       return this.currentRoute.includes('timetable');
     }
     return this.currentRoute === route;  // Default case for exact matches
+  }
+
+  logout(): void {
+    this.cookieService.delete("authToken");
+    this.router.navigate(['/login']);
   }
 }

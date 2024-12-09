@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { Group } from '../../models/group.model';   
 import { Professor } from '../../models/professor.model';
+import { TimetableService } from '../../services/timetable.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { DayInterval } from '../../models/day-interval.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-timetable-step2',
@@ -28,6 +30,7 @@ export class CreateTimetableStep2Component implements OnInit {
   selectedGroup: Group | null = null;
   eventDuration: number = 1;
   eventType: string = 'course';
+  token: string = '';
 
   isModalVisible: boolean = false;
   modalTitle: string = '';
@@ -35,7 +38,7 @@ export class CreateTimetableStep2Component implements OnInit {
   inputValue: string = '';
   inputPlaceholder: string = '';
   isInputRequired: boolean = false;
-  modalType: 'add' | 'delete' | 'generate' | 'edit' | null = null; // Added 'edit'
+  modalType: 'add' | 'delete' | 'generate' | 'edit' | 'error' | null = null; // Added 'edit'
   eventToDelete: any = null;
   eventToEdit: any = null;
   showCancelButton: boolean = true;
@@ -44,9 +47,15 @@ export class CreateTimetableStep2Component implements OnInit {
 
   private apiUrl = 'http://localhost:5088/api/v1';
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private cookieService: CookieService, private timetableService: TimetableService) { }
 
   ngOnInit(): void {
+
+    this.token = this.cookieService.get('authToken');
+    if (this.token == '') {
+      this.router.navigate(['/login']);
+    }
+
     this.fetchData();
     // Load added events from localStorage if available
     if (this.isLocalStorageAvailable()) {
@@ -260,19 +269,26 @@ export class CreateTimetableStep2Component implements OnInit {
       })),
       timeslots: timeslots 
     };
-
   
-    // Make the POST request
-     this.http.post(`${this.apiUrl}/timetables`, requestBody).subscribe(
-       response => {
-         console.log('Timetable generated successfully:', response);
-         // localStorage.clear();
-         this.router.navigate(['/generate-timetable']); // Navigate after success
-       },
-       error => {
-         console.error('Error generating timetable:', error);
-       }
-     );
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    
+    // Make the POST request with headers
+    this.http.post(`${this.apiUrl}/timetables`, requestBody, { headers }).subscribe(
+      response => {
+        console.log('Timetable generated successfully:', response);
+        // localStorage.clear();
+        this.router.navigate(['/timetable']); // Navigate after success
+      },
+      error => {
+        this.isModalVisible = true;
+        this.modalTitle = 'Creating error';
+        this.modalMessage = error;
+        this.modalType = 'error';
+        console.error('Error generating timetable:', error);
+      }
+    );
 
   }
 

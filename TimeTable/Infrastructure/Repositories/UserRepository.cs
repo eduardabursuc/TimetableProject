@@ -35,14 +35,21 @@ namespace Infrastructure.Repositories
             // Generate JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]!);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.Role, existingUser.AccountType)
+            };
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity([new Claim(ClaimTypes.Name, user.Email)]),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
-
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return Result<string>.Success(tokenHandler.WriteToken(token));
 

@@ -6,7 +6,6 @@ import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { GroupService } from '../../../services/group.service';
 import { Timetable } from '../../../models/timetable.model';
-import { UpdateComponent } from '../update/update.component';
 import { Timeslot } from '../../../models/timeslot.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +17,7 @@ import { GenericModalComponent } from '../../generic-modal/generic-modal.compone
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  imports: [UpdateComponent, CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent],
+  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent],
 })
 export class DetailComponent implements OnInit {
   timetable: Timetable | null = null;

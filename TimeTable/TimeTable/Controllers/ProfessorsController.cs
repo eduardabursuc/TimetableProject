@@ -2,6 +2,7 @@ using Application.DTOs;
 using Application.UseCases.Commands.ProfessorCommands;
 using Application.UseCases.Queries.ProfessorQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
