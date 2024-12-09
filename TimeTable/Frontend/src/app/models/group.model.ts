@@ -1,5 +1,4 @@
 export interface Group {
-    userEmail: string;
     id: string;
     name: string;
 }

@@ -1,7 +1,7 @@
 /* General body styles */
 body {
   font-family: 'Lora', serif; /* Elegant and professional font */
-  background-color: #ffffff; /* Light pastel gray for a clean background */
+  background-color: #ebeaea; /* Light pastel gray for a clean background */
   color: #2c3e50; /* Muted navy blue text for readability */
   margin: 0;
   padding: 0;
@@ -16,7 +16,7 @@ body {
 .sidebar {
   width: 20%;
   background-color: #b5d3e6; /* Soft pastel blue for sidebar */
-  color: #646366; /* Neutral gray text for contrast */
+  color: #4e4d4f; /* Neutral gray text for contrast */
   display: flex;
   flex-direction: column;
   padding: 0; /* Remove all padding for the sidebar */
@@ -52,14 +52,14 @@ body {
 
 /* Selected Menu Item */
 .menu-item.selected, .menu-my-account.selected {
-  background-color: #f8f9fa; /* Light gray background for selected item */
+  background-color: #ebeaea; /* Light gray background for selected item */
   color: #5a5a5a; /* Slightly darker gray for contrast */
   font-weight: bold;
 }
 
 /* Hover effect on menu item */
 .menu-item:hover, .menu-my-account:hover {
-  background-color: #ffffff; /* White background for hover state */ /* Soft lift effect */
+  background-color: #ebeaea; /* White background for hover state */ /* Soft lift effect */
   color: #2c3e50; /* Darker muted navy for hover */
 
 }

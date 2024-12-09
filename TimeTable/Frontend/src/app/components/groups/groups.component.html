@@ -1,10 +1,13 @@
+<app-sidebar-menu></app-sidebar-menu>
+
 <div class="group-page">
-    <app-table
-      [data]="groups"
-      [columns]="columns"
-      [entityTemplate]="emptyGroup"
-      (create)="onCreate($event)"
-      (update)="onUpdate($event)"
-      (delete)="onDelete($event)"
-    ></app-table>
-  </div>
+  <app-table
+    [data]="groups"
+    [columns]="columns"
+    [entityTemplate]="emptyGroup"
+    [entityType]="'Group'"
+    (create)="onCreate($event)"
+    (update)="onUpdate($event)"
+    (delete)="onDelete($event)"
+  ></app-table>
+</div>

@@ -111,7 +111,7 @@ export class CreateTimetableStep1Component {
   
 
   onBack() {
-    this.router.navigate(['/create-timetable-step2']);
+    this.router.navigate(['/timetable']);
   }
 
   onNext() {

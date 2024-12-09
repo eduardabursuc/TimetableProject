@@ -1,0 +1,10 @@
+.room-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as needed */
+  }
+  
+  .table-container {
+    width: 80%; /* Adjust the width as needed */
+  }

@@ -1,1 +1,11 @@
-<p>courses works!</p>
+<app-sidebar-menu></app-sidebar-menu>
+<div class="room-page">
+    <app-table
+      [data]="courses"
+      [columns]="columns"
+      [entityTemplate]="emptyCourse"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+      (delete)="onDelete($event)"
+    ></app-table>
+  </div>

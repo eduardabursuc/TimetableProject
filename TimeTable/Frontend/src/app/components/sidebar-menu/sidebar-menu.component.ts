@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -10,8 +10,10 @@ export class SidebarMenuComponent {
   currentRoute: string = '';
 
   constructor(private router: Router) {
-    this.router.events.subscribe(() => {
-      this.updateSelectedRoute();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateSelectedRoute();
+      }
     });
   }
 
@@ -26,10 +28,6 @@ export class SidebarMenuComponent {
 
   // Function to check if the route matches the menu item
   isSelected(route: string): boolean {
-    // Special case for "Generate Timetable", it will match /create-timetable-step1 or /create-timetable-step2
-    if (route === '/timetables') {
-      return this.currentRoute.includes('create-timetable-step');
-    }
     return this.currentRoute === route;  // Default case for exact matches
   }
 }

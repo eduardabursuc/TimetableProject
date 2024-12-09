@@ -2,17 +2,21 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CreateButtonComponent } from '../create-button/create-button.component';
+import { UpdateButtonComponent } from '../update-button/update-button.component';
+import { DeleteButtonComponent } from '../delete-button/delete-button.component';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CreateButtonComponent, UpdateButtonComponent, DeleteButtonComponent],
 })
 export class TableComponent<T extends object> {
   @Input() data: T[] = []; // The list of entities to display
   @Input() columns: { field: keyof T; label: string }[] = []; // Column definitions
   @Input() entityTemplate: T | null = null; // Empty entity template for creation
+  @Input() entityType!: 'Course' | 'Professor' | 'Room' | 'Timetable' | 'Group'; // Specify the type of entity
   @Input() showActions = true; // Whether to show action buttons
   @Output() delete = new EventEmitter<T>(); // Emit the entity to delete
   @Output() update = new EventEmitter<T>(); // Emit the entity to update
@@ -99,17 +103,15 @@ export class TableComponent<T extends object> {
       return;
     }
     this.isCreating = true;
-    this.newEntity = { ...this.entityTemplate }; // Clone the template
+    this.newEntity = { ...this.entityTemplate, id: this.generateGuid() }; // Clone the template and generate a GUID for the ID
     this.filteredData.unshift(this.newEntity); // Add it to the table temporarily
   }
 
   /**
    * Emit the create event and reset creation state.
    */
-  finishCreate(): void {
-    if (!this.newEntity) return;
-
-    this.create.emit(this.newEntity);
+  finishCreate(createdEntity: T): void {
+    this.create.emit(createdEntity);
     this.isCreating = false;
     this.newEntity = null; // Reset the new entity
     this.showSnackBar('Entity created successfully.', 'success-snackbar');
@@ -158,6 +160,28 @@ export class TableComponent<T extends object> {
       panelClass: [panelClass],
       horizontalPosition: 'right',
       verticalPosition: 'top',
+    });
+  }
+
+  /**
+   * Handle the event when a new entity is created.
+   * @param createdEntity - The created entity.
+   */
+  onEntityCreated(createdEntity: T): void {
+    this.data.push(createdEntity);
+    this.filteredData = [...this.data];
+    this.showSnackBar('Entity created successfully.', 'success-snackbar');
+  }
+
+  /**
+   * Generate a GUID.
+   * @returns A new GUID string.
+   */
+  private generateGuid(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0,
+        v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
     });
   }
 }

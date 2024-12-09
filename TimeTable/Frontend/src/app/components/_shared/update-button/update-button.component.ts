@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseService } from '../../../services/course.service';
-import { ProfessorsService } from '../../../services/professor.service';
+import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { TimetableService } from '../../../services/timetable.service';
 import { GroupService } from '../../../services/group.service';
@@ -19,7 +19,7 @@ export class UpdateButtonComponent {
 
   constructor(
     private courseService: CourseService,
-    private professorsService: ProfessorsService,
+    private professorService: ProfessorService,
     private roomService: RoomService,
     private timetableService: TimetableService,
     private groupService: GroupService,
@@ -39,19 +39,19 @@ export class UpdateButtonComponent {
 
     switch (this.entityType) {
       case 'Course':
-        serviceCall = this.courseService.update(this.entity.courseName, this.entity);
+        serviceCall = this.courseService.update(this.entity.id, this.entity);
         break;
       case 'Professor':
-        serviceCall = this.professorsService.update(this.entity.id, this.entity);
+        serviceCall = this.professorService.update(this.entity.id, this.entity);
         break;
       case 'Room':
-        serviceCall = this.roomService.update(this.entity.name, this.entity);
+        serviceCall = this.roomService.update(this.entity.id, this.entity);
         break;
       case 'Timetable':
         serviceCall = this.timetableService.update(this.entity.id, this.entity);
         break;
       case 'Group':
-        serviceCall = this.groupService.update(this.entity.name, this.entity);
+        serviceCall = this.groupService.update(this.entity.id, this.entity);
         break;
       default:
         this.showError('Invalid entity type.');

@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../../services/group.service';
 import { Group } from '../../models/group.model';
 import { TableComponent } from '../_shared/table/table.component';
+import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.css'],
-  imports: [TableComponent]
+  imports: [TableComponent, SidebarMenuComponent]
 })
 export class GroupsComponent implements OnInit {
   groups: Group[] = [];
@@ -15,7 +16,7 @@ export class GroupsComponent implements OnInit {
     { field: 'id', label: 'ID' },
     { field: 'name', label: 'Name' },
   ];
-  emptyGroup: Group = { name: '', userEmail: '', id: '' };
+  emptyGroup: Group = { id: '', name: '' };
 
   constructor(private groupService: GroupService) {}
 
@@ -36,13 +37,13 @@ export class GroupsComponent implements OnInit {
   }
 
   onUpdate(updatedGroup: Group): void {
-    this.groupService.update(updatedGroup.name, updatedGroup).subscribe(() => {
+    this.groupService.update(updatedGroup.id, updatedGroup).subscribe(() => {
       this.loadGroups();
     });
   }
 
   onDelete(group: Group): void {
-    this.groupService.delete(group.name).subscribe(() => {
+    this.groupService.delete(group.id).subscribe(() => {
       this.loadGroups();
     });
   }

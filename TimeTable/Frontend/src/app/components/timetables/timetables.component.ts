@@ -15,7 +15,7 @@ export class TimetablesComponent implements OnInit {
     { field: 'id', label: 'ID' },
     { field: 'name', label: 'Name' },
   ];
-  emptyTimetable: Timetable = { id: '', userEmail: '', name: '', events: [] };
+  emptyTimetable: Timetable = { id: '', userEmail: '', name: '', events: [], createdAt: new Date()};
 
   constructor(private timetableService: TimetableService) {}
 

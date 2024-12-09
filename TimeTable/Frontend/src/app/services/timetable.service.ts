@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Timetable } from '../models/timetable.model';
+import { Course } from '../models/course.model';
 import { Observable } from 'rxjs';
 import { PagedResult } from '../models/paged-result.model';
 
@@ -21,12 +22,6 @@ export class TimetableService {
     return this.http.post<{ id: string }>(this.apiUrl, data);
   }
 
-  /**
-   * Update an existing timetable.
-   * @param id - The ID of the timetable to update.
-   * @param timetable - The updated timetable object.
-   * @returns Observable for the update operation.
-   */
   update(id: string, timetable: Timetable): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}`, timetable);
   }
@@ -103,4 +98,5 @@ export class TimetableService {
     const params = new HttpParams().set('page', page.toString()).set('pageSize', pageSize.toString());
     return this.http.get<PagedResult<Timetable>>(`${this.apiUrl}/paginated`, { params });
   }
+
 }

@@ -1,21 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Timetable } from '../../models/timetable.model';
 import { TimetableService } from '../../services/timetable.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
+import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
   styleUrls: ['./timetable.component.css'],
-  imports: [RouterModule, CommonModule],
+  standalone: true, // Marks this as a standalone component
+  imports: [RouterModule, CommonModule, SidebarMenuComponent, GenericModalComponent],
 })
 export class TimetableComponent implements OnInit {
   timetables: Timetable[] = []; // List of all timetables
   currentPage: number = 0; // Current page index
-  pageSize: number = 7; // Number of timetables per page
+  pageSize: number = 4; // Number of timetables per page
 
-  constructor(private timetableService: TimetableService) {}
+  isModalVisible: boolean = false;
+  modalTitle: string = '';
+  modalMessage: string = '';
+  inputValue: string = '';
+  inputPlaceholder: string = '';
+  isInputRequired: boolean = false;
+  modalType: 'add' | 'delete' | 'edit' | null = null;
+  eventToDelete: Timetable | null = null;
+  eventToEdit: Timetable | null = null;
+
+  constructor(private timetableService: TimetableService, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchAllTimetables();
@@ -31,9 +44,10 @@ export class TimetableComponent implements OnInit {
   }
 
   fetchAllTimetables(): void {
-    this.timetableService.getAll("admin@gmail.com").subscribe({
+    this.timetableService.getAll('admin@gmail.com').subscribe({
       next: (response) => {
-        this.timetables = response;
+        // Sort by createdAt in descending order
+        this.timetables = response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       },
       error: (error) => {
         console.error('Failed to fetch timetables:', error);
@@ -51,5 +65,27 @@ export class TimetableComponent implements OnInit {
     if (this.currentPage > 0) {
       this.currentPage--;
     }
+  }
+
+  handleModalConfirm(event: { confirmed: boolean; inputValue?: string }) {
+    if (event.confirmed) {
+      if (this.modalType === 'add') {
+        // Handle add event confirmation if needed
+      } else if (this.modalType === 'delete' && this.eventToDelete) {
+        // Handle delete logic
+      } else if (this.modalType === 'edit' && this.eventToEdit) {
+        // Handle edit logic
+      }
+    }
+    this.isModalVisible = false;
+    this.modalType = null;
+  }
+
+  navigateToDetails(timetableId: string): void {
+    this.router.navigate([`/detail/${timetableId}`]);
+  }
+
+  generateTimetable(): void {
+    this.router.navigate([`/create-timetable-step1`]);
   }
 }

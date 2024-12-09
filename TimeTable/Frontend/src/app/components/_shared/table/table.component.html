@@ -9,14 +9,7 @@
         (input)="onSearch()"
       />
     </div>
-    <button
-      class="create-button"
-      (click)="startCreate()"
-      [disabled]="isCreating"
-      title="Add New Entry"
-    >
-      +
-    </button>
+    <button (click)="startCreate()" [disabled]="isCreating">Add New</button>
   </div>
 
   <!-- Entity Table -->
@@ -49,15 +42,24 @@
         </td>
         <td *ngIf="showActions || isCreating" class="actions">
           <ng-container *ngIf="entity !== newEntity && entity !== editingEntity">
-            <button (click)="startEdit(entity)" class="update-button">
-              Update
-            </button>
-            <button (click)="onDelete(entity)" class="delete-button">
-              Delete
-            </button>
+            <app-update-button
+              [entity]="entity"
+              [entityType]="entityType"
+              (click)="startEdit(entity)"
+            ></app-update-button>
+            <app-delete-button
+              [entity]="entity"
+              [entityType]="entityType"
+              (click)="onDelete(entity)"
+            ></app-delete-button>
           </ng-container>
           <ng-container *ngIf="entity === newEntity">
-            <button (click)="finishCreate()" class="done-button">Done</button>
+            <app-create-button
+              [entity]="newEntity"
+              [entityType]="entityType"
+              [buttonText]="'Done'"
+              (entityCreated)="finishCreate($event)"
+            ></app-create-button>
             <button (click)="cancelCreate()" class="cancel-button">
               Cancel
             </button>

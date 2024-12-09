@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseService } from '../../../services/course.service';
-import { ProfessorsService } from '../../../services/professor.service';
+import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { TimetableService } from '../../../services/timetable.service';
 import { GroupService } from '../../../services/group.service';
@@ -15,13 +15,14 @@ import { Observable } from 'rxjs';
 export class CreateButtonComponent {
   @Input() entity!: any; // The entity to be created
   @Input() entityType!: 'Course' | 'Professor' | 'Room' | 'Timetable' | 'Group'; // Specify the type of entity
+  @Input() buttonText: string = 'Create'; // The text for the button
   @Output() entityCreated = new EventEmitter<any>(); // Emit the created entity
 
   isLoading: boolean = false;
 
   constructor(
     private courseService: CourseService,
-    private professorsService: ProfessorsService,
+    private professorService: ProfessorService,
     private roomService: RoomService,
     private timetableService: TimetableService,
     private groupService: GroupService,
@@ -44,7 +45,7 @@ export class CreateButtonComponent {
         serviceCall = this.courseService.create(this.entity);
         break;
       case 'Professor':
-        serviceCall = this.professorsService.create(this.entity);
+        serviceCall = this.professorService.create(this.entity);
         break;
       case 'Room':
         serviceCall = this.roomService.create(this.entity);

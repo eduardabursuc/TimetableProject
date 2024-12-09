@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/room.model';
 import { TableComponent } from '../_shared/table/table.component';
+import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 
 @Component({
   selector: 'app-rooms',
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.css'],
-  imports: [TableComponent]
+  imports: [TableComponent, SidebarMenuComponent]
 })
 export class RoomsComponent implements OnInit {
   rooms: Room[] = [];
@@ -15,7 +16,7 @@ export class RoomsComponent implements OnInit {
     { field: 'name', label: 'Name' },
     { field: 'capacity', label: 'Capacity' },
   ];
-  emptyRoom: Room = { name: '', capacity: 0, userEmail: '', id: '' };
+  emptyRoom: Room = { name: '', capacity: 0, id: '' };
 
   constructor(private roomService: RoomService) {}
 

@@ -1,0 +1,11 @@
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  button {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }

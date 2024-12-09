@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseService } from '../../../services/course.service';
-import { ProfessorsService } from '../../../services/professor.service';
+import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { TimetableService } from '../../../services/timetable.service';
 import { GroupService } from '../../../services/group.service';
@@ -21,7 +21,7 @@ export class DeleteButtonComponent {
 
   constructor(
     private courseService: CourseService,
-    private professorsService: ProfessorsService,
+    private professorService: ProfessorService,
     private roomService: RoomService,
     private timetableService: TimetableService,
     private groupService: GroupService,
@@ -54,19 +54,19 @@ export class DeleteButtonComponent {
     let serviceCall;
     switch (this.entityType) {
       case 'Course':
-        serviceCall = this.courseService.delete(this.entity.courseName);
+        serviceCall = this.courseService.delete(this.entity.id);
         break;
       case 'Professor':
-        serviceCall = this.professorsService.delete(this.entity.id);
+        serviceCall = this.professorService.delete(this.entity.id);
         break;
       case 'Room':
-        serviceCall = this.roomService.delete(this.entity.name);
+        serviceCall = this.roomService.delete(this.entity.id);
         break;
       case 'Timetable':
         serviceCall = this.timetableService.delete("admin@gmail.com", this.entity.id);
         break;
       case 'Group':
-        serviceCall = this.groupService.delete(this.entity.name);
+        serviceCall = this.groupService.delete(this.entity.id);
         break;
       default:
         this.showError('Invalid entity type.');
