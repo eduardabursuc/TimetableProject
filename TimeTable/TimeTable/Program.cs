@@ -39,6 +39,8 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
     builder.Services.AddControllers(); // Registers services for controllers
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddAuthentication();
+    builder.Services.AddAuthorization();
     
     // Register the CORS policy
     builder.Services.AddCors(options =>
@@ -65,6 +67,9 @@ void ConfigureHttpPipeline(WebApplication app)
 
     // Enable the CORS policy
     app.UseCors("AllowAngularApp");
+    
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     app.MapControllers(); // Maps controller routes
 }

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { DayInterval } from '../../models/day-interval.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-timetable-step1',
@@ -34,7 +35,7 @@ export class CreateTimetableStep1Component {
   isInputRequired: boolean = false;
   showCancelButton: boolean = true;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef, private cookieService: CookieService) {}
 
   getSelectedDay(): DayInterval | undefined {
     return this.days.find(day => day.selected);
@@ -131,7 +132,12 @@ export class CreateTimetableStep1Component {
   }
 
   ngOnInit() {
-    this.loadValidatedIntervals();
+    const token = this.cookieService.get('authToken');
+    if (!token) {
+      this.router.navigate(['/login']);
+    } else {
+      this.loadValidatedIntervals();
+    }
   }
   
   ngDoCheck() {}

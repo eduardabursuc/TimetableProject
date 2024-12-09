@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Timetable } from '../models/timetable.model';
-import { Course } from '../models/course.model';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,28 @@ export class TimetableService {
   //private apiUrl = 'https://timetablegenerator.best/api/v1/timetables';
 
   private apiUrl = 'http://localhost:5088/api/v1/timetables';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  create(data: { Events: any[] }): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(this.apiUrl, data);
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.cookieService.get('token');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  }
+
+  create(data: { userEmail: string, name: string, events: any[], timeslots: any[] }): Observable<{ id: string }> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
+  }
+
+  update(id: string, timetable: Timetable): Observable<void> {
+    const headers = this.getAuthHeaders();
+    return this.http.put<void>(`${this.apiUrl}/${id}`, timetable, { headers });
+  }
+
+  delete(id: string): Observable<void> {
+    const headers = this.getAuthHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
   getAll(userEmail: string): Observable<Timetable[]> {
@@ -22,17 +41,8 @@ export class TimetableService {
     return this.http.get<Timetable[]>(`${this.apiUrl}`, { params });
   }
   
-
   getById(id: string): Observable<Timetable> {
     return this.http.get<Timetable>(`${this.apiUrl}/${id}`);
-  }
-
-  update(id: string, timetable: Timetable): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, timetable);
-  }
-
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
   getByRoom(id: string, roomName: string): Observable<Timetable> {
@@ -56,7 +66,7 @@ export class TimetableService {
     return this.http.get<Timetable>(`${this.apiUrl}/byProfessor`, { params });
   }
 
-  getPaginated(page: number, pageSize: number): Observable<Timetable[]> {
+  getPaginated(userEmail: string, page: number, pageSize: number): Observable<Timetable[]> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());

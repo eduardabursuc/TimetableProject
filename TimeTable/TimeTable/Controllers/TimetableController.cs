@@ -3,6 +3,7 @@ using Application.UseCases.Commands.TimetableCommands;
 using Application.UseCases.Queries.TimetableQueries;
 using Application.Utils;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
@@ -12,6 +13,7 @@ namespace TimeTable.Controllers
     
     public class TimetablesController(IMediator mediator) : ControllerBase
     {
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<TimetableDto>> Create([FromBody] CreateTimetableCommand command)
         {
@@ -29,6 +31,7 @@ namespace TimeTable.Controllers
             );
         }
         
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateTimetable(Guid id, [FromBody] UpdateTimetableCommand command)
         {
@@ -107,6 +110,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteTimetable(string userEmail, Guid id)
         {

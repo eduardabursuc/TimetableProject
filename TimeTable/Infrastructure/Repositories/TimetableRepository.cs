@@ -160,7 +160,7 @@ namespace Infrastructure.Repositories
                 foreach (var incomingEvent in timetable.Events)
                 {
                     var existingEvent = existingTimetable.Events
-                        .FirstOrDefault(e => e.EventName == incomingEvent.EventName);
+                        .FirstOrDefault(e => e.Id == incomingEvent.Id);
 
                     if (existingEvent == null)
                     {
@@ -187,7 +187,7 @@ namespace Infrastructure.Repositories
                 // Remove deleted events
                 foreach (var existingEvent in existingTimetable.Events.ToList())
                 {
-                    if (!timetable.Events.Any(e => e.EventName == existingEvent.EventName))
+                    if (timetable.Events.All(e => e.Id != existingEvent.Id))
                     {
                         existingTimetable.Events.Remove(existingEvent);
                     }

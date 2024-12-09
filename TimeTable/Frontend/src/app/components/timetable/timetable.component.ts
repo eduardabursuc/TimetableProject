@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: 'app-timetable',
@@ -28,10 +29,15 @@ export class TimetableComponent implements OnInit {
   eventToDelete: Timetable | null = null;
   eventToEdit: Timetable | null = null;
 
-  constructor(private timetableService: TimetableService, private router: Router) {}
+  constructor(private timetableService: TimetableService, private router: Router, private cookieService: CookieService) {}
 
   ngOnInit(): void {
-    this.fetchAllTimetables();
+    const token = this.cookieService.get('authToken');
+    if (!token) {
+      this.router.navigate(['/login']);
+    } else {
+      this.fetchAllTimetables();
+    }
   }
 
   get totalPages(): number {

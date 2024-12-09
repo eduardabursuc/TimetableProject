@@ -9,7 +9,6 @@ namespace Application.Services
         Instance instance,
         IRoomRepository roomRepository,
         IGroupRepository groupRepository,
-        IProfessorRepository professorRepository,
         ICourseRepository courseRepository,
         IConstraintRepository constraintRepository,
         Guid? timetableId = null)
