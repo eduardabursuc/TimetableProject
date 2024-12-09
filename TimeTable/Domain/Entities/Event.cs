@@ -8,11 +8,11 @@ public class Event
     public Guid? TimetableId { get; set; }
     public Guid? Id { get; set; }
     
-    public required string EventName { get; init; }
-    public required Guid CourseId { get; init; }
-    public required Guid ProfessorId { get; init; }
-    public required Guid GroupId { get; init; }
-    public required int Duration { get; init; }
+    public required string EventName { get; set; }
+    public required Guid CourseId { get; set; }
+    public required Guid ProfessorId { get; set; }
+    public required Guid GroupId { get; set; }
+    public required int Duration { get; set; }
     
     public Guid? RoomId { get; set; }
     public Timeslot? Timeslot { get; set; } = new Timeslot { Day = "", Time = "" };

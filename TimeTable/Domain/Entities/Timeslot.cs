@@ -4,8 +4,8 @@ namespace Domain.Entities
 {
     public class Timeslot(string day, string time, string? roomName)
     {
-        public required string Day { get; init; } = day;
-        public required string Time { get; init; } = time;
+        public required string Day { get; set; } = day;
+        public required string Time { get; set; } = time;
         
         public Timeslot(string day, string time) : this(day, time, null)
         {

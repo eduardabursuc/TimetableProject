@@ -145,6 +145,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
+                // Fetch the existing timetable with its related entities
                 var existingTimetable = await _context.Timetables
                     .Include(t => t.Events)
                     .ThenInclude(e => e.Timeslot)
@@ -153,10 +154,10 @@ namespace Infrastructure.Repositories
                 if (existingTimetable == null)
                     return Result<Unit>.Failure($"Timetable with ID '{timetable.Id}' not found.");
 
-                // Update main timetable details
-                _context.Entry(existingTimetable).CurrentValues.SetValues(timetable);
+                // 1. Update the main Timetable fields manually
+                existingTimetable.Name = timetable.Name;
 
-                // Sync Events
+                // 2. Update or add Events manually
                 foreach (var incomingEvent in timetable.Events)
                 {
                     var existingEvent = existingTimetable.Events
@@ -164,36 +165,50 @@ namespace Infrastructure.Repositories
 
                     if (existingEvent == null)
                     {
+                        // If this event doesn't exist, add it
                         existingTimetable.Events.Add(incomingEvent);
                     }
                     else
                     {
-                        _context.Entry(existingEvent).CurrentValues.SetValues(incomingEvent);
+                        // Manually update the existing Event
+                        existingEvent.EventName = incomingEvent.EventName;
+                        existingEvent.CourseId = incomingEvent.CourseId;
+                        existingEvent.RoomId = incomingEvent.RoomId;
+                        existingEvent.ProfessorId = incomingEvent.ProfessorId;
+                        existingEvent.Duration = incomingEvent.Duration;
 
+                        // Manually update the Timeslot of the event
                         if (incomingEvent.Timeslot != null)
                         {
                             if (existingEvent.Timeslot == null)
                             {
+                                // If there's no Timeslot, set it
                                 existingEvent.Timeslot = incomingEvent.Timeslot;
                             }
                             else
                             {
-                                _context.Entry(existingEvent.Timeslot).CurrentValues.SetValues(incomingEvent.Timeslot);
+                                // Update the existing Timeslot
+                                existingEvent.Timeslot.Day = incomingEvent.Timeslot.Day;
+                                existingEvent.Timeslot.Time = incomingEvent.Timeslot.Time;
                             }
                         }
                     }
                 }
 
-                // Remove deleted events
-                foreach (var existingEvent in existingTimetable.Events.ToList())
+                // 3. Manually remove Events that should no longer exist (if any)
+                var eventsToRemove = existingTimetable.Events
+                    .Where(e => timetable.Events.All(te => te.Id != e.Id))
+                    .ToList();
+
+                foreach (var eventToRemove in eventsToRemove)
                 {
-                    if (timetable.Events.All(e => e.Id != existingEvent.Id))
-                    {
-                        existingTimetable.Events.Remove(existingEvent);
-                    }
+                    // Mark for deletion manually
+                    _context.Entry(eventToRemove).State = EntityState.Deleted;
                 }
 
+                // 4. Save changes after all updates
                 await _context.SaveChangesAsync();
+
                 return Result<Unit>.Success(Unit.Value);
             }
             catch (Exception e)
@@ -201,7 +216,7 @@ namespace Infrastructure.Repositories
                 return Result<Unit>.Failure(e.Message);
             }
         }
-
+        
         public async Task<Result<Unit>> DeleteAsync(Guid id)
         {
             try
