@@ -26,33 +26,61 @@
     display: flex;
     gap: 12px;
   }
+
+  .generate-button {
+  margin-right: 0;
+  margin-left: 55%;
+  position: fixed;
+  margin-top: 2%;
+  padding: 15px 25px;
+  background-color: #0056b3;
+}
+
+.generate-button:hover {
+  background-color: #002955;
+}
+
   
   .edit-mode-button,
-  .delete-button {
-    padding: 8px 12px;
+  .delete-button, .save-button {
+    padding: 15px 25px;
     font-size: 14px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 2%;
+    margin-right: 0;
     transition: background-color 0.3s ease;
   }
   
   .edit-mode-button {
-    background-color: #007bff;
+    background: #71a5c6;
     color: white;
   }
-  
+
   .edit-mode-button:hover {
-    background-color: #0056b3;
+    background: #3498db;
+    transform: scale(1.05);
+  }
+
+  .save-button {
+    background: #71c6aa;
+    color: white;
+  }
+
+  .save-button:hover {
+    background: #34dbac;
+    transform: scale(1.05);
   }
   
   .delete-button {
-    background-color: #dc3545;
+    background: #71a5c6;
     color: white;
   }
   
   .delete-button:hover {
-    background-color: #c82333;
+    background: #3498db;
+    transform: scale(1.05);
   }
   
   .update-button {

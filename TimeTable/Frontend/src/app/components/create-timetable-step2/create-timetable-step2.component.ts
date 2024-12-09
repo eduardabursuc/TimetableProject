@@ -268,6 +268,7 @@ export class CreateTimetableStep2Component implements OnInit {
          console.log('Timetable generated successfully:', response);
          // localStorage.clear();
          this.router.navigate(['/generate-timetable']); // Navigate after success
+         this.router.navigate([`/detail/${response}`]);
        },
        error => {
          console.error('Error generating timetable:', error);

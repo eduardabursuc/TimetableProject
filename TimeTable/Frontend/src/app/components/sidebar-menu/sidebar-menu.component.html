@@ -4,23 +4,22 @@
 </header>
 
 <div class="sidebar">
-  <div class="menu-item" [class.selected]="isSelected('/timetables')">
+  <div class="menu-item" [class.selected]="isSelected('/timetable')" (click)="navigateTo('/timetable')">
     <i class="fas fa-calendar-alt"></i> Timetables
   </div>
-    <div class="menu-item" [class.selected]="isSelected('/professors')">
-      <i class="fas fa-chalkboard-teacher"></i> Professors
-    </div>
-    <div class="menu-item" [class.selected]="isSelected('/courses')">
-      <i class="fas fa-book"></i> Courses
-    </div>
-    <div class="menu-item" [class.selected]="isSelected('/groups')">
-      <i class="fas fa-users"></i> Groups
-    </div>
-    <div class="menu-item" [class.selected]="isSelected('/rooms')">
-      <i class="fas fa-building"></i> Rooms
-    </div>
-    <div class="menu-my-account" [class.selected]="isSelected('/my-account')">
-      <i class="fas fa-user"></i> My Account
-    </div>
+  <div class="menu-item" [class.selected]="isSelected('/professors')" (click)="navigateTo('/professors')">
+    <i class="fas fa-chalkboard-teacher"></i> Professors
   </div>
-  
+  <div class="menu-item" [class.selected]="isSelected('/courses')" (click)="navigateTo('/courses')">
+    <i class="fas fa-book"></i> Courses
+  </div>
+  <div class="menu-item" [class.selected]="isSelected('/groups')" (click)="navigateTo('/groups')">
+    <i class="fas fa-users"></i> Groups
+  </div>
+  <div class="menu-item" [class.selected]="isSelected('/rooms')" (click)="navigateTo('/rooms')">
+    <i class="fas fa-building"></i> Rooms
+  </div>
+  <div class="menu-my-account" [class.selected]="isSelected('/my-account')" (click)="navigateTo('/my-account')">
+    <i class="fas fa-user"></i> My Account
+  </div>
+</div>

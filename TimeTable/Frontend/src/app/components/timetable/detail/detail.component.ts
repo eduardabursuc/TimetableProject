@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimetableService } from '../../../services/timetable.service';
 import { CourseService } from '../../../services/course.service';
@@ -6,7 +7,6 @@ import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { GroupService } from '../../../services/group.service';
 import { Timetable } from '../../../models/timetable.model';
-import { UpdateComponent } from '../update/update.component';
 import { Timeslot } from '../../../models/timeslot.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,8 @@ import { GenericModalComponent } from '../../generic-modal/generic-modal.compone
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  imports: [UpdateComponent, CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent],
 })
 export class DetailComponent implements OnInit {
   timetable: Timetable | null = null;
@@ -90,10 +91,8 @@ export class DetailComponent implements OnInit {
     });
   }
   
-  // New method to populate course, professor, room, and group details for each event
   populateEventDetails(): void {
     this.filteredEvents.forEach((event) => {
-      // Fetch course details
       this.courseService.getById(event.courseId).subscribe({
         next: (course) => {
           event.courseName = course.courseName;
@@ -104,7 +103,6 @@ export class DetailComponent implements OnInit {
         },
       });
   
-      // Fetch professor details
       this.professorService.getById(event.professorId).subscribe({
         next: (professor) => {
           event.professorName = professor.name;
@@ -114,7 +112,6 @@ export class DetailComponent implements OnInit {
         },
       });
   
-      // Fetch room details
       this.roomService.getById(event.roomId).subscribe({
         next: (room) => {
           event.roomName = room.name;
@@ -124,7 +121,6 @@ export class DetailComponent implements OnInit {
         },
       });
   
-      // Fetch group details
       this.groupService.getById(event.groupId).subscribe({
         next: (group) => {
           event.group = group.name;
@@ -138,7 +134,7 @@ export class DetailComponent implements OnInit {
 
   deleteTimetable(id: string): void {
     if (!id) return;
-    this.timetableService.delete(id).subscribe({
+    this.timetableService.delete('admin@gmail.com', id).subscribe({
       next: () => {
         this.timetable = null;
         this.filteredEvents = [];
@@ -213,30 +209,6 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  handleUpdateResult(message: string): void {
-    alert(message);
-    if (message === 'Timetable updated successfully!') {
-      this.isEditMode = false;
-      this.getTimetableById(this.timetable?.id!);
-    } else {
-      this.errorMessage = message;
-    }
-  }
-
-  handleModalConfirm(event: { confirmed: boolean; inputValue?: string }) {
-    if (event.confirmed) {
-      if (this.modalType === 'add') {
-        // Handle add event confirmation if needed
-      } else if (this.modalType === 'delete' && this.eventToDelete) {
-        // Handle delete logic
-      } else if (this.modalType === 'edit' && this.eventToEdit) {
-        // Handle edit logic
-      }
-    }
-    this.isModalVisible = false;
-    this.modalType = null;
-  }
-
   groupEventsByDay(): void {
     this.groupedEvents = this.filteredEvents.reduce((groups, event) => {
       const day = event.timeslot.day;
@@ -251,4 +223,64 @@ export class DetailComponent implements OnInit {
     this.sortedDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   }
 
+  handleModalConfirm(event: { confirmed: boolean; inputValue?: string }) {
+    if (event.confirmed) {
+      if (this.modalType === 'delete' && this.eventToDelete) {
+        console.log('Preparing to delete timetable with ID:', this.eventToDelete.id);
+        this.deleteTimetable(this.eventToDelete.id!);
+      } else if (this.modalType === 'edit' && this.timetable) {
+        
+        // Remove unnecessary fields from events
+        const updatedTimetable: Timetable = {
+          ...this.timetable,
+          events: this.timetable.events.map(event => {
+            const { courseName, coursePackage, professorName, roomName, group, roomId, groupId, professorId,courseId, eventName, ...rest } = event;
+            return rest;
+          })
+        };
+  
+        // Print the updated timetable data before sending
+        console.log('Timetable data before update:', JSON.stringify(updatedTimetable, null, 2));
+  
+        // Sending update request to API
+        this.timetableService.update(updatedTimetable.id!, updatedTimetable).subscribe({
+          next: (response) => {
+            console.log('Timetable updated successfully', response);
+            console.log('Updated timetable data after successful update:', JSON.stringify(response, null, 2));
+  
+            // Proceed with post-update logic
+            this.isEditMode = false;
+            this.getTimetableById(updatedTimetable.id!);
+            this.router.navigate([`/detail/${updatedTimetable.id}`]);
+          },
+          error: (error) => {
+            console.error('Failed to update timetable:', error);
+            this.errorMessage = 'Failed to update timetable. Please try again.';
+          }
+        });
+      }
+    }
+    // Close modal after handling the confirmation
+    this.isModalVisible = false;
+    this.modalType = null;
+  }  
+  
+
+  
+    
+  showDeleteModal(timetable: Timetable): void {
+    this.eventToDelete = timetable;
+    this.modalTitle = 'Confirm Deletion';
+    this.modalMessage = `Are you sure you want to delete the timetable "${timetable.name}?"`;
+    this.modalType = 'delete';
+    this.isModalVisible = true;
+  }
+
+  showSaveModal(timetable: Timetable): void {
+    this.modalTitle = 'Confirm Saving Changes';
+    this.modalMessage = `Confirm changes for timetable "${timetable.name}?"`;
+    this.modalType = 'edit';
+    this.isModalVisible = true;
+  }
+  
 }

@@ -1,38 +1,60 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Timetable } from '../models/timetable.model';
-import { Course } from '../models/course.model';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimetableService {
-  //private apiUrl = 'https://timetablegenerator.best/api/v1/timetables';
-
   private apiUrl = 'http://localhost:5088/api/v1/timetables';
+  
   constructor(private http: HttpClient) {}
 
   create(data: { Events: any[] }): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(this.apiUrl, data);
+    return this.http.post<{ id: string }>(this.apiUrl, data).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getAll(userEmail: string): Observable<Timetable[]> {
     const params = new HttpParams().set('userEmail', userEmail);
-    return this.http.get<Timetable[]>(`${this.apiUrl}`, { params });
+    return this.http.get<Timetable[]>(`${this.apiUrl}`, { params }).pipe(
+      catchError(this.handleError)
+    );
   }
-  
 
   getById(id: string): Observable<Timetable> {
-    return this.http.get<Timetable>(`${this.apiUrl}/${id}`);
+    return this.http.get<Timetable>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   update(id: string, timetable: Timetable): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, timetable);
+    return this.http.put<void>(`${this.apiUrl}/${id}`, timetable).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  delete(userEmail: string, id: string): Observable<void> {
+    const params = new HttpParams().set('userEmail', userEmail);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { params }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Client-side error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = `Server-side error: ${error.status} ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
 
   getByRoom(id: string, roomName: string): Observable<Timetable> {

@@ -19,17 +19,18 @@ export class SidebarMenuComponent {
     this.updateSelectedRoute();
   }
 
-  // Function to update the current route based on the active URL
   updateSelectedRoute() {
-    this.currentRoute = this.router.url; // Gets the current route URL
+    this.currentRoute = this.router.url;
   }
 
-  // Function to check if the route matches the menu item
   isSelected(route: string): boolean {
-    // Special case for "Generate Timetable", it will match /create-timetable-step1 or /create-timetable-step2
     if (route === '/timetables') {
       return this.currentRoute.includes('timetable');
     }
-    return this.currentRoute === route;  // Default case for exact matches
+    return this.currentRoute === route;
+  }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
   }
 }
