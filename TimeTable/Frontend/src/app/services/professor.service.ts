@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfessorService {
-  //private apiUrl = 'https://timetablegenerator.best/api/v1/professors';
+  private apiUrl = 'https://timetablegenerator.best/api/v1/professors';
 
-  private apiUrl = 'http://localhost:5088/api/v1/professors';
+  //private apiUrl = 'http://localhost:5088/api/v1/professors';
   constructor(private http: HttpClient) {}
 
   create(data: { Events: any[] }): Observable<{ id: string }> {

@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // Check if the token exists in localStorage or cookies
-    const token = localStorage.getItem('authToken') || this.cookieService.get('authToken');
+    const token = this.cookieService.get('authToken');
     if (token) {
       // If token exists, redirect to /timetable
       this.router.navigate(['/timetable']);

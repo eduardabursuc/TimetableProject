@@ -45,7 +45,9 @@ export class CreateTimetableStep2Component implements OnInit {
 
   validatedIntervals: DayInterval[] = [];
 
-  private apiUrl = 'http://localhost:5088/api/v1';
+  private apiUrl = 'https://timetablegenerator.best/api/v1';
+
+  //private apiUrl = 'http://localhost:5088/api/v1';
 
   constructor(private router: Router, private http: HttpClient, private cookieService: CookieService, private timetableService: TimetableService) { }
 

@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GroupService {
-  //private apiUrl = 'https://timetablegenerator.best/api/v1/groups';
+  private apiUrl = 'https://timetablegenerator.best/api/v1/groups';
 
-  private apiUrl = 'http://localhost:5088/api/v1/groups';
+  //private apiUrl = 'http://localhost:5088/api/v1/groups';
   constructor(private http: HttpClient) {}
 
   create(data: { Events: any[] }): Observable<{ id: string }> {

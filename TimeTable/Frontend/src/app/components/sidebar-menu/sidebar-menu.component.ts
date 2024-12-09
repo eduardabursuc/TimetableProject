@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from "ngx-cookie-service";
+import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'app-sidebar-menu',
   templateUrl: './sidebar-menu.component.html',
-  styleUrls: ['./sidebar-menu.component.css']
+  styleUrls: ['./sidebar-menu.component.css'],
+  imports: [GenericModalComponent]
 })
 export class SidebarMenuComponent {
   currentRoute: string = '';
+
+  isModalVisible: boolean = false;
+  modalTitle: string = '';
+  modalMessage: string = '';
 
   constructor(private router: Router, private cookieService: CookieService) {
     this.router.events.subscribe(() => {
@@ -36,6 +42,20 @@ export class SidebarMenuComponent {
 
   logout(): void {
     this.cookieService.delete("authToken");
+    localStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  logoutModal(): void {
+    this.isModalVisible = true;
+    this.modalMessage = "Are you sure you want to log out ?";
+    this.modalTitle = "Logout";
+  }
+
+  handleModalConfirm(event: { confirmed: boolean; inputValue?: string }) {
+    if (event.confirmed) {
+      this.logout();
+    }
+    this.isModalVisible = false;
   }
 }

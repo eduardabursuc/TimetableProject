@@ -9,9 +9,9 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class TimetableService {
-  //private apiUrl = 'https://timetablegenerator.best/api/v1/timetables';
+  private apiUrl = 'https://timetablegenerator.best/api/v1/timetables';
 
-  private apiUrl = 'http://localhost:5088/api/v1/timetables';
+  //private apiUrl = 'http://localhost:5088/api/v1/timetables';
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   private getAuthHeaders(): HttpHeaders {

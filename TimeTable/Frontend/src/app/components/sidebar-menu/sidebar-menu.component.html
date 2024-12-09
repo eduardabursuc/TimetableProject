@@ -21,7 +21,13 @@
     </div>
     <div class="menu-my-account" [class.selected]="isSelected('/my-account')">
       <i class="fas fa-user"></i> My Account
-      <i class="fas fa-sign-out-alt" title="Logout" (click)="logout()"></i>
+      <i class="fas fa-sign-out-alt" title="Logout" (click)="logoutModal()"></i>
     </div>
+    <app-generic-modal 
+    [isVisible]="isModalVisible"
+    [title]="modalTitle"
+    [message]="modalMessage"
+    (confirmEvent)="handleModalConfirm($event)">
+  </app-generic-modal>
   </div>
   

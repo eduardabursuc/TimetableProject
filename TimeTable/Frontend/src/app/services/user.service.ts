@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  //private apiUrl = 'https://timetablegenerator.best/api/auth';
+  private apiUrl = 'https://timetablegenerator.best/api/auth';
 
-  private apiUrl = 'http://localhost:5088/api/auth';
+  //private apiUrl = 'http://localhost:5088/api/auth';
   constructor(private http: HttpClient) {}
 
    // Login method
