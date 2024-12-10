@@ -47,7 +47,7 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
     {
         options.AddPolicy("AllowAngularApp", policy =>
         {
-            policy.WithOrigins("http://localhost:4200")  // Allow frontend origin
+            policy.WithOrigins("*")  // Allow frontend origin
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });

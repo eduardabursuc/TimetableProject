@@ -51,7 +51,6 @@ export class DetailComponent implements OnInit {
   eventToDelete: Timetable | null = null;
   eventToEdit: Timetable | null = null;
 
-  private apiUrl = 'http://localhost:5088/api/v1';
   courses: Course[] = [];        
   professors: Professor[] = [];  
   groups: Group[] = []; 
@@ -283,7 +282,7 @@ export class DetailComponent implements OnInit {
             const professor = this.professors.find(prof => prof.id === event.professorId);
             const room = this.rooms.find(room => room.id === event.roomId);
             const group = this.groups.find(group => group.name === event.group);
-  
+
             const updatedEvent: Event = {
               ...event,
               courseId: course?.id || event.courseId,
