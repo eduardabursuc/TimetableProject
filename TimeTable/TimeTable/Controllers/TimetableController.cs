@@ -112,9 +112,9 @@ namespace TimeTable.Controllers
         
         [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeleteTimetable(string userEmail, Guid id)
+        public async Task<IActionResult> DeleteTimetable(Guid id)
         {
-            var result = await mediator.Send(new DeleteTimetableCommand(userEmail, id));
+            var result = await mediator.Send(new DeleteTimetableCommand(id));
 
             if (result.IsSuccess)
             {

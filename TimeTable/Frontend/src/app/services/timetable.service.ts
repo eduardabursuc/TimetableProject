@@ -15,7 +15,7 @@ export class TimetableService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = this.cookieService.get('token');
+    const token = this.cookieService.get('authToken');
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });

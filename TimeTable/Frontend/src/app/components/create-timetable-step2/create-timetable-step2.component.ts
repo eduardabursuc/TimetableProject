@@ -281,7 +281,7 @@ export class CreateTimetableStep2Component implements OnInit {
       response => {
         console.log('Timetable generated successfully:', response);
         // localStorage.clear();
-        this.router.navigate(['/timetable']); // Navigate after success
+        this.router.navigate([`/detail/${response}`]);
       },
       error => {
         this.isModalVisible = true;
