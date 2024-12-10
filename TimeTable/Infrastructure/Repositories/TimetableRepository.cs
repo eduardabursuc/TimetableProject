@@ -176,6 +176,7 @@ namespace Infrastructure.Repositories
                         existingEvent.RoomId = incomingEvent.RoomId;
                         existingEvent.ProfessorId = incomingEvent.ProfessorId;
                         existingEvent.Duration = incomingEvent.Duration;
+                        existingEvent.GroupId = incomingEvent.GroupId;
 
                         // Manually update the Timeslot of the event
                         if (incomingEvent.Timeslot != null)
