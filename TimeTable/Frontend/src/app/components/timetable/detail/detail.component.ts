@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimetableService } from '../../../services/timetable.service';
 import { CourseService } from '../../../services/course.service';
@@ -6,19 +7,26 @@ import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { GroupService } from '../../../services/group.service';
 import { Timetable } from '../../../models/timetable.model';
+import { Course } from '../../../models/course.model';
+import { Group } from '../../../models/group.model';   
+import { Room } from '../../../models/room.model';   
+import { Professor } from '../../../models/professor.model';
 import { Timeslot } from '../../../models/timeslot.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Event } from '../../../models/event.model';
 import { SidebarMenuComponent } from '../../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../../generic-modal/generic-modal.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent, HttpClientModule],
 })
+
 export class DetailComponent implements OnInit {
   timetable: Timetable | null = null;
   filteredEvents: Timetable['events'] = [];
@@ -43,6 +51,18 @@ export class DetailComponent implements OnInit {
   eventToDelete: Timetable | null = null;
   eventToEdit: Timetable | null = null;
 
+  private apiUrl = 'http://localhost:5088/api/v1';
+  courses: Course[] = [];        
+  professors: Professor[] = [];  
+  groups: Group[] = []; 
+  rooms: Room[] = [];
+  token: string = '';
+  newTime: string = '';
+  endTime: string = ''; 
+  startTime: string = ''; 
+  eventName: string = ''; 
+  eventTypes: string[] = ['Course', 'Laboratory', 'Seminary'];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -50,10 +70,17 @@ export class DetailComponent implements OnInit {
     private courseService: CourseService,
     private professorService: ProfessorService,
     private roomService: RoomService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private http: HttpClient,
+    private cookieService: CookieService
   ) {}
 
   ngOnInit(): void {
+    this.token = this.cookieService.get('authToken');
+    if (this.token == '') {
+      this.router.navigate(['/login']);
+    }
+
     this.route.params.subscribe((params) => {
       const id = params['id'];
       if (!id) {
@@ -62,11 +89,31 @@ export class DetailComponent implements OnInit {
       }
       this.getTimetableById(id);
     });
+
+    this.fetchData();
   }
+
+  fetchData() { 
+    const userEmail = 'admin@gmail.com'; 
+    this.courseService.getAll(userEmail)
+    .subscribe( (data) => this.courses = data, (error) => console.error("Error loading courses: ", error) );
+
+    this.professorService.getAll(userEmail)
+    .subscribe( (data) => this.professors = data, (error) => console.error("Error loading professors: ", error) ); 
+    
+    this.groupService.getAll(userEmail)
+    .subscribe( (data) => this.groups = data, (error) => console.error("Error loading groups: ", error) ); 
+    
+    this.roomService.getAll(userEmail)
+    .subscribe( (data) => this.rooms = data, (error) => console.error("Error loading rooms: ", error) ); 
+  
+  }
+
 
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
   }
+  
 
   getTimetableById(id: string): void {
     this.timetableService.getById(id).subscribe({
@@ -89,10 +136,8 @@ export class DetailComponent implements OnInit {
     });
   }
   
-  // New method to populate course, professor, room, and group details for each event
   populateEventDetails(): void {
     this.filteredEvents.forEach((event) => {
-      // Fetch course details
       this.courseService.getById(event.courseId).subscribe({
         next: (course) => {
           event.courseName = course.courseName;
@@ -103,7 +148,6 @@ export class DetailComponent implements OnInit {
         },
       });
   
-      // Fetch professor details
       this.professorService.getById(event.professorId).subscribe({
         next: (professor) => {
           event.professorName = professor.name;
@@ -113,7 +157,6 @@ export class DetailComponent implements OnInit {
         },
       });
   
-      // Fetch room details
       this.roomService.getById(event.roomId).subscribe({
         next: (room) => {
           event.roomName = room.name;
@@ -123,7 +166,6 @@ export class DetailComponent implements OnInit {
         },
       });
   
-      // Fetch group details
       this.groupService.getById(event.groupId).subscribe({
         next: (group) => {
           event.group = group.name;
@@ -139,6 +181,7 @@ export class DetailComponent implements OnInit {
     if (!id) return;
     this.timetableService.delete(id).subscribe({
       next: () => {
+        console.log('Timetable deleted successfully');
         this.timetable = null;
         this.filteredEvents = [];
         this.errorMessage = null;
@@ -146,10 +189,11 @@ export class DetailComponent implements OnInit {
       },
       error: (error) => {
         this.errorMessage = 'Failed to delete timetable. Please try again.';
-        console.error(error);
+        console.error('Server error:', error);
       },
     });
   }
+  
 
   filterByField(field: keyof Timeslot | keyof Event, value: any): void {
     if (this.isEditMode) return;
@@ -212,30 +256,6 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  handleUpdateResult(message: string): void {
-    alert(message);
-    if (message === 'Timetable updated successfully!') {
-      this.isEditMode = false;
-      this.getTimetableById(this.timetable?.id!);
-    } else {
-      this.errorMessage = message;
-    }
-  }
-
-  handleModalConfirm(event: { confirmed: boolean; inputValue?: string }) {
-    if (event.confirmed) {
-      if (this.modalType === 'add') {
-        // Handle add event confirmation if needed
-      } else if (this.modalType === 'delete' && this.eventToDelete) {
-        // Handle delete logic
-      } else if (this.modalType === 'edit' && this.eventToEdit) {
-        // Handle edit logic
-      }
-    }
-    this.isModalVisible = false;
-    this.modalType = null;
-  }
-
   groupEventsByDay(): void {
     this.groupedEvents = this.filteredEvents.reduce((groups, event) => {
       const day = event.timeslot.day;
@@ -250,4 +270,82 @@ export class DetailComponent implements OnInit {
     this.sortedDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   }
 
+  
+  handleModalConfirm(event: { confirmed: boolean; inputValue?: string }): void {
+    if (event.confirmed) {
+      if (this.modalType === 'delete' && this.eventToDelete) {
+        this.deleteTimetable(this.eventToDelete.id!);
+      } else if (this.modalType === 'edit' && this.timetable) {
+        const updatedTimetable: Timetable = {
+          ...this.timetable,
+          events: this.timetable.events.map(event => {
+            const course = this.courses.find(course => course.id === event.courseId);
+            const professor = this.professors.find(prof => prof.id === event.professorId);
+            const room = this.rooms.find(room => room.id === event.roomId);
+            const group = this.groups.find(group => group.name === event.group);
+  
+            const updatedEvent: Event = {
+              ...event,
+              courseId: course?.id || event.courseId,
+              roomId: room?.id || event.roomId,
+              professorId: professor?.id || event.professorId,
+              groupId: group?.id || event.groupId,
+              weekEvenness: event.weekEvenness,
+              courseName: course?.courseName || event.courseName,
+              roomName: room?.name || event.roomName,
+              professorName: professor?.name || event.professorName,
+              group: group?.name || event.group,
+              timeslot: {
+                ...event.timeslot,
+                day: event.timeslot.day,
+                time: `${event.timeslot.startTime}-${event.timeslot.endTime}`
+              }
+            };
+            return updatedEvent;
+          })
+        };
+  
+        // Print the updated timetable data before sending
+        console.log('Timetable data before update:', JSON.stringify(updatedTimetable, null, 2));
+  
+        // Sending update request to API
+        this.timetableService.update(updatedTimetable.id!, updatedTimetable).subscribe({
+          next: (response) => {
+            console.log('Timetable updated successfully', response);
+            console.log('Updated timetable data after successful update:', JSON.stringify(response, null, 2));
+  
+            // Proceed with post-update logic
+            this.isEditMode = false;
+            this.getTimetableById(updatedTimetable.id!);
+            this.router.navigate([`/detail/${updatedTimetable.id}`]);
+          },
+          error: (error) => {
+            console.error('Failed to update timetable:', error);
+            this.errorMessage = 'Failed to update timetable. Please try again.';
+          }
+        });
+      }
+    }
+  
+    this.isEditMode = false;
+    this.isModalVisible = false;
+    this.modalType = null;
+  }  
+  
+  
+  showDeleteModal(timetable: Timetable): void {
+    this.eventToDelete = timetable;
+    this.modalTitle = 'Confirm Deletion';
+    this.modalMessage = `Are you sure you want to delete the timetable "${timetable.name}?"`;
+    this.modalType = 'delete';
+    this.isModalVisible = true;
+  }
+
+  showSaveModal(timetable: Timetable): void {
+    this.modalTitle = 'Confirm Saving Changes';
+    this.modalMessage = `Confirm changes for timetable "${timetable.name}?"`;
+    this.modalType = 'edit';
+    this.isModalVisible = true;
+  }
+  
 }

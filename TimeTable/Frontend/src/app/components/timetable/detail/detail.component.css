@@ -1,122 +1,159 @@
 .detail-container {
-    margin: 0 auto;
-    width: 90%;
-    max-width: 1200px;
-  }
-  
-  .header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .timetable-id {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
-  }
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px;
+}
 
-  .timetable-table {
-    margin-top: 30px;
-    width: 100%;
-  }
-  
-  .button-group {
-    display: flex;
-    gap: 12px;
-  }
-  
-  .edit-mode-button,
-  .delete-button {
-    padding: 8px 12px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .edit-mode-button {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .edit-mode-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .delete-button {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .delete-button:hover {
-    background-color: #c82333;
-  }
-  
-  .update-button {
-    display: inline-block;
-  }
-  
-  .detail-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-  }
-  
-  .detail-container th,
-  .detail-container td {
-    border: 1px solid #ddd;
-    text-align: left;
-  }
 
-  .detail-container tr {
-    width: 100%;
-  }
-  
-  .detail-container th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
-  }
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
 
-  
-  .detail-container tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .detail-container input[type="text"],
-  .detail-container select {
-    width: 95%;
-    padding: 6px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .detail-container select {
-    background-color: #fff;
-  }
-  
-  .detail-container td {
-    vertical-align: middle;
-  }
+.timetable-id {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
 
-  .day-column {
-    padding: 15px;
-  }
+.timetable-table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  .event-column {
-    padding: 0;
-  }
+.button-group {
+  display: flex;
+  gap: 12px;
+}
 
-  .event-component {
-    padding: 5px;
-    margin: 0px;
-  }
+.generate-button {
+  margin-right: 0;
+  margin-left: 55%;
+  position: fixed;
+  margin-top: 2%;
+  padding: 15px 25px;
+  background-color: #0056b3;
+  transition: background-color 0.3s ease;
+}
 
-  #evenness {
-    width: 20px;
-  }
+.generate-button:hover {
+  background-color: #002955;
+}
+
+.edit-mode-button,
+.delete-button,
+.save-button {
+  padding: 15px 25px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 2%;
+  margin-right: 0;
+  transition: background-color 0.3s ease;
+}
+
+.edit-mode-button {
+  background: #71a5c6;
+  color: white;
+}
+
+.edit-mode-button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+.save-button {
+  background: #71c6aa;
+  color: white;
+}
+
+.save-button:hover {
+  background: #34dbac;
+  transform: scale(1.05);
+}
+
+.delete-button {
+  background: #c67171;
+  color: white;
+}
+
+.delete-button:hover {
+  background: #db344a;
+  transform: scale(1.05);
+}
+
+.detail-container table,
+.detail-container th,
+.detail-container td {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.detail-container th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.detail-container tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.detail-container input[type="text"],
+.detail-container select {
+  width: 95%;
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.detail-container select {
+  background-color: #fff;
+}
+
+.detail-container td {
+  vertical-align: middle;
+}
+
+.day-column {
+  padding: 15px;
+}
+
+.event-component {
+  width: 150px;
+  min-height: 50px;
+  height: auto;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  overflow-wrap: break-word;
+}
+
+.event-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+#evenness {
+  width: 20px;
+}
+
+.time-inputs {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  gap: 5px; /* Space between elements */
+}
+
+.time-selector {
+  display: flex;
+  flex-direction: column;
+}
