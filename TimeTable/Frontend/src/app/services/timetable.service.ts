@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+<<<<<<< Updated upstream
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+=======
+import { HttpClient, HttpParams, HttpHeaders, HttpClientModule } from '@angular/common/http';
+>>>>>>> Stashed changes
 import { Timetable } from '../models/timetable.model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -12,11 +16,40 @@ export class TimetableService {
   
   constructor(private http: HttpClient) {}
 
+<<<<<<< Updated upstream
   create(data: { Events: any[] }): Observable<{ id: string }> {
     return this.http.post<{ id: string }>(this.apiUrl, data).pipe(
       catchError(this.handleError)
     );
+=======
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.cookieService.get('authToken');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
   }
+
+  create(data: { userEmail: string, name: string, events: any[], timeslots: any[] }): Observable<{ id: string }> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
+  }
+
+  update(id: string, timetable: Timetable): Observable<void> {
+    const headers = this.getAuthHeaders();
+    return this.http.put<void>(`${this.apiUrl}/${id}`, timetable, { headers });
+  }
+
+  delete(userEmail: string, id: string): Observable<void> {
+    const headers = this.getAuthHeaders();
+    const params = new HttpParams().set('userEmail', userEmail);
+    console.log('Headers:', headers);
+    console.log('Params:', params);
+    const url = `${this.apiUrl}/${id}`; 
+    console.log('URL:', url); 
+    return this.http.delete<void>(url, { headers, params });
+>>>>>>> Stashed changes
+  }
+  
 
   getAll(userEmail: string): Observable<Timetable[]> {
     const params = new HttpParams().set('userEmail', userEmail);

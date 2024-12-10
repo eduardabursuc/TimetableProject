@@ -262,6 +262,7 @@ export class CreateTimetableStep2Component implements OnInit {
     };
 
   
+<<<<<<< Updated upstream
     // Make the POST request
      this.http.post(`${this.apiUrl}/timetables`, requestBody).subscribe(
        response => {
@@ -274,6 +275,27 @@ export class CreateTimetableStep2Component implements OnInit {
          console.error('Error generating timetable:', error);
        }
      );
+=======
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    
+    // Make the POST request with headers
+    this.http.post(`${this.apiUrl}/timetables`, requestBody, { headers }).subscribe(
+      response => {
+        console.log('Timetable generated successfully:', response);
+        // localStorage.clear();
+        this.router.navigate([`/detail/${response}`]); // Navigate after success
+      },
+      error => {
+        this.isModalVisible = true;
+        this.modalTitle = 'Creating error';
+        this.modalMessage = error;
+        this.modalType = 'error';
+        console.error('Error generating timetable:', error);
+      }
+    );
+>>>>>>> Stashed changes
 
   }
 

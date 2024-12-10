@@ -24,10 +24,18 @@ export class SidebarMenuComponent {
   }
 
   isSelected(route: string): boolean {
+<<<<<<< Updated upstream
     if (route === '/timetables') {
       return this.currentRoute.includes('timetable');
     }
     return this.currentRoute === route;
+=======
+    return this.currentRoute === route;  // Default case for exact matches
+>>>>>>> Stashed changes
+  }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
   }
 
   navigateTo(route: string) {

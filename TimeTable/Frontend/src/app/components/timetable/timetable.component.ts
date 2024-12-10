@@ -10,7 +10,6 @@ import { GenericModalComponent } from '../generic-modal/generic-modal.component'
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
   styleUrls: ['./timetable.component.css'],
-  standalone: true, // Marks this as a standalone component
   imports: [RouterModule, CommonModule, SidebarMenuComponent, GenericModalComponent],
 })
 export class TimetableComponent implements OnInit {

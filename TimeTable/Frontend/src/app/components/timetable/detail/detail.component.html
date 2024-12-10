@@ -1,22 +1,23 @@
+<<<<<<< Updated upstream
 <header>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
 </header>
 
+=======
+>>>>>>> Stashed changes
 <div class="timetable-wrapper">
-  <!-- Sidebar -->
   <app-sidebar-menu></app-sidebar-menu>
-
-  <!-- Main Content -->
   <div class="main-content">
     <div class="main-container">
       <h1 class="title">Timetable Details</h1>
-      
+
       <div class="detail-container">
         <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
         <div *ngIf="timetable; else noTimetable">
           <div class="header-row">
+<<<<<<< Updated upstream
             <p class="timetable-id"><strong>Name:</strong> 
               <input 
                 *ngIf="isEditMode" 
@@ -24,12 +25,21 @@
                 type="text" 
                 class="editable-input"
               />
+=======
+            <p class="timetable-id">
+              <strong>Name: </strong>
+              <input *ngIf="isEditMode" [(ngModel)]="timetable.name" type="text" class="editable-input" />
+>>>>>>> Stashed changes
               <span *ngIf="!isEditMode">{{ timetable.name }}</span>
             </p>
             <div class="button-group">
               <button *ngIf="isEditMode" (click)="showSaveModal(timetable)" class="save-button">
                 Save Changes
+<<<<<<< Updated upstream
               </button>              
+=======
+              </button>
+>>>>>>> Stashed changes
               <button (click)="toggleEditMode()" class="edit-mode-button">
                 {{ isEditMode ? 'Cancel Edit' : 'Edit Timetable' }}
               </button>
@@ -42,6 +52,7 @@
             </div>
           </div>
 
+<<<<<<< Updated upstream
           <table class="timetable-table">
             <tbody>
               <!-- Loop through each day -->
@@ -128,6 +139,99 @@
               </tr>
             </tbody>
           </table>
+=======
+          <div class="table-responsive">
+            <table class="timetable-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Course Name</th>
+                  <th>Event Type</th>
+                  <th>Professor Name</th>
+                  <th>Room Name</th>
+                  <th>Group</th>
+                  <th>Evenness</th>
+                  <th *ngIf="!isEditMode">Course Package</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let event of filteredEvents">
+                  <td class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.timeslot.day }}</span>
+                    <select *ngIf="isEditMode" [(ngModel)]="event.timeslot.day" class="editable-select">
+                      <option *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']" [value]="day">{{ day }}</option>
+                    </select>
+                  </td>
+
+                  <td class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.timeslot.time }}</span>
+                    <div *ngIf="isEditMode" class="time-inputs">
+                      <div class="time-selector">
+                        <label>Start:</label>
+                        <input 
+                          type="time" 
+                          [(ngModel)]="event.timeslot.startTime" 
+                          class="editable-input" />
+                      </div>
+                      <div class="time-selector">
+                        <label>End:</label>
+                        <input 
+                          type="time" 
+                          [(ngModel)]="event.timeslot.endTime" 
+                          class="editable-input" />
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.courseName }}</span>
+                    <select *ngIf="isEditMode" [(ngModel)]="event.courseId" class="editable-select">
+                      <option *ngFor="let course of courses" [value]="course.id">{{ course.courseName }}</option>
+                    </select>
+                  </td>
+
+                  <td class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.eventName }}</span>
+                    <select *ngIf="isEditMode" [(ngModel)]="event.eventName" class="editable-select">
+                      <option *ngFor="let type of eventTypes" [value]="type">{{ type }}</option>
+                    </select>
+                  </td>
+
+                  <td class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.professorName }}</span>
+                    <select *ngIf="isEditMode" [(ngModel)]="event.professorId" class="editable-select">
+                      <option *ngFor="let professor of professors" [value]="professor.id">{{ professor.name }}</option>
+                    </select>
+                  </td>
+
+                  <td class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.roomName }}</span>
+                    <select *ngIf="isEditMode" [(ngModel)]="event.roomId" class="editable-select">
+                      <option *ngFor="let room of rooms" [value]="room.id">{{ room.name }}</option>
+                    </select>
+                  </td>
+
+                  <td class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.group }}</span>
+                    <select *ngIf="isEditMode" [(ngModel)]="event.groupId" class="editable-select">
+                      <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
+                    </select>
+                  </td>
+
+                  <td class="event-component" id="evenness">
+                    <span *ngIf="!isEditMode">{{ event.weekEvenness ? '2' : 'weekly' }}</span>
+                    <input *ngIf="isEditMode" [(ngModel)]="event.weekEvenness" type="checkbox" class="editable-input" />
+                  </td>
+
+                  <td *ngIf="!isEditMode" class="event-component">
+                    <span *ngIf="!isEditMode">{{ event.coursePackage }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+>>>>>>> Stashed changes
         </div>
 
         <ng-template #noTimetable>
