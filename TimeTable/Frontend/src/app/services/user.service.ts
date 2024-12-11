@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { GlobalsService } from './globals.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://timetablegenerator.best/api/auth';
 
-  //private apiUrl = 'http://localhost:5088/api/auth';
-  constructor(private http: HttpClient) {}
+  private apiUrl: string;
+
+  constructor(private http: HttpClient, private globals: GlobalsService) {
+    this.apiUrl = `${this.globals.apiUrl}/auth`;
+  }
 
    // Login method
    login(data: { email: string; password: string }): Observable<{ token: string }> {

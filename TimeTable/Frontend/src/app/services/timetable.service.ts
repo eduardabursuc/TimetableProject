@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Timetable } from '../models/timetable.model';
 import { Observable } from 'rxjs';
+import { GlobalsService } from './globals.service';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -9,10 +10,16 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class TimetableService {
-  private apiUrl = 'https://timetablegenerator.best/api/v1/timetables';
 
-  //private apiUrl = 'http://localhost:5088/api/v1/timetables';
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  private apiUrl: string;
+
+  constructor(
+    private http: HttpClient, 
+    private cookieService: CookieService,
+    private globals: GlobalsService,
+  ) {
+    this.apiUrl = `${this.globals.apiUrl}/v1/timetables`;
+  }
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.cookieService.get('authToken');
@@ -21,9 +28,10 @@ export class TimetableService {
     });
   }
 
+
   create(data: { userEmail: string, name: string, events: any[], timeslots: any[] }): Observable<{ id: string }> {
     const headers = this.getAuthHeaders();
-    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
+    return this.http.post<{ id: string }>(`${this.apiUrl}`, data, { headers });
   }
 
   update(id: string, timetable: Timetable): Observable<void> {

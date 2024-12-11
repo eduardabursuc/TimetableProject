@@ -49,7 +49,12 @@ export class CreateTimetableStep2Component implements OnInit {
 
   //private apiUrl = 'http://localhost:5088/api/v1';
 
-  constructor(private router: Router, private http: HttpClient, private cookieService: CookieService, private timetableService: TimetableService) { }
+  constructor(
+    private router: Router, 
+    private http: HttpClient, 
+    private cookieService: CookieService, 
+    private timetableService: TimetableService
+  ) { }
 
   ngOnInit(): void {
 
@@ -76,20 +81,21 @@ export class CreateTimetableStep2Component implements OnInit {
   }
 
   fetchData() {
-    const userEmail = 'admin@gmail.com'; // Set userEmail value
+
+    const user = localStorage.getItem("user");
   
-    this.http.get<Course[]>(`${this.apiUrl}/courses?userEmail=${userEmail}`).subscribe(
+    this.http.get<Course[]>(`${this.apiUrl}/courses?userEmail=${user}`).subscribe(
       (data) => this.courses = data,
       
       (error) => console.error("Error loading courses: ", error)
     );
   
-    this.http.get<Professor[]>(`${this.apiUrl}/professors?userEmail=${userEmail}`).subscribe(
+    this.http.get<Professor[]>(`${this.apiUrl}/professors?userEmail=${user}`).subscribe(
       (data) => this.professors = data,
       (error) => console.error("Error loading professors: ", error)
     );
   
-    this.http.get<Group[]>(`${this.apiUrl}/groups?userEmail=${userEmail}`).subscribe(
+    this.http.get<Group[]>(`${this.apiUrl}/groups?userEmail=${user}`).subscribe(
       (data) => this.groups = data,
       (error) => console.error("Error loading groups: ", error)
     );
@@ -260,7 +266,7 @@ export class CreateTimetableStep2Component implements OnInit {
   
     // Construct the body
     const requestBody = {
-      userEmail: 'admin@gmail.com', // Replace with the actual user's email
+      userEmail: localStorage.getItem("user"), // Replace with the actual user's email
       name: this.inputValue.trim(),
       events: this.addedEvents.map(event => ({
         EventName: event.type,

@@ -13,7 +13,7 @@
       <!-- Title and Subtitle -->
       <h1 class="title">Timetables</h1>
       <!-- Generate Timetable Button -->
-      <button class="generate-button" (click)="generateTimetable()">
+      <button class="generate-button" (click)="generateTimetable()" [class.visible]="isVisible()">
           CREATE
       </button>
       
@@ -28,6 +28,11 @@
         </div>
       </div>
       
+      <!-- No Timetables Message -->
+      <div *ngIf="timetables.length === 0" class="no-timetables-message">
+        <p>No timetables available. Create one to get started!</p>
+      </div>
+
       <!-- Pagination Controls -->
       <div class="pagination-controls">
         <button 
@@ -36,7 +41,7 @@
           (click)="previousPage()">
           <i class="fas fa-chevron-left"></i> <!-- Left Arrow Icon -->
         </button>
-        <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+        <span>Page {{ totalPages === 0 ? currentPage : currentPage + 1 }} of {{ totalPages }}</span>
         <button 
           class="pagination-button" 
           [disabled]="currentPage === totalPages - 1" 
@@ -45,10 +50,7 @@
         </button>
       </div>
 
-      <!-- No Timetables Message -->
-      <div *ngIf="timetables.length === 0" class="no-timetables-message">
-        <p>No timetables available. Create one to get started!</p>
-      </div>
+      
     </div>
   </div>
 

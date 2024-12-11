@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Professor } from '../models/professor.model';
+import { GlobalsService } from './globals.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfessorService {
-  private apiUrl = 'https://timetablegenerator.best/api/v1/professors';
 
-  //private apiUrl = 'http://localhost:5088/api/v1/professors';
-  constructor(private http: HttpClient) {}
+  private apiUrl: string;
 
-  create(data: { Events: any[] }): Observable<{ id: string }> {
+  constructor(private http: HttpClient, private globals: GlobalsService) {
+    this.apiUrl = `${this.globals.apiUrl}/v1/professors`;
+  }
+
+  create(data: { professor: Professor }): Observable<{ id: string }> {
     return this.http.post<{ id: string }>(this.apiUrl, data);
   }
 

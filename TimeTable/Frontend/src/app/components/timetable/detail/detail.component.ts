@@ -62,6 +62,8 @@ export class DetailComponent implements OnInit {
   eventName: string = ''; 
   eventTypes: string[] = ['Course', 'Laboratory', 'Seminary'];
 
+  user: any = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -80,6 +82,8 @@ export class DetailComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
+    this.user = localStorage.getItem("user");
+
     this.route.params.subscribe((params) => {
       const id = params['id'];
       if (!id) {
@@ -93,17 +97,17 @@ export class DetailComponent implements OnInit {
   }
 
   fetchData() { 
-    const userEmail = 'admin@gmail.com'; 
-    this.courseService.getAll(userEmail)
+
+    this.courseService.getAll(this.user)
     .subscribe( (data) => this.courses = data, (error) => console.error("Error loading courses: ", error) );
 
-    this.professorService.getAll(userEmail)
+    this.professorService.getAll(this.user)
     .subscribe( (data) => this.professors = data, (error) => console.error("Error loading professors: ", error) ); 
     
-    this.groupService.getAll(userEmail)
+    this.groupService.getAll(this.user)
     .subscribe( (data) => this.groups = data, (error) => console.error("Error loading groups: ", error) ); 
     
-    this.roomService.getAll(userEmail)
+    this.roomService.getAll(this.user)
     .subscribe( (data) => this.rooms = data, (error) => console.error("Error loading rooms: ", error) ); 
   
   }

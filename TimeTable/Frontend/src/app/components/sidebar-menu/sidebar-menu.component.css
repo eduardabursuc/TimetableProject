@@ -12,6 +12,11 @@ body {
   width: 100%;
 }
 
+.menu-item {
+  display: none;
+}
+
+
 /* Sidebar Styles */
 .sidebar {
   width: 20%;
@@ -29,8 +34,9 @@ body {
 }
 
 /* Menu item styles */
-.menu-item, .menu-my-account {
-  display: flex;
+.menu-item.visible, .menu-my-account {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
   padding: 5% 0px 5% 5%;
   margin: 0; /* Removed margin to avoid spacing at the top */
@@ -79,7 +85,7 @@ body {
   margin-right: 12px ; /* Space between icon and text */
   font-size: 1.4em;
   color: #58585b; /* Neutral gray for icons */
-  padding-left: 10%; 
+  margin: auto;
 }
 
 .menu-my-account i{
@@ -100,6 +106,7 @@ body {
   .menu-item.selected {
     font-size: 1.1em;
   }
+
 }
 
 @media (max-width: 480px) {

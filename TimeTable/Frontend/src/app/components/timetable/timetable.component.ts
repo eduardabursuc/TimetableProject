@@ -29,6 +29,8 @@ export class TimetableComponent implements OnInit {
   eventToDelete: Timetable | null = null;
   eventToEdit: Timetable | null = null;
 
+  user: any = '';
+
   constructor(private timetableService: TimetableService, private router: Router, private cookieService: CookieService) {}
 
   ngOnInit(): void {
@@ -38,6 +40,9 @@ export class TimetableComponent implements OnInit {
     } else {
       this.fetchAllTimetables();
     }
+
+    this.user = localStorage.getItem("user");
+
   }
 
   get totalPages(): number {
@@ -50,7 +55,8 @@ export class TimetableComponent implements OnInit {
   }
 
   fetchAllTimetables(): void {
-    this.timetableService.getAll('admin@gmail.com').subscribe({
+
+    this.timetableService.getAll(this.user).subscribe({
       next: (response) => {
         // Sort by createdAt in descending order
         this.timetables = response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -93,5 +99,11 @@ export class TimetableComponent implements OnInit {
 
   generateTimetable(): void {
     this.router.navigate([`/create-timetable-step1`]);
+  }
+
+  isVisible(): boolean {
+    const role = localStorage.getItem("role");
+    if ( role == "admin" ) return true;
+    return false;
   }
 }

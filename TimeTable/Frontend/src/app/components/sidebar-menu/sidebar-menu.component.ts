@@ -37,7 +37,22 @@ export class SidebarMenuComponent {
     if (route === '/timetables') {
       return this.currentRoute.includes('timetable');
     }
+    if ( route === '/timetables') {
+      return this.currentRoute.includes('detail');
+    }
+    if ( route === '/rooms' ) {
+      return this.currentRoute.includes('rooms');
+    }
     return this.currentRoute === route;  // Default case for exact matches
+  }
+
+  isVisible(component: string): boolean {
+    const role = localStorage.getItem("role");
+
+    if ( component == "timetables" ) return true;
+    if ( role == "admin" ) return true;
+    if ( role == "professor" && component == "constraints") return true;
+    return false;
   }
 
   logout(): void {

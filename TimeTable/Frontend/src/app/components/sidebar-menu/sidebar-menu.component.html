@@ -4,20 +4,23 @@
 </header>
 
 <div class="sidebar">
-  <div class="menu-item" [class.selected]="isSelected('/timetables')">
+  <div class="menu-item" [class.selected]="isSelected('/timetables')" [class.visible]="isVisible('timetables')">
     <i class="fas fa-calendar-alt"></i> Timetables
   </div>
-    <div class="menu-item" [class.selected]="isSelected('/professors')">
+    <div class="menu-item" [class.selected]="isSelected('/professors')" [class.visible]="isVisible('professors')">
       <i class="fas fa-chalkboard-teacher"></i> Professors
     </div>
-    <div class="menu-item" [class.selected]="isSelected('/courses')">
+    <div class="menu-item" [class.selected]="isSelected('/courses')" [class.visible]="isVisible('courses')">
       <i class="fas fa-book"></i> Courses
     </div>
-    <div class="menu-item" [class.selected]="isSelected('/groups')">
+    <div class="menu-item" [class.selected]="isSelected('/groups')" [class.visible]="isVisible('groups')">
       <i class="fas fa-users"></i> Groups
     </div>
-    <div class="menu-item" [class.selected]="isSelected('/rooms')">
+    <div class="menu-item" [class.selected]="isSelected('/rooms')" [class.visible]="isVisible('rooms')">
       <i class="fas fa-building"></i> Rooms
+    </div>
+    <div class="menu-item" [class.selected]="isSelected('/constraints')" [class.visible]="isVisible('constraints')">
+      <i class="fas fa-lock"></i> Constraints
     </div>
     <div class="menu-my-account" [class.selected]="isSelected('/my-account')">
       <i class="fas fa-user"></i> My Account

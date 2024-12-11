@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { CookieService } from "ngx-cookie-service";
-; // Add this import
+import { GlobalsService } from '../../services/globals.service';
+import { jwtDecode } from "jwt-decode";
+import { Token } from '../../models/token.model';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private cookieService: CookieService // Inject CookieService
+    private cookieService: CookieService
   ) {}
 
   ngOnInit(): void {
@@ -37,9 +39,11 @@ export class LoginComponent implements OnInit {
     const credentials = { email: this.email, password: this.password };
     this.userService.login(credentials).subscribe(
       (response) => {
-        console.log('Login successful, token:', response.token);
-
-        // Store the token in localStorage and cookies
+        const decodedToken = jwtDecode<Token>(response.token, { header: false });
+        localStorage.setItem("user", decodedToken.unique_name);
+        localStorage.setItem("role", decodedToken.role);
+        
+        // Store the token in cookies
         this.cookieService.set('authToken', response.token, 1);
 
         // Navigate to /timetable
