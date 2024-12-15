@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimetableService } from '../../../services/timetable.service';
 import { CourseService } from '../../../services/course.service';
@@ -24,7 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent, HttpClientModule],
+  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent],
 })
 
 export class DetailComponent implements OnInit {

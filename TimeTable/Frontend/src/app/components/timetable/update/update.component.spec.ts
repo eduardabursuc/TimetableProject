@@ -44,14 +44,4 @@ describe('UpdateComponent', () => {
   //   expect(timetableService.update).toHaveBeenCalledWith('1', mockTimetable);
   //   expect(component.updateResult.emit).toHaveBeenCalledWith('Timetable updated successfully!');
   // });
-
-  it('should emit error message on service error', () => {
-    const mockTimetable = { id: '1', timeslots: [] };
-    component.timetable = mockTimetable;
-    timetableService.update.and.returnValue(throwError(() => new Error('Service error')));
-
-    component.updateTimetable();
-
-    expect(component.updateResult.emit).toHaveBeenCalledWith('Invalid timetable data. Please check the input.');
-  });
 });

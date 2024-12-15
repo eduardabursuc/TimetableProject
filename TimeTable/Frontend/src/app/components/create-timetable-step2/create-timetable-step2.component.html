@@ -60,7 +60,8 @@
       <!-- Display the added events -->
       <div class="added-events" *ngIf="addedEvents.length > 0">
         <h2 class="added-events-header">Added Events:</h2>
-        <div *ngFor="let event of addedEvents" class="event-card">
+        <div class="list">
+        <div *ngFor="let event of addedEvents" class="card">
           <div class="event-description">
             <p>Course: {{ event.course }}</p>
             <p>Professor: {{ event.professor }}</p>
@@ -76,7 +77,7 @@
             <i class="fas fa-times"></i>
           </button>
           </div>        
-          
+          </div>
         </div>
       </div>
 

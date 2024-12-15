@@ -15,7 +15,7 @@ export class CourseService {
     this.apiUrl = `${this.globals.apiUrl}/v1/courses`;
   }
 
-  create(data: { Events: any[] }): Observable<{ id: string }> {
+  create(data: { userEmail: string, courseName: string, credits: number, package: string, semester: number, level: string }): Observable<{ id: string }> {
     return this.http.post<{ id: string }>(this.apiUrl, data);
   }
 

@@ -5,12 +5,16 @@ import { Course } from '../../models/course.model';
 import { Group } from '../../models/group.model';   
 import { Professor } from '../../models/professor.model';
 import { TimetableService } from '../../services/timetable.service';
+import { CourseService } from '../../services/course.service';
+import { ProfessorService } from '../../services/professor.service';
+import { GroupService } from '../../services/group.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { DayInterval } from '../../models/day-interval.model';
 import { CookieService } from 'ngx-cookie-service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-create-timetable-step2',
@@ -43,17 +47,18 @@ export class CreateTimetableStep2Component implements OnInit {
   eventToEdit: any = null;
   showCancelButton: boolean = true;
 
+  user: any = null;
+
   validatedIntervals: DayInterval[] = [];
-
-  private apiUrl = 'https://timetablegenerator.best/api/v1';
-
-  //private apiUrl = 'http://localhost:5088/api/v1';
 
   constructor(
     private router: Router, 
     private http: HttpClient, 
     private cookieService: CookieService, 
-    private timetableService: TimetableService
+    private timetableService: TimetableService,
+    private courseService: CourseService,
+    private professorService: ProfessorService,
+    private groupService: GroupService
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +67,8 @@ export class CreateTimetableStep2Component implements OnInit {
     if (this.token == '') {
       this.router.navigate(['/login']);
     }
+
+    this.user = localStorage.getItem("user");
 
     this.fetchData();
     // Load added events from localStorage if available
@@ -75,30 +82,39 @@ export class CreateTimetableStep2Component implements OnInit {
       const storedIntervals = localStorage.getItem('timeIntervals');
       if (storedIntervals) {
         this.validatedIntervals = JSON.parse(storedIntervals);
-        console.log(storedIntervals);
       }
+  
     }
   }
 
   fetchData() {
 
-    const user = localStorage.getItem("user");
-  
-    this.http.get<Course[]>(`${this.apiUrl}/courses?userEmail=${user}`).subscribe(
-      (data) => this.courses = data,
+    this.courseService.getAll(this.user).subscribe({
+      next: (response) => {
+        this.courses = response;
+      },
+      error: (error) => {
+        console.error('Failed to fetch courses:', error);
+      },
+    });
+
+    this.professorService.getAll(this.user).subscribe({
+      next: (response) => {
+        this.professors = response;
+      },
+      error: (error) => {
+        console.error('Failed to fetch professors:', error);
+      },
+    });
       
-      (error) => console.error("Error loading courses: ", error)
-    );
-  
-    this.http.get<Professor[]>(`${this.apiUrl}/professors?userEmail=${user}`).subscribe(
-      (data) => this.professors = data,
-      (error) => console.error("Error loading professors: ", error)
-    );
-  
-    this.http.get<Group[]>(`${this.apiUrl}/groups?userEmail=${user}`).subscribe(
-      (data) => this.groups = data,
-      (error) => console.error("Error loading groups: ", error)
-    );
+    this.groupService.getAll(this.user).subscribe({
+      next: (response) => {
+        this.groups = response;
+      },
+      error: (error) => {
+        console.error('Failed to fetch groups:', error);
+      },
+    });
   }
   
 
@@ -229,7 +245,6 @@ export class CreateTimetableStep2Component implements OnInit {
       this.isModalVisible = true;
     }
   }
-  
 
   onGenerate() {
     this.inputValue = ''; 
@@ -266,7 +281,7 @@ export class CreateTimetableStep2Component implements OnInit {
   
     // Construct the body
     const requestBody = {
-      userEmail: localStorage.getItem("user"), // Replace with the actual user's email
+      userEmail: this.user, // Replace with the actual user's email
       name: this.inputValue.trim(),
       events: this.addedEvents.map(event => ({
         EventName: event.type,
@@ -277,13 +292,9 @@ export class CreateTimetableStep2Component implements OnInit {
       })),
       timeslots: timeslots 
     };
-  
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
-    });
     
     // Make the POST request with headers
-    this.http.post(`${this.apiUrl}/timetables`, requestBody, { headers }).subscribe(
+    this.timetableService.create(requestBody).subscribe(
       response => {
         console.log('Timetable generated successfully:', response);
         // localStorage.clear();
@@ -292,7 +303,7 @@ export class CreateTimetableStep2Component implements OnInit {
       error => {
         this.isModalVisible = true;
         this.modalTitle = 'Creating error';
-        this.modalMessage = error;
+        this.modalMessage = 'No valid timetable can be generated.';
         this.modalType = 'error';
         console.error('Error generating timetable:', error);
       }

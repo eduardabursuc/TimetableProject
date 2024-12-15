@@ -16,7 +16,7 @@ export class RoomService {
     this.apiUrl = `${this.globals.apiUrl}/v1/rooms`;
   }
 
-  create(data: { room: Room }): Observable<{ id: string }> {
+  create(data: { userEmail: string, name: string, capacity: number }): Observable<{ id: string }> {
     return this.http.post<{ id: string }>(this.apiUrl, data);
   }
 

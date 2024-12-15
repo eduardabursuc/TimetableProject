@@ -1,0 +1,68 @@
+<header>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  </header>
+  
+  <div class="timetable-wrapper">
+    <!-- Sidebar -->
+    <app-sidebar-menu></app-sidebar-menu>
+  
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="main-container">
+        <!-- Title and Subtitle -->
+        <h1 class="title">Professors</h1>
+  
+        <!-- Form for Adding Professors -->
+        <div class="professor-form">
+          <h2 class="subtitle">Add a Professor</h2>
+          <div class="form-wrapper">
+          <div class="form-group">
+            <label for="professorName">Name:</label>
+            <input id="professorName" class="input-field" [(ngModel)]="newProfessor.name" placeholder="Enter professor name" />
+          </div>
+          <button 
+            (click)="isAddCase ? addProfessor() : updateProfessor()" 
+            class="add-button">
+            {{ isAddCase ? 'Add' : 'Update' }}
+          </button>
+
+          </div>
+        </div>
+  
+        <!-- Display the professors -->
+        <div class="list" *ngIf="professors.length > 0">
+          <h2 class="subtitle">Professors:</h2>
+          <div *ngFor="let professor of professors" class="card">
+            <div class="details">
+              <p><strong>Name:</strong> {{ professor.name }}</p>
+            </div>
+  
+            <div class="action-buttons">
+              <button class="edit-button" (click)="editProfessor(professor)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="delete-button" (click)="showDeleteModal(professor)">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button (click)="onBack()" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+  
+        <!-- Modal  -->
+        <app-generic-modal 
+          [isVisible]="isModalVisible"
+          [title]="modalTitle"
+          [message]="modalMessage"
+          [isInputRequired]="false"
+          [showCancelButton]="cancelOption"
+          (confirmEvent)="handleModalConfirm()">
+        </app-generic-modal>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,97 @@
+<header>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  </header>
+  
+  <div class="timetable-wrapper">
+    <!-- Sidebar -->
+    <app-sidebar-menu></app-sidebar-menu>
+  
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="main-container">
+        <!-- Title and Subtitle -->
+        <h1 class="title">Courses</h1>
+  
+        <!-- Form for Adding Courses -->
+        <div class="course-form">
+          <h2 class="subtitle">Add a Course</h2>
+          <div class="form-wrapper">
+          <div class="form-group">
+            <label for="courseName">Name:</label>
+            <input id="courseName" class="input-field" [(ngModel)]="newCourse.courseName" placeholder="Enter course name" />
+          </div>
+
+          <div class="form-group">
+            <label for="courseCredits">Credits:</label>
+            <input id="courseCredits" class="input-field" type="number" [(ngModel)]="newCourse.credits" placeholder="Enter course's credits" min="1" />
+          </div>
+
+          <div class="form-group">
+            <label for="coursePackage">Package:</label>
+            <input id="coursePackage" class="input-field" [(ngModel)]="newCourse.package" placeholder="Enter course's package" />
+          </div>
+
+          <div class="form-group">
+            <label for="courseSemester">Semester:</label>
+            <input id="courseSemester" class="input-field" type="number" [(ngModel)]="newCourse.semester" placeholder="Enter course's semester" min="1" max="8" />
+          </div>
+
+          <div class="form-group">
+            <label for="courseLevel">Level:</label>
+            <select id="courseLevel" [(ngModel)]="newCourse.level" name="courseLevel" required>
+              <option value="license">license</option>
+              <option value="master">master</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </div>
+
+          <button 
+            (click)="isAddCase ? addCourse() : updateCourse()" 
+            class="add-button">
+            {{ isAddCase ? 'Add' : 'Update' }}
+          </button>
+
+          </div>
+        </div>
+  
+        <!-- Display the courses -->
+        <div class="list" *ngIf="courses.length > 0">
+          <h2 class="subtitle">Courses:</h2>
+          <div *ngFor="let course of courses" class="card">
+            <div class="details">
+              <p><strong>Name:</strong> {{ course.courseName }}</p>
+              <p><strong>Credits:</strong> {{ course.credits }}</p>
+              <p><strong>Package:</strong> {{ course.package }}</p>
+              <p><strong>Semester:</strong> {{ course.semester }}</p>
+              <p><strong>Level:</strong> {{ course.level }}</p>
+            </div>
+  
+            <div class="action-buttons">
+              <button class="edit-button" (click)="editCourse(course)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="delete-button" (click)="showDeleteModal(course)">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button (click)="onBack()" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+  
+        <!-- Modal  -->
+        <app-generic-modal 
+          [isVisible]="isModalVisible"
+          [title]="modalTitle"
+          [message]="modalMessage"
+          [isInputRequired]="false"
+          [showCancelButton]="cancelOption"
+          (confirmEvent)="handleModalConfirm()">
+        </app-generic-modal>
+      </div>
+    </div>
+  </div>
+  

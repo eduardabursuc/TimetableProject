@@ -73,4 +73,8 @@ export class SidebarMenuComponent {
     }
     this.isModalVisible = false;
   }
+
+  navigateTo(route: string) : void {
+    this.router.navigate([route]);
+  }
 }

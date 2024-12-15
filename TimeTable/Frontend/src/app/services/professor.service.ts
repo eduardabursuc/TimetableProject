@@ -15,7 +15,7 @@ export class ProfessorService {
     this.apiUrl = `${this.globals.apiUrl}/v1/professors`;
   }
 
-  create(data: { professor: Professor }): Observable<{ id: string }> {
+  create(data: { userEmail: string, name: string }): Observable<{ id: string }> {
     return this.http.post<{ id: string }>(this.apiUrl, data);
   }
 

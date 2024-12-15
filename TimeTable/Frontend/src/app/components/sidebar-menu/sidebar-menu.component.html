@@ -4,22 +4,22 @@
 </header>
 
 <div class="sidebar">
-  <div class="menu-item" [class.selected]="isSelected('/timetables')" [class.visible]="isVisible('timetables')">
+  <div class="menu-item" [class.selected]="isSelected('/timetables')" [class.visible]="isVisible('timetables')" (click)="navigateTo('/timetable')">
     <i class="fas fa-calendar-alt"></i> Timetables
   </div>
-    <div class="menu-item" [class.selected]="isSelected('/professors')" [class.visible]="isVisible('professors')">
+    <div class="menu-item" [class.selected]="isSelected('/professors')" [class.visible]="isVisible('professors')" (click)="navigateTo('/professors')">
       <i class="fas fa-chalkboard-teacher"></i> Professors
     </div>
-    <div class="menu-item" [class.selected]="isSelected('/courses')" [class.visible]="isVisible('courses')">
+    <div class="menu-item" [class.selected]="isSelected('/courses')" [class.visible]="isVisible('courses')" (click)="navigateTo('/courses')">
       <i class="fas fa-book"></i> Courses
     </div>
-    <div class="menu-item" [class.selected]="isSelected('/groups')" [class.visible]="isVisible('groups')">
+    <div class="menu-item" [class.selected]="isSelected('/groups')" [class.visible]="isVisible('groups')" (click)="navigateTo('/groups')">
       <i class="fas fa-users"></i> Groups
     </div>
-    <div class="menu-item" [class.selected]="isSelected('/rooms')" [class.visible]="isVisible('rooms')">
+    <div class="menu-item" [class.selected]="isSelected('/rooms')" [class.visible]="isVisible('rooms')" (click)="navigateTo('/rooms')">
       <i class="fas fa-building"></i> Rooms
     </div>
-    <div class="menu-item" [class.selected]="isSelected('/constraints')" [class.visible]="isVisible('constraints')">
+    <div class="menu-item" [class.selected]="isSelected('/constraints')" [class.visible]="isVisible('constraints')" (click)="navigateTo('/constraints')">
       <i class="fas fa-lock"></i> Constraints
     </div>
     <div class="menu-my-account" [class.selected]="isSelected('/my-account')">
