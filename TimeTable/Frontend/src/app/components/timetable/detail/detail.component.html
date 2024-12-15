@@ -28,9 +28,6 @@
               <button *ngIf="isAdmin" (click)="showDeleteModal(timetable)" class="delete-button">
                 Delete Timetable
               </button>
-              <button *ngIf="!isAdmin" (click)="saveTimetable(timetable)" class="save-button">
-                Save Timetable
-              </button>
               <button *ngIf="isFiltered" (click)="resetFilters()" class="reset-button">
                 Reset Filters
               </button>

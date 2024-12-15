@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Infrastructure.JoinTables;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
@@ -13,7 +12,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Group> Groups { get; init; }
     public DbSet<Room> Rooms { get; init; }
     public DbSet<Timetable> Timetables { get; init; }
-    public DbSet<ProfessorTimetable> ProfessorTimetable { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,6 +49,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                   .ValueGeneratedOnAdd();
 
             entity.Property(e => e.Name)
+                  .IsRequired()
+                  .HasMaxLength(200);
+            
+            entity.Property(e => e.Email)
                   .IsRequired()
                   .HasMaxLength(200);
 
@@ -145,6 +147,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
             entity.Property(e => e.CreatedAt)
                   .IsRequired();
+            
+            entity.Property(e => e.IsPublic)
+                  .IsRequired();
 
             entity.HasOne<User>()
                   .WithMany()
@@ -163,6 +168,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 eventEntity.Property(e => e.RoomId).IsRequired();
                 eventEntity.Property(e => e.ProfessorId).IsRequired();
                 eventEntity.Property(e => e.Duration);
+                eventEntity.Property(e => e.isEven).IsRequired();
 
                 // Configure Timeslot within Event
                 eventEntity.OwnsOne(e => e.Timeslot, timeslot =>
@@ -226,24 +232,5 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                   .IsRequired(false);
         });
         
-        modelBuilder.Entity<ProfessorTimetable>(entity =>
-        {
-              entity.ToTable("professor_timetables");
-
-              // Composite primary key
-              entity.HasKey(pt => new { pt.ProfessorId, pt.TimetableId });
-
-              // Foreign key to Professor
-              entity.HasOne(pt => pt.Professor)
-                    .WithMany()
-                    .HasForeignKey(pt => pt.ProfessorId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-              // Foreign key to Timetable
-              entity.HasOne(pt => pt.Timetable)
-                    .WithMany()
-                    .HasForeignKey(pt => pt.TimetableId)
-                    .OnDelete(DeleteBehavior.Cascade);
-        });
     }
 }
