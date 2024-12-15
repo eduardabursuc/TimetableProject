@@ -13,6 +13,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Group> Groups { get; init; }
     public DbSet<Room> Rooms { get; init; }
     public DbSet<Timetable> Timetables { get; init; }
+    public DbSet<ProfessorTimetable> ProfessorTimetable { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -225,7 +226,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                   .IsRequired(false);
         });
         
-        modelBuilder.Entity<ProfessorTimetableTable>(entity =>
+        modelBuilder.Entity<ProfessorTimetable>(entity =>
         {
               entity.ToTable("professor_timetables");
 

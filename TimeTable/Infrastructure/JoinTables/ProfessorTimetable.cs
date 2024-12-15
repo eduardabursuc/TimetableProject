@@ -2,7 +2,7 @@ using Domain.Entities;
 
 namespace Infrastructure.JoinTables
 {
-    public class ProfessorTimetableTable
+    public class ProfessorTimetable
     {
         public Guid ProfessorId { get; set; }
         public Professor Professor { get; set; }

@@ -1,6 +1,7 @@
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
+using Infrastructure.JoinTables;
 using Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -76,6 +77,33 @@ namespace Infrastructure.Repositories
                 if (professor == null) return Result<Unit>.Failure("Professor not found.");
 
                 context.Professors.Remove(professor);
+                await context.SaveChangesAsync();
+                return Result<Unit>.Success(Unit.Value);
+            }
+            catch (Exception e)
+            {
+                return Result<Unit>.Failure(e.Message);
+            }
+        }
+
+        public async Task<Result<Unit>> AddTimetableAsync(Guid id, Guid timetableId)
+        {
+            try
+            {
+                var professor = await context.Professors.FindAsync(id);
+                if (professor == null) return Result<Unit>.Failure("Professor not found.");
+
+                var timetable = await context.Timetables.FindAsync(timetableId);
+                if (timetable == null) return Result<Unit>.Failure("Timetable not found.");
+
+                var professorTimetable = new ProfessorTimetable
+                {
+                    ProfessorId = id,
+                    Professor = professor,
+                    TimetableId = timetableId,
+                    Timetable = timetable
+                };
+                await context.ProfessorTimetable.AddAsync(professorTimetable);
                 await context.SaveChangesAsync();
                 return Result<Unit>.Success(Unit.Value);
             }
