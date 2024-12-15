@@ -62,6 +62,8 @@ export class DetailComponent implements OnInit {
   eventName: string = ''; 
   eventTypes: string[] = ['Course', 'Laboratory', 'Seminary'];
 
+  isAdmin: boolean = false;
+
   user: any = '';
 
   constructor(
@@ -92,6 +94,9 @@ export class DetailComponent implements OnInit {
       }
       this.getTimetableById(id);
     });
+
+    if( localStorage.getItem("role") == 'admin' && this.timetable?.userEmail == this.user ) 
+      this.isAdmin = true;
 
     this.fetchData();
   }
@@ -349,6 +354,10 @@ export class DetailComponent implements OnInit {
     this.modalMessage = `Confirm changes for timetable "${timetable.name}?"`;
     this.modalType = 'edit';
     this.isModalVisible = true;
+  }
+
+  saveTimetable(timetable: Timetable): void {
+    // save the timetable for a professor or student
   }
   
 }
