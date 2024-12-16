@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241215173522_UpdatedMigration")]
+    partial class UpdatedMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,11 +156,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -208,9 +206,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -246,6 +241,21 @@ namespace Infrastructure.Migrations
                     b.HasKey("Email");
 
                     b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("Infrastructure.JoinTables.ProfessorTimetableTable", b =>
+                {
+                    b.Property<Guid>("ProfessorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TimetableId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ProfessorId", "TimetableId");
+
+                    b.HasIndex("TimetableId");
+
+                    b.ToTable("professor_timetables", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Constraint", b =>
@@ -348,9 +358,6 @@ namespace Infrastructure.Migrations
                             b1.Property<Guid>("TimetableId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<bool>("isEven")
-                                .HasColumnType("boolean");
-
                             b1.HasKey("Id");
 
                             b1.HasIndex("TimetableId");
@@ -387,6 +394,25 @@ namespace Infrastructure.Migrations
                         });
 
                     b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("Infrastructure.JoinTables.ProfessorTimetableTable", b =>
+                {
+                    b.HasOne("Domain.Entities.Professor", "Professor")
+                        .WithMany()
+                        .HasForeignKey("ProfessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Timetable", "Timetable")
+                        .WithMany()
+                        .HasForeignKey("TimetableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Professor");
+
+                    b.Navigation("Timetable");
                 });
 #pragma warning restore 612, 618
         }

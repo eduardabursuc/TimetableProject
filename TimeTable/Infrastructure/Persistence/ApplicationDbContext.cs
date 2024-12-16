@@ -51,6 +51,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(e => e.Name)
                   .IsRequired()
                   .HasMaxLength(200);
+            
+            entity.Property(e => e.Email)
+                  .IsRequired()
+                  .HasMaxLength(200);
 
             entity.HasOne<User>()
                   .WithMany()
@@ -143,6 +147,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
             entity.Property(e => e.CreatedAt)
                   .IsRequired();
+            
+            entity.Property(e => e.IsPublic)
+                  .IsRequired();
 
             entity.HasOne<User>()
                   .WithMany()
@@ -161,6 +168,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 eventEntity.Property(e => e.RoomId).IsRequired();
                 eventEntity.Property(e => e.ProfessorId).IsRequired();
                 eventEntity.Property(e => e.Duration);
+                eventEntity.Property(e => e.isEven).IsRequired();
 
                 // Configure Timeslot within Event
                 eventEntity.OwnsOne(e => e.Timeslot, timeslot =>
@@ -223,5 +231,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                   .OnDelete(DeleteBehavior.Cascade)
                   .IsRequired(false);
         });
+        
     }
 }

@@ -19,13 +19,13 @@
               <span *ngIf="!isEditMode">{{ timetable.name }}</span>
             </p>
             <div class="button-group">
-              <button *ngIf="isEditMode" (click)="showSaveModal(timetable)" class="save-button">
+              <button *ngIf="isAdmin && isEditMode" (click)="showSaveModal(timetable)" class="save-button">
                 Save Changes
               </button>
-              <button (click)="toggleEditMode()" class="edit-mode-button">
+              <button *ngIf="isAdmin" (click)="toggleEditMode()" class="edit-mode-button">
                 {{ isEditMode ? 'Cancel Edit' : 'Edit Timetable' }}
               </button>
-              <button (click)="showDeleteModal(timetable)" class="delete-button">
+              <button *ngIf="isAdmin" (click)="showDeleteModal(timetable)" class="delete-button">
                 Delete Timetable
               </button>
               <button *ngIf="isFiltered" (click)="resetFilters()" class="reset-button">
