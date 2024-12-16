@@ -1,41 +1,40 @@
 using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
-using Application.DTOs;
-using Domain.Entities;
+using Application.UseCases.Commands.RoomCommands;
+using Domain.Common;
 using FluentAssertions;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace TimeTable.Application.IntegrationTests
 {
-    public class ProfessorsControllerTests : IClassFixture<WebApplicationFactory<Program>>, IDisposable
+    public class RoomsControllerTests : IClassFixture<WebApplicationFactory<Program>>, IDisposable
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly HttpClient _client;
-        private const string BaseUrl = "/api/v1/professors";
+        private const string BaseUrl = "/api/v1/rooms";
 
-        // Define a static JsonSerializerOptions instance to reuse across all test cases
         private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         };
 
-        public ProfessorsControllerTests(WebApplicationFactory<Program> factory)
+        public RoomsControllerTests(WebApplicationFactory<Program> factory)
         {
             _factory = factory.WithWebHostBuilder(builder =>
             {
                 builder.ConfigureAppConfiguration((context, config) =>
                 {
-                    // Add appsettings.Test.json for test-specific configurations
                     config.AddJsonFile("appsettings.Test.json");
                 });
 
                 builder.ConfigureServices(services =>
                 {
-                    // Remove the existing DbContextOptions<ApplicationDbContext> registration
                     var descriptor = services.SingleOrDefault(
                         d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
 
@@ -44,10 +43,8 @@ namespace TimeTable.Application.IntegrationTests
                         services.Remove(descriptor);
                     }
 
-                    // Register ApplicationDbContext for testing
                     services.AddDbContext<ApplicationDbContext>(options =>
                     {
-                        // The "UseInMemoryDatabase" flag will now control the database provider
                         var serviceProvider = services.BuildServiceProvider();
                         var config = serviceProvider.GetRequiredService<IConfiguration>();
                         var useInMemory = config.GetValue<bool>("UseInMemoryDatabase");
@@ -64,16 +61,12 @@ namespace TimeTable.Application.IntegrationTests
                         }
                     });
 
-                    // Build the service provider to initialize the database
                     var sp = services.BuildServiceProvider();
 
-                    // Create a scope to obtain a reference to the database context (ApplicationDbContext)
                     using (var scope = sp.CreateScope())
                     {
                         var scopedServices = scope.ServiceProvider;
                         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-
-                        // Ensure the database is created
                         db.Database.EnsureCreated();
                     }
                 });
@@ -93,60 +86,59 @@ namespace TimeTable.Application.IntegrationTests
         }
 
         [Fact]
-        public async Task GivenProfessorsExist_WhenGettingAllProfessors_ThenShouldReturnOkResponse()
+        public async Task CreateRoom_ShouldReturnCreated()
         {
-            // Arrange
-            var professor = new Professor
+            var command = new CreateRoomCommand
             {
-                UserEmail = "some1@gmail.com",
-                Id = Guid.NewGuid(),
-                Name = "Professor 1"
+                UserEmail = "testuser@example.com",
+                Name = "Room A",
+                Capacity = 30
             };
-            var scope = _factory.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            dbContext.Professors.Add(professor);
-            dbContext.SaveChanges();
 
-            // Act
-            var response = await _client.GetAsync(BaseUrl);
-
-            // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var responseData = JsonSerializer.Deserialize<List<ProfessorDto>>(
-                await response.Content.ReadAsStringAsync(), JsonOptions);
-            responseData.Should().ContainSingle(p => p.Name == "Professor 1");
+            var response = await _client.PostAsJsonAsync(BaseUrl, command);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         [Fact]
-        public async Task GivenExistingProfessor_WhenGettingProfessorById_ThenShouldReturnOkResponse()
+        public async Task GetRoomById_ShouldReturnOk()
         {
-            // Arrange
-            var professorId = Guid.NewGuid();
-            var professor = new Professor { UserEmail = "some1@gmail.com", Id = professorId, Name = "Professor 1" };
-            var scope = _factory.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            dbContext.Professors.Add(professor);
-            dbContext.SaveChanges();
+            var command = new CreateRoomCommand
+            {
+                UserEmail = "testuser@example.com",
+                Name = "Room A",
+                Capacity = 30
+            };
 
-            // Act
-            var response = await _client.GetAsync($"{BaseUrl}/{professorId}");
+            var createResponse = await _client.PostAsJsonAsync(BaseUrl, command);
+            var createdRoomId = JsonSerializer.Deserialize<Guid>(await createResponse.Content.ReadAsStringAsync());
 
-            // Assert
+            var response = await _client.GetAsync($"{BaseUrl}/{createdRoomId}");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var responseData = JsonSerializer.Deserialize<ProfessorDto>(
-                await response.Content.ReadAsStringAsync(), JsonOptions);
-            responseData.Should().NotBeNull();
-            responseData!.Id.Should().Be(professorId);
         }
 
         [Fact]
-        public async Task GivenNonExistingProfessor_WhenGettingProfessorById_ThenShouldReturnNotFoundResponse()
+        public async Task GetRoomById_ShouldReturnNotFound()
         {
-            // Act
-            var response = await _client.GetAsync($"{BaseUrl}/{Guid.NewGuid()}");
-
-            // Assert
+            var id = Guid.NewGuid();
+            var response = await _client.GetAsync($"{BaseUrl}/{id}");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public async Task DeleteRoom_ShouldReturnNoContent()
+        {
+            var command = new CreateRoomCommand
+            {
+                UserEmail = "testuser@example.com",
+                Name = "Room A",
+                Capacity = 30
+            };
+
+            var createResponse = await _client.PostAsJsonAsync(BaseUrl, command);
+            var createdRoomId = JsonSerializer.Deserialize<Guid>(await createResponse.Content.ReadAsStringAsync());
+
+            var response = await _client.DeleteAsync($"{BaseUrl}/{createdRoomId}");
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
     }
 }

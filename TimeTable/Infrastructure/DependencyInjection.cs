@@ -16,10 +16,23 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Infrastructure")));
-            
+            {
+                // Check if we are running in the test environment
+                var isTestEnvironment = configuration.GetValue<bool>("UseInMemoryDatabase");
+                if (isTestEnvironment)
+                {
+                    // Use InMemory database for tests
+                    options.UseInMemoryDatabase("TestDatabase");
+                }
+                else
+                {
+                    // Use PostgreSQL for production
+                    options.UseNpgsql(
+                        configuration.GetConnectionString("DefaultConnection"),
+                        b => b.MigrationsAssembly("Infrastructure"));
+                }
+            });
+
             var key = Encoding.ASCII.GetBytes("NeMmhbO1OQUb9BcUgsywIIBdTaxx56pxK7P6ZuTvw6Q=");
             services.AddAuthentication(options =>
                 {

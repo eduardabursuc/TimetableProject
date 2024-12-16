@@ -1,13 +1,12 @@
 using Application.DTOs;
-using Application.UseCases.Queries;
 using Application.UseCases.Queries.ProfessorQueries;
-using Application.UseCases.QueryHandlers;
 using Application.UseCases.QueryHandlers.ProfessorQueryHandlers;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
+using Xunit;
 
 namespace TimeTable.Application.UnitTests
 {
@@ -15,16 +14,16 @@ namespace TimeTable.Application.UnitTests
     {
         private readonly IProfessorRepository _repository = Substitute.For<IProfessorRepository>();
         private readonly IMapper _mapper = Substitute.For<IMapper>();
-/*
+
         [Fact]
         public async Task Given_GetAllProfessorsQueryHandler_When_HandleIsCalled_Then_AListOfProfessorsShouldBeReturned()
         {
             // Arrange
             var professors = GenerateProfessorList();
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
+            _repository.GetAllAsync(Arg.Any<string>()).Returns(Result<IEnumerable<Professor>>.Success(professors));
 
-            var query = new GetAllProfessorsQuery();
-            var professorDtos = GenerateProfessorDto(professors);
+            var query = new GetAllProfessorsQuery { UserEmail = "some1@gmail.com" };
+            var professorDtos = GenerateProfessorDto(professors.ToList());
             _mapper.Map<List<ProfessorDto>>(professors).Returns(professorDtos);
 
             var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
@@ -44,9 +43,9 @@ namespace TimeTable.Application.UnitTests
         public async Task Given_GetAllProfessorsQueryHandler_When_NoProfessorsInRepository_Then_EmptyListShouldBeReturned()
         {
             // Arrange
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(new List<Professor>()));
+            _repository.GetAllAsync(Arg.Any<string>()).Returns(Result<IEnumerable<Professor>>.Success(new List<Professor>()));
 
-            var query = new GetAllProfessorsQuery();
+            var query = new GetAllProfessorsQuery { UserEmail = "some1@gmail.com" };
             var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
 
             // Act
@@ -62,12 +61,12 @@ namespace TimeTable.Application.UnitTests
         public async Task Given_GetAllProfessorsQueryHandler_When_MappingFails_Then_ExceptionShouldBeThrown()
         {
             // Arrange
-            List<Professor> professors = GenerateProfessorList();
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
+            var professors = GenerateProfessorList();
+            _repository.GetAllAsync(Arg.Any<string>()).Returns(Result<IEnumerable<Professor>>.Success(professors));
 
             _mapper.Map<List<ProfessorDto>>(professors).Returns(x => throw new Exception("Mapping failed"));
 
-            var query = new GetAllProfessorsQuery();
+            var query = new GetAllProfessorsQuery { UserEmail = "some1@gmail.com" };
             var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
 
             // Act & Assert
@@ -79,12 +78,12 @@ namespace TimeTable.Application.UnitTests
         {
             // Arrange
             var professors = GenerateProfessorList();
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Professor>>.Success(professors));
+            _repository.GetAllAsync(Arg.Any<string>()).Returns(Result<IEnumerable<Professor>>.Success(professors));
 
-            var professorDtos = GenerateProfessorDto(professors);
+            var professorDtos = GenerateProfessorDto(professors.ToList());
             _mapper.Map<List<ProfessorDto>>(professors).Returns(professorDtos);
 
-            var query = new GetAllProfessorsQuery();
+            var query = new GetAllProfessorsQuery { UserEmail = "some1@gmail.com" };
             var handler = new GetAllProfessorsQueryHandler(_repository, _mapper);
 
             // Act
@@ -97,42 +96,31 @@ namespace TimeTable.Application.UnitTests
 
         private static List<Professor> GenerateProfessorList()
         {
-            return
-            [
+            return new List<Professor>
+            {
                 new Professor
                 {
                     UserEmail = "some1@gmail.com",
                     Id = Guid.NewGuid(),
                     Name = "Professor 1",
                 },
-
                 new Professor
                 {
                     UserEmail = "some2@gmail.com",
                     Id = Guid.NewGuid(),
                     Name = "Professor 2",
                 }
-            ];
+            };
         }
 
         private static List<ProfessorDto> GenerateProfessorDto(List<Professor> professors)
         {
-            return
-            [
-                new ProfessorDto
-                {
-                    UserEmail = professors[0].UserEmail,
-                    Id = professors[0].Id,
-                    Name = professors[0].Name
-                },
-
-                new ProfessorDto
-                {
-                    UserEmail = professors[1].UserEmail,
-                    Id = professors[1].Id,
-                    Name = professors[1].Name
-                }
-            ];
-        }*/
+            return professors.Select(p => new ProfessorDto
+            {
+                UserEmail = p.UserEmail,
+                Id = p.Id,
+                Name = p.Name
+            }).ToList();
+        }
     }
 }

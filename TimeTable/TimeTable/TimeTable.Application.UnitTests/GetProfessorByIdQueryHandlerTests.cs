@@ -1,13 +1,12 @@
 using Application.DTOs;
-using Application.UseCases.Queries;
 using Application.UseCases.Queries.ProfessorQueries;
-using Application.UseCases.QueryHandlers;
 using Application.UseCases.QueryHandlers.ProfessorQueryHandlers;
 using AutoMapper;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
+using Xunit;
 
 namespace TimeTable.Application.UnitTests
 {

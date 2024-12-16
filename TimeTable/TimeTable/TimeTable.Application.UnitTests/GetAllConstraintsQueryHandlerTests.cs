@@ -1,7 +1,5 @@
 using Application.DTOs;
-using Application.UseCases.Queries;
 using Application.UseCases.Queries.ConstraintQueries;
-using Application.UseCases.QueryHandlers;
 using Application.UseCases.QueryHandlers.ConstraintQueryHandlers;
 using AutoMapper;
 using Domain.Common;
@@ -15,15 +13,15 @@ namespace TimeTable.Application.UnitTests
     {
         private readonly IConstraintRepository _repository = Substitute.For<IConstraintRepository>();
         private readonly IMapper _mapper = Substitute.For<IMapper>();
-/*
+
         [Fact]
         public async Task Given_GetAllConstraintsQueryHandler_When_HandleIsCalled_Then_AListOfConstraintsShouldBeReturned()
         {
             // Arrange
-            IEnumerable<Constraint> constraints = GenerateConstraintList();
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
+            var constraints = GenerateConstraintList();
+            _repository.GetAllAsync(Arg.Any<Guid>()).Returns(Result<IEnumerable<Constraint>>.Success(constraints));
 
-            var query = new GetAllConstraintsQuery();
+            var query = new GetAllConstraintsQuery { TimetableId = Guid.NewGuid() };
             var constraintDtos = GenerateConstraintDto(constraints.ToList());
             _mapper.Map<List<ConstraintDto>>(constraints).Returns(constraintDtos);
 
@@ -44,9 +42,9 @@ namespace TimeTable.Application.UnitTests
         public async Task Given_GetAllConstraintsQueryHandler_When_NoConstraintsInRepository_Then_EmptyListShouldBeReturned()
         {
             // Arrange
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(new List<Constraint>()));
+            _repository.GetAllAsync(Arg.Any<Guid>()).Returns(Result<IEnumerable<Constraint>>.Success(new List<Constraint>()));
 
-            var query = new GetAllConstraintsQuery();
+            var query = new GetAllConstraintsQuery { TimetableId = Guid.NewGuid() };
             var handler = new GetAllConstraintsQueryHandler(_repository, _mapper);
 
             // Act
@@ -62,12 +60,12 @@ namespace TimeTable.Application.UnitTests
         public async Task Given_GetAllConstraintsQueryHandler_When_MappingFails_Then_ExceptionShouldBeThrown()
         {
             // Arrange
-            IEnumerable<Constraint> constraints = GenerateConstraintList();
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
+            var constraints = GenerateConstraintList();
+            _repository.GetAllAsync(Arg.Any<Guid>()).Returns(Result<IEnumerable<Constraint>>.Success(constraints));
 
             _mapper.Map<List<ConstraintDto>>(constraints).Returns(x => throw new Exception("Mapping failed"));
 
-            var query = new GetAllConstraintsQuery();
+            var query = new GetAllConstraintsQuery { TimetableId = Guid.NewGuid() };
             var handler = new GetAllConstraintsQueryHandler(_repository, _mapper);
 
             // Act & Assert
@@ -78,13 +76,13 @@ namespace TimeTable.Application.UnitTests
         public async Task Given_GetAllConstraintsQueryHandler_When_HandleIsCalled_Then_FieldsShouldMapCorrectly()
         {
             // Arrange
-            IEnumerable<Constraint> constraints = GenerateConstraintList();
-            _repository.GetAllAsync().Returns(Result<IEnumerable<Constraint>>.Success(constraints));
+            var constraints = GenerateConstraintList();
+            _repository.GetAllAsync(Arg.Any<Guid>()).Returns(Result<IEnumerable<Constraint>>.Success(constraints));
 
             var constraintDtos = GenerateConstraintDto(constraints.ToList());
             _mapper.Map<List<ConstraintDto>>(constraints).Returns(constraintDtos);
 
-            var query = new GetAllConstraintsQuery();
+            var query = new GetAllConstraintsQuery { TimetableId = Guid.NewGuid() };
             var handler = new GetAllConstraintsQueryHandler(_repository, _mapper);
 
             // Act
@@ -107,78 +105,58 @@ namespace TimeTable.Application.UnitTests
 
         private static List<Constraint> GenerateConstraintList()
         {
-            return
-            [
+            return new List<Constraint>
+            {
                 new Constraint
                 {
                     Id = Guid.NewGuid(),
                     Type = ConstraintType.HARD_NO_OVERLAP,
                     ProfessorId = Guid.NewGuid(),
-                    CourseName = "Course 1",
-                    RoomName = "Room 1",
-                    WantedRoomName = "Room 2",
-                    GroupName = "Group 1",
+                    CourseId = Guid.NewGuid(),
+                    RoomId = Guid.NewGuid(),
+                    WantedRoomId = Guid.NewGuid(),
+                    GroupId = Guid.NewGuid(),
                     Day = "Monday",
                     Time = "10:00",
                     WantedDay = "Tuesday",
                     WantedTime = "11:00",
                     Event = "Event 1"
                 },
-
                 new Constraint
                 {
                     Id = Guid.NewGuid(),
                     Type = ConstraintType.SOFT_ROOM_CHANGE,
                     ProfessorId = Guid.NewGuid(),
-                    CourseName = "Course 2",
-                    RoomName = "Room 3",
-                    WantedRoomName = "Room 4",
-                    GroupName = "Group 2",
+                    CourseId = Guid.NewGuid(),
+                    RoomId = Guid.NewGuid(),
+                    WantedRoomId = Guid.NewGuid(),
+                    GroupId = Guid.NewGuid(),
                     Day = "Wednesday",
                     Time = "12:00",
                     WantedDay = "Thursday",
                     WantedTime = "13:00",
                     Event = "Event 2"
                 }
-            ];
+            };
         }
 
         private static List<ConstraintDto> GenerateConstraintDto(List<Constraint> constraints)
         {
-            return
-            [
-                new ConstraintDto
-                {
-                    Id = constraints[0].Id,
-                    Type = constraints[0].Type,
-                    ProfessorId = constraints[0].ProfessorId,
-                    CourseName = constraints[0].CourseName,
-                    RoomName = constraints[0].RoomName,
-                    WantedRoomName = constraints[0].WantedRoomName,
-                    GroupName = constraints[0].GroupName,
-                    Day = constraints[0].Day,
-                    Time = constraints[0].Time,
-                    WantedDay = constraints[0].WantedDay,
-                    WantedTime = constraints[0].WantedTime,
-                    Event = constraints[0].Event
-                },
-
-                new ConstraintDto
-                {
-                    Id = constraints[1].Id,
-                    Type = constraints[1].Type,
-                    ProfessorId = constraints[1].ProfessorId,
-                    CourseName = constraints[1].CourseName,
-                    RoomName = constraints[1].RoomName,
-                    WantedRoomName = constraints[1].WantedRoomName,
-                    GroupName = constraints[1].GroupName,
-                    Day = constraints[1].Day,
-                    Time = constraints[1].Time,
-                    WantedDay = constraints[1].WantedDay,
-                    WantedTime = constraints[1].WantedTime,
-                    Event = constraints[1].Event
-                }
-            ];
-        }*/
+            return constraints.Select(c => new ConstraintDto
+            {
+                Id = c.Id,
+                Type = c.Type,
+                ProfessorId = c.ProfessorId,
+                CourseName = c.CourseId.ToString(), // Assuming CourseName is derived from CourseId
+                RoomName = c.RoomId.ToString(), // Assuming RoomName is derived from RoomId
+                WantedRoomName = c.WantedRoomId.ToString(), // Assuming WantedRoomName is derived from WantedRoomId
+                GroupName = c.GroupId.ToString(), // Assuming GroupName is derived from GroupId
+                Day = c.Day,
+                Time = c.Time,
+                WantedDay = c.WantedDay,
+                WantedTime = c.WantedTime,
+                Event = c.Event
+            }).ToList();
+        }
     }
 }
