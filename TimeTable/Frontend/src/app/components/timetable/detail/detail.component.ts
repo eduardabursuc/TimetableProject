@@ -369,10 +369,12 @@ export class DetailComponent implements OnInit {
         })
       }
     }
-  
+    this.isInputRequired = false;
+    this.inputValue = '';
     this.isEditMode = false;
     this.isModalVisible = false;
     this.modalType = null;
+    this.modalMessage = '';
   }  
   
   

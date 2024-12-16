@@ -3,7 +3,7 @@
 </header>
 
 <div class="modal-overlay" *ngIf="isVisible">
-  <div class="modal-content">
+  <div [ngClass]="{'wide-modal': isWideModal}" class="modal-content">
     <h2>{{ title }}</h2>
     
     <div *ngIf="isInputRequired" class="input-container">

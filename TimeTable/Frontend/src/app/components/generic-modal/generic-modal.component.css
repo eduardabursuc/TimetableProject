@@ -101,3 +101,17 @@ button:hover {
 button:disabled:hover {
   opacity: 1;
 }
+
+.wide-modal {
+  width: 80%; /* or any other desired width */
+  max-width: 800px; /* ensures a maximum limit */
+  margin: auto;
+}
+
+.wide-modal input {
+  width: 90%;
+  height: 50px;
+  overflow-x: visible;
+  text-align: left;
+}
+

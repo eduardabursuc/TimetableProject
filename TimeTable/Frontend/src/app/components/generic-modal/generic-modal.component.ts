@@ -16,6 +16,7 @@ export class GenericModalComponent {
   @Input() isInputRequired: boolean = false;
   @Input() inputPlaceholder: string = '';
   @Input() inputValue: string = '';
+  @Input() isWideModal: boolean = false;
 
   @Input() showCancelButton: boolean = true;
   
