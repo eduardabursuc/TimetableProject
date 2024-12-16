@@ -84,5 +84,34 @@ namespace Infrastructure.Repositories
                 return Result<Unit>.Failure(e.Message);
             }
         }
+
+        public async Task<Result<IEnumerable<Constraint>>> GetAllForProfessorAsync(string professorEmail, Guid timetableId)
+        {
+            try
+            {
+                // Step 1: Find the professor's ID using the provided email
+                var professor = await context.Professors
+                    .FirstOrDefaultAsync(p => p.Email == professorEmail);
+
+                if (professor == null)
+                {
+                    return Result<IEnumerable<Constraint>>.Failure("Professor not found.");
+                }
+
+                // Step 2: Retrieve constraints for the professor and the specified timetable ID
+                var constraints = await context.Constraints
+                    .Where(c => c.ProfessorId == professor.Id && c.TimetableId == timetableId)
+                    .ToListAsync();
+
+                return Result<IEnumerable<Constraint>>.Success(constraints);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and return failure result
+                Console.WriteLine($"Error occurred: {ex.Message}");
+                return Result<IEnumerable<Constraint>>.Failure(ex.Message);
+            }
+        }
+
     }
 }

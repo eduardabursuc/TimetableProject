@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GlobalsService {
-  public apiUrl: string = 'https://timetablegenerator.best/api';
-  //public apiUrl: string = 'http://localhost:5088/api';
+  //public apiUrl: string = 'https://timetablegenerator.best/api';
+  public apiUrl: string = 'http://localhost:5088/api';
 }

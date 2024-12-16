@@ -339,6 +339,9 @@ namespace Infrastructure.Migrations
                             b1.Property<Guid>("GroupId")
                                 .HasColumnType("uuid");
 
+                            b1.Property<bool>("IsEven")
+                                .HasColumnType("boolean");
+
                             b1.Property<Guid>("ProfessorId")
                                 .HasColumnType("uuid");
 
@@ -347,9 +350,6 @@ namespace Infrastructure.Migrations
 
                             b1.Property<Guid>("TimetableId")
                                 .HasColumnType("uuid");
-
-                            b1.Property<bool>("isEven")
-                                .HasColumnType("boolean");
 
                             b1.HasKey("Id");
 

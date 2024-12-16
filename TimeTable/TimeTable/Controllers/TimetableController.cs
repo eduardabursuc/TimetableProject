@@ -141,6 +141,23 @@ namespace TimeTable.Controllers
             
             return NotFound(result.ErrorMessage);
         }
+        
+        [HttpGet("forProfessor")]
+        public async Task<ActionResult<List<TimetableDto>>> GetTimetablesForProfessor([FromQuery] string professorEmail)
+        {
+            var query = new GetAllForProfessorQuery
+            {
+                ProfessorEmail = professorEmail
+            };
+            var result = await mediator.Send(query);
+            
+            if (result.IsSuccess)
+            {
+                return Ok(result.Data);
+            }
+            
+            return NotFound(result.ErrorMessage);
+        }
 
 
     }

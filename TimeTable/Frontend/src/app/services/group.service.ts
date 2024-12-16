@@ -15,7 +15,7 @@ export class GroupService {
     this.apiUrl = `${this.globals.apiUrl}/v1/groups`;
   }
 
-  create(data: { group: Group }): Observable<{ id: string }> {
+  create(data: { userEmail: string, name: string }): Observable<{ id: string }> {
     return this.http.post<{ id: string }>(this.apiUrl, data);
   }
 

@@ -38,3 +38,165 @@ body {
   text-align: left;
   margin: 20px;
 }
+
+h1.title {
+  font-size: 2.5em;
+  margin-bottom: 1em;
+}
+
+h2.subtitle{
+  font-size: 1.8em;
+  color: #34495e;
+  margin-bottom: 1.5em;
+  margin-left: 2em;
+}
+
+button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+button {
+  padding: 12px 25px;
+  background: #71a5c6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  align-self: flex-end;
+}
+
+.add-button {
+  padding: 12px 35px;
+  background: #66c2ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.add-button:hover{
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+.back-button {
+  padding: 12px 25px;
+  background: #929ca2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  align-self: flex-start;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 2em;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
+  color: #c0392b; /* Darker red on hover */
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #2980b9;
+  font-size: 2em;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: 10px;
+}
+
+.edit-button:hover {
+  color: #3498db;
+}
+
+label {
+  font-weight: bold;
+  color: #34495e;
+  font-size: 1.3em;
+  width: 50%;
+}
+
+select, input {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height: 35px;
+  font-size: 1em;
+  width: 100%; /* Make select/input fill the remaining space */
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  padding-left: 8px;
+  background-color: white;
+  appearance: none; /* Removes the default arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+}
+
+select:focus, input:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+}
+
+
+.card {
+  display: flex;
+  flex-direction: row; /* Display horizontally */
+  align-items: center; /* Align items in a row */
+  gap: 20px; /* Space between the day and the time interval */
+  padding: 10px 30px;
+  width: 70%;
+  margin: auto;
+  justify-content: space-between;
+  font-size: 0.8em;
+  border: 1px lightblue solid;
+  border-radius: 5px;
+  background-color: #dee7ef;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.form-wrapper {
+  margin: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.form-group {
+  width: 100%;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.form-group input {
+  height: 40px;
+}
+
+.error {
+  color:#c0392b;
+}

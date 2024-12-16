@@ -44,7 +44,7 @@
 }
 
 .edit-mode-button,
-.delete-button,
+.delete,
 .save-button {
   padding: 15px 25px;
   font-size: 14px;
@@ -76,12 +76,12 @@
   transform: scale(1.05);
 }
 
-.delete-button {
+.delete {
   background: #c67171;
   color: white;
 }
 
-.delete-button:hover {
+.delete:hover {
   background: #db344a;
   transform: scale(1.05);
 }
@@ -156,4 +156,12 @@
 .time-selector {
   display: flex;
   flex-direction: column;
+}
+
+.back-button {
+  margin-top: 30px;
+}
+
+.delete-button:hover {
+  background: none;
 }

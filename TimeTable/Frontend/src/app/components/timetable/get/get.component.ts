@@ -15,7 +15,7 @@ export class GetComponent {
   constructor(private timetableService: TimetableService) {}
 
   fetchAllTimetables(): void {
-    this.timetableService.getAll().subscribe({
+    this.timetableService.getAll('').subscribe({
       next: (response) => {
         this.allTimetablesFetched.emit(response);
       },
@@ -83,7 +83,7 @@ export class GetComponent {
       return;
     }
 
-    this.timetableService.getPaginated(page, pageSize).subscribe({
+    this.timetableService.getPaginated('', page, pageSize).subscribe({
       next: (response) => {
         this.allTimetablesFetched.emit(response);
       },

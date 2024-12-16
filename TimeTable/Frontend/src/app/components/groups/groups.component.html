@@ -1,0 +1,68 @@
+<header>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  </header>
+  
+  <div class="timetable-wrapper">
+    <!-- Sidebar -->
+    <app-sidebar-menu></app-sidebar-menu>
+  
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="main-container">
+        <!-- Title and Subtitle -->
+        <h1 class="title">Groups</h1>
+  
+        <!-- Form for Adding Groups -->
+        <div class="group-form">
+          <h2 class="subtitle">Add a Group</h2>
+          <div class="form-wrapper">
+          <div class="form-group">
+            <label for="groupName">Name:</label>
+            <input id="groupName" class="input-field" [(ngModel)]="newGroup.name" placeholder="Enter group name" />
+          </div>
+          <button 
+            (click)="isAddCase ? addGroup() : updateGroup()" 
+            class="add-button">
+            {{ isAddCase ? 'Add' : 'Update' }}
+          </button>
+
+          </div>
+        </div>
+  
+        <!-- Display the groups -->
+        <div class="list" *ngIf="groups.length > 0">
+          <h2 class="subtitle">Groups:</h2>
+          <div *ngFor="let group of groups" class="card">
+            <div class="details">
+              <p><strong>Name:</strong> {{ group.name }}</p>
+            </div>
+  
+            <div class="action-buttons">
+              <button class="edit-button" (click)="editGroup(group)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="delete-button" (click)="showDeleteModal(group)">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button (click)="onBack()" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+  
+        <!-- Modal  -->
+        <app-generic-modal 
+          [isVisible]="isModalVisible"
+          [title]="modalTitle"
+          [message]="modalMessage"
+          [isInputRequired]="false"
+          [showCancelButton]="cancelOption"
+          (confirmEvent)="handleModalConfirm()">
+        </app-generic-modal>
+      </div>
+    </div>
+  </div>
+  

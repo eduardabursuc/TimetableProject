@@ -24,18 +24,6 @@ h1, h2, .event-description, select, option {
   color: #2c3e50;
 }
 
-h1.title {
-  font-size: 2.5em;
-  margin-bottom: 1em;
-}
-
-h2.subtitle{
-  font-size: 1.8em;
-  color: #34495e;
-  margin-bottom: 1.5em;
-  margin-left: 2em;
-}
-
 .event-subtitle, .added-events-header, .event-card {
   font-size: 1.3em;
   color: #34495e;
@@ -54,6 +42,7 @@ h2.subtitle{
 .added-events-header {
   margin-top: 4em;
   margin-bottom:1em;
+  margin-left: 10%;
 }
 
 h2.added-events-header {
@@ -105,65 +94,13 @@ h2.added-events-header {
   max-width: 600px; /* Optional: limit the width of the select group */
 }
 
-label {
-  font-weight: bold;
-  color: #34495e;
-  font-size: 1.3em;
-  width: 50%;
-}
-
-select, input[type="number"] {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  height: 35px;
-  font-size: 1em;
-  width: 100%; /* Make select/input fill the remaining space */
-  max-width: 200px; /* Optional: limit width of the input/select */
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-select:focus, input[type="number"]:focus {
-  border-color: #2980b9;
-  box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
-}
-
 /* Adjustments for the rest of the page */
-.add-button {
-  padding: 12px 35px;
-  background: #66c2ff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-.add-button:hover{
-  background: #3498db;
-  transform: scale(1.05);
-}
 
 .bottom-buttons {
   display: flex;
   justify-content: space-between; /* Align buttons to the left and right */
   margin-top: 50px; /* Space above the buttons */
   padding: 0 50px; /* Space on the left and right sides of the wrapper */
-}
-
-.back-button {
-  padding: 12px 25px;
-  background: #929ca2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.5em;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-  align-self: flex-start;
 }
 
 
@@ -175,34 +112,6 @@ select:focus, input[type="number"]:focus {
 .back-button:hover {
   background: #a3acb0;
   transform: scale(1.05);
-}
-
-.delete-button {
-  background: none;
-  border: none;
-  color: #e74c3c;
-  font-size: 2em;
-  cursor: pointer;
-  transition: color 0.3s;
-  margin-left: 10px;
-}
-
-.delete-button:hover {
-  color: #c0392b; /* Darker red on hover */
-}
-
-.edit-button {
-  background: none;
-  border: none;
-  color: #2980b9;
-  font-size: 2em;
-  cursor: pointer;
-  transition: color 0.3s;
-  margin-left: 10px;
-}
-
-.edit-button:hover {
-  color: #3498db;
 }
 
 .generate-button {
