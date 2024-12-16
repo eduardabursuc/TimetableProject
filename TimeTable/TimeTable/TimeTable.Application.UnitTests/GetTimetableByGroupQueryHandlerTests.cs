@@ -91,7 +91,8 @@ namespace TimeTable.Application.UnitTests
                         GroupId = Guid.NewGuid(),
                         Duration = 2,
                         RoomId = Guid.NewGuid(),
-                        Timeslot = new Timeslot { Day = "Monday", Time = "08:00-10:00" }
+                        Timeslot = new Timeslot { Day = "Monday", Time = "08:00-10:00" },
+                        IsEven = false
                     }
                 }
             };

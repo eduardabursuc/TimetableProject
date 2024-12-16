@@ -81,4 +81,10 @@ export class TimetableService {
     return this.http.get<Timetable[]>(`${this.apiUrl}/paginated`, { params });
   }
 
+  getForProfessor(professorEmail: string): Observable<Timetable[]> {
+    const params = new HttpParams()
+      .set('professorEmail', professorEmail);
+    return this.http.get<Timetable[]>(`${this.apiUrl}/forProfessor`, { params });
+  }
+
 }

@@ -6,12 +6,14 @@ import { CourseService } from '../../../services/course.service';
 import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { GroupService } from '../../../services/group.service';
+import { ConstraintService } from '../../../services/constraint.service';
 import { Timetable } from '../../../models/timetable.model';
 import { Course } from '../../../models/course.model';
 import { Group } from '../../../models/group.model';   
 import { Room } from '../../../models/room.model';   
 import { Professor } from '../../../models/professor.model';
 import { Timeslot } from '../../../models/timeslot.model';
+import { Constraint } from '../../../models/constraint.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Event } from '../../../models/event.model';
@@ -47,14 +49,16 @@ export class DetailComponent implements OnInit {
   inputValue: string = '';
   inputPlaceholder: string = '';
   isInputRequired: boolean = false;
-  modalType: 'add' | 'delete' | 'edit' | null = null;
+  modalType: 'add' | 'delete' | 'edit' | 'addConstraint' | 'deleteConstraint' | null = null;
   eventToDelete: Timetable | null = null;
   eventToEdit: Timetable | null = null;
+  constraintToDelete: Constraint | null = null;
 
   courses: Course[] = [];        
   professors: Professor[] = [];  
   groups: Group[] = []; 
   rooms: Room[] = [];
+  constraints: Constraint[] = [];
   token: string = '';
   newTime: string = '';
   endTime: string = ''; 
@@ -63,8 +67,11 @@ export class DetailComponent implements OnInit {
   eventTypes: string[] = ['Course', 'Laboratory', 'Seminary'];
 
   isAdmin: boolean = false;
+  isProfessor: boolean = false;
 
   user: any = '';
+  role: any = '';
+  id: any = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -75,7 +82,8 @@ export class DetailComponent implements OnInit {
     private roomService: RoomService,
     private groupService: GroupService,
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private constraintService: ConstraintService
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +93,7 @@ export class DetailComponent implements OnInit {
     }
 
     this.user = localStorage.getItem("user");
+    this.role = localStorage.getItem("role");
 
     this.route.params.subscribe((params) => {
       const id = params['id'];
@@ -92,11 +101,15 @@ export class DetailComponent implements OnInit {
         this.errorMessage = 'ID is missing from the URL. Return to the previous page.';
         return;
       }
+      this.id = id;
       this.getTimetableById(id);
     });
 
-    if( localStorage.getItem("role") == 'admin' && this.timetable?.userEmail == this.user ) 
+    if( this.role == 'admin' && this.timetable?.userEmail == this.user ) 
       this.isAdmin = true;
+
+    if( this.role == 'professor')
+      this.isProfessor = true;
 
     this.fetchData();
   }
@@ -114,9 +127,13 @@ export class DetailComponent implements OnInit {
     
     this.roomService.getAll(this.user)
     .subscribe( (data) => this.rooms = data, (error) => console.error("Error loading rooms: ", error) ); 
+
+    if( this.role == "professor" ) {
+      this.constraintService.getAllForProfessor(this.user, this.id)
+      .subscribe( (data) => this.constraints = data, (error) => console.error("Error loading constraints: ", error) );
+    }
   
   }
-
 
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
@@ -313,15 +330,9 @@ export class DetailComponent implements OnInit {
           })
         };
   
-        // Print the updated timetable data before sending
-        console.log('Timetable data before update:', JSON.stringify(updatedTimetable, null, 2));
-  
         // Sending update request to API
         this.timetableService.update(updatedTimetable.id!, updatedTimetable).subscribe({
           next: (response) => {
-            console.log('Timetable updated successfully', response);
-            console.log('Updated timetable data after successful update:', JSON.stringify(response, null, 2));
-  
             // Proceed with post-update logic
             this.isEditMode = false;
             this.getTimetableById(updatedTimetable.id!);
@@ -332,6 +343,30 @@ export class DetailComponent implements OnInit {
             this.errorMessage = 'Failed to update timetable. Please try again.';
           }
         });
+      } else if ( this.modalType == "addConstraint" ) {
+        if( this.inputValue ) {
+          this.constraintService.create( { professorEmail: this.user, input : this.inputValue} ).subscribe({
+            next: (response) => {
+              this.isInputRequired = false;
+              this.modalMessage = "Constraint created!";
+            },
+            error: (error) => {
+              console.error('Failed to update timetable:', error);
+              this.errorMessage = 'Failed to update timetable. Please try again.';
+            }
+          });
+        }
+      } else if ( this.modalType == "deleteConstraint" ) {
+        if( this.constraintToDelete )
+        this.constraintService.delete(this.constraintToDelete.id!).subscribe({
+          next: (response) => {
+            this.router.navigate([`/detail/${this.id}`]);
+          },
+          error: (error) => {
+            console.error('Failed to delete constraint:', error);
+            this.errorMessage = 'Failed to delete constraint. Please try again.';
+          }
+        })
       }
     }
   
@@ -349,11 +384,30 @@ export class DetailComponent implements OnInit {
     this.isModalVisible = true;
   }
 
+  showDeleteModalConstraint(constraint: Constraint): void {
+    this.constraintToDelete = constraint;
+    this.modalTitle = 'Confirm Deletion';
+    this.modalMessage = `Are you sure you want to delete the constraint "${constraint.type}?"`;
+    this.modalType = 'deleteConstraint';
+    this.isModalVisible = true;
+  }
+
   showSaveModal(timetable: Timetable): void {
     this.modalTitle = 'Confirm Saving Changes';
     this.modalMessage = `Confirm changes for timetable "${timetable.name}?"`;
     this.modalType = 'edit';
     this.isModalVisible = true;
   }
+
+  addConstraint(timetable: Timetable): void {
+    this.isInputRequired = true;
+    this.modalTitle = 'Add constraint';
+    this.inputPlaceholder = 'Constraint description';  
+    this.modalType = 'addConstraint';
+    this.isModalVisible = true;
+  }
   
+  onBack() {
+    window.history.back();
+  }
 }

@@ -25,8 +25,11 @@
               <button *ngIf="isAdmin" (click)="toggleEditMode()" class="edit-mode-button">
                 {{ isEditMode ? 'Cancel Edit' : 'Edit Timetable' }}
               </button>
-              <button *ngIf="isAdmin" (click)="showDeleteModal(timetable)" class="delete-button">
+              <button *ngIf="isAdmin" (click)="showDeleteModal(timetable)" class="delete">
                 Delete Timetable
+              </button>
+              <button *ngIf="isProfessor" (click)="addConstraint(timetable)">
+                Add Constraint
               </button>
               <button *ngIf="isFiltered" (click)="resetFilters()" class="reset-button">
                 Reset Filters
@@ -131,6 +134,35 @@
           <p>No timetable to display. Try creating a new one.</p>
         </ng-template>
       </div>
+
+      <!-- Display Constraints for Professors -->
+      <div class="list" *ngIf="constraints.length > 0 && isProfessor">
+        <h2 class="subtitle">Constraints:</h2>
+        <div *ngFor="let constraint of constraints" class="card">
+          <div class="details">
+            <p><strong>Type:</strong> {{ constraint.type }} </p>
+            <p *ngIf="constraint.courseName"> <strong>Course:</strong> {{ constraint.courseName }} </p>
+            <p *ngIf="constraint.roomName"> <strong>Room:</strong> {{ constraint.roomName }} </p>
+            <p *ngIf="constraint.wantedRoomName"> <strong>Wanted room:</strong> {{ constraint.wantedRoomName }} </p>
+            <p *ngIf="constraint.groupName"> <strong>Group:</strong> {{ constraint.groupName }} </p>
+            <p *ngIf="constraint.day"> <strong>Day:</strong> {{ constraint.day }} </p>
+            <p *ngIf="constraint.time"> <strong>Time:</strong> {{ constraint.time }} </p>
+            <p *ngIf="constraint.wantedDay"> <strong>Wanted day:</strong> {{ constraint.wantedDay }} </p>
+            <p *ngIf="constraint.wantedTime"> <strong>Wanted time:</strong> {{ constraint.wantedTime }} </p>
+            <p *ngIf="constraint.event"> <strong>Event type:</strong> {{ constraint.event }} </p>
+          </div>
+
+          <div class="action-buttons">
+            <button class="delete-button" (click)="showDeleteModalConstraint(constraint)">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button (click)="onBack()" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
     </div>
   </div>
 
@@ -138,9 +170,10 @@
     [isVisible]="isModalVisible"
     [title]="modalTitle"
     [message]="modalMessage"
+    [isInputRequired]="isInputRequired"
     [inputPlaceholder]="inputPlaceholder"
     [inputValue]="inputValue"
-    [showCancelButton]="modalType === 'delete' || modalType === 'edit'"
+    [showCancelButton]="modalType === 'delete' || modalType === 'edit' || modalType === 'deleteConstraint' || modalType === 'addConstraint' "
     (confirmEvent)="handleModalConfirm($event)">
   </app-generic-modal>
 </div>

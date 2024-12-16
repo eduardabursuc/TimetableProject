@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Persistence;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
-{ 
-      public DbSet<User> Users { get; init; }
+{
+      
+    public DbSet<User> Users { get; init; }
     public DbSet<Constraint> Constraints { get; init; }
     public DbSet<Professor> Professors { get; init; }
     public DbSet<Course> Courses { get; init; }
@@ -168,7 +169,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 eventEntity.Property(e => e.RoomId).IsRequired();
                 eventEntity.Property(e => e.ProfessorId).IsRequired();
                 eventEntity.Property(e => e.Duration);
-                eventEntity.Property(e => e.isEven).IsRequired();
+                eventEntity.Property(e => e.IsEven).IsRequired();
 
                 // Configure Timeslot within Event
                 eventEntity.OwnsOne(e => e.Timeslot, timeslot =>

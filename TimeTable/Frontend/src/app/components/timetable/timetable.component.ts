@@ -38,10 +38,16 @@ export class TimetableComponent implements OnInit {
     if (!token) {
       this.router.navigate(['/login']);
     } else {
-      this.fetchAllTimetables();
-    }
+      this.user = localStorage.getItem("user");
+      const role = localStorage.getItem("role");
 
-    this.user = localStorage.getItem("user");
+      if( role == 'admin' ){
+        this.fetchAllTimetables();
+      } else if ( role == 'professor' ) {
+        this.fetchAllByProfessor();
+      }
+      
+    }
 
   }
 
@@ -57,6 +63,18 @@ export class TimetableComponent implements OnInit {
   fetchAllTimetables(): void {
 
     this.timetableService.getAll(this.user).subscribe({
+      next: (response) => {
+        // Sort by createdAt in descending order
+        this.timetables = response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      },
+      error: (error) => {
+        console.error('Failed to fetch timetables:', error);
+      },
+    });
+  }
+
+  fetchAllByProfessor(): void {
+    this.timetableService.getForProfessor(this.user).subscribe({
       next: (response) => {
         // Sort by createdAt in descending order
         this.timetables = response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());

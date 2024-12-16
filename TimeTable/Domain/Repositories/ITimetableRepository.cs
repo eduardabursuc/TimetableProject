@@ -14,5 +14,6 @@ namespace Domain.Repositories
         Task<Result<Timetable>> GetByRoomAsync(Guid id, Guid roomId);
         Task<Result<Unit>> UpdateAsync(Timetable? timetable);
         Task<Result<Unit>> DeleteAsync(Guid id);
+        Task<Result<IEnumerable<Timetable>>> GetAllForProfessorAsync(string professorEmail);
     }
 }

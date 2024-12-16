@@ -156,6 +156,7 @@ namespace Infrastructure.Repositories
 
                 // 1. Update the main Timetable fields manually
                 existingTimetable.Name = timetable.Name;
+                existingTimetable.IsPublic = timetable.IsPublic;
 
                 // 2. Update or add Events manually
                 foreach (var incomingEvent in timetable.Events)
@@ -177,7 +178,7 @@ namespace Infrastructure.Repositories
                         existingEvent.ProfessorId = incomingEvent.ProfessorId;
                         existingEvent.Duration = incomingEvent.Duration;
                         existingEvent.GroupId = incomingEvent.GroupId;
-                        existingEvent.isEven = incomingEvent.isEven;
+                        existingEvent.IsEven = incomingEvent.IsEven;
 
                         // Manually update the Timeslot of the event
                         if (incomingEvent.Timeslot != null)
@@ -236,5 +237,25 @@ namespace Infrastructure.Repositories
                 return Result<Unit>.Failure(e.Message);
             }
         }
+
+        public async Task<Result<IEnumerable<Timetable>>> GetAllForProfessorAsync(string professorEmail)
+        {
+            try
+            {
+                var timetables = await _context.Timetables
+                    .Include(t => t.Events) // Include the Events navigation property
+                    .Where(t => t.Events.Any(e => 
+                        _context.Professors.Any(p => p.Id == e.ProfessorId && p.Email == professorEmail)))
+                    .ToListAsync();
+
+                return Result<IEnumerable<Timetable>>.Success(timetables);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return Result<IEnumerable<Timetable>>.Failure($"An error occurred while retrieving timetables: {ex.Message}");
+            }
+        }
+
     }
 }

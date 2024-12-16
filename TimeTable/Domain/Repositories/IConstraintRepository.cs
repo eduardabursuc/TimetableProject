@@ -11,5 +11,6 @@ namespace Domain.Repositories
         Task<Result<Guid>> AddAsync(Constraint constraint);
         Task<Result<Unit>> UpdateAsync(Constraint constraint);
         Task<Result<Unit>> DeleteAsync(Guid id);
+        Task<Result<IEnumerable<Constraint>>> GetAllForProfessorAsync(string professorEmail, Guid timetableId);
     }
 }

@@ -11,7 +11,6 @@ namespace TimeTable.Controllers
     [ApiController]
     public class ConstraintsController(IMediator mediator) : ControllerBase
     {
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateConstraint([FromBody] CreateConstraintCommand command)
         {
@@ -84,6 +83,19 @@ namespace TimeTable.Controllers
             }
 
             return NotFound(result.ErrorMessage);
+        }
+        
+        [HttpGet("forProfessor")]
+        public async Task<ActionResult<List<ConstraintDto>>> GetAllForProfessor(string professorEmail, Guid timetableId)
+        {
+            var result = await mediator.Send(new GetAllForProfessorQuery { ProfessorEmail = professorEmail, TimetableId = timetableId });
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data);
         }
     }
 }

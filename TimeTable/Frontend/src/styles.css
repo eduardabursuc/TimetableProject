@@ -51,6 +51,23 @@ h2.subtitle{
   margin-left: 2em;
 }
 
+button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
+button {
+  padding: 12px 25px;
+  background: #71a5c6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  align-self: flex-end;
+}
+
 .add-button {
   padding: 12px 35px;
   background: #66c2ff;
@@ -180,3 +197,6 @@ select:focus, input:focus {
   height: 40px;
 }
 
+.error {
+  color:#c0392b;
+}
