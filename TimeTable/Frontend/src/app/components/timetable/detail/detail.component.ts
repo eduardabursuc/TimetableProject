@@ -355,9 +355,5 @@ export class DetailComponent implements OnInit {
     this.modalType = 'edit';
     this.isModalVisible = true;
   }
-
-  saveTimetable(timetable: Timetable): void {
-    // save the timetable for a professor or student
-  }
   
 }

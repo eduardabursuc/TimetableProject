@@ -177,6 +177,7 @@ namespace Infrastructure.Repositories
                         existingEvent.ProfessorId = incomingEvent.ProfessorId;
                         existingEvent.Duration = incomingEvent.Duration;
                         existingEvent.GroupId = incomingEvent.GroupId;
+                        existingEvent.isEven = incomingEvent.isEven;
 
                         // Manually update the Timeslot of the event
                         if (incomingEvent.Timeslot != null)

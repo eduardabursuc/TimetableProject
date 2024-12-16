@@ -85,23 +85,5 @@ namespace TimeTable.Controllers
 
             return NotFound(result.ErrorMessage);
         }
-        
-        [HttpPost("add-timetable")]
-        public async Task<IActionResult> AddTimetableToProfessor([FromBody] AddTimetableToProfessorCommand command)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = await mediator.Send(command);
-
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result.ErrorMessage);
-            }
-
-            return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
-        }
     }
 }

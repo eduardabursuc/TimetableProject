@@ -37,4 +37,8 @@ export class ProfessorService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+  addTimetable( data: {id: string, timetableId: string } ): Observable<void> {
+    return this.http.post<void>(this.apiUrl, data);
+  }
+
 }

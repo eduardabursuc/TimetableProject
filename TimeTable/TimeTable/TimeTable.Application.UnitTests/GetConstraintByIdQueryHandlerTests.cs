@@ -1,7 +1,5 @@
 using Application.DTOs;
-using Application.UseCases.Queries;
 using Application.UseCases.Queries.ConstraintQueries;
-using Application.UseCases.QueryHandlers;
 using Application.UseCases.QueryHandlers.ConstraintQueryHandlers;
 using AutoMapper;
 using Domain.Common;
@@ -15,7 +13,7 @@ namespace TimeTable.Application.UnitTests
     {
         private readonly IConstraintRepository _repository = Substitute.For<IConstraintRepository>();
         private readonly IMapper _mapper = Substitute.For<IMapper>();
-/*
+
         [Fact]
         public async Task Given_GetConstraintByIdQueryHandler_When_HandleIsCalled_Then_ConstraintShouldBeReturned()
         {
@@ -111,10 +109,10 @@ namespace TimeTable.Application.UnitTests
                 Id = Guid.NewGuid(),
                 Type = ConstraintType.HARD_NO_OVERLAP,
                 ProfessorId = Guid.NewGuid(),
-                CourseName = "Course 1",
-                RoomName = "Room 1",
-                WantedRoomName = "Room 2",
-                GroupName = "Group 1",
+                CourseId = Guid.NewGuid(),
+                RoomId = Guid.NewGuid(),
+                WantedRoomId = Guid.NewGuid(),
+                GroupId = Guid.NewGuid(),
                 Day = "Monday",
                 Time = "10:00",
                 WantedDay = "Tuesday",
@@ -130,16 +128,16 @@ namespace TimeTable.Application.UnitTests
                 Id = constraint.Id,
                 Type = constraint.Type,
                 ProfessorId = constraint.ProfessorId,
-                CourseName = constraint.CourseName,
-                RoomName = constraint.RoomName,
-                WantedRoomName = constraint.WantedRoomName,
-                GroupName = constraint.GroupName,
+                CourseName = constraint.CourseId.ToString(), // Assuming CourseName is derived from CourseId
+                RoomName = constraint.RoomId.ToString(), // Assuming RoomName is derived from RoomId
+                WantedRoomName = constraint.WantedRoomId.ToString(), // Assuming WantedRoomName is derived from WantedRoomId
+                GroupName = constraint.GroupId.ToString(), // Assuming GroupName is derived from GroupId
                 Day = constraint.Day,
                 Time = constraint.Time,
                 WantedDay = constraint.WantedDay,
                 WantedTime = constraint.WantedTime,
                 Event = constraint.Event
             };
-        }*/
+        }
     }
 }
