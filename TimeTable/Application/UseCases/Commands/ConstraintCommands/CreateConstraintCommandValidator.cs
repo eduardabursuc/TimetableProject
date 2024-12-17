@@ -9,10 +9,19 @@ namespace Application.UseCases.Commands.ConstraintCommands
     {
         public CreateConstraintCommandValidator(ConstraintsValidator validator, IMapper mapper, Instance instance)
         {
-            RuleFor(c => c.Type)
-                .IsInEnum()
-                .WithMessage("Constraint type is required.");
-            
+            RuleFor(c => c.ProfessorEmail)
+                .NotEmpty()
+                .WithMessage("Professor email is required.")
+                .EmailAddress()
+                .WithMessage("Invalid email format.");
+
+            RuleFor(c => c.TimetableId)
+                .NotEmpty()
+                .WithMessage("Timetable ID is required.");
+
+            RuleFor(c => c.Input)
+                .NotEmpty()
+                .WithMessage("Input is required.");
         }
     }
 }

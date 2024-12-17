@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Room } from '../models/room.model';
 import { GlobalsService } from './globals.service';
 import { Observable } from 'rxjs';
-import { GlobalPreloadContext } from 'module';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,8 @@ export class RoomService {
   }
 
   create(data: { userEmail: string, name: string, capacity: number }): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(this.apiUrl, data);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
   }
 
   getAll(userEmail: string): Observable<Room[]> {
@@ -31,11 +31,13 @@ export class RoomService {
   }
 
   update(id: string, room: Room): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, room);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.put<void>(`${this.apiUrl}/${id}`, room, { headers });
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
 }

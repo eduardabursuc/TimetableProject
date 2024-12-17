@@ -11,6 +11,7 @@ namespace TimeTable.Controllers
     [ApiController]
     public class ConstraintsController(IMediator mediator) : ControllerBase
     {
+        [Authorize(Roles = "admin,professor")]
         [HttpPost]
         public async Task<IActionResult> CreateConstraint([FromBody] CreateConstraintCommand command)
         {
@@ -28,8 +29,7 @@ namespace TimeTable.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
         }
-
-        [Authorize]
+        
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateConstraint(Guid id, [FromBody] UpdateConstraintCommand command)
         {
@@ -43,7 +43,6 @@ namespace TimeTable.Controllers
             return NoContent();
         }
         
-        [Authorize]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ConstraintDto>> GetById(Guid id)
         {
@@ -56,8 +55,7 @@ namespace TimeTable.Controllers
 
             return Ok(result.Data);
         }
-
-        [Authorize]
+        
         [HttpGet]
         public async Task<ActionResult<List<ConstraintDto>>> GetAll(Guid timetableId)
         {
@@ -71,7 +69,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
-        [Authorize]
+        [Authorize(Roles = "admin,professor")]
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteConstraint(Guid id)
         {

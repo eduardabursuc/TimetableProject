@@ -16,7 +16,8 @@ export class CourseService {
   }
 
   create(data: { userEmail: string, courseName: string, credits: number, package: string, semester: number, level: string }): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(this.apiUrl, data);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
   }
 
   getAll(userEmail: string): Observable<Course[]> {
@@ -30,11 +31,13 @@ export class CourseService {
   }
 
   update(id: string, course: Course): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, course);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.put<void>(`${this.apiUrl}/${id}`, course, { headers });
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
 }

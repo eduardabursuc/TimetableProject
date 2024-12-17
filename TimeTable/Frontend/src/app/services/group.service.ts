@@ -16,7 +16,8 @@ export class GroupService {
   }
 
   create(data: { userEmail: string, name: string }): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(this.apiUrl, data);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
   }
 
   getAll(userEmail: string): Observable<Group[]> {
@@ -30,11 +31,13 @@ export class GroupService {
   }
 
   update(id: string, group: Group): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, group);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.put<void>(`${this.apiUrl}/${id}`, group, { headers });
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
 }

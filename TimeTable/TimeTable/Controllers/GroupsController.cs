@@ -3,6 +3,7 @@ using Application.UseCases.Commands.GroupCommands;
 using Application.UseCases.Commands.ProfessorCommands;
 using Application.UseCases.Queries.GroupQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
@@ -39,6 +40,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateGroupCommand command)
         {
@@ -52,6 +54,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<Unit>> Update(Guid id, [FromBody] UpdateGroupCommand command)
         {
@@ -70,6 +73,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {

@@ -51,11 +51,6 @@ h2.subtitle{
   margin-left: 2em;
 }
 
-button:hover {
-  background: #3498db;
-  transform: scale(1.05);
-}
-
 button {
   padding: 12px 25px;
   background: #71a5c6;

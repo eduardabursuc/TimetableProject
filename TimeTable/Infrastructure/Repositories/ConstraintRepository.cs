@@ -102,7 +102,7 @@ namespace Infrastructure.Repositories
                 var constraints = await context.Constraints
                     .Where(c => c.ProfessorId == professor.Id && c.TimetableId == timetableId)
                     .ToListAsync();
-
+                
                 return Result<IEnumerable<Constraint>>.Success(constraints);
             }
             catch (Exception ex)

@@ -24,8 +24,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ProfessorsComponent implements OnInit {
   professors: Professor[] = [];
-  newProfessor: Professor = {id: '', name: ''};
-  professorToDelete: Professor = {id: '', name: ''};
+  newProfessor: Professor = {id: '', name: '', email: ''};
+  professorToDelete: Professor = {id: '', name: '', email: ''};
   isAddCase: boolean = true;
   token: string = '';
   user: any = null;
@@ -69,7 +69,7 @@ export class ProfessorsComponent implements OnInit {
         this.modalType = 'error';
         this.isModalVisible = true;
         this.cancelOption = false;
-        this.newProfessor = {id: '', name: ''};
+        this.newProfessor = {id: '', name: '', email: ''};
         return false;
       }
   
@@ -79,7 +79,7 @@ export class ProfessorsComponent implements OnInit {
         this.modalType = 'error';
         this.isModalVisible = true;
         this.cancelOption = false;
-        this.newProfessor = {id: '', name: ''};
+        this.newProfessor = {id: '', name: '', email: ''};
         return false;
       }
 
@@ -92,14 +92,15 @@ export class ProfessorsComponent implements OnInit {
 
     const requestBody = {
       userEmail: this.user,
-      name: this.newProfessor.name
+      name: this.newProfessor.name,
+      email: this.newProfessor.email
     };
 
     this.professorService.create(requestBody).subscribe({
       next: (response) => {
         this.newProfessor.id = response.id;
         this.professors.push(this.newProfessor);
-        this.newProfessor = {id: '', name: ''};
+        this.newProfessor = {id: '', name: '', email: ''};
       },
       error: (err) => {
         console.error('Error adding professor:', err);
@@ -130,7 +131,7 @@ export class ProfessorsComponent implements OnInit {
       },
     });
 
-    this.newProfessor = { id: '', name: ''};
+    this.newProfessor = { id: '', name: '', email: ''};
     this.isAddCase = true;
   }
 

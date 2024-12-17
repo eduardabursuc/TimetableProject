@@ -7,33 +7,18 @@ namespace Application.UseCases.Commands.ConstraintCommands
 {
     public class CreateConstraintCommand : IRequest<Result<Guid>>
     {
-        public ConstraintType Type { get; set; }
-        public Guid? ProfessorId { get; set; }
-        public string? CourseName { get; set; }
-        public string? RoomName { get; set; }
-        public string? WantedRoomName { get; set; }
-        public string? GroupName { get; set; }
-        public string? Day { get; set; }
-        public string? Time { get; set; }
-        public string? WantedDay { get; set; }
-        public string? WantedTime { get; set; }
-        public string? Event { get; set; }
+        public string ProfessorEmail { get; set; }
+        public Guid TimetableId { get; set; }
+        public string Input { get; set; }
 
         public CreateConstraintCommand() { }
 
-        public CreateConstraintCommand(ConstraintDto constraint)
+        public CreateConstraintCommand(string professorEmail, Guid timetableId, string input)
         {
-            Type = constraint.Type;
-            ProfessorId = constraint.ProfessorId;
-            CourseName = constraint.CourseName;
-            RoomName = constraint.RoomName;
-            WantedRoomName = constraint.WantedRoomName;
-            GroupName = constraint.GroupName;
-            Day = constraint.Day;
-            Time = constraint.Time;
-            WantedDay = constraint.WantedDay;
-            WantedTime = constraint.WantedTime;
-            Event = constraint.Event;
+            ProfessorEmail = professorEmail;
+            TimetableId = timetableId;
+            Input = input;
         }
+
     }
 }

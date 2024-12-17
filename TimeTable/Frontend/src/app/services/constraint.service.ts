@@ -16,8 +16,9 @@ export class ConstraintService {
     this.apiUrl = `${this.globals.apiUrl}/v1/constraints`;
   }
 
-  create(data: { professorEmail: string, input: string }): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(this.apiUrl, data);
+  create(data: { professorEmail: string, timetableId: string, input: string }): Observable<{ id: string }> {
+    const headers = this.globals.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
   }
 
   getAllForProfessor(professorEmail: string, timetableId: string): Observable<Constraint[]> {
@@ -28,7 +29,8 @@ export class ConstraintService {
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
 }
