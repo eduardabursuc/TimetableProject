@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Timetable } from '../models/timetable.model';
 import { Observable } from 'rxjs';
 import { GlobalsService } from './globals.service';
-import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable({
@@ -15,32 +14,23 @@ export class TimetableService {
 
   constructor(
     private http: HttpClient, 
-    private cookieService: CookieService,
     private globals: GlobalsService,
   ) {
     this.apiUrl = `${this.globals.apiUrl}/v1/timetables`;
   }
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = this.cookieService.get('authToken');
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-  }
-
-
   create(data: { userEmail: string, name: string, events: any[], timeslots: any[] }): Observable<{ id: string }> {
-    const headers = this.getAuthHeaders();
+    const headers = this.globals.getAuthHeaders();
     return this.http.post<{ id: string }>(`${this.apiUrl}`, data, { headers });
   }
 
   update(id: string, timetable: Timetable): Observable<void> {
-    const headers = this.getAuthHeaders();
+    const headers = this.globals.getAuthHeaders();
     return this.http.put<void>(`${this.apiUrl}/${id}`, timetable, { headers });
   }
 
   delete(id: string): Observable<void> {
-    const headers = this.getAuthHeaders();
+    const headers = this.globals.getAuthHeaders();
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 

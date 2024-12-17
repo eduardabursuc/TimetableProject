@@ -35,10 +35,7 @@ export class SidebarMenuComponent {
   isSelected(route: string): boolean {
     // Special case for "Generate Timetable", it will match /create-timetable-step1 or /create-timetable-step2
     if ( route === '/timetables' ) {
-      return this.currentRoute.includes('timetable');
-    }
-    if ( route === '/rooms' ) {
-      return this.currentRoute.includes('rooms');
+      return this.currentRoute.includes('timetable') || this.currentRoute.includes('detail');
     }
     return this.currentRoute === route;  // Default case for exact matches
   }

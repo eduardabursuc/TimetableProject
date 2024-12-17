@@ -2,6 +2,7 @@
 using Application.UseCases.Commands.RoomCommands;
 using Application.UseCases.Queries.RoomQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
@@ -37,6 +38,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateRoomCommand command)
         {
@@ -47,9 +49,10 @@ namespace TimeTable.Controllers
                 return BadRequest(result.ErrorMessage);
             }
 
-            return Ok(result.Data);
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult> Update(Guid id, [FromBody] UpdateRoomCommand command)
         {
@@ -68,6 +71,7 @@ namespace TimeTable.Controllers
             return Ok();
         }
         
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {

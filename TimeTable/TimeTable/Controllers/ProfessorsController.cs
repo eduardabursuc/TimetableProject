@@ -11,6 +11,7 @@ namespace TimeTable.Controllers
     [ApiController]
     public class ProfessorsController(IMediator mediator) : ControllerBase
     {
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> CreateProfessor([FromBody] CreateProfessorCommand command)
         {
@@ -29,6 +30,7 @@ namespace TimeTable.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateProfessor(Guid id, [FromBody] UpdateProfessorCommand command)
         {
@@ -73,6 +75,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteProfessor(Guid id)
         {

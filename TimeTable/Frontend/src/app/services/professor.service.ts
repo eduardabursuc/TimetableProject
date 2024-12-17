@@ -15,8 +15,9 @@ export class ProfessorService {
     this.apiUrl = `${this.globals.apiUrl}/v1/professors`;
   }
 
-  create(data: { userEmail: string, name: string }): Observable<{ id: string }> {
-    return this.http.post<{ id: string }>(this.apiUrl, data);
+  create(data: { userEmail: string, name: string, email: string }): Observable<{ id: string }> {
+    const headers = this.globals.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
   }
 
   getAll(userEmail: string): Observable<Professor[]> {
@@ -30,15 +31,13 @@ export class ProfessorService {
   }
 
   update(id: string, professor: Professor): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, professor);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.put<void>(`${this.apiUrl}/${id}`, professor, { headers });
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-  addTimetable( data: {id: string, timetableId: string } ): Observable<void> {
-    return this.http.post<void>(this.apiUrl, data);
+    const headers = this.globals.getAuthHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
 }

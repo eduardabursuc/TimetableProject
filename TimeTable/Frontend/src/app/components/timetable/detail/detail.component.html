@@ -141,10 +141,10 @@
         <div *ngFor="let constraint of constraints" class="card">
           <div class="details">
             <p><strong>Type:</strong> {{ constraint.type }} </p>
-            <p *ngIf="constraint.courseName"> <strong>Course:</strong> {{ constraint.courseName }} </p>
-            <p *ngIf="constraint.roomName"> <strong>Room:</strong> {{ constraint.roomName }} </p>
-            <p *ngIf="constraint.wantedRoomName"> <strong>Wanted room:</strong> {{ constraint.wantedRoomName }} </p>
-            <p *ngIf="constraint.groupName"> <strong>Group:</strong> {{ constraint.groupName }} </p>
+            <p *ngIf="constraint.courseName"> <strong>Course:</strong> {{ getCourseNameById(constraint.courseName) }} </p>
+            <p *ngIf="constraint.roomName"> <strong>Room:</strong> {{ getRoomNameById(constraint.roomName) }} </p>
+            <p *ngIf="constraint.wantedRoomName"> <strong>Wanted room:</strong> {{ getRoomNameById(constraint.wantedRoomName) }} </p>
+            <p *ngIf="constraint.groupName"> <strong>Group:</strong> {{ getGroupNameById(constraint.groupName) }} </p>
             <p *ngIf="constraint.day"> <strong>Day:</strong> {{ constraint.day }} </p>
             <p *ngIf="constraint.time"> <strong>Time:</strong> {{ constraint.time }} </p>
             <p *ngIf="constraint.wantedDay"> <strong>Wanted day:</strong> {{ constraint.wantedDay }} </p>

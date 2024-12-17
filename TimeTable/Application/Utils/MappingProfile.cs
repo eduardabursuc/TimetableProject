@@ -26,33 +26,6 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.WantedDay, opt => opt.MapFrom(src => src.WantedDay))
             .ForMember(dest => dest.WantedTime, opt => opt.MapFrom(src => src.WantedTime))
             .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
-
-        CreateMap<CreateConstraintCommand, Constraint>()
-            .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
-            .ForMember(dest => dest.ProfessorId, opt => opt.MapFrom(src => src.ProfessorId))
-            .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.CourseName))
-            .ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.RoomName))
-            .ForMember(dest => dest.WantedRoomId, opt => opt.MapFrom(src => src.WantedRoomName))
-            .ForMember(dest => dest.GroupId, opt => opt.MapFrom(src => src.GroupName))
-            .ForMember(dest => dest.Day, opt => opt.MapFrom(src => src.Day))
-            .ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Time))
-            .ForMember(dest => dest.WantedDay, opt => opt.MapFrom(src => src.WantedDay))
-            .ForMember(dest => dest.WantedTime, opt => opt.MapFrom(src => src.WantedTime))
-            .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
-        
-        CreateMap<UpdateConstraintCommand, Constraint>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
-            .ForMember(dest => dest.ProfessorId, opt => opt.MapFrom(src => src.ProfessorId))
-            .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.CourseName))
-            .ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.RoomName))
-            .ForMember(dest => dest.WantedRoomId, opt => opt.MapFrom(src => src.WantedRoomName))
-            .ForMember(dest => dest.GroupId, opt => opt.MapFrom(src => src.GroupName))
-            .ForMember(dest => dest.Day, opt => opt.MapFrom(src => src.Day))
-            .ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Time))
-            .ForMember(dest => dest.WantedDay, opt => opt.MapFrom(src => src.WantedDay))
-            .ForMember(dest => dest.WantedTime, opt => opt.MapFrom(src => src.WantedTime))
-            .ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
         
         CreateMap<DeleteConstraintCommand, Constraint>().ReverseMap();
  

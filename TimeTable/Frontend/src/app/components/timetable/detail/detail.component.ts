@@ -95,6 +95,13 @@ export class DetailComponent implements OnInit {
     this.user = localStorage.getItem("user");
     this.role = localStorage.getItem("role");
 
+    if( this.role == 'admin' && this.timetable?.userEmail == this.user ) 
+      this.isAdmin = true;
+
+    if( this.role == 'professor')
+      this.isProfessor = true;
+
+
     this.route.params.subscribe((params) => {
       const id = params['id'];
       if (!id) {
@@ -105,27 +112,22 @@ export class DetailComponent implements OnInit {
       this.getTimetableById(id);
     });
 
-    if( this.role == 'admin' && this.timetable?.userEmail == this.user ) 
-      this.isAdmin = true;
-
-    if( this.role == 'professor')
-      this.isProfessor = true;
-
-    this.fetchData();
   }
 
-  fetchData() { 
+  async fetchData() { 
 
-    this.courseService.getAll(this.user)
+    const owner = this.isAdmin ? this.user : this.timetable?.userEmail;
+
+    this.courseService.getAll(owner)
     .subscribe( (data) => this.courses = data, (error) => console.error("Error loading courses: ", error) );
 
-    this.professorService.getAll(this.user)
+    this.professorService.getAll(owner)
     .subscribe( (data) => this.professors = data, (error) => console.error("Error loading professors: ", error) ); 
     
-    this.groupService.getAll(this.user)
+    this.groupService.getAll(owner)
     .subscribe( (data) => this.groups = data, (error) => console.error("Error loading groups: ", error) ); 
     
-    this.roomService.getAll(this.user)
+    this.roomService.getAll(owner)
     .subscribe( (data) => this.rooms = data, (error) => console.error("Error loading rooms: ", error) ); 
 
     if( this.role == "professor" ) {
@@ -150,6 +152,8 @@ export class DetailComponent implements OnInit {
         this.errorMessage = null;
   
         // Fetch additional details for each event
+        this.fetchData();
+
         this.populateEventDetails();
   
         this.groupEventsByDay();
@@ -301,6 +305,8 @@ export class DetailComponent implements OnInit {
       if (this.modalType === 'delete' && this.eventToDelete) {
         this.deleteTimetable(this.eventToDelete.id!);
       } else if (this.modalType === 'edit' && this.timetable) {
+
+        console.log('here2');
         const updatedTimetable: Timetable = {
           ...this.timetable,
           events: this.timetable.events.map(event => {
@@ -344,11 +350,14 @@ export class DetailComponent implements OnInit {
           }
         });
       } else if ( this.modalType == "addConstraint" ) {
+        console.log('here');
+        console.log(this.constraints);
+        this.inputValue = event.inputValue? event.inputValue : "";
+        console.log(this.inputValue);
         if( this.inputValue ) {
-          this.constraintService.create( { professorEmail: this.user, input : this.inputValue} ).subscribe({
+          this.constraintService.create( { professorEmail: this.user, timetableId: this.id, input : this.inputValue} ).subscribe({
             next: (response) => {
-              this.isInputRequired = false;
-              this.modalMessage = "Constraint created!";
+              window.location.reload();
             },
             error: (error) => {
               console.error('Failed to update timetable:', error);
@@ -360,7 +369,8 @@ export class DetailComponent implements OnInit {
         if( this.constraintToDelete )
         this.constraintService.delete(this.constraintToDelete.id!).subscribe({
           next: (response) => {
-            this.router.navigate([`/detail/${this.id}`]);
+            const id = this.constraintToDelete ? this.constraintToDelete.id : null ;
+            if ( id ) this.constraints = this.constraints.filter(constraint => constraint.id !== id);
           },
           error: (error) => {
             console.error('Failed to delete constraint:', error);
@@ -412,4 +422,18 @@ export class DetailComponent implements OnInit {
   onBack() {
     window.history.back();
   }
+
+
+  getCourseNameById( id: string ) {
+    return this.courses.find(course => course.id === id)?.courseName;
+  }
+
+  getRoomNameById( id: string ) {
+    return this.rooms.find(room => room.id === id)?.name;
+  }
+
+  getGroupNameById( id: string ) {
+    return this.groups.find(group => group.id === id)?.name;
+  }
+
 }

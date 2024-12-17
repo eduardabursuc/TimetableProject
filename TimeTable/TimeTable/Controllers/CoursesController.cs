@@ -2,6 +2,7 @@ using Application.DTOs;
 using Application.UseCases.Commands.CourseCommands;
 using Application.UseCases.Queries.CourseQueries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TimeTable.Controllers
@@ -10,6 +11,7 @@ namespace TimeTable.Controllers
     [ApiController]
     public class CoursesController(IMediator mediator) : ControllerBase
     {
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] CreateCourseCommand command)
         {
@@ -28,6 +30,7 @@ namespace TimeTable.Controllers
             return CreatedAtAction(nameof(GetById), new { courseId = result.Data }, result.Data);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] UpdateCourseCommand command)
         {
@@ -72,6 +75,7 @@ namespace TimeTable.Controllers
             return Ok(result.Data);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteCourse(Guid id)
         {

@@ -6,19 +6,12 @@ namespace TimeTable.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class AuthController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public AuthController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserCommand command)
     {
-        var userId = await _mediator.Send(command);
+        var userId = await mediator.Send(command);
         if (!userId.IsSuccess) return Unauthorized(userId.ErrorMessage);
         return Ok(new { UserId = userId });
     }
@@ -26,7 +19,7 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginUserCommand command)
     {
-        var token = await _mediator.Send(command);
+        var token = await mediator.Send(command);
         if (!token.IsSuccess) return Unauthorized(token.ErrorMessage);
         return Ok(new { Token = token.Data });
     }

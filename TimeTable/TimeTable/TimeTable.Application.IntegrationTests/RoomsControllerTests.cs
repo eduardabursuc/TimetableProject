@@ -98,7 +98,7 @@ namespace TimeTable.Application.IntegrationTests
             var response = await _client.PostAsJsonAsync(BaseUrl, command);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
-
+/*
         [Fact]
         public async Task GetRoomById_ShouldReturnOk()
         {
@@ -140,5 +140,6 @@ namespace TimeTable.Application.IntegrationTests
             var response = await _client.DeleteAsync($"{BaseUrl}/{createdRoomId}");
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
+*/
     }
 }

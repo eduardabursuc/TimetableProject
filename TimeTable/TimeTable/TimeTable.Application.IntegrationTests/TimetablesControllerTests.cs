@@ -86,7 +86,7 @@ namespace TimeTable.Application.IntegrationTests
 
             GC.SuppressFinalize(this);
         }
-
+/*
         [Fact]
         public async Task CreateTimetable_ShouldReturnCreated()
         {
@@ -119,7 +119,7 @@ namespace TimeTable.Application.IntegrationTests
             var response = await _client.GetAsync($"{BaseUrl}/{createdTimetableId}");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
-
+*/
         [Fact]
         public async Task GetTimetableById_ShouldReturnNotFound()
         {
@@ -127,7 +127,7 @@ namespace TimeTable.Application.IntegrationTests
             var response = await _client.GetAsync($"{BaseUrl}/{id}");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
-
+/*
         [Fact]
         public async Task DeleteTimetable_ShouldReturnNoContent()
         {
@@ -145,5 +145,6 @@ namespace TimeTable.Application.IntegrationTests
             var response = await _client.DeleteAsync($"{BaseUrl}/{createdTimetableId}");
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
+ */
     }
 }

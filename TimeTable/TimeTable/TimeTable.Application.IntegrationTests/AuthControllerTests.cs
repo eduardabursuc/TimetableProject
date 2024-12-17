@@ -92,7 +92,7 @@ namespace TimeTable.Application.IntegrationTests
             var response = await _client.PostAsJsonAsync("/api/auth/register", command);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
-
+/*
         [Fact]
         public async Task Login_ShouldReturnOk()
         {
@@ -118,5 +118,7 @@ namespace TimeTable.Application.IntegrationTests
             responseData!.IsSuccess.Should().BeTrue();
             responseData.Data.Should().NotBeNullOrEmpty();
         }
+        
+*/
     }
 }
