@@ -50,6 +50,7 @@ export class SidebarMenuComponent {
   }
 
   logout(): void {
+    console.log("logout")
     this.cookieService.delete("authToken");
     localStorage.clear();
     this.router.navigate(['/login']);

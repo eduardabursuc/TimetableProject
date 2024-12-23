@@ -11,7 +11,7 @@
       <div class="detail-container">
         <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
-        <div *ngIf="timetable; else noTimetable">
+        <div *ngIf="timetable; else noTimetable" class="detail-wrap">
           <div class="header-row">
             <p class="timetable-id">
               <strong>Name: </strong>
@@ -28,7 +28,7 @@
               <button *ngIf="isAdmin" (click)="showDeleteModal(timetable)" class="delete">
                 Delete Timetable
               </button>
-              <button *ngIf="isProfessor" (click)="addConstraint(timetable)">
+              <button *ngIf="isProfessor" (click)="addConstraint(timetable)" class="constraint-button">
                 Add Constraint
               </button>
               <button *ngIf="isFiltered" (click)="resetFilters()" class="reset-button">
@@ -72,9 +72,10 @@
                           class="editable-input" />
                       </div>
                       <div class="time-selector">
-                        <label>End:</label>
+                        <label for="time">End:</label>
                         <input 
                           type="time" 
+                          name="time"
                           [(ngModel)]="event.timeslot.endTime" 
                           class="editable-input" />
                       </div>
@@ -163,18 +164,19 @@
       <button (click)="onBack()" class="back-button">
         <i class="fas fa-arrow-left"></i> Back
       </button>
-    </div>
-  </div>
 
-  <app-generic-modal 
-    [isVisible]="isModalVisible"
-    [isWideModal]="modalType === 'addConstraint'"
-    [title]="modalTitle"
-    [message]="modalMessage"
-    [isInputRequired]="isInputRequired"
-    [inputPlaceholder]="inputPlaceholder"
-    [inputValue]="inputValue"
-    [showCancelButton]="modalType === 'delete' || modalType === 'edit' || modalType === 'deleteConstraint' || modalType === 'addConstraint' "
-    (confirmEvent)="handleModalConfirm($event)">
-  </app-generic-modal>
+      <app-generic-modal 
+      [isVisible]="isModalVisible"
+      [isWideModal]="modalType === 'addConstraint'"
+      [title]="modalTitle"
+      [message]="modalMessage"
+      [isInputRequired]="isInputRequired"
+      [inputPlaceholder]="inputPlaceholder"
+      [inputValue]="inputValue"
+      [showCancelButton]="modalType === 'delete' || modalType === 'edit' || modalType === 'deleteConstraint' || modalType === 'addConstraint' "
+      (confirmEvent)="handleModalConfirm($event)">
+      </app-generic-modal>
+
+    </div>
+  </div>  
 </div>

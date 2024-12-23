@@ -4,7 +4,6 @@
   max-width: 1200px;
 }
 
-
 .header-row {
   display: flex;
   justify-content: space-between;
@@ -13,9 +12,7 @@
 }
 
 .timetable-id {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.5em;
 }
 
 .timetable-table {
@@ -66,6 +63,11 @@
   transform: scale(1.05);
 }
 
+.constraint-button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
 .save-button {
   background: #71c6aa;
   color: white;
@@ -97,7 +99,7 @@
   background-color: #f4f4f4;
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 0.7rem;
 }
 
 .detail-container tbody tr:hover {
@@ -133,6 +135,7 @@
   box-sizing: border-box;
   border: 1px solid #ddd;
   overflow-wrap: break-word;
+  font-size: 0.7rem
 }
 
 .event-column {
@@ -162,6 +165,43 @@
   margin-top: 30px;
 }
 
-.delete-button:hover {
-  background: none;
+.delete-button {
+  margin-right: 10px;
 }
+
+.detail-wrap {
+  margin: 0 -5%;
+}
+
+h2.subtitle {
+  margin-top: 50px;
+  margin-left: 1%;
+}
+
+@media (max-width: 800px) {
+
+  .detail-container td,
+  .detail-container th {
+    font-size: 0.5em;
+    padding: 0.2em;
+  }
+
+}
+
+@media (max-width: 400px) {
+
+  .detail-wrap {
+    margin: 0 -7%;
+  }
+
+}
+
+@media (min-width: 801px) {
+
+  .main-container {
+    min-height: 80vh;
+    max-height: none;
+  }
+
+}
+

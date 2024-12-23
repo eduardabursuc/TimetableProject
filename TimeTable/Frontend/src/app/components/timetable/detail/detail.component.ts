@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimetableService } from '../../../services/timetable.service';
 import { CourseService } from '../../../services/course.service';
@@ -74,16 +73,15 @@ export class DetailComponent implements OnInit {
   id: any = '';
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private timetableService: TimetableService,
-    private courseService: CourseService,
-    private professorService: ProfessorService,
-    private roomService: RoomService,
-    private groupService: GroupService,
-    private http: HttpClient,
-    private cookieService: CookieService,
-    private constraintService: ConstraintService
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly timetableService: TimetableService,
+    private readonly courseService: CourseService,
+    private readonly professorService: ProfessorService,
+    private readonly roomService: RoomService,
+    private readonly groupService: GroupService,
+    private readonly cookieService: CookieService,
+    private readonly constraintService: ConstraintService
   ) {}
 
   ngOnInit(): void {
@@ -306,7 +304,6 @@ export class DetailComponent implements OnInit {
         this.deleteTimetable(this.eventToDelete.id!);
       } else if (this.modalType === 'edit' && this.timetable) {
 
-        console.log('here2');
         const updatedTimetable: Timetable = {
           ...this.timetable,
           events: this.timetable.events.map(event => {
@@ -350,7 +347,6 @@ export class DetailComponent implements OnInit {
           }
         });
       } else if ( this.modalType == "addConstraint" ) {
-        console.log('here');
         console.log(this.constraints);
         this.inputValue = event.inputValue? event.inputValue : "";
         console.log(this.inputValue);

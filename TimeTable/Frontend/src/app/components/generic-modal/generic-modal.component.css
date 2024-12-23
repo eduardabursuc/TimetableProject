@@ -115,3 +115,15 @@ button:disabled:hover {
   text-align: left;
 }
 
+@media (max-width: 800px) {
+
+  .modal-content {
+    width: 70%;
+  }
+
+  .wide-modal input {
+    width: 85%;
+  }
+
+}
+

@@ -1,18 +1,8 @@
-/* General Container Styling */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #f9f9f9;
-  padding: 20px;
-}
 
 .main-container {
-  min-height: 80vh;
+  height: 80vh;
 }
 
-/* Top Section */
 .top-section {
   margin-bottom: 20px;
   text-align: center;
@@ -161,10 +151,6 @@ button:hover {
 }
 
 .generate-button {
-  margin-right: 0;
-  margin-left: 55%;
-  position: fixed;
-  margin-top: 2%;
   padding: 15px 25px;
   background-color: #0056b3;
 }
@@ -183,6 +169,20 @@ h1 {
 
 .no-timetables-message {
   margin: auto;
+  max-width: 80%;
 }
+
+h1.title {
+  margin: 0;
+}
+
+.title-and-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+
 
 

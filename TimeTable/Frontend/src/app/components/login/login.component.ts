@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { CookieService } from "ngx-cookie-service";
-import { GlobalsService } from '../../services/globals.service';
 import { jwtDecode } from "jwt-decode";
 import { Token } from '../../models/token.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['login.component.css'],
   standalone: true,
   imports: [CommonModule, FormsModule],
 })
@@ -21,9 +20,9 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(
-    private userService: UserService,
-    private router: Router,
-    private cookieService: CookieService
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly cookieService: CookieService
   ) {}
 
   ngOnInit(): void {

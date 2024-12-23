@@ -35,7 +35,11 @@ export class CreateTimetableStep1Component {
   isInputRequired: boolean = false;
   showCancelButton: boolean = true;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef, private cookieService: CookieService) {}
+  constructor(
+    private readonly router: Router, 
+    private readonly cdr: ChangeDetectorRef, 
+    private readonly cookieService: CookieService
+  ) {}
 
   getSelectedDay(): DayInterval | undefined {
     return this.days.find(day => day.selected);
@@ -139,8 +143,6 @@ export class CreateTimetableStep1Component {
       this.loadValidatedIntervals();
     }
   }
-  
-  ngDoCheck() {}
 
   handleModalConfirm(event: { confirmed: boolean }) {
     if (event.confirmed && this.selectedInterval) {

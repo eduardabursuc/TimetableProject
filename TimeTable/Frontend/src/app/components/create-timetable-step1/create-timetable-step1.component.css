@@ -1,49 +1,15 @@
-/* General body styles */
-body {
-  color: #4a4a4a;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.timetable-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Title and Subtitle styles */
-h1, h2, .interval-card {
-  font-family: 'Lora', serif;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-h1.title {
-  font-size: 2.5em;
-  margin-bottom: 1em;
-}
-
-h2.subtitle{
-  font-size: 1.8em;
-  color: #34495e;
-  margin-bottom: 1.5em;
-  margin-left: 2em;
-}
 
 .days-subtitle, .time-subtitle, .interval-card{
   font-size: 1.3em;
   color: #34495e;
   margin-bottom: 1.5em;
-  margin-left: 5em;
+  margin-left: 10%;
 }
 
 .selected-intervals{
   margin-top: 4em;
   margin-bottom:1em;
-  margin-left: 4em;
+  margin-left: 10%;
 }
 
 h2.selected-intervals{
@@ -63,7 +29,7 @@ h2.selected-intervals{
   gap: 20px; /* Space between the day and the time interval */
   padding: 10px 15px;
   width: 70%;
-  margin-left: 10em; 
+  margin: auto; 
   font-size: 0.8em;
   border: 1px lightblue solid;
   border-radius: 5px;
@@ -83,15 +49,13 @@ h2.selected-intervals{
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  margin: 30px 0;
-  width: 100%;
+  margin: 30px auto;
+  width: 90%;
   gap: 20px;
 }
 
 .day-card {
   flex: 0 1 auto;
-  max-width: auto;
-  border-radius: 12px;
   padding: 10px 0;
   display: flex;
   align-items: center;
@@ -228,25 +192,8 @@ input[type="time"]:focus {
   align-self: flex-end;
 }
 
-.back-button {
-  padding: 12px 25px;
-  background: #929ca2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.5em;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-  align-self: flex-start;
-}
-
 .next-button:hover {
   background: #3498db;
-  transform: scale(1.05);
-}
-
-.back-button:hover {
-  background: #a3acb0;
   transform: scale(1.05);
 }
 
@@ -261,24 +208,15 @@ input[type="time"]:focus {
 }
 
 .delete-button:hover {
-  color: #c0392b; /* Darker red on hover */
+  color: #c0392b;
 }
 
-/* Responsive styles */
-@media (max-width: 600px) {
-  .main-container {
-    width: 90%;
-    padding: 20px;
-  }
 
-  .day-card {
-    width: 100%;
-    min-width: 100%;
-  }
+@media (max-width: 800px) {
 
   .bullet-circle {
-    width: 3em;
-    height: 3em;
+    width: 2em;
+    height: 2em;
   }
 
   .day-name {
@@ -288,4 +226,18 @@ input[type="time"]:focus {
   .time-selectors {
     align-items: flex-start;
   }
+
+  .days-container {
+    flex-direction: row;
+  }
+
+  .day-card {
+    margin: 0;
+  }
+
+  .next-button {
+    margin-bottom: 50px;
+    font-size: 1em;
+  }
+
 }

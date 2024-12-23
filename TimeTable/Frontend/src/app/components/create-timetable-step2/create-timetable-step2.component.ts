@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { Group } from '../../models/group.model';   
@@ -14,14 +14,13 @@ import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { DayInterval } from '../../models/day-interval.model';
 import { CookieService } from 'ngx-cookie-service';
-import { response } from 'express';
 
 @Component({
   selector: 'app-create-timetable-step2',
   templateUrl: './create-timetable-step2.component.html',
   styleUrls: ['./create-timetable-step2.component.css'],
   standalone: true,
-  imports: [FormsModule, SidebarMenuComponent, CommonModule, GenericModalComponent, HttpClientModule]
+  imports: [FormsModule, SidebarMenuComponent, CommonModule, GenericModalComponent]
 })
 export class CreateTimetableStep2Component implements OnInit {
   courses: Course[] = [];        
@@ -52,13 +51,12 @@ export class CreateTimetableStep2Component implements OnInit {
   validatedIntervals: DayInterval[] = [];
 
   constructor(
-    private router: Router, 
-    private http: HttpClient, 
-    private cookieService: CookieService, 
-    private timetableService: TimetableService,
-    private courseService: CourseService,
-    private professorService: ProfessorService,
-    private groupService: GroupService
+    private readonly router: Router, 
+    private readonly cookieService: CookieService, 
+    private readonly timetableService: TimetableService,
+    private readonly courseService: CourseService,
+    private readonly professorService: ProfessorService,
+    private readonly groupService: GroupService
   ) { }
 
   ngOnInit(): void {

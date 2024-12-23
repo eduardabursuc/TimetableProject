@@ -5,25 +5,22 @@
 
 <div class="sidebar">
   <div class="menu-item" [class.selected]="isSelected('/timetables')" [class.visible]="isVisible('timetables')" (click)="navigateTo('/timetable')">
-    <i class="fas fa-calendar-alt"></i> Timetables
+    <i class="fas fa-calendar-alt"></i><p>Timetables</p> 
   </div>
     <div class="menu-item" [class.selected]="isSelected('/professors')" [class.visible]="isVisible('professors')" (click)="navigateTo('/professors')">
-      <i class="fas fa-chalkboard-teacher"></i> Professors
+      <i class="fas fa-chalkboard-teacher"></i><p>Professors</p> 
     </div>
     <div class="menu-item" [class.selected]="isSelected('/courses')" [class.visible]="isVisible('courses')" (click)="navigateTo('/courses')">
-      <i class="fas fa-book"></i> Courses
+      <i class="fas fa-book"></i><p>Courses</p>
     </div>
     <div class="menu-item" [class.selected]="isSelected('/groups')" [class.visible]="isVisible('groups')" (click)="navigateTo('/groups')">
-      <i class="fas fa-users"></i> Groups
+      <i class="fas fa-users"></i><p>Groups</p>
     </div>
     <div class="menu-item" [class.selected]="isSelected('/rooms')" [class.visible]="isVisible('rooms')" (click)="navigateTo('/rooms')">
-      <i class="fas fa-building"></i> Rooms
-    </div>
-    <div class="menu-item" [class.selected]="isSelected('/constraints')" [class.visible]="isVisible('constraints')" (click)="navigateTo('/constraints')">
-      <i class="fas fa-lock"></i> Constraints
+      <i class="fas fa-building"></i><p>Rooms</p>
     </div>
     <div class="menu-my-account" [class.selected]="isSelected('/my-account')">
-      <i class="fas fa-user"></i> My Account
+      <i class="fas fa-user" id="account"></i><p>My Account</p>
       <i class="fas fa-sign-out-alt" title="Logout" (click)="logoutModal()"></i>
     </div>
     <app-generic-modal 

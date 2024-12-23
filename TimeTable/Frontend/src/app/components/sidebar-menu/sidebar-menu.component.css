@@ -92,52 +92,74 @@ body {
   color: #2c3e50;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-  }
-
-  .menu-item {
-    font-size: 1em;
-    padding: 12px;
-  }
-
-  .menu-item.selected {
-    font-size: 1.1em;
-  }
-
+p {
+  padding: 5px;
+  margin: 0;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1000px) {
+
+  .menu-item p,
+  .menu-my-account p {
+    display: none;
+  }
+
+  .sidebar {
+    width: 50px;
+  }
+
+  #account {
+    display: none;
+  }
+
+  .menu-item.visible, .menu-my-account {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .menu-item.visible i, .menu-my-account i{
+    padding: 10px 5px 10px 4px;
+  }
+}
+
+@media (max-width: 800px) {
+
   .sidebar {
     width: 100%;
-    height: auto;
-    position: relative;
-    box-shadow: none; /* No shadow for smaller screens */
+    height: 70px;
+    flex-direction: row;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    align-items: center;
   }
 
-  .menu-item {
-    font-size: 1em;
-    padding: 12px 16px;
+  .menu-item p,
+  .menu-my-account p {
+    display: none;
   }
 
-  .menu-item i {
-    font-size: 1.2em;
+  #account {
+    display: none;
   }
 
-  .sidebar h1 {
-    font-size: 1.3em;
-    padding-left: 10px;
+  .menu-item.visible, .menu-my-account {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 13px 0px;
   }
+
+  .menu-item.visible i, .menu-my-account i{
+    margin: auto;
+  }
+
 }
 
-@media (min-width: 1024px) {
-  .sidebar {
-    width: 240px;
-  }
-
-  .menu-item {
-    font-size: 1.2em;
-  }
-}

@@ -10,13 +10,15 @@
   <!-- Main Content -->
   <div class="main-content">
     <div class="main-container">
-      <!-- Title and Subtitle -->
-      <h1 class="title">Timetables</h1>
-      <!-- Generate Timetable Button -->
-      <button class="generate-button" (click)="generateTimetable()" [class.visible]="isVisible()">
-          CREATE
-      </button>
-      
+      <!-- Title -->
+       <div class="title-and-button"> 
+        <h1 class="title">Timetables</h1>
+        <!-- Generate Timetable Button -->
+        <button class="generate-button" (click)="generateTimetable()" [class.visible]="isVisible()">
+            CREATE
+        </button>
+       </div>
+
       <!-- Timetable List -->
       <div *ngIf="timetables.length > 0" class="timetable-list">
         <div *ngFor="let timetable of paginatedTimetables" class="timetable-card">

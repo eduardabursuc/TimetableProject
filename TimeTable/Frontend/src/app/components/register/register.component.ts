@@ -11,19 +11,16 @@ import { UserService } from '../../services/user.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent{
   email: string = '';
   password: string = '';
   accountType: string = 'professor';
   errorMessage: string = '';
 
   constructor(
-    private userService: UserService,
-    private router: Router
+    private readonly userService: UserService,
+    private readonly router: Router
   ) {}
-
-  ngOnInit(): void {
-  }
 
   onSubmit() {
     const credentials = { email: this.email, password: this.password, accountType: this.accountType };

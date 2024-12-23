@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Group } from '../../models/group.model';
 import { GroupService } from '../../services/group.service';
@@ -18,8 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     SidebarMenuComponent,
     CommonModule,
-    GenericModalComponent,
-    HttpClientModule,
+    GenericModalComponent
   ],
 })
 export class GroupsComponent implements OnInit {
@@ -37,9 +35,9 @@ export class GroupsComponent implements OnInit {
   modalMessage: string = '';
 
   constructor(
-    private router: Router,
-    private cookieService: CookieService,
-    private groupService: GroupService
+    private readonly router: Router,
+    private readonly cookieService: CookieService,
+    private readonly groupService: GroupService
   ) {}
 
   ngOnInit(): void {

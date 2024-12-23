@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../../services/course.service';
@@ -18,8 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     SidebarMenuComponent,
     CommonModule,
-    GenericModalComponent,
-    HttpClientModule,
+    GenericModalComponent
   ],
 })
 export class CoursesComponent implements OnInit {
@@ -37,9 +35,9 @@ export class CoursesComponent implements OnInit {
   modalMessage: string = '';
 
   constructor(
-    private router: Router,
-    private cookieService: CookieService,
-    private courseService: CourseService
+    private readonly router: Router,
+    private readonly cookieService: CookieService,
+    private readonly courseService: CourseService
   ) {}
 
   ngOnInit(): void {
@@ -161,7 +159,7 @@ export class CoursesComponent implements OnInit {
   handleModalConfirm(): void {
     this.isModalVisible = false;
     if ( this.modalType === 'delete' ){
-        this.deleteCourse;
+        this.deleteCourse();
     }
   }
 

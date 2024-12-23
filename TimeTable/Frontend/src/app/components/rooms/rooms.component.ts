@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Room } from '../../models/room.model';
 import { RoomService } from '../../services/room.service';
@@ -18,8 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     SidebarMenuComponent,
     CommonModule,
-    GenericModalComponent,
-    HttpClientModule,
+    GenericModalComponent
   ],
 })
 export class RoomsComponent implements OnInit {
@@ -37,9 +35,9 @@ export class RoomsComponent implements OnInit {
   modalMessage: string = '';
 
   constructor(
-    private router: Router,
-    private cookieService: CookieService,
-    private roomService: RoomService
+    private readonly router: Router,
+    private readonly cookieService: CookieService,
+    private readonly roomService: RoomService
   ) {}
 
   ngOnInit(): void {

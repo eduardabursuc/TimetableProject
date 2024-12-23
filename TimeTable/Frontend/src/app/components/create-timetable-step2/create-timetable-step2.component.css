@@ -1,34 +1,8 @@
-/* General body styles */
-body {
-  font-family: 'Lora', serif;
-  background-color: #f4f6f9;
-  color: #4a4a4a;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-}
-
-.timetable-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Title and Subtitle styles */
-h1, h2, .event-description, select, option {
-  font-family: 'Lora', serif;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
 .event-subtitle, .added-events-header, .event-card {
   font-size: 1.3em;
   color: #34495e;
   margin-bottom: 1.5em;
-  margin-left: 20%;
+  margin-left: 10%;
 }
 
 .event-subtitle{
@@ -55,8 +29,8 @@ h2.added-events-header {
   align-items: center; /* Align items in a row */
   gap: 20px; /* Space between the day and the time interval */
   padding: 10px 30px;
-  width: 65%;
-  margin-left: 10em;
+  width: 80%;
+  margin: auto;
   justify-content: space-between;
   font-size: 0.8em;
   border: 1px lightblue solid;
@@ -90,8 +64,8 @@ h2.added-events-header {
   display: flex;
   align-items: center; /* Align items horizontally */
   gap: 30px; /* Space between the label and the select/input */
-  width: 100%; /* Ensure it spans the full width */
-  max-width: 600px; /* Optional: limit the width of the select group */
+  width: 60%;
+  margin: auto;
 }
 
 /* Adjustments for the rest of the page */
@@ -164,10 +138,38 @@ input {
   padding-left: 15px;
 }
 
-/* Responsive styles */
-@media (max-width: 600px) {
-  .main-container {
-    width: 90%;
-    padding: 20px;
+@media (max-width: 800px) {
+
+  .bullet-circle {
+    width: 2em;
+    height: 2em;
+  }
+
+  .day-name {
+    font-size: 1em;
+  }
+
+  .time-selectors {
+    align-items: flex-start;
+  }
+
+  .days-container {
+    flex-direction: row;
+  }
+
+  .day-card {
+    margin: 0;
+  }
+
+  .generate-button {
+    margin-bottom: 50px;
+    font-size: 1em;
+  }
+
+  .select-group {
+    width: 80%;
   }
 }
+
+
+
