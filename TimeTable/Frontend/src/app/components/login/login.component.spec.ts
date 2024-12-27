@@ -1,14 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GlobalsService } from '../../../services/globals.service';
-import * as jwtDecode from 'jwt-decode';
-import { Token } from '../../../models/token.model';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,7 +20,7 @@ describe('LoginComponent', () => {
     const spyCookieService = jasmine.createSpyObj('CookieService', ['get', 'set']);
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, LoginComponent],  // Ensure LoginComponent is imported
+      imports: [CommonModule, FormsModule, LoginComponent],
       providers: [
         { provide: UserService, useValue: spyUserService },
         { provide: Router, useValue: spyRouter },

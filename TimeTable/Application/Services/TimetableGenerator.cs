@@ -4,38 +4,74 @@ using Domain.Repositories;
 
 namespace Application.Services
 {
-    public class TimetableGenerator(
-        string userEmail,
-        Instance instance,
-        IRoomRepository roomRepository,
-        IGroupRepository groupRepository,
-        ICourseRepository courseRepository,
-        IConstraintRepository constraintRepository,
-        Guid? timetableId = null)
+    public class TimetableGenerator
     {
+        private readonly string userEmail;
+        private readonly Instance instance;
+        private readonly IRoomRepository roomRepository;
+        private readonly IGroupRepository groupRepository;
+        private readonly ICourseRepository courseRepository;
+        private readonly IConstraintRepository constraintRepository;
+        private readonly Guid? timetableId;
+
+        public TimetableGenerator(
+            string userEmail,
+            Instance instance,
+            IRoomRepository roomRepository,
+            IGroupRepository groupRepository,
+            ICourseRepository courseRepository,
+            IConstraintRepository constraintRepository,
+            Guid? timetableId = null)
+        {
+            this.userEmail = userEmail;
+            this.instance = instance;
+            this.roomRepository = roomRepository;
+            this.groupRepository = groupRepository;
+            this.courseRepository = courseRepository;
+            this.constraintRepository = constraintRepository;
+            this.timetableId = timetableId;
+        }
 
         public Timetable GenerateBestTimetable(out Dictionary<Event, (Room, Timeslot)> bestSolution)
         {
-            // Generate domains for events based on constraints
+            Console.WriteLine("1");
             var variables = GenerateVariablesWithConstraints();
-
-            // Evaluate all possible timetables
+            Console.WriteLine("2");
             var candidateSolutions = GenerateAllPossibleTimetables(variables);
-
-            // Score the timetables
+            Console.WriteLine("3");
             var scoredSolutions = ScoreTimetables(candidateSolutions);
-
-            // Select the best timetable
+            Console.WriteLine("4");
+            
             var bestScoredSolution = scoredSolutions.OrderByDescending(s => s.Score).FirstOrDefault();
-
+            Console.WriteLine("5");
             if (bestScoredSolution == null)
             {
-                bestSolution = null!;
-                throw new Exception("No valid timetable could be generated.");
+                Console.WriteLine("6");
+                bestSolution = GenerateFallbackSolution();
             }
-
-            bestSolution = bestScoredSolution.Assignment;
+            else
+            {
+                bestSolution = bestScoredSolution.Assignment;
+            }
+            Console.WriteLine("7");
             return MapSolutionToTimetable(bestSolution);
+        }
+
+        private Dictionary<Event, (Room, Timeslot)> GenerateFallbackSolution()
+        {
+            var fallbackSolution = new Dictionary<Event, (Room, Timeslot)>();
+
+            foreach (var ev in instance.Events)
+            {
+                var room = roomRepository.GetAllAsync(userEmail).Result?.Data?.FirstOrDefault();
+                var timeslot = instance.Timeslots.FirstOrDefault();
+
+                if (room != null && timeslot != null)
+                {
+                    fallbackSolution[ev] = (room, timeslot);
+                }
+            }
+            return fallbackSolution;
         }
 
         private Dictionary<Event, List<(Room, Timeslot)>> GenerateVariablesWithConstraints()
@@ -46,12 +82,12 @@ namespace Application.Services
             {
                 var possibleRooms = roomRepository.GetAllAsync(userEmail).Result?.Data ?? new List<Room>();
                 var splitTimeslots = SplitTimeslots(instance.Timeslots, ev.Duration);
-                HardConstraintValidator hardValidator = new(courseRepository, groupRepository);
+                var hardValidator = new HardConstraintValidator(courseRepository, groupRepository);
                 
                 var domain = (from room in possibleRooms
-                    from timeslot in splitTimeslots
-                    where hardValidator.ValidateRoomCapacity(room, ev.EventName)
-                    select (room, timeslot)).ToList();
+                              from timeslot in splitTimeslots
+                              where hardValidator.ValidateRoomCapacity(room, ev.EventName)
+                              select (room, timeslot)).ToList();
 
                 variables[ev] = domain;
             }
@@ -99,16 +135,18 @@ namespace Application.Services
             {
                 // Check room and timeslot overlap
                 var roomsAreEqual = room.Id == assignedRoom.Id;
+                var professorOverlap = ev.ProfessorId == assignedEvent.ProfessorId;
                 var timeslotsOverlap = 
                     timeslot.Day == assignedTimeslot.Day &&
                     (timeslot.Time.StartsWith(assignedTimeslot.Time.Split(" - ")[0]) ||
                      timeslot.Time.Split(" - ")[1].StartsWith(assignedTimeslot.Time.Split(" - ")[0]));
 
                 // Only allow assignments where both room and timeslot don't overlap
-                if (roomsAreEqual && timeslotsOverlap)
+                if (( roomsAreEqual && timeslotsOverlap) || ( professorOverlap && timeslotsOverlap))
                 {
                     return false;
                 }
+                
 
                 // Check group overlap
                 if (!hardValidator.ValidateGroupOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)))
@@ -224,7 +262,6 @@ namespace Application.Services
             foreach (var (ev, value) in solution)
             {
                 var (room, timeslot) = value;
-                Console.WriteLine($"{ev.EventName} - {ev.CourseId} - {room} - {timeslot}");
                 ev.RoomId = room.Id;
                 ev.Timeslot = timeslot;
                 ev.TimetableId = timetable.Id;
@@ -234,7 +271,6 @@ namespace Application.Services
             return timetable;
         }
     }
-    
 
     public class ScoredTimetable
     {

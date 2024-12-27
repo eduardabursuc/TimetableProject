@@ -13,28 +13,33 @@ body {
   width: 100%;
 }
 
+.timetable-wrapper {
+  height: 100%;
+}
+
   /* Main content area */
 .main-content {
   padding: 0px;
   display: flex;
   flex-direction: column;
-  margin-left: 20%;
+  margin-left: 15%;
   height: 100%;
+  width: 85%;
 }
 
 .main-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
   width: 80%;
   min-width: 80%;
-  padding: 3em 4.5em;
+  padding: 3em;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   text-align: left;
-  margin: 3% auto;
+  margin: 25px auto;
+  max-height: none;
 }
 
 h1.title {
@@ -70,9 +75,9 @@ button {
   font-size: 1.1em;
   cursor: pointer;
   transition: background 0.3s, transform 0.3s;
-  margin-top: 20px;
-  margin-bottom: 30px;
   margin: auto;
+  margin-top: 20px;
+  margin-bottom: 30px;  
 }
 
 .add-button:hover{
@@ -225,7 +230,6 @@ select:focus, input:focus {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
   align-items: center;
   justify-content: center;
 }
@@ -270,13 +274,15 @@ select:focus, input:focus {
 @media (max-width: 1000px) {
 
   .main-content {
-    width: 95%;
+    width: calc(100% - 50px);
     margin-left: 50px;
   }
 
   .main-container {
-    margin: 2% auto;
+    padding: 5%; 
+    margin: 15px auto;
   }
+
 }
 
 @media (max-width: 800px) {
@@ -287,25 +293,26 @@ select:focus, input:focus {
 
   .timetable-wrapper {
     width: 100%;
+    height: calc( 100% - 70px );
     background-color: white;
   }
 
   .main-content {
     width: 100%;
+    height: 100%;
     margin: 0px;
     background-color: white;
   }
 
   .main-container {
-    margin: 0px auto;
+    margin: auto;
     border-radius: 0;
     width: 90%;
-    padding: 8% 0;
     box-shadow: none;
   }
 
   .back-button {
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     font-size: 1em;
   }
 
@@ -322,3 +329,4 @@ select:focus, input:focus {
   }
 
 }
+

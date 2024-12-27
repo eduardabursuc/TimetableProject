@@ -23,4 +23,12 @@ public class AuthController(IMediator mediator) : ControllerBase
         if (!token.IsSuccess) return Unauthorized(token.ErrorMessage);
         return Ok(new { Token = token.Data });
     }
+    
+    [HttpPost("refresh")]
+    public async Task<IActionResult> Refresh(RefreshTokenCommand command)
+    {
+        var token = await mediator.Send(command);
+        if (!token.IsSuccess) return Unauthorized(token.ErrorMessage);
+        return Ok(new { Token = token.Data });
+    }
 }

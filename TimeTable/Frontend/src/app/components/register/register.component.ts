@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -24,20 +24,20 @@ export class RegisterComponent{
 
   onSubmit() {
     const credentials = { email: this.email, password: this.password, accountType: this.accountType };
-    this.userService.register(credentials).subscribe(
-      (response) => {
+    this.userService.register(credentials).subscribe({
+      next: (response) => {
         console.log('Success.');
         // Navigate to /login
         this.router.navigate(['/login']);
       },
-      (error) => {
+      error : (error) => {
         if (error.status === 401) {
           this.errorMessage = 'User with this email already exists.';
         } else {
           this.errorMessage = 'An error occurred. Please try again later.';
         }
       }
-    );
+    });
   }
 
   navigateToLogin() {

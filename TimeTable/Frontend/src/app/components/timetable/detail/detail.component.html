@@ -3,6 +3,11 @@
 </header>
 
 <div class="timetable-wrapper">
+  
+  <div *ngIf="isLoading">
+    <app-loading></app-loading>
+  </div>
+
   <app-sidebar-menu></app-sidebar-menu>
   <div class="main-content">
     <div class="main-container">
@@ -17,16 +22,18 @@
               <strong>Name: </strong>
               <input *ngIf="isEditMode" [(ngModel)]="timetable.name" type="text" class="editable-input" />
               <span *ngIf="!isEditMode">{{ timetable.name }}</span>
+              <button *ngIf="isEditMode" class="privacy" (click)="togglePrivacy()">{{ privacy }}</button>
+              <span *ngIf="!isEditMode && isAdmin" class="privacy" >{{ privacy }}</span>
             </p>
             <div class="button-group">
               <button *ngIf="isAdmin && isEditMode" (click)="showSaveModal(timetable)" class="save-button">
-                Save Changes
+                Save
               </button>
               <button *ngIf="isAdmin" (click)="toggleEditMode()" class="edit-mode-button">
-                {{ isEditMode ? 'Cancel Edit' : 'Edit Timetable' }}
+                {{ isEditMode ? 'Cancel' : 'Edit' }}
               </button>
               <button *ngIf="isAdmin" (click)="showDeleteModal(timetable)" class="delete">
-                Delete Timetable
+                Delete
               </button>
               <button *ngIf="isProfessor" (click)="addConstraint(timetable)" class="constraint-button">
                 Add Constraint
@@ -65,17 +72,18 @@
                     <span *ngIf="!isEditMode">{{ event.timeslot.time }}</span>
                     <div *ngIf="isEditMode" class="time-inputs">
                       <div class="time-selector">
-                        <label>Start:</label>
+                        <label for="start-time">Start:</label>
                         <input 
                           type="time" 
+                          name="start-time"
                           [(ngModel)]="event.timeslot.startTime" 
                           class="editable-input" />
                       </div>
                       <div class="time-selector">
-                        <label for="time">End:</label>
+                        <label for="time-end">End:</label>
                         <input 
                           type="time" 
-                          name="time"
+                          name="time-end"
                           [(ngModel)]="event.timeslot.endTime" 
                           class="editable-input" />
                       </div>

@@ -9,9 +9,12 @@ import { Observable } from 'rxjs';
 })
 export class GroupService {
 
-  private apiUrl: string;
+  private readonly apiUrl: string;
 
-  constructor(private http: HttpClient, private globals: GlobalsService) {
+  constructor(
+    private readonly http: HttpClient, 
+    private readonly globals: GlobalsService
+  ) {
     this.apiUrl = `${this.globals.apiUrl}/v1/groups`;
   }
 

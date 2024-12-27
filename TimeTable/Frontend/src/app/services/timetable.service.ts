@@ -10,11 +10,11 @@ import { GlobalsService } from './globals.service';
 })
 export class TimetableService {
 
-  private apiUrl: string;
+  private readonly apiUrl: string;
 
   constructor(
-    private http: HttpClient, 
-    private globals: GlobalsService,
+    private readonly http: HttpClient, 
+    private readonly globals: GlobalsService,
   ) {
     this.apiUrl = `${this.globals.apiUrl}/v1/timetables`;
   }

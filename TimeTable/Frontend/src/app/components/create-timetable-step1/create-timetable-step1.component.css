@@ -211,6 +211,12 @@ input[type="time"]:focus {
   color: #c0392b;
 }
 
+.added-intervals {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 
 @media (max-width: 800px) {
 
@@ -236,8 +242,14 @@ input[type="time"]:focus {
   }
 
   .next-button {
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     font-size: 1em;
   }
 
+}
+
+@media (max-width: 500px) {
+  .time-selector {
+    width: 90%;
+  }
 }

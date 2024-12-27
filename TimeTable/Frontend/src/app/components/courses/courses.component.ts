@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from '../../services/globals.service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-courses',
@@ -17,7 +19,8 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     SidebarMenuComponent,
     CommonModule,
-    GenericModalComponent
+    GenericModalComponent,
+    LoadingComponent
   ],
 })
 export class CoursesComponent implements OnInit {
@@ -34,14 +37,19 @@ export class CoursesComponent implements OnInit {
   modalTitle: string = '';
   modalMessage: string = '';
 
+  isLoading: boolean = true;
+
   constructor(
     private readonly router: Router,
     private readonly cookieService: CookieService,
-    private readonly courseService: CourseService
+    private readonly courseService: CourseService,
+    private readonly globals: GlobalsService
   ) {}
 
   ngOnInit(): void {
     this.token = this.cookieService.get('authToken');
+    this.globals.checkToken(this.token);
+
     if (this.token === '') {
       this.router.navigate(['/login']);
     }
@@ -56,7 +64,11 @@ export class CoursesComponent implements OnInit {
       },
       error: (error) => {
         console.error('Failed to fetch courses:', error);
+        this.isLoading = false;
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 

@@ -4,6 +4,11 @@
 </header>
 
 <div class="timetable-wrapper">
+
+  <div *ngIf="isLoading">
+    <app-loading></app-loading>
+  </div>
+  
   <!-- Sidebar -->
   <app-sidebar-menu></app-sidebar-menu>
 
@@ -18,30 +23,30 @@
       <div class="selection-wrapper">
         <h2 class="event-subtitle">Add an event:</h2>
         <div class="select-group">
-          <label>Course:</label>
-          <select class="select-events" [(ngModel)]="selectedCourse">
+          <label for="course">Course:</label>
+          <select name="course" class="select-events" [(ngModel)]="selectedCourse">
             <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseName }}</option>
           </select>
         </div>
 
         <div class="select-group">
-          <label>Professor:</label>
-          <select class="select-events" [(ngModel)]="selectedProfessor">
+          <label for="professor">Professor:</label>
+          <select name="professor" class="select-events" [(ngModel)]="selectedProfessor">
             <option *ngFor="let professor of professors" [ngValue]="professor">{{ professor.name }}</option>
           </select>
         </div>
 
         <div class="select-group">
-          <label>Group:</label>
-          <select class="select-events" [(ngModel)]="selectedGroup">
+          <label for="group">Group:</label>
+          <select name="group" class="select-events" [(ngModel)]="selectedGroup">
             <option *ngFor="let group of groups" [ngValue]="group">{{ group.name }}</option>
           </select>
         </div>
 
         <!-- New Event Type Selection -->
         <div class="select-group">
-          <label>Event Type:</label>
-          <select class="select-events" [(ngModel)]="eventType">
+          <label for="event-type">Event Type:</label>
+          <select name="event-type" class="select-events" [(ngModel)]="eventType">
             <option value="course">Course</option>
             <option value="laboratory">Laboratory</option>
             <option value="seminary">Seminary</option>
@@ -50,8 +55,8 @@
 
         <!-- New Event Duration Selection -->
         <div class="select-group">
-          <label>Event Duration (hours):</label>
-          <input class="input-events" type="number" [(ngModel)]="eventDuration" min="1" max="12" step="1" />
+          <label for="event-duration">Event Duration (hours):</label>
+          <input name="event-duration" class="input-events" type="number" [(ngModel)]="eventDuration" min="1" max="12" step="1" />
         </div>
 
         <button (click)="addEvent()" class="add-button">Add</button>

@@ -1,13 +1,19 @@
 import { CookieService } from 'ngx-cookie-service';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from "jwt-decode";
+import { Token } from '../models/token.model'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalsService {
 
-  constructor(private cookieService: CookieService) {}
+  constructor(
+    private readonly cookieService: CookieService,
+    private readonly http: HttpClient
+  ) {}
 
   //public apiUrl: string = 'https://timetablegenerator.best/api';
   public apiUrl: string = 'http://localhost:5088/api';
@@ -18,5 +24,33 @@ export class GlobalsService {
       Authorization: `Bearer ${token}`,
     });
   }
+
+  public checkToken(_token: string) {
+
+    const token = this.decodeToken(_token);
+
+    if (token?.exp) {
+      const currentTime = Math.floor(Date.now() / 1000);
+      const timeRemaining = token.exp - currentTime;
+
+      if (timeRemaining < 15) {
+          this.refreshToken({ email: token.unique_name }).subscribe({
+            next: (data) => {
+              this.cookieService.set("authToken", data.token);
+            }
+          })
+      }
+    }
+  }
+  
+  private refreshToken(data: { email: string }): Observable<{ token: string }> {
+    const url = `${this.apiUrl}/refresh`;
+    return this.http.post<{ token: string }>(url, data);
+  }
+
+  public decodeToken(token: string): Token {
+    return jwtDecode<Token>(token, { header: false });
+  }
+
 }
 

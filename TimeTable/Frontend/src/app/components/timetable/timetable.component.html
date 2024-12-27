@@ -4,6 +4,11 @@
 </header>
 
 <div class="timetable-wrapper">
+
+  <div *ngIf="isLoading">
+    <app-loading></app-loading>
+  </div>
+  
   <!-- Sidebar -->
   <app-sidebar-menu></app-sidebar-menu>
 
@@ -32,7 +37,7 @@
       
       <!-- No Timetables Message -->
       <div *ngIf="timetables.length === 0" class="no-timetables-message">
-        <p>No timetables available. Create one to get started!</p>
+        <p>No timetables available.</p>
       </div>
 
       <!-- Pagination Controls -->
@@ -56,13 +61,4 @@
     </div>
   </div>
 
-  <app-generic-modal 
-    [isVisible]="isModalVisible"
-    [title]="modalTitle"
-    [message]="modalMessage"
-    [inputPlaceholder]="inputPlaceholder"
-    [inputValue]="inputValue"
-    [showCancelButton]="modalType === 'delete' || modalType === 'edit'"
-    (confirmEvent)="handleModalConfirm($event)">
-  </app-generic-modal>
 </div>

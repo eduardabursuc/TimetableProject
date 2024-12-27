@@ -21,6 +21,7 @@ namespace Infrastructure.Repositories
         {
             // Retrieve the user from the database
             var existingUser = await usersDbContext.Users.SingleOrDefaultAsync(u => u.Email == user.Email);
+            
             if (existingUser == null)
             {
                 return Result<string>.Failure("Invalid credentials");
@@ -32,26 +33,7 @@ namespace Infrastructure.Repositories
                 return Result<string>.Failure("Invalid credentials");
             }
 
-            // Generate JWT token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]!);
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.Role, existingUser.AccountType)
-            };
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature)
-            };
-            
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return Result<string>.Success(tokenHandler.WriteToken(token));
+            return GetToken(user.Email).Result;
 
         }
 
@@ -74,6 +56,36 @@ namespace Infrastructure.Repositories
                 Email = user.Email,
                 AccountType = user.AccountType
             });
+        }
+
+        public async Task<Result<string>> GetToken(string email)
+        {
+            var user = GetByEmailAsync(email).Result;
+            
+            if (!user.IsSuccess)
+            {
+                return Result<string>.Failure("User not found");
+            }
+            
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]!);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Data.Email),
+                new Claim(ClaimTypes.Role, user.Data.AccountType)
+            };
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return Result<string>.Success(tokenHandler.WriteToken(token));
         }
         
     }

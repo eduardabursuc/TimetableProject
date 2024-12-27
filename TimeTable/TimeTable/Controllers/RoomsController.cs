@@ -32,7 +32,7 @@ namespace TimeTable.Controllers
 
             if (!result.IsSuccess)
             {
-                return BadRequest(result.ErrorMessage);
+                return NotFound(result.ErrorMessage);
             }
 
             return Ok(result.Data);
@@ -82,7 +82,7 @@ namespace TimeTable.Controllers
                 return BadRequest(result.ErrorMessage);
             }
 
-            return Ok();
+            return NoContent();
         }
 
     }

@@ -3,16 +3,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Constraint } from '../models/constraint.model';
 import { GlobalsService } from './globals.service';
 import { Observable } from 'rxjs';
-import { time } from 'console';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConstraintService {
 
-  private apiUrl: string;
+  private readonly apiUrl: string;
 
-  constructor(private http: HttpClient, private globals: GlobalsService) {
+  constructor(
+    private readonly http: HttpClient, 
+    private readonly globals: GlobalsService
+  ) {
     this.apiUrl = `${this.globals.apiUrl}/v1/constraints`;
   }
 

@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const credentials = { email: this.email, password: this.password };
-    this.userService.login(credentials).subscribe(
-      (response) => {
+    this.userService.login(credentials).subscribe({
+      next : (response) => {
         const decodedToken = jwtDecode<Token>(response.token, { header: false });
         localStorage.setItem("user", decodedToken.unique_name);
         localStorage.setItem("role", decodedToken.role);
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         // Navigate to /timetable
         this.router.navigate(['/timetable']);
       },
-      (error) => {
+      error: (error) => {
         if (error.status === 401) {
           this.errorMessage = 'Invalid email or password. Please try again.';
         } else {
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         }
         console.error('Login error:', error);
       }
-    );
+    });
   }
   
   navigateToRegister() {

@@ -6,6 +6,7 @@ import { ProfessorService } from '../../../services/professor.service';
 import { RoomService } from '../../../services/room.service';
 import { GroupService } from '../../../services/group.service';
 import { ConstraintService } from '../../../services/constraint.service';
+import { GlobalsService } from '../../../services/globals.service';
 import { Timetable } from '../../../models/timetable.model';
 import { Course } from '../../../models/course.model';
 import { Group } from '../../../models/group.model';   
@@ -19,13 +20,14 @@ import { Event } from '../../../models/event.model';
 import { SidebarMenuComponent } from '../../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../../generic-modal/generic-modal.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LoadingComponent } from '../../loading/loading.component';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent],
+  imports: [CommonModule, FormsModule, SidebarMenuComponent, GenericModalComponent, LoadingComponent],
 })
 
 export class DetailComponent implements OnInit {
@@ -49,8 +51,8 @@ export class DetailComponent implements OnInit {
   inputPlaceholder: string = '';
   isInputRequired: boolean = false;
   modalType: 'add' | 'delete' | 'edit' | 'addConstraint' | 'deleteConstraint' | null = null;
-  eventToDelete: Timetable | null = null;
-  eventToEdit: Timetable | null = null;
+  timetableToDelete: Timetable | null = null;
+  timetableToEdit: Timetable | null = null;
   constraintToDelete: Constraint | null = null;
 
   courses: Course[] = [];        
@@ -72,6 +74,9 @@ export class DetailComponent implements OnInit {
   role: any = '';
   id: any = '';
 
+  isLoading: boolean = true;
+  privacy: 'private' | 'public' = 'private';
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
@@ -81,24 +86,20 @@ export class DetailComponent implements OnInit {
     private readonly roomService: RoomService,
     private readonly groupService: GroupService,
     private readonly cookieService: CookieService,
-    private readonly constraintService: ConstraintService
+    private readonly constraintService: ConstraintService,
+    private readonly globals: GlobalsService
   ) {}
 
   ngOnInit(): void {
     this.token = this.cookieService.get('authToken');
+    this.globals.checkToken(this.token);
+
     if (this.token == '') {
       this.router.navigate(['/login']);
     }
 
     this.user = localStorage.getItem("user");
     this.role = localStorage.getItem("role");
-
-    if( this.role == 'admin' && this.timetable?.userEmail == this.user ) 
-      this.isAdmin = true;
-
-    if( this.role == 'professor')
-      this.isProfessor = true;
-
 
     this.route.params.subscribe((params) => {
       const id = params['id'];
@@ -117,20 +118,20 @@ export class DetailComponent implements OnInit {
     const owner = this.isAdmin ? this.user : this.timetable?.userEmail;
 
     this.courseService.getAll(owner)
-    .subscribe( (data) => this.courses = data, (error) => console.error("Error loading courses: ", error) );
+    .subscribe({ next: (data) => this.courses = data, error: (error) => console.error("Error loading courses: ", error) });
 
     this.professorService.getAll(owner)
-    .subscribe( (data) => this.professors = data, (error) => console.error("Error loading professors: ", error) ); 
+    .subscribe({ next: (data) => this.professors = data, error: (error) => console.error("Error loading professors: ", error) }); 
     
     this.groupService.getAll(owner)
-    .subscribe( (data) => this.groups = data, (error) => console.error("Error loading groups: ", error) ); 
+    .subscribe({ next: (data) => this.groups = data, error: (error) => console.error("Error loading groups: ", error) }); 
     
     this.roomService.getAll(owner)
-    .subscribe( (data) => this.rooms = data, (error) => console.error("Error loading rooms: ", error) ); 
+    .subscribe({ next: (data) => this.rooms = data, error: (error) => { console.error("Error loading rooms: ", error); this.isLoading = false; } , complete: () => this.isLoading = false }); 
 
     if( this.role == "professor" ) {
       this.constraintService.getAllForProfessor(this.user, this.id)
-      .subscribe( (data) => this.constraints = data, (error) => console.error("Error loading constraints: ", error) );
+      .subscribe({ next: (data) => this.constraints = data, error: (error) => console.error("Error loading constraints: ", error) });
     }
   
   }
@@ -144,7 +145,6 @@ export class DetailComponent implements OnInit {
     this.timetableService.getById(id).subscribe({
       next: (response) => {
         this.timetable = response;
-        console.log(response);
         this.originalEvents = response.events;
         this.filteredEvents = [...this.originalEvents];
         this.errorMessage = null;
@@ -160,6 +160,15 @@ export class DetailComponent implements OnInit {
         this.errorMessage = `Failed to fetch details for ID: ${id}.`;
         console.error(error);
       },
+      complete: () => {
+        this.timetable?.isPublic ? this.privacy = 'public' : this.privacy = 'private';
+
+        if( this.role == 'admin' && this.timetable?.userEmail == this.user ) 
+          this.isAdmin = true;
+    
+        if( this.role == 'professor')
+          this.isProfessor = true;
+      }
     });
   }
   
@@ -300,10 +309,9 @@ export class DetailComponent implements OnInit {
   
   handleModalConfirm(event: { confirmed: boolean; inputValue?: string }): void {
     if (event.confirmed) {
-      if (this.modalType === 'delete' && this.eventToDelete) {
-        this.deleteTimetable(this.eventToDelete.id!);
+      if (this.modalType === 'delete' && this.timetableToDelete) {
+        this.deleteTimetable(this.timetableToDelete.id);
       } else if (this.modalType === 'edit' && this.timetable) {
-
         const updatedTimetable: Timetable = {
           ...this.timetable,
           events: this.timetable.events.map(event => {
@@ -314,15 +322,15 @@ export class DetailComponent implements OnInit {
 
             const updatedEvent: Event = {
               ...event,
-              courseId: course?.id || event.courseId,
-              roomId: room?.id || event.roomId,
-              professorId: professor?.id || event.professorId,
-              groupId: group?.id || event.groupId,
+              courseId: course?.id ?? event.courseId,
+              roomId: room?.id ?? event.roomId,
+              professorId: professor?.id ?? event.professorId,
+              groupId: group?.id ?? event.groupId,
               weekEvenness: event.weekEvenness,
-              courseName: course?.courseName || event.courseName,
-              roomName: room?.name || event.roomName,
-              professorName: professor?.name || event.professorName,
-              group: group?.name || event.group,
+              courseName: course?.courseName ?? event.courseName,
+              roomName: room?.name ?? event.roomName,
+              professorName: professor?.name ?? event.professorName,
+              group: group?.name ?? event.group,
               timeslot: {
                 ...event.timeslot,
                 day: event.timeslot.day,
@@ -333,12 +341,13 @@ export class DetailComponent implements OnInit {
           })
         };
   
+        console.log(updatedTimetable);
         // Sending update request to API
-        this.timetableService.update(updatedTimetable.id!, updatedTimetable).subscribe({
+        this.timetableService.update(updatedTimetable.id, updatedTimetable).subscribe({
           next: (response) => {
             // Proceed with post-update logic
             this.isEditMode = false;
-            this.getTimetableById(updatedTimetable.id!);
+            this.getTimetableById(updatedTimetable.id);
             this.router.navigate([`/detail/${updatedTimetable.id}`]);
           },
           error: (error) => {
@@ -347,23 +356,26 @@ export class DetailComponent implements OnInit {
           }
         });
       } else if ( this.modalType == "addConstraint" ) {
-        console.log(this.constraints);
+        this.isLoading = true;
         this.inputValue = event.inputValue? event.inputValue : "";
-        console.log(this.inputValue);
         if( this.inputValue ) {
           this.constraintService.create( { professorEmail: this.user, timetableId: this.id, input : this.inputValue} ).subscribe({
             next: (response) => {
               window.location.reload();
             },
             error: (error) => {
-              console.error('Failed to update timetable:', error);
-              this.errorMessage = 'Failed to update timetable. Please try again.';
+              console.error('Failed to add a constraint:', error);
+              this.errorMessage = 'Failed to add a constraint. Please try again.';
+              this.isLoading = false;
+            },
+            complete: () => {
+              this.isLoading = false;
             }
           });
         }
       } else if ( this.modalType == "deleteConstraint" ) {
         if( this.constraintToDelete )
-        this.constraintService.delete(this.constraintToDelete.id!).subscribe({
+        this.constraintService.delete(this.constraintToDelete.id).subscribe({
           next: (response) => {
             const id = this.constraintToDelete ? this.constraintToDelete.id : null ;
             if ( id ) this.constraints = this.constraints.filter(constraint => constraint.id !== id);
@@ -385,7 +397,7 @@ export class DetailComponent implements OnInit {
   
   
   showDeleteModal(timetable: Timetable): void {
-    this.eventToDelete = timetable;
+    this.timetableToDelete = timetable;
     this.modalTitle = 'Confirm Deletion';
     this.modalMessage = `Are you sure you want to delete the timetable "${timetable.name}?"`;
     this.modalType = 'delete';
@@ -430,6 +442,13 @@ export class DetailComponent implements OnInit {
 
   getGroupNameById( id: string ) {
     return this.groups.find(group => group.id === id)?.name;
+  }
+
+  togglePrivacy() {
+    if( this.timetable )
+      this.timetable.isPublic = !this.timetable.isPublic;
+
+    this.timetable?.isPublic ? this.privacy = 'public' : this.privacy = 'private';
   }
 
 }

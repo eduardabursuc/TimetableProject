@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { DayInterval } from '../../models/day-interval.model';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from '../../services/globals.service';
 
 @Component({
   selector: 'app-create-timetable-step1',
@@ -14,7 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
   standalone: true,
   imports: [FormsModule, CommonModule, SidebarMenuComponent, GenericModalComponent]
 })
-export class CreateTimetableStep1Component {
+export class CreateTimetableStep1Component implements OnInit {
   modalType: 'delete' | 'update' | null = null;
 
   days: DayInterval[] = [
@@ -38,8 +39,20 @@ export class CreateTimetableStep1Component {
   constructor(
     private readonly router: Router, 
     private readonly cdr: ChangeDetectorRef, 
-    private readonly cookieService: CookieService
+    private readonly cookieService: CookieService,
+    private readonly globals: GlobalsService
   ) {}
+
+  ngOnInit() {
+    const token = this.cookieService.get('authToken');
+    this.globals.checkToken(token);
+
+    if (!token) {
+      this.router.navigate(['/login']);
+    } else {
+      this.loadValidatedIntervals();
+    }
+  } 
 
   getSelectedDay(): DayInterval | undefined {
     return this.days.find(day => day.selected);
@@ -96,7 +109,7 @@ export class CreateTimetableStep1Component {
       this.modalMessage = 'Please ensure that the start time is earlier than the end time for the selected day.';
       this.isModalVisible = true;
       this.showCancelButton = false;
-    } else if (selectedDay && selectedDay.valid) {
+    } else if (selectedDay?.valid) {
       const existingIntervalIndex = this.validatedIntervals.findIndex(interval => interval.day === selectedDay.day);
       if (existingIntervalIndex !== -1) {
         this.modalTitle = 'Update Existing Interval';
@@ -135,14 +148,7 @@ export class CreateTimetableStep1Component {
     this.isModalVisible = false;
   }
 
-  ngOnInit() {
-    const token = this.cookieService.get('authToken');
-    if (!token) {
-      this.router.navigate(['/login']);
-    } else {
-      this.loadValidatedIntervals();
-    }
-  }
+  
 
   handleModalConfirm(event: { confirmed: boolean }) {
     if (event.confirmed && this.selectedInterval) {

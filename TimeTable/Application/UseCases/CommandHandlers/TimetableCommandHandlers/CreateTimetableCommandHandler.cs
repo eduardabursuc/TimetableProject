@@ -19,6 +19,7 @@ namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
             var timetableGenerator = new TimetableGenerator(request.UserEmail, instance, roomRepository, groupRepository, courseRepository, constraintRepository);
             try
             {
+                Console.WriteLine("create");
                 var timetable = timetableGenerator.GenerateBestTimetable(out var solution);
                 timetable.CreatedAt = DateTime.Now.ToUniversalTime();
                 timetable.Name = request.Name;

@@ -16,7 +16,10 @@ export class SidebarMenuComponent {
   modalTitle: string = '';
   modalMessage: string = '';
 
-  constructor(private router: Router, private cookieService: CookieService) {
+  constructor(
+    private readonly router: Router, 
+    private readonly cookieService: CookieService
+  ) {
     this.router.events.subscribe(() => {
       this.updateSelectedRoute();
     });
@@ -51,7 +54,7 @@ export class SidebarMenuComponent {
 
   logout(): void {
     console.log("logout")
-    this.cookieService.delete("authToken");
+    this.cookieService.deleteAll();
     localStorage.clear();
     this.router.navigate(['/login']);
   }

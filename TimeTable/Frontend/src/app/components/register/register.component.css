@@ -48,7 +48,6 @@ form {
   -moz-appearance: none; /* For Firefox */
 }
 
-/* Optional: Adding a custom arrow to the select if needed */
 .login-inputs select::after {
   content: '\25BC'; /* Unicode character for the down arrow */
   position: absolute;

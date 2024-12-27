@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { Group } from '../../models/group.model';   
@@ -14,13 +13,15 @@ import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { DayInterval } from '../../models/day-interval.model';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from '../../services/globals.service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-create-timetable-step2',
   templateUrl: './create-timetable-step2.component.html',
   styleUrls: ['./create-timetable-step2.component.css'],
   standalone: true,
-  imports: [FormsModule, SidebarMenuComponent, CommonModule, GenericModalComponent]
+  imports: [FormsModule, SidebarMenuComponent, CommonModule, GenericModalComponent, LoadingComponent]
 })
 export class CreateTimetableStep2Component implements OnInit {
   courses: Course[] = [];        
@@ -50,18 +51,23 @@ export class CreateTimetableStep2Component implements OnInit {
 
   validatedIntervals: DayInterval[] = [];
 
+  isLoading: boolean = true;
+
   constructor(
     private readonly router: Router, 
     private readonly cookieService: CookieService, 
     private readonly timetableService: TimetableService,
     private readonly courseService: CourseService,
     private readonly professorService: ProfessorService,
-    private readonly groupService: GroupService
+    private readonly groupService: GroupService,
+    private readonly globals: GlobalsService
   ) { }
 
   ngOnInit(): void {
 
     this.token = this.cookieService.get('authToken');
+    this.globals.checkToken(this.token);
+
     if (this.token == '') {
       this.router.navigate(['/login']);
     }
@@ -69,6 +75,7 @@ export class CreateTimetableStep2Component implements OnInit {
     this.user = localStorage.getItem("user");
 
     this.fetchData();
+    
     // Load added events from localStorage if available
     if (this.isLocalStorageAvailable()) {
       const storedEvents = localStorage.getItem('addedEvents');
@@ -111,7 +118,11 @@ export class CreateTimetableStep2Component implements OnInit {
       },
       error: (error) => {
         console.error('Failed to fetch groups:', error);
+        this.isLoading = false;
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
   
@@ -202,33 +213,63 @@ export class CreateTimetableStep2Component implements OnInit {
   }
 
   handleModalConfirm(event: { confirmed: boolean, inputValue?: string }) {
-    if (event.confirmed) {
-      if (this.modalType === 'add') {
-        // Handle add event confirmation, if needed
-      } else if (this.modalType === 'delete' && this.eventToDelete) {
-        this.addedEvents = this.addedEvents.filter(e => e !== this.eventToDelete);
-        this.eventToDelete = null;
-        // Save updated events to localStorage if available
-        if (this.isLocalStorageAvailable()) {
-          localStorage.setItem('addedEvents', JSON.stringify(this.addedEvents));
-        }
-      } else if (this.modalType === 'edit' && this.eventToEdit) {
-        // Show the edit form with the details pre-filled 
-        this.loadEventForEdit();
-      } else if (this.modalType === 'generate') {
-        if (this.addedEvents.length === 0) {
-          // If no events are added, close the modal
-          this.isModalVisible = false;
-        } else {
-          this.inputValue = event.inputValue? event.inputValue : "";
-          if (this.inputValue) {
-            this.generateTimetable();
-          }
-        }
-      }
+    if (!event.confirmed) {
+      this.closeModal();
+      return;
     }
+  
+    switch (this.modalType) {
+      case 'add':
+        break;
+      case 'delete':
+        this.handleDeleteConfirmation();
+        break;
+      case 'edit':
+        this.handleEditConfirmation();
+        break;
+      case 'generate':
+        this.handleGenerateConfirmation(event.inputValue);
+        break;
+    }
+  
+    this.closeModal();
+  }
+  
+  closeModal() {
     this.isModalVisible = false;
     this.modalType = null;
+  }
+  
+  handleDeleteConfirmation() {
+    if (this.eventToDelete) {
+      this.addedEvents = this.addedEvents.filter(e => e !== this.eventToDelete);
+      this.eventToDelete = null;
+      this.saveEventsToLocalStorage();
+    }
+  }
+  
+  handleEditConfirmation() {
+    if (this.eventToEdit) {
+      this.loadEventForEdit();
+    }
+  }
+  
+  handleGenerateConfirmation(inputValue?: string) {
+    if (this.addedEvents.length === 0) {
+      this.closeModal();
+    } else {
+      this.inputValue = inputValue ?? "";
+      if (this.inputValue) {
+        this.isLoading = true;
+        this.generateTimetable();
+      }
+    }
+  }
+  
+  saveEventsToLocalStorage() {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('addedEvents', JSON.stringify(this.addedEvents));
+    }
   }
 
   loadEventForEdit() {
@@ -251,16 +292,16 @@ export class CreateTimetableStep2Component implements OnInit {
       this.modalMessage = 'No events have been added. Please add events before generating the timetable.';
       this.modalType = 'generate';
       this.isModalVisible = true;
-      this.isInputRequired = false;  // No input field for this case
-      this.showCancelButton = false; // Hide the cancel button when no events are added
+      this.isInputRequired = false;
+      this.showCancelButton = false;
     } else {
       this.modalTitle = 'Generate Timetable';
       this.modalMessage = 'Please enter a name for the timetable:';
       this.modalType = 'generate';
       this.isModalVisible = true;
-      this.isInputRequired = true;   // Show input field for name
-      this.inputPlaceholder = 'Timetable Name';  // Placeholder for the input field
-      this.showCancelButton = true; // Show the cancel button when input is required
+      this.isInputRequired = true;
+      this.inputPlaceholder = 'Timetable Name';
+      this.showCancelButton = true;
     }
   }
 
@@ -290,22 +331,28 @@ export class CreateTimetableStep2Component implements OnInit {
       })),
       timeslots: timeslots 
     };
+
+    console.log(requestBody);
     
-    // Make the POST request with headers
-    this.timetableService.create(requestBody).subscribe(
-      response => {
+
+    this.timetableService.create(requestBody).subscribe({
+      next: (response) => {
         console.log('Timetable generated successfully:', response);
         // localStorage.clear();
         this.router.navigate([`/detail/${response}`]);
       },
-      error => {
+      error: (error) => {
         this.isModalVisible = true;
         this.modalTitle = 'Creating error';
         this.modalMessage = 'No valid timetable can be generated.';
         this.modalType = 'error';
         console.error('Error generating timetable:', error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
       }
-    );
+    });
 
   }
 
