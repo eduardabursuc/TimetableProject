@@ -4,15 +4,16 @@ import { TimetableService } from '../../services/timetable.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
-import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { CookieService } from "ngx-cookie-service";
+import { GlobalsService } from '../../services/globals.service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
   styleUrls: ['./timetable.component.css'],
-  standalone: true, // Marks this as a standalone component
-  imports: [RouterModule, CommonModule, SidebarMenuComponent, GenericModalComponent],
+  standalone: true,
+  imports: [RouterModule, CommonModule, SidebarMenuComponent, LoadingComponent],
 })
 export class TimetableComponent implements OnInit {
   timetables: Timetable[] = []; // List of all timetables
@@ -31,13 +32,22 @@ export class TimetableComponent implements OnInit {
 
   user: any = '';
 
-  constructor(private timetableService: TimetableService, private router: Router, private cookieService: CookieService) {}
+  isLoading: boolean = true;
+
+  constructor(
+    private readonly timetableService: TimetableService, 
+    private readonly router: Router, 
+    private readonly cookieService: CookieService,
+    private readonly globals: GlobalsService
+  ) {}
 
   ngOnInit(): void {
     const token = this.cookieService.get('authToken');
+    
     if (!token) {
       this.router.navigate(['/login']);
     } else {
+      this.globals.checkToken(token);
       this.user = localStorage.getItem("user");
       const role = localStorage.getItem("role");
 
@@ -45,10 +55,8 @@ export class TimetableComponent implements OnInit {
         this.fetchAllTimetables();
       } else if ( role == 'professor' ) {
         this.fetchAllByProfessor();
-      }
-      
+      }   
     }
-
   }
 
   get totalPages(): number {
@@ -61,15 +69,19 @@ export class TimetableComponent implements OnInit {
   }
 
   fetchAllTimetables(): void {
-
     this.timetableService.getAll(this.user).subscribe({
       next: (response) => {
         // Sort by createdAt in descending order
-        this.timetables = response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        this.timetables = response;
       },
       error: (error) => {
         console.error('Failed to fetch timetables:', error);
+        this.isLoading = false;
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 
@@ -81,7 +93,11 @@ export class TimetableComponent implements OnInit {
       },
       error: (error) => {
         console.error('Failed to fetch timetables:', error);
+        this.isLoading = false;
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 
@@ -95,20 +111,6 @@ export class TimetableComponent implements OnInit {
     if (this.currentPage > 0) {
       this.currentPage--;
     }
-  }
-
-  handleModalConfirm(event: { confirmed: boolean; inputValue?: string }) {
-    if (event.confirmed) {
-      if (this.modalType === 'add') {
-        // Handle add event confirmation if needed
-      } else if (this.modalType === 'delete' && this.eventToDelete) {
-        // Handle delete logic
-      } else if (this.modalType === 'edit' && this.eventToEdit) {
-        // Handle edit logic
-      }
-    }
-    this.isModalVisible = false;
-    this.modalType = null;
   }
 
   navigateToDetails(timetableId: string): void {

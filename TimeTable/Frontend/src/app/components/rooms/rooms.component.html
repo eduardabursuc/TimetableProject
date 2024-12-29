@@ -4,6 +4,11 @@
   </header>
   
   <div class="timetable-wrapper">
+
+    <div *ngIf="isLoading">
+      <app-loading></app-loading>
+    </div>
+    
     <!-- Sidebar -->
     <app-sidebar-menu></app-sidebar-menu>
   

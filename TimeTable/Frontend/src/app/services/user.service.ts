@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalsService } from './globals.service';
 
@@ -8,9 +8,12 @@ import { GlobalsService } from './globals.service';
 })
 export class UserService {
 
-  private apiUrl: string;
+  private readonly apiUrl: string;
 
-  constructor(private http: HttpClient, private globals: GlobalsService) {
+  constructor(
+    private readonly http: HttpClient, 
+    private readonly globals: GlobalsService
+  ) {
     this.apiUrl = `${this.globals.apiUrl}/auth`;
   }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Group } from '../../models/group.model';
 import { GroupService } from '../../services/group.service';
@@ -8,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from '../../services/globals.service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-groups',
@@ -19,7 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
     SidebarMenuComponent,
     CommonModule,
     GenericModalComponent,
-    HttpClientModule,
+    LoadingComponent
   ],
 })
 export class GroupsComponent implements OnInit {
@@ -36,14 +37,19 @@ export class GroupsComponent implements OnInit {
   modalTitle: string = '';
   modalMessage: string = '';
 
+  isLoading: boolean = true;
+
   constructor(
-    private router: Router,
-    private cookieService: CookieService,
-    private groupService: GroupService
+    private readonly router: Router,
+    private readonly cookieService: CookieService,
+    private readonly groupService: GroupService,
+    private readonly globals: GlobalsService
   ) {}
 
   ngOnInit(): void {
     this.token = this.cookieService.get('authToken');
+    this.globals.checkToken(this.token);
+
     if (this.token === '') {
       this.router.navigate(['/login']);
     }
@@ -58,7 +64,11 @@ export class GroupsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Failed to fetch groups:', error);
+        this.isLoading = false;
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 
@@ -157,7 +167,7 @@ export class GroupsComponent implements OnInit {
   handleModalConfirm(): void {
     this.isModalVisible = false;
     if ( this.modalType === 'delete' ){
-        this.deleteGroup;
+        this.deleteGroup();
     }
   }
 

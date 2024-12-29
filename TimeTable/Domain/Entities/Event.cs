@@ -12,8 +12,8 @@ public class Event
     public required Guid ProfessorId { get; set; }
     public required Guid GroupId { get; set; }
     public required int Duration { get; set; }
-    public required bool IsEven { get; set; } = false;
     
+    public bool? IsEven { get; set; } = false;
     public Guid? RoomId { get; set; }
     public Timeslot? Timeslot { get; set; } = new Timeslot { Day = "", Time = "" };
     

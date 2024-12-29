@@ -1,9 +1,9 @@
+
 .detail-container {
   margin: 0 auto;
   width: 90%;
   max-width: 1200px;
 }
-
 
 .header-row {
   display: flex;
@@ -13,12 +13,16 @@
 }
 
 .timetable-id {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+  align-items: center;
+  width: 40%;
 }
 
 .timetable-table {
+  margin: auto;
   margin-top: 30px;
   width: 100%;
   border-collapse: collapse;
@@ -66,6 +70,11 @@
   transform: scale(1.05);
 }
 
+.constraint-button:hover {
+  background: #3498db;
+  transform: scale(1.05);
+}
+
 .save-button {
   background: #71c6aa;
   color: white;
@@ -91,26 +100,39 @@
 .detail-container td {
   border: 1px solid #ddd;
   text-align: left;
+  width: fit-content;
 }
 
 .detail-container th {
   background-color: #f4f4f4;
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 0.7rem;
+  padding: 5px;
 }
 
 .detail-container tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-.detail-container input[type="text"],
-.detail-container select {
-  width: 95%;
-  padding: 6px;
-  font-size: 14px;
+input, select {
+  min-width: 30px;
+  height: fit-content;
+  min-height: 25px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 0.7rem;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+label {
+  font-size: 0.5rem;
+}
+
+.time-selector input {
+  width: fit-content;
 }
 
 .detail-container select {
@@ -133,6 +155,7 @@
   box-sizing: border-box;
   border: 1px solid #ddd;
   overflow-wrap: break-word;
+  font-size: 0.7rem
 }
 
 .event-column {
@@ -162,6 +185,70 @@
   margin-top: 30px;
 }
 
-.delete-button:hover {
-  background: none;
+.delete-button {
+  margin-right: 10px;
 }
+
+.detail-wrap {
+  margin: 0 -5%;
+}
+
+h2.subtitle {
+  margin-top: 50px;
+  margin-left: 1%;
+}
+
+.privacy {
+  font-size: 0.45em;
+  padding: 5px 7px;
+  border-radius: 20px;
+  border: 1px solid grey;
+  background-color: #ccc;
+  align-self: center;
+}
+
+@media (max-width: 1000px) {
+
+  .detail-container td,
+  .detail-container th {
+    font-size: 0.5em;
+  }
+
+  input, select {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .detail-container td,
+  .detail-container th {
+    padding: 0.2em;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .save-button, .delete, .edit-mode-button {
+    padding: 10px;
+  }
+
+  .timetable-id {
+    font-size: 0.8em;
+  }
+
+  .button-group {
+    gap: 5px;
+  }
+
+}
+
+@media (max-width: 400px) {
+
+  .detail-wrap {
+    margin: 0 -7%;
+  }
+
+}
+

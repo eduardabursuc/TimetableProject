@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { CookieService } from "ngx-cookie-service";
-import { GlobalsService } from '../../services/globals.service';
 import { jwtDecode } from "jwt-decode";
 import { Token } from '../../models/token.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['login.component.css'],
   standalone: true,
   imports: [CommonModule, FormsModule],
 })
@@ -21,9 +20,9 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(
-    private userService: UserService,
-    private router: Router,
-    private cookieService: CookieService
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly cookieService: CookieService
   ) {}
 
   ngOnInit(): void {
@@ -37,8 +36,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const credentials = { email: this.email, password: this.password };
-    this.userService.login(credentials).subscribe(
-      (response) => {
+    this.userService.login(credentials).subscribe({
+      next : (response) => {
         const decodedToken = jwtDecode<Token>(response.token, { header: false });
         localStorage.setItem("user", decodedToken.unique_name);
         localStorage.setItem("role", decodedToken.role);
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit {
         // Navigate to /timetable
         this.router.navigate(['/timetable']);
       },
-      (error) => {
+      error: (error) => {
         if (error.status === 401) {
           this.errorMessage = 'Invalid email or password. Please try again.';
         } else {
@@ -57,7 +56,7 @@ export class LoginComponent implements OnInit {
         }
         console.error('Login error:', error);
       }
-    );
+    });
   }
   
   navigateToRegister() {

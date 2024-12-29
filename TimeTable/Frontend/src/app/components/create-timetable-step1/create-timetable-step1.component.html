@@ -35,12 +35,12 @@
         </div>
         <div class="time-inputs">
           <div class="time-selector">
-            <label>Start Time:</label>
-            <input type="time" (change)="onTimeChange(getSelectedDay()!, 'start', $event)" [value]="getSelectedDay()?.startTime" />
+            <label for="start-time">Start Time:</label>
+            <input name="start-time" type="time" (change)="onTimeChange(getSelectedDay()!, 'start', $event)" [value]="getSelectedDay()?.startTime" />
           </div>
           <div class="time-selector">
-            <label>End Time:</label>
-            <input type="time" (change)="onTimeChange(getSelectedDay()!, 'end', $event)" [value]="getSelectedDay()?.endTime" />
+            <label for="end-time">End Time:</label>
+            <input name="end-time" type="time" (change)="onTimeChange(getSelectedDay()!, 'end', $event)" [value]="getSelectedDay()?.endTime" />
           </div>
         </div>
         <!-- Add button to confirm selection -->

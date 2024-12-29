@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../../services/course.service';
@@ -8,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { SidebarMenuComponent } from '../sidebar-menu/sidebar-menu.component';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from '../../services/globals.service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-courses',
@@ -19,7 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
     SidebarMenuComponent,
     CommonModule,
     GenericModalComponent,
-    HttpClientModule,
+    LoadingComponent
   ],
 })
 export class CoursesComponent implements OnInit {
@@ -36,14 +37,19 @@ export class CoursesComponent implements OnInit {
   modalTitle: string = '';
   modalMessage: string = '';
 
+  isLoading: boolean = true;
+
   constructor(
-    private router: Router,
-    private cookieService: CookieService,
-    private courseService: CourseService
+    private readonly router: Router,
+    private readonly cookieService: CookieService,
+    private readonly courseService: CourseService,
+    private readonly globals: GlobalsService
   ) {}
 
   ngOnInit(): void {
     this.token = this.cookieService.get('authToken');
+    this.globals.checkToken(this.token);
+
     if (this.token === '') {
       this.router.navigate(['/login']);
     }
@@ -58,7 +64,11 @@ export class CoursesComponent implements OnInit {
       },
       error: (error) => {
         console.error('Failed to fetch courses:', error);
+        this.isLoading = false;
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 
@@ -161,7 +171,7 @@ export class CoursesComponent implements OnInit {
   handleModalConfirm(): void {
     this.isModalVisible = false;
     if ( this.modalType === 'delete' ){
-        this.deleteCourse;
+        this.deleteCourse();
     }
   }
 

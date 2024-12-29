@@ -244,7 +244,7 @@ namespace Infrastructure.Repositories
             {
                 var timetables = await _context.Timetables
                     .Include(t => t.Events) // Include the Events navigation property
-                    .Where(t => t.Events.Any(e => 
+                    .Where(t => t.IsPublic && t.Events.Any(e => 
                         _context.Professors.Any(p => p.Id == e.ProfessorId && p.Email == professorEmail)))
                     .ToListAsync();
 

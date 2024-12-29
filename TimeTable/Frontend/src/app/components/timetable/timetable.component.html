@@ -4,19 +4,26 @@
 </header>
 
 <div class="timetable-wrapper">
+
+  <div *ngIf="isLoading">
+    <app-loading></app-loading>
+  </div>
+  
   <!-- Sidebar -->
   <app-sidebar-menu></app-sidebar-menu>
 
   <!-- Main Content -->
   <div class="main-content">
     <div class="main-container">
-      <!-- Title and Subtitle -->
-      <h1 class="title">Timetables</h1>
-      <!-- Generate Timetable Button -->
-      <button class="generate-button" (click)="generateTimetable()" [class.visible]="isVisible()">
-          CREATE
-      </button>
-      
+      <!-- Title -->
+       <div class="title-and-button"> 
+        <h1 class="title">Timetables</h1>
+        <!-- Generate Timetable Button -->
+        <button class="generate-button" (click)="generateTimetable()" [class.visible]="isVisible()">
+            CREATE
+        </button>
+       </div>
+
       <!-- Timetable List -->
       <div *ngIf="timetables.length > 0" class="timetable-list">
         <div *ngFor="let timetable of paginatedTimetables" class="timetable-card">
@@ -30,7 +37,7 @@
       
       <!-- No Timetables Message -->
       <div *ngIf="timetables.length === 0" class="no-timetables-message">
-        <p>No timetables available. Create one to get started!</p>
+        <p>No timetables available.</p>
       </div>
 
       <!-- Pagination Controls -->
@@ -54,13 +61,4 @@
     </div>
   </div>
 
-  <app-generic-modal 
-    [isVisible]="isModalVisible"
-    [title]="modalTitle"
-    [message]="modalMessage"
-    [inputPlaceholder]="inputPlaceholder"
-    [inputValue]="inputValue"
-    [showCancelButton]="modalType === 'delete' || modalType === 'edit'"
-    (confirmEvent)="handleModalConfirm($event)">
-  </app-generic-modal>
 </div>
