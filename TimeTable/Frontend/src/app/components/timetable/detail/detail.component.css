@@ -204,6 +204,7 @@ h2.subtitle {
   border-radius: 20px;
   border: 1px solid grey;
   background-color: #ccc;
+  align-self: center;
 }
 
 @media (max-width: 1000px) {
