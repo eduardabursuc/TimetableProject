@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalsService } from './globals.service';
 
@@ -29,4 +29,16 @@ export class UserService {
     return this.http.post<{ email: string }>(url, data);
   }
 
+  resetPassword(data: { email: string }): Observable<{ token: string}> {
+    const url = `${this.apiUrl}/resetPassword`;
+    return this.http.post<{ token: string }>(url, data);
+  }
+
+  changePassword(token: string, data: { email: string, newPassword: string }): Observable<{}> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    const url = `${this.apiUrl}/validateResetPassword`;
+    return this.http.post<{}>(url, data, { headers });
+  }
 }

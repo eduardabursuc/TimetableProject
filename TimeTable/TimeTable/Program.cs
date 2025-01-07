@@ -4,7 +4,9 @@ using Domain.Repositories;
 using Infrastructure;
 using Application.Services;
 using Domain.Entities;
+using Domain.Services;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,7 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
     builder.Services.AddTransient<IGroupRepository, GroupRepository>();
     builder.Services.AddTransient<IProfessorRepository, ProfessorRepository>();
     builder.Services.AddTransient<ITimetableRepository, TimetableRepository>();
+    builder.Services.AddTransient<IEmailService, EmailService>();
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddControllers(); // Registers services for controllers
