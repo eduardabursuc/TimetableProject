@@ -7,21 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class TimetableRepository : ITimetableRepository
+    public class TimetableRepository(ApplicationDbContext context) : ITimetableRepository
     {
-        private readonly ApplicationDbContext _context;
-
-        public TimetableRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         public async Task<Result<Guid>> AddAsync(Timetable timetable)
         {
             try
             {
-                await _context.Timetables.AddAsync(timetable);
-                await _context.SaveChangesAsync();
+                await context.Timetables.AddAsync(timetable);
+                await context.SaveChangesAsync();
                 return Result<Guid>.Success(timetable.Id);
             }
             catch (Exception e)
@@ -34,7 +27,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var timetables = await _context.Timetables
+                var timetables = await context.Timetables
                     .Where(t => t.UserEmail == userEmail)
                     .ToListAsync();
 
@@ -50,7 +43,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var timetable = await _context.Timetables
+                var timetable = await context.Timetables
                     .Include(t => t.Events)
                     .ThenInclude(e => e.Timeslot)
                     .FirstOrDefaultAsync(t => t.Id == id);
@@ -69,7 +62,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var timetable = await _context.Timetables
+                var timetable = await context.Timetables
                     .Include(t => t.Events)
                     .FirstOrDefaultAsync(t => t.Id == id);
 
@@ -94,7 +87,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var timetable = await _context.Timetables
+                var timetable = await context.Timetables
                     .Include(t => t.Events)
                     .FirstOrDefaultAsync(t => t.Id == id);
 
@@ -119,7 +112,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var timetable = await _context.Timetables
+                var timetable = await context.Timetables
                     .Include(t => t.Events)
                     .ThenInclude(e => e.Timeslot)
                     .FirstOrDefaultAsync(t => t.Id == id);
@@ -146,7 +139,7 @@ namespace Infrastructure.Repositories
             try
             {
                 // Fetch the existing timetable with its related entities
-                var existingTimetable = await _context.Timetables
+                var existingTimetable = await context.Timetables
                     .Include(t => t.Events)
                     .ThenInclude(e => e.Timeslot)
                     .FirstOrDefaultAsync(t => t.Id == timetable.Id);
@@ -206,11 +199,11 @@ namespace Infrastructure.Repositories
                 foreach (var eventToRemove in eventsToRemove)
                 {
                     // Mark for deletion manually
-                    _context.Entry(eventToRemove).State = EntityState.Deleted;
+                    context.Entry(eventToRemove).State = EntityState.Deleted;
                 }
 
                 // 4. Save changes after all updates
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 return Result<Unit>.Success(Unit.Value);
             }
@@ -224,12 +217,12 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var timetable = await _context.Timetables.FindAsync(id);
+                var timetable = await context.Timetables.FindAsync(id);
                 if (timetable == null)
                     return Result<Unit>.Failure("Timetable not found.");
 
-                _context.Timetables.Remove(timetable);
-                await _context.SaveChangesAsync();
+                context.Timetables.Remove(timetable);
+                await context.SaveChangesAsync();
                 return Result<Unit>.Success(Unit.Value);
             }
             catch (Exception e)
@@ -242,10 +235,10 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var timetables = await _context.Timetables
+                var timetables = await context.Timetables
                     .Include(t => t.Events) // Include the Events navigation property
                     .Where(t => t.IsPublic && t.Events.Any(e => 
-                        _context.Professors.Any(p => p.Id == e.ProfessorId && p.Email == professorEmail)))
+                        context.Professors.Any(p => p.Id == e.ProfessorId && p.Email == professorEmail)))
                     .ToListAsync();
 
                 return Result<IEnumerable<Timetable>>.Success(timetables);

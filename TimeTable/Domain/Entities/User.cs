@@ -5,7 +5,7 @@ namespace Domain.Entities;
 public class User
 {
     public string Email { get; init; }
-    public string Password { get; init; }
+    public string Password { get; set; }
     public string AccountType { get; init; }
     
     [NotMapped]

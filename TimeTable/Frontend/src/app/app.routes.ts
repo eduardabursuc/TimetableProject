@@ -9,6 +9,7 @@ import { GroupsComponent } from './components/groups/groups.component';
 import { RoomsComponent } from './components/rooms/rooms.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { ProfessorsComponent } from './components/professors/professors.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'timetable', pathMatch: 'full' },
@@ -21,5 +22,6 @@ export const routes: Routes = [
   { path: 'create-timetable-step1', component: CreateTimetableStep1Component },
   { path: 'create-timetable-step2', component: CreateTimetableStep2Component },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'reset-password', component: ResetPasswordComponent }
 ];

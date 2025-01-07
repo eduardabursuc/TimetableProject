@@ -6,18 +6,21 @@ import { UserService } from '../../services/user.service';
 import { CookieService } from "ngx-cookie-service";
 import { jwtDecode } from "jwt-decode";
 import { Token } from '../../models/token.model';
+import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['login.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, GenericModalComponent],
 })
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+
+  isModalVisible: boolean = false;
 
   constructor(
     private readonly userService: UserService,
@@ -61,5 +64,20 @@ export class LoginComponent implements OnInit {
   
   navigateToRegister() {
     this.router.navigate(['/register']); // Navigate to the /register route
+  }
+
+  getResetPasswordModal() {
+    this.isModalVisible = true;
+  }
+
+  resetPassword(event: { confirmed: boolean, inputValue?: string }) {
+    if( event.confirmed && event.inputValue ) {
+      this.userService.resetPassword({ email: event.inputValue }).subscribe ({
+        error: (error) => {
+          this.errorMessage = 'An error occurred. Please try again later.';
+        }
+      });
+    }
+    this.isModalVisible = false;
   }
 }

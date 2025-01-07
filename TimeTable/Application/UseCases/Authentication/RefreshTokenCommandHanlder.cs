@@ -4,11 +4,11 @@ using MediatR;
 
 namespace Application.UseCases.Authentication;
 
-public class RefreshTokenCommandHanlder(IUserRepository userRepository) : IRequestHandler<RefreshTokenCommand, Result<string>>
+public class RefreshTokenCommandHandler(IUserRepository userRepository) : IRequestHandler<RefreshTokenCommand, Result<string>>
 {
     public async Task<Result<string>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        var token = await userRepository.GetToken(request.Email);
+        var token = await userRepository.GetToken(request.Email, 24*60);
         return !token.IsSuccess ? Result<string>.Failure(token.ErrorMessage) : token;
     }
 }

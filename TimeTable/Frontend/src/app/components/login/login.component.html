@@ -21,12 +21,25 @@
         <label for="password">Password</label>
         <input type="password" id="password" [(ngModel)]="password" name="password" required />
       </div>
+      <p class="reset-password-link">
+        <a (click)="getResetPasswordModal()">Forgot password?</a>
+      </p>
       <button type="submit" class="submit-button">Login</button>
     </form>
     <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
     <p class="register-link">
       Don't have an account? 
       <a (click)="navigateToRegister()">Register here</a>
-    </p>    
+    </p> 
+    
+    <app-generic-modal 
+      [isVisible]="isModalVisible"
+      [title]="'Reset Password'"
+      [message]="'Enter your email:'"
+      [isInputRequired]="true"
+      [showCancelButton]="true"
+      (confirmEvent)="resetPassword($event)">
+    </app-generic-modal>
+
   </div>
 </div>

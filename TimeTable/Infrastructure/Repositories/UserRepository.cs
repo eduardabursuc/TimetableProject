@@ -15,8 +15,6 @@ namespace Infrastructure.Repositories
     public class UserRepository(ApplicationDbContext usersDbContext, IConfiguration configuration)
         : IUserRepository
     {
-        private readonly PasswordHasher<User> _passwordHasher = new(); // Instantiate the PasswordHasher
-
         public async Task<Result<string>> Login(User user)
         {
             // Retrieve the user from the database
@@ -33,7 +31,7 @@ namespace Infrastructure.Repositories
                 return Result<string>.Failure("Invalid credentials");
             }
 
-            return GetToken(user.Email).Result;
+            return GetToken(user.Email, 24*60).Result;
 
         }
 
@@ -57,8 +55,20 @@ namespace Infrastructure.Repositories
                 AccountType = user.AccountType
             });
         }
+        
+        public async Task<Result<string>> UpdateUserAsync(User user)
+        {
+            var existingUser = await usersDbContext.Users.SingleOrDefaultAsync(u => u.Email == user.Email);
+            if (existingUser == null)
+            {
+                return Result<string>.Failure("User not found");
+            }
+            existingUser.Password = user.Password;
+            await usersDbContext.SaveChangesAsync();
+            return Result<string>.Success("User updated successfully");
+        }
 
-        public async Task<Result<string>> GetToken(string email)
+        public async Task<Result<string>> GetToken(string email, int minutes)
         {
             var user = GetByEmailAsync(email).Result;
             
@@ -79,7 +89,7 @@ namespace Infrastructure.Repositories
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddMinutes(minutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
