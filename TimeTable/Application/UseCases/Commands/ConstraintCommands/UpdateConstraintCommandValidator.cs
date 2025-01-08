@@ -10,7 +10,6 @@ namespace Application.UseCases.Commands.ConstraintCommands
         protected UpdateConstraintCommandValidator(ConstraintsValidator validator, IMapper mapper, Instance instance)
         {
             RuleFor(t => t.Id).NotEmpty();
-            Include(new CreateConstraintCommandValidator(validator, mapper, instance));
         }
     }
 }

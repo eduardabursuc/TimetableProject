@@ -9,6 +9,22 @@ namespace Infrastructure.Repositories
 {
     public class ConstraintRepository(ApplicationDbContext context) : IConstraintRepository
     {
+        public async Task<Result<IEnumerable<Constraint>>> GetConstraintsByProfessorId(Guid professorId)
+        {
+            try
+            {
+                var constraints = await context.Constraints
+                    .Where(c => c.ProfessorId == professorId)
+                    .ToListAsync();
+
+                return Result<IEnumerable<Constraint>>.Success(constraints);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<Constraint>>.Failure(e.Message);
+            }
+        }
+
         public async Task<Result<Guid>> AddAsync(Constraint constraint)
         {
             try
