@@ -142,6 +142,7 @@
 "Change my Chemistry seminary on Tuesday from 11:00 to Tuesday at 13:00 for Group 3E1.","SOFT_TIME_CHANGE"
 "Reschedule my Physics lab from Wednesday 09:00 to Thursday 10:00 for Group 3A2.","SOFT_TIME_CHANGE"
 
+
 "Add a break from 10:00 to 11:00 on Monday.","SOFT_ADD_WINDOW"
 "Could you schedule a pause from 14:00 to 15:00 on Wednesday?","SOFT_ADD_WINDOW"
 "Please insert a break on Tuesday between 12:00 and 13:00 for my lecture schedule.","SOFT_ADD_WINDOW"
@@ -243,8 +244,8 @@
 "Delete the gap from 15:00 to 16:00 on Wednesday afternoon.","SOFT_REMOVE_WINDOW"
 "Remove the rest period from 10:00 to 11:00 on Thursday, please.","SOFT_REMOVE_WINDOW"
 "Cancel the scheduled pause during my Friday classes from 12:00 to 13:00.","SOFT_REMOVE_WINDOW"
+"I no longer need a window on Thursday at 10:00.",SOFT_REMOVE_WINDOW
 
-"text","label"
 "I cannot have any classes on Monday.","SOFT_DAY_OFF"
 "Please ensure I don't have any classes scheduled on Wednesday.","SOFT_DAY_OFF"
 "Mark Friday as my day off, no lectures or labs, please.","SOFT_DAY_OFF"

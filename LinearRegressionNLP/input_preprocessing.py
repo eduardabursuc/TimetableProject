@@ -1,3 +1,5 @@
+# input_preprocessing.py
+
 import re
 import os
 from nltk.corpus import stopwords
@@ -279,6 +281,54 @@ def preprocess_text(text: str) -> str:
 
     return " ".join(tokens)
 
+def preprocess_for_matching(text: str) -> list:
+    """
+    Preprocess the input text for matching database entries.
+    This version retains numbers and avoids unnecessary replacements.
+    
+    Args:
+        text (str): The raw input text.
+    Returns:
+        list: List of preprocessed tokens for matching.
+    """
+    # 1. Remove HTML & URLs
+    text = remove_html_and_urls(text)
+
+    # 2. Expand Contractions
+    text = expand_contractions(text)
+
+    # 3. Handle Slang
+    text = replace_slang(text)
+
+    # 4. Spelling Correction
+    # text = symspell_correct_text(text)
+
+    # 5. Lowercase
+    text = text.lower()
+
+    # 6. Remove Punctuation (keep numbers intact)
+    text = re.sub(r"[^\w\s]", "", text)
+
+    # 7. Tokenization
+    tokens = word_tokenize(text)
+
+    # 8. Negation Handling
+    tokens = handle_negations(tokens)
+
+    # 9. Remove Irrelevant Words
+    tokens = [t for t in tokens if t not in IRRELEVANT_WORDS]
+
+    # 10. Lemmatization
+    tokens = [lemmatizer.lemmatize(t) for t in tokens]
+
+    # 11. Synonym Replacement (Static Dictionary)
+    tokens = static_synonym_replacement(tokens)
+
+    # 12. Remove Empty Tokens (in case we created any blanks)
+    tokens = [t for t in tokens if t]
+
+    return tokens
+
 # ================ Example Usage ================
 if __name__ == "__main__":
     raw_text = """
@@ -294,3 +344,10 @@ if __name__ == "__main__":
     preprocessed = preprocess_text(raw_text)
     print("Original:", raw_text)
     print("\nPreprocessed:", preprocessed)
+
+    raw_text = """
+    Please move the seminar to Room 411 and schedule it after the Deep Learning course for group 1E2.
+    """
+
+    tokens_for_matching = preprocess_for_matching(raw_text)
+    print("\n\nTokens for Matching:", tokens_for_matching)

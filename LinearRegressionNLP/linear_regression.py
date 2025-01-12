@@ -1,3 +1,5 @@
+# linear_regression.py
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import RidgeClassifier
@@ -117,5 +119,5 @@ class RidgeConstraintClassifier:
 
 if __name__ == "__main__":
     classifier = RidgeConstraintClassifier()
-    classifier.train(csv_path="training_data.csv", test_size=0.2)
+    classifier.train(csv_path="training_data.csv", test_size=0.1)
     classifier.save_model("ridge_model.pkl")

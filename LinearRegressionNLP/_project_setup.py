@@ -33,7 +33,8 @@ def main():
         "gensim",
         "scikit-learn",
         "pandas",
-        "flask"
+        "flask",
+        "psycopg2"
     ]
 
     # Install required packages
