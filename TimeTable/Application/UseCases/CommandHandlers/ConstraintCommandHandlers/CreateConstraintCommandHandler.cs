@@ -1,166 +1,261 @@
-﻿using System.Text.Json;
-using Application.Services;
+﻿using System.Text;
+using System.Text.Json;
 using Application.UseCases.Commands.ConstraintCommands;
 using Domain.Common;
-using Domain.Repositories;
 using MediatR;
-using Domain.Entities;
 
 namespace Application.UseCases.CommandHandlers.ConstraintCommandHandlers
 {
     public class CreateConstraintCommandHandler : IRequestHandler<CreateConstraintCommand, Result<Guid>>
     {
-        private readonly IConstraintRepository _repository;
-        private readonly ITimetableRepository _timetableRepository;
-        private readonly IProfessorRepository _professorRepository;
-        private readonly IRoomRepository _roomRepository;
-        private readonly IGroupRepository _groupRepository;
-        private readonly ICourseRepository _courseRepository;
+        private readonly HttpClient _httpClient;
 
-        public CreateConstraintCommandHandler(
-            IConstraintRepository repository,
-            ITimetableRepository timetableRepository,
-            IProfessorRepository professorRepository,
-            IRoomRepository roomRepository,
-            IGroupRepository groupRepository,
-            ICourseRepository courseRepository)
+        public CreateConstraintCommandHandler(HttpClient httpClient)
         {
-            _repository = repository;
-            _timetableRepository = timetableRepository;
-            _professorRepository = professorRepository;
-            _roomRepository = roomRepository;
-            _groupRepository = groupRepository;
-            _courseRepository = courseRepository;
+            _httpClient = httpClient;
         }
 
         public async Task<Result<Guid>> Handle(CreateConstraintCommand request, CancellationToken cancellationToken)
         {
-            // Get the timetable by ID
-            var timetableResult = await _timetableRepository.GetByIdAsync(request.TimetableId);
-            if (!timetableResult.IsSuccess)
+            try
             {
-                return Result<Guid>.Failure(timetableResult.ErrorMessage);
+                // 1) Build JSON payload for Python Flask
+                var payload = new
+                {
+                    text = request.Input,               // "I want to move my Operating Systems lecture..."
+                    user_email = "admin@gmail.com",     // e.g. "admin@gmail.com"
+                    professor_email = request.ProfessorEmail, // e.g. "some@gmail.com"
+                    timetable_id = request.TimetableId  // e.g. 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                };
+
+                // 2) Serialize to JSON
+                var jsonPayload = JsonSerializer.Serialize(payload);
+                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                // 3) Call the Python endpoint
+                var response = await _httpClient.PostAsync(
+                    "http://192.168.1.141:5001/create_constraint", // or your actual URL
+                    content,
+                    cancellationToken
+                );
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // If the Flask service returns a 4xx or 5xx, capture the response body
+                    var errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+                    return Result<Guid>.Failure(
+                        $"Flask API returned status code {response.StatusCode}: {errorBody}"
+                    );
+                }
+
+                // 4) Read response JSON
+                var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
+                using var doc = JsonDocument.Parse(responseJson);
+
+                // The structure we expect from our Flask:
+                // {
+                //   "constraint_type": "...",
+                //   "matched_data": {...},
+                //   "insertion_result": {
+                //       "IsSuccess": true/false,
+                //       "Data": { "id": "some-uuid", ... },
+                //       "ErrorMessage": null/...
+                //   }
+                // }
+
+                var root = doc.RootElement;
+                if (!root.TryGetProperty("insertion_result", out var insertionResultElem))
+                {
+                    return Result<Guid>.Failure("Response JSON missing 'insertion_result' field.");
+                }
+
+                var isSuccess = insertionResultElem.GetProperty("IsSuccess").GetBoolean();
+                if (!isSuccess)
+                {
+                    var errMsg = insertionResultElem.GetProperty("ErrorMessage").GetString();
+                    return Result<Guid>.Failure(
+                        $"Insertion failed: {errMsg}"
+                    );
+                }
+
+                // 5) Get the inserted row's data, including 'id'
+                var dataElem = insertionResultElem.GetProperty("Data");
+                if (!dataElem.TryGetProperty("id", out var idElem))
+                {
+                    return Result<Guid>.Failure("No 'id' found in insertion_result.Data");
+                }
+                
+                var insertedIdString = idElem.GetString();
+                if (!Guid.TryParse(insertedIdString, out var insertedConstraintId))
+                {
+                    return Result<Guid>.Failure($"Invalid ID format: {insertedIdString}");
+                }
+
+                // Return success with the newly inserted constraint ID
+                return Result<Guid>.Success(insertedConstraintId);
             }
-
-            var timetable = timetableResult.Data;
-
-            // Dictionaries for IDs to Names
-            var roomDictionary = new Dictionary<Guid, string>();
-            var groupDictionary = new Dictionary<Guid, string>();
-            var courseDictionary = new Dictionary<Guid, string>();
-
-            // Extract and populate dictionaries
-            foreach (var room in _roomRepository.GetAllAsync(timetable.UserEmail).Result.Data)
+            catch (Exception ex)
             {
-                roomDictionary[room.Id] = room.Name;
+                return Result<Guid>.Failure($"Exception while calling Python API: {ex.Message}");
             }
-            
-            foreach (var group in _groupRepository.GetAllAsync(timetable.UserEmail).Result.Data)
-            {
-                groupDictionary[group.Id] = group.Name;
-            }
-            
-            foreach (var course in _courseRepository.GetAllAsync(timetable.UserEmail).Result.Data)
-            {
-                courseDictionary[course.Id] = course.CourseName;
-            }
-
-            // Send only the names to ChatGPT API
-            var roomNames = roomDictionary.Values.ToList();
-            var groupNames = groupDictionary.Values.ToList();
-            var courseNames = courseDictionary.Values.ToList();
-
-            // Call ChatGPT API
-            var openAiService = new OpenAiService();
-            var chatGptResponse = await openAiService.ProcessConstraintAsync(
-                request.Input,
-                roomNames,
-                groupNames,
-                courseNames
-            );
-
-            Console.WriteLine(chatGptResponse);
-
-            // Deserialize the response
-            var chatGptResult = ExtractConstraintResponse(chatGptResponse);
-            if (chatGptResult.ValidationErrors.Count != 0)
-            {
-                return Result<Guid>.Failure(string.Join(", ", chatGptResult.ValidationErrors));
-            }
-            
-            var professorIds = timetable.Events.Select(e => e.ProfessorId).ToList();
-            var professorId = professorIds.FirstOrDefault(p =>
-                _professorRepository.GetByIdAsync(p).Result.Data.Email == request.ProfessorEmail);
-            
-            var constraint = new Constraint
-            {
-                TimetableId = timetable.Id,
-                Type = chatGptResult.Type,
-                ProfessorId = professorId,
-                CourseId = chatGptResult.CourseName != null ? courseDictionary.FirstOrDefault(c => c.Value == chatGptResult.CourseName).Key : null,
-                RoomId = chatGptResult.RoomName != null ? roomDictionary.FirstOrDefault(r => r.Value == chatGptResult.RoomName).Key : null,
-                GroupId = chatGptResult.GroupName != null ? groupDictionary.FirstOrDefault(g => g.Value == chatGptResult.GroupName).Key : null,
-                Event = chatGptResult.Event,
-                Day = chatGptResult.Day,
-                Time = chatGptResult.Time
-            };
-            
-            // Save the constraint to the repository
-            var result = await _repository.AddAsync(constraint);
-
-            return result.IsSuccess
-                ? Result<Guid>.Success(result.Data)
-                : Result<Guid>.Failure(result.ErrorMessage);
-        }
-
-        private ChatGptConstraintResponse ExtractConstraintResponse(string jsonString)
-        {
-            // Parse the JSON string into a JsonDocument
-            using var doc = JsonDocument.Parse(jsonString);
-            // Navigate to the "choices" array
-            var choices = doc.RootElement.GetProperty("choices");
-
-            // Get the first choice object
-            var firstChoice = choices[0];
-
-            // Get the message object
-            var message = firstChoice.GetProperty("message");
-
-            // Get the content string
-            var content = message.GetProperty("content").GetString();
-
-            // Parse the content string into another JsonDocument
-            using var contentDoc = JsonDocument.Parse(content);
-            // Extract the required properties
-            var jsonResponse = contentDoc.RootElement;
-
-            return new ChatGptConstraintResponse
-            {
-                Type = Enum.TryParse<ConstraintType>(jsonResponse.GetProperty("Type").GetString(), out var type) 
-                    ? type 
-                    : ConstraintType.HARD_NO_OVERLAP,
-                Day = jsonResponse.TryGetProperty("Day", out var day) ? day.GetString() : null,
-                Time = jsonResponse.TryGetProperty("Time", out var time) ? time.GetString() : null,
-                Event = jsonResponse.TryGetProperty("Event", out var evnt) ? evnt.GetString() : null,
-                RoomName = jsonResponse.TryGetProperty("RoomName", out var roomName) ? roomName.GetString() : null,
-                GroupName = jsonResponse.TryGetProperty("GroupName", out var groupName) ? groupName.GetString() : null,
-                CourseName = jsonResponse.TryGetProperty("CourseName", out var courseName) ? courseName.GetString() : null,
-                ValidationErrors = jsonResponse.GetProperty("validationErrors").EnumerateArray()
-                    .Select(e => e.GetString()).ToList()
-            };
         }
     }
+}
     
-}
-
-public class ChatGptConstraintResponse
-{
-    public ConstraintType Type { get; set; }
-    public string? RoomName { get; set; }
-    public string? GroupName { get; set; }
-    public string? CourseName { get; set; }
-    public string? Day { get; set; }
-    public string? Time { get; set; }
-    public string? Event { get; set; }
-    public List<string?> ValidationErrors { get; set; } = new();
-}
+    
+// public class CreateConstraintCommandHandler : IRequestHandler<CreateConstraintCommand, Result<Guid>>
+// {
+//      private readonly IConstraintRepository _repository;
+//      private readonly ITimetableRepository _timetableRepository;
+//      private readonly IProfessorRepository _professorRepository;
+//      private readonly IRoomRepository _roomRepository;
+//      private readonly IGroupRepository _groupRepository;
+//         private readonly ICourseRepository _courseRepository;
+//
+//         public CreateConstraintCommandHandler(
+//             IConstraintRepository repository,
+//             ITimetableRepository timetableRepository,
+//             IProfessorRepository professorRepository,
+//             IRoomRepository roomRepository,
+//             IGroupRepository groupRepository,
+//             ICourseRepository courseRepository)
+//         {
+//             _repository = repository;
+//             _timetableRepository = timetableRepository;
+//             _professorRepository = professorRepository;
+//             _roomRepository = roomRepository;
+//             _groupRepository = groupRepository;
+//             _courseRepository = courseRepository;
+//         }
+//
+//         public async Task<Result<Guid>> Handle(CreateConstraintCommand request, CancellationToken cancellationToken)
+//         {
+//             // Get the timetable by ID
+//             var timetableResult = await _timetableRepository.GetByIdAsync(request.TimetableId);
+//             if (!timetableResult.IsSuccess)
+//             {
+//                 return Result<Guid>.Failure(timetableResult.ErrorMessage);
+//             }
+//
+//             var timetable = timetableResult.Data;
+//
+//             // Dictionaries for IDs to Names
+//             var roomDictionary = new Dictionary<Guid, string>();
+//             var groupDictionary = new Dictionary<Guid, string>();
+//             var courseDictionary = new Dictionary<Guid, string>();
+//
+//             // Extract and populate dictionaries
+//             foreach (var room in _roomRepository.GetAllAsync(timetable.UserEmail).Result.Data)
+//             {
+//                 roomDictionary[room.Id] = room.Name;
+//             }
+//             
+//             foreach (var group in _groupRepository.GetAllAsync(timetable.UserEmail).Result.Data)
+//             {
+//                 groupDictionary[group.Id] = group.Name;
+//             }
+//             
+//             foreach (var course in _courseRepository.GetAllAsync(timetable.UserEmail).Result.Data)
+//             {
+//                 courseDictionary[course.Id] = course.CourseName;
+//             }
+//
+//             // Send only the names to ChatGPT API
+//             var roomNames = roomDictionary.Values.ToList();
+//             var groupNames = groupDictionary.Values.ToList();
+//             var courseNames = courseDictionary.Values.ToList();
+//
+//             // Call ChatGPT API
+//             var openAiService = new OpenAiService();
+//             var chatGptResponse = await openAiService.ProcessConstraintAsync(
+//                 request.Input,
+//                 roomNames,
+//                 groupNames,
+//                 courseNames
+//             );
+//
+//             Console.WriteLine(chatGptResponse);
+//
+//             // Deserialize the response
+//             var chatGptResult = ExtractConstraintResponse(chatGptResponse);
+//             if (chatGptResult.ValidationErrors.Count != 0)
+//             {
+//                 return Result<Guid>.Failure(string.Join(", ", chatGptResult.ValidationErrors));
+//             }
+//             
+//             var professorIds = timetable.Events.Select(e => e.ProfessorId).ToList();
+//             var professorId = professorIds.FirstOrDefault(p =>
+//                 _professorRepository.GetByIdAsync(p).Result.Data.Email == request.ProfessorEmail);
+//             
+//             var constraint = new Constraint
+//             {
+//                 TimetableId = timetable.Id,
+//                 Type = chatGptResult.Type,
+//                 ProfessorId = professorId,
+//                 CourseId = chatGptResult.CourseName != null ? courseDictionary.FirstOrDefault(c => c.Value == chatGptResult.CourseName).Key : null,
+//                 RoomId = chatGptResult.RoomName != null ? roomDictionary.FirstOrDefault(r => r.Value == chatGptResult.RoomName).Key : null,
+//                 GroupId = chatGptResult.GroupName != null ? groupDictionary.FirstOrDefault(g => g.Value == chatGptResult.GroupName).Key : null,
+//                 Event = chatGptResult.Event,
+//                 Day = chatGptResult.Day,
+//                 Time = chatGptResult.Time
+//             };
+//             
+//             // Save the constraint to the repository
+//             var result = await _repository.AddAsync(constraint);
+//
+//             return result.IsSuccess
+//                 ? Result<Guid>.Success(result.Data)
+//                 : Result<Guid>.Failure(result.ErrorMessage);
+//         }
+//
+//         private ChatGptConstraintResponse ExtractConstraintResponse(string jsonString)
+//         {
+//             // Parse the JSON string into a JsonDocument
+//             using var doc = JsonDocument.Parse(jsonString);
+//             // Navigate to the "choices" array
+//             var choices = doc.RootElement.GetProperty("choices");
+//
+//             // Get the first choice object
+//             var firstChoice = choices[0];
+//
+//             // Get the message object
+//             var message = firstChoice.GetProperty("message");
+//
+//             // Get the content string
+//             var content = message.GetProperty("content").GetString();
+//
+//             // Parse the content string into another JsonDocument
+//             using var contentDoc = JsonDocument.Parse(content);
+//             // Extract the required properties
+//             var jsonResponse = contentDoc.RootElement;
+//
+//             return new ChatGptConstraintResponse
+//             {
+//                 Type = Enum.TryParse<ConstraintType>(jsonResponse.GetProperty("Type").GetString(), out var type) 
+//                     ? type 
+//                     : ConstraintType.HARD_NO_OVERLAP,
+//                 Day = jsonResponse.TryGetProperty("Day", out var day) ? day.GetString() : null,
+//                 Time = jsonResponse.TryGetProperty("Time", out var time) ? time.GetString() : null,
+//                 Event = jsonResponse.TryGetProperty("Event", out var evnt) ? evnt.GetString() : null,
+//                 RoomName = jsonResponse.TryGetProperty("RoomName", out var roomName) ? roomName.GetString() : null,
+//                 GroupName = jsonResponse.TryGetProperty("GroupName", out var groupName) ? groupName.GetString() : null,
+//                 CourseName = jsonResponse.TryGetProperty("CourseName", out var courseName) ? courseName.GetString() : null,
+//                 ValidationErrors = jsonResponse.GetProperty("validationErrors").EnumerateArray()
+//                     .Select(e => e.GetString()).ToList()
+//             };
+//         }
+//     }
+//     
+// }
+//
+// public class ChatGptConstraintResponse
+// {
+//     public ConstraintType Type { get; set; }
+//     public string? RoomName { get; set; }
+//     public string? GroupName { get; set; }
+//     public string? CourseName { get; set; }
+//     public string? Day { get; set; }
+//     public string? Time { get; set; }
+//     public string? Event { get; set; }
+//     public List<string?> ValidationErrors { get; set; } = new();
+// }

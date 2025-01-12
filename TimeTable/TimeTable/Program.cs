@@ -44,6 +44,7 @@ void RegisterServices(WebApplicationBuilder builder, Instance instance)
     builder.Services.AddSwaggerGen();
     builder.Services.AddAuthentication();
     builder.Services.AddAuthorization();
+    builder.Services.AddHttpClient();
     
     // Register the CORS policy
     builder.Services.AddCors(options =>
