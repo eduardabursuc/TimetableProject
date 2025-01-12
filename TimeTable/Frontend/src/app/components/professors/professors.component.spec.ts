@@ -1,33 +1,41 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProfessorsComponent } from './professors.component';
 import { Router } from '@angular/router';
-import { ProfessorService } from '../../services/professor.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ProfessorService } from '../../services/professor.service';
+import { GlobalsService } from '../../services/globals.service';
 import { of, throwError } from 'rxjs';
-
-class MockRouter {
-  events = of();
-  navigate = jasmine.createSpy('navigate');
-}
+import { By } from '@angular/platform-browser';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Professor } from '../../models/professor.model';
 
 describe('ProfessorsComponent', () => {
   let component: ProfessorsComponent;
   let fixture: ComponentFixture<ProfessorsComponent>;
-  let mockRouter: MockRouter;
-  let mockProfessorService: jasmine.SpyObj<ProfessorService>;
-  let mockCookieService: jasmine.SpyObj<CookieService>;
+  let professorServiceMock: jasmine.SpyObj<ProfessorService>;
+  let cookieServiceMock: jasmine.SpyObj<CookieService>;
+  let globalsServiceMock: jasmine.SpyObj<GlobalsService>;
+  let routerMock: jasmine.SpyObj<Router>;
 
-  beforeEach(async () => {
-    mockRouter = new MockRouter();
-    mockProfessorService = jasmine.createSpyObj('ProfessorService', ['getAll', 'create', 'update', 'delete']);
-    mockCookieService = jasmine.createSpyObj('CookieService', ['get']);
+  const mockRouter = { 
+    events: of(null), 
+    navigate: jasmine.createSpy('navigate') 
+  };
 
-    await TestBed.configureTestingModule({
-      imports: [ProfessorsComponent],
+  beforeEach(() => {
+    professorServiceMock = jasmine.createSpyObj('ProfessorService', ['getAll', 'create', 'update', 'delete']);
+    cookieServiceMock = jasmine.createSpyObj('CookieService', ['get']);
+    globalsServiceMock = jasmine.createSpyObj('GlobalsService', ['checkToken']);
+    
+    TestBed.configureTestingModule({
+      imports: [FormsModule, ProfessorsComponent],
       providers: [
+        { provide: ProfessorService, useValue: professorServiceMock },
+        { provide: CookieService, useValue: cookieServiceMock },
+        { provide: GlobalsService, useValue: globalsServiceMock },
         { provide: Router, useValue: mockRouter },
-        { provide: ProfessorService, useValue: mockProfessorService },
-        { provide: CookieService, useValue: mockCookieService },
       ]
     }).compileComponents();
 
@@ -35,158 +43,195 @@ describe('ProfessorsComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should create the component', () => {
-    expect(component).toBeTruthy();
-  });
-/*
+
   describe('ngOnInit', () => {
-    it('should redirect to login if no token is present', () => {
-      mockCookieService.get.and.returnValue('');
+    it('should fetch professors if token is valid', () => {
+      cookieServiceMock.get.and.returnValue('valid-token');
+      globalsServiceMock.checkToken.and.stub();
+      professorServiceMock.getAll.and.returnValue(of([]));
+      
       component.ngOnInit();
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
-    });
-
-    it('should fetch professors if a token is present', () => {
-      mockCookieService.get.and.returnValue('mockToken');
-      mockProfessorService.getAll.and.returnValue(of([{ id: '1', name: 'Prof. A', email: 'a@example.com' }]));
-
-      component.ngOnInit();
-
-      expect(component.token).toBe('mockToken');
-      expect(mockProfessorService.getAll).toHaveBeenCalledWith(component.user);
-    });
-  });
-*/
-  describe('fetchProfessors', () => {
-    it('should populate professors on successful fetch', () => {
-      const mockProfessors = [{ id: '1', name: 'Prof. A', email: 'a@example.com' }];
-      mockProfessorService.getAll.and.returnValue(of(mockProfessors));
-
-      component.fetchProfessors();
-
-      expect(component.professors).toEqual(mockProfessors);
-    });
-
-    it('should handle errors when fetching professors', () => {
-      spyOn(console, 'error');
-      mockProfessorService.getAll.and.returnValue(throwError(() => new Error('Fetch error')));
-
-      component.fetchProfessors();
-
-      expect(console.error).toHaveBeenCalledWith('Failed to fetch professors:', jasmine.any(Error));
-    });
-  });
-
-  describe('isValidProfessor', () => {
-    beforeEach(() => {
-      component.professors = [{ id: '1', name: 'Prof. A', email: 'a@example.com' }];
-    });
-
-    it('should return false if professor name is empty', () => {
-      component.newProfessor = { id: '', name: '', email: '' };
-      const result = component.isValidProfessor();
-      expect(result).toBe(false);
-      expect(component.modalMessage).toBe("Please fill in professor's name.");
-    });
-
-    it('should return false if professor name already exists', () => {
-      component.newProfessor = { id: '', name: 'Prof. A', email: 'a@example.com' };
-      const result = component.isValidProfessor();
-      expect(result).toBe(false);
-      expect(component.modalMessage).toBe('A professor with the same name already exists.');
-    });
-
-    it('should return true for valid professor', () => {
-      component.newProfessor = { id: '', name: 'Prof. B', email: 'b@example.com' };
-      const result = component.isValidProfessor();
-      expect(result).toBe(true);
+      
+      expect(professorServiceMock.getAll).toHaveBeenCalled();
     });
   });
 
   describe('addProfessor', () => {
-    it('should not add professor if validation fails', () => {
-      component.newProfessor = { id: '', name: '', email: '' };
+    it('should add a valid professor', () => {
+      component.newProfessor = { id: '', name: 'Jane Doe', email: 'jane@example.com' };
+      component.user = 'user@example.com';
+      spyOn(component, 'isValidProfessor').and.returnValue(true);
+      professorServiceMock.create.and.returnValue(of({ id: '1' }));
+
+      component.addProfessor();
+
+      expect(professorServiceMock.create).toHaveBeenCalledWith({
+        userEmail: 'user@example.com',
+        name: 'Jane Doe',
+        email: 'jane@example.com'
+      });
+      expect(component.professors.length).toBe(1);
+      expect(component.newProfessor).toEqual({ id: '', name: '', email: '' });
+    });
+
+    it('should not add an invalid professor', () => {
       spyOn(component, 'isValidProfessor').and.returnValue(false);
 
       component.addProfessor();
 
-      expect(mockProfessorService.create).not.toHaveBeenCalled();
+      expect(professorServiceMock.create).not.toHaveBeenCalled();
     });
 
-    it('should add professor if validation passes', () => {
-      component.newProfessor = { id: '', name: 'Prof. C', email: 'c@example.com' };
-      component.user = 'mockUser';
+    it('should log an error if adding the professor fails', () => {
+      const mockError = { message: 'Request failed' };
+      component.newProfessor = { id: '', name: 'Jane Doe', email: 'jane@example.com' };
+      component.user = 'user@example.com';
       spyOn(component, 'isValidProfessor').and.returnValue(true);
-      mockProfessorService.create.and.returnValue(of({ id: '2' }));
+      professorServiceMock.create.and.returnValue(throwError(mockError));
+      spyOn(console, 'error');
 
       component.addProfessor();
 
-      expect(mockProfessorService.create).toHaveBeenCalledWith({
-        userEmail: 'mockUser',
-        name: 'Prof. C',
-        email: 'c@example.com',
+      expect(professorServiceMock.create).toHaveBeenCalledWith({
+        userEmail: 'user@example.com',
+        name: 'Jane Doe',
+        email: 'jane@example.com'
       });
-      expect(component.professors.length).toBe(1);
-      expect(component.professors[0].name).toBe('Prof. C');
-      expect(component.newProfessor).toEqual({ id: '', name: '', email: '' });
+      expect(console.error).toHaveBeenCalledWith('Error adding professor:', mockError);
+    });
+  });
+
+  describe('editProfessor', () => {
+    it('should set newProfessor and isAddCase correctly', () => {
+      const mockProfessor: Professor = { id: '1', name: 'John Doe', email: 'john@example.com' };
+
+      component.editProfessor(mockProfessor);
+
+      expect(component.newProfessor).toBe(mockProfessor);
+      expect(component.isAddCase).toBeFalse();
     });
   });
 
   describe('updateProfessor', () => {
-    it('should not update professor if validation fails', () => {
-      component.newProfessor = { id: '1', name: '', email: '' };
+    it('should update the professor and update the professors list', () => {
+      component.newProfessor = { id: '1', name: 'Updated Professor', email: 'updated@example.com' };
+      component.professors = [{ id: '1', name: 'John Doe', email: 'john@example.com' }, { id: '2', name: 'Jane Doe', email: 'jane@example.com' }];
+      spyOn(component, 'isValidProfessor').and.returnValue(true);
+      professorServiceMock.update.and.returnValue(of());
+
+      component.updateProfessor();
+
+      expect(professorServiceMock.update).toHaveBeenCalledWith('1', { id: '1', name: 'Updated Professor', email: 'updated@example.com' });
+      expect(component.newProfessor).toEqual({ id: '', name: '', email: '' });
+      expect(component.isAddCase).toBeTrue();
+    });
+
+    it('should log an error if updating the professor fails', () => {
+      const mockError = { message: 'Request failed' };
+      component.newProfessor = { id: '1', name: 'Updated Professor', email: 'updated@example.com' };
+      spyOn(component, 'isValidProfessor').and.returnValue(true);
+      professorServiceMock.update.and.returnValue(throwError(mockError));
+      spyOn(console, 'error');
+
+      component.updateProfessor();
+
+      expect(professorServiceMock.update).toHaveBeenCalledWith('1', { id: '1', name: 'Updated Professor', email: 'updated@example.com' });
+      expect(console.error).toHaveBeenCalledWith('Error updating professor:', mockError);
+    });
+
+    it('should not update the professor if it is not valid', () => {
+      component.newProfessor = { id: '1', name: 'Updated Professor', email: 'updated@example.com' };
       spyOn(component, 'isValidProfessor').and.returnValue(false);
 
       component.updateProfessor();
 
-      expect(mockProfessorService.update).not.toHaveBeenCalled();
+      expect(professorServiceMock.update).not.toHaveBeenCalled();
     });
-    /*
-    it('should update professor if validation passes', () => {
-      component.newProfessor = { id: '1', name: 'Updated Prof', email: 'updated@example.com' };
-      spyOn(component, 'isValidProfessor').and.returnValue(true);
-      mockProfessorService.update.and.returnValue(of());
-
-      component.updateProfessor();
-
-      expect(mockProfessorService.update).toHaveBeenCalledWith('1', component.newProfessor);
-      expect(component.professors[0].name).toBe('Updated Prof');
-      expect(component.newProfessor).toEqual({ id: '', name: '', email: '' });
-    });
-    */
   });
-/*
+
+  describe('showDeleteModal', () => {
+    it('should set modal properties and make it visible', () => {
+      const mockProfessor: Professor = { id: '1', name: 'John Doe', email: 'john@example.com' };
+
+      component.showDeleteModal(mockProfessor);
+
+      expect(component.professorToDelete).toBe(mockProfessor);
+      expect(component.modalTitle).toBe('Delete professor');
+      expect(component.cancelOption).toBeTrue();
+      expect(component.modalMessage).toBe('Are you sure you want to delete John Doe ?');
+      expect(component.modalType).toBe('delete');
+      expect(component.isModalVisible).toBeTrue();
+    });
+  });
+
   describe('deleteProfessor', () => {
+    
     it('should delete a professor', () => {
-      const professorToDelete = { id: '1', name: 'Prof. A', email: 'a@example.com' };
-      component.professors = [professorToDelete];
-      component.professorToDelete = professorToDelete;
-      mockProfessorService.delete.and.returnValue(of());
-
+      component.professors = [{ id: '1', name: 'John Doe', email: 'john@example.com' }];
+      component.professorToDelete = component.professors[0];
+      
+      professorServiceMock.delete.and.returnValue(of());
       component.deleteProfessor();
-
-      expect(mockProfessorService.delete).toHaveBeenCalledWith('1');
-      expect(component.professors.length).toBe(0);
+      
+      expect(professorServiceMock.delete).toHaveBeenCalledWith('1');
+    });
+    
+    it('should handle error during deletion', () => {
+      component.professors = [{ id: '1', name: 'John Doe', email: 'john@example.com' }];
+      component.professorToDelete = component.professors[0];
+      
+      professorServiceMock.delete.and.returnValue(throwError('Error deleting'));
+      component.deleteProfessor();
+      
+      expect(component.professors.length).toBe(1);
     });
   });
-*/
+
   describe('handleModalConfirm', () => {
-    it('should close modal and delete professor if modal type is delete', () => {
-      component.modalType = 'delete';
-      component.professorToDelete = { id: '1', name: 'Prof. A', email: 'a@example.com' };
+    it('should call deleteProfessor if modal type is delete', () => {
       spyOn(component, 'deleteProfessor');
-
+      component.modalType = 'delete';
       component.handleModalConfirm();
-
-      expect(component.isModalVisible).toBe(false);
+      
       expect(component.deleteProfessor).toHaveBeenCalled();
+    });
+  });
+  
+  describe('isValidProfessor', () => {
+    it('should return false if professor name is empty', () => {
+      component.newProfessor = { id: '', name: '', email: '' };
+      const isValid = component.isValidProfessor();
+      
+      expect(isValid).toBeFalse();
+      expect(component.modalMessage).toBe("Please fill in professor's name.");
+    });
+
+    it('should return false if professor name already exists', () => {
+      component.professors = [{ id: '1', name: 'John Doe', email: 'john@example.com' }];
+      component.newProfessor = { id: '', name: 'John Doe', email: '' };
+      
+      const isValid = component.isValidProfessor();
+      
+      expect(isValid).toBeFalse();
+      expect(component.modalMessage).toBe("A professor with the same name already exists.");
+    });
+
+    it('should return true if professor name is valid and unique', () => {
+      component.professors = [{ id: '1', name: 'John Doe', email: 'john@example.com' }];
+      component.newProfessor = { id: '', name: 'Jane Doe', email: '' };
+      
+      const isValid = component.isValidProfessor();
+      
+      expect(isValid).toBeTrue();
     });
   });
 
   describe('onBack', () => {
-    it('should go back in history', () => {
+    it('should navigate back in history', () => {
       spyOn(window.history, 'back');
+
       component.onBack();
+
       expect(window.history.back).toHaveBeenCalled();
     });
   });

@@ -148,14 +148,24 @@ export class CreateTimetableStep1Component implements OnInit {
     this.isModalVisible = false;
   }
 
-  
 
   handleModalConfirm(event: { confirmed: boolean }) {
     if (event.confirmed && this.selectedInterval) {
       const selectedDay = this.selectedInterval.day;
   
       if (this.modalType === 'delete') {
-        const intervalIndex = this.validatedIntervals.findIndex(interval => interval.day === selectedDay);
+        this.handleDelete(selectedDay);
+      } else if (this.modalType === 'update') {
+        this.handleUpdate(selectedDay);
+      }
+    }
+    this.isModalVisible = false;
+    this.selectedInterval = null;
+    this.modalType = null;
+  }
+
+  handleDelete(selectedDay: string) {
+    const intervalIndex = this.validatedIntervals.findIndex(interval => interval.day === selectedDay);
         if (intervalIndex !== -1) {
           this.validatedIntervals.splice(intervalIndex, 1);
         }
@@ -168,34 +178,32 @@ export class CreateTimetableStep1Component implements OnInit {
           deletedDay.selected = false;
         }
         this.updateLocalStorage();
-      } else if (this.modalType === 'update') {
-        const existingIntervalIndex = this.validatedIntervals.findIndex(interval => interval.day === selectedDay);
-        if (existingIntervalIndex !== -1) {
-          this.validatedIntervals[existingIntervalIndex] = { 
-            day: this.selectedInterval.day, 
-            startTime: this.selectedInterval.startTime, 
-            endTime: this.selectedInterval.endTime, 
-            selected: this.selectedInterval.selected, 
-            valid: this.selectedInterval.valid
-          };
-        }
-  
-        const updatedDay = this.days.find(day => day.day === selectedDay);
-        if (updatedDay) {
-          updatedDay.startTime = this.selectedInterval.startTime;
-          updatedDay.endTime = this.selectedInterval.endTime;
-          updatedDay.selected = false;
-          updatedDay.valid = true;
-        }
-  
-        this.updateLocalStorage();
-        this.cdr.detectChanges();
+  }
+
+  handleUpdate(selectedDay: string){
+    if( this.selectedInterval){
+      const existingIntervalIndex = this.validatedIntervals.findIndex(interval => interval.day === selectedDay);
+      if (existingIntervalIndex !== -1) {
+        this.validatedIntervals[existingIntervalIndex] = { 
+          day: this.selectedInterval.day, 
+          startTime: this.selectedInterval.startTime, 
+          endTime: this.selectedInterval.endTime, 
+          selected: this.selectedInterval.selected, 
+          valid: this.selectedInterval.valid
+        };
       }
+
+      const updatedDay = this.days.find(day => day.day === selectedDay);
+      if (updatedDay) {
+        updatedDay.startTime = this.selectedInterval.startTime;
+        updatedDay.endTime = this.selectedInterval.endTime;
+        updatedDay.selected = false;
+        updatedDay.valid = true;
+      }
+
+      this.updateLocalStorage();
+      this.cdr.detectChanges();
     }
-  
-    this.isModalVisible = false;
-    this.selectedInterval = null;
-    this.modalType = null;
   }
   
   isLocalStorageAvailable(): boolean {

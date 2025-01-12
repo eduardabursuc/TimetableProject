@@ -59,6 +59,10 @@ export class TimetableComponent implements OnInit {
     }
   }
 
+  set totalPages(value: number) {
+    this.totalPages = value;
+  }
+
   get totalPages(): number {
     return Math.ceil(this.timetables.length / this.pageSize);
   }
@@ -88,8 +92,8 @@ export class TimetableComponent implements OnInit {
   fetchAllByProfessor(): void {
     this.timetableService.getForProfessor(this.user).subscribe({
       next: (response) => {
-        // Sort by createdAt in descending order
-        this.timetables = response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        response.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        this.timetables = response;
       },
       error: (error) => {
         console.error('Failed to fetch timetables:', error);

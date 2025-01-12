@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { CookieService } from "ngx-cookie-service";
-import { jwtDecode } from "jwt-decode";
-import { Token } from '../../models/token.model';
 import { GlobalsService } from '../../services/globals.service';
 
 @Component({
@@ -45,7 +43,7 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
 
-    var tokenObj = this.globals.decodeToken(this.resetToken);
+    const tokenObj = this.globals.decodeToken(this.resetToken);
 
     // check if the token is expired
     const currentTime = Math.floor(Date.now() / 1000);

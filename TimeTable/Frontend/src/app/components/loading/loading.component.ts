@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoadingComponent {
 
-  private loadingSubject = new BehaviorSubject<boolean>(false);
+  private readonly loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
 
   show() {
