@@ -31,7 +31,7 @@ export class SidebarMenuComponent {
 
   // Function to update the current route based on the active URL
   updateSelectedRoute() {
-    this.currentRoute = this.router.url; // Gets the current route URL
+    this.currentRoute = this.router.url ? this.router.url : 'localhost:4200'; // Gets the current route URL
   }
 
   // Function to check if the route matches the menu item

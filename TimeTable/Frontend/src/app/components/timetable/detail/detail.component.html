@@ -38,9 +38,6 @@
               <button *ngIf="isProfessor" (click)="addConstraint(timetable)" class="constraint-button">
                 Add Constraint
               </button>
-              <button *ngIf="isFiltered" (click)="resetFilters()" class="reset-button">
-                Reset Filters
-              </button>
             </div>
           </div>
 
@@ -127,11 +124,14 @@
 
                   <td class="event-component" id="evenness">
                     <span *ngIf="!isEditMode">{{ event.weekEvenness ? '2' : 'weekly' }}</span>
-                    <input *ngIf="isEditMode" [(ngModel)]="event.weekEvenness" type="checkbox" class="editable-input" />
+                    <select *ngIf="isEditMode" [(ngModel)]="event.weekEvenness" class="editable-select">
+                      <option [ngValue]="true">2</option>
+                      <option [ngValue]="false">weekly</option>
+                    </select>
                   </td>
 
                   <td *ngIf="!isEditMode" class="event-component">
-                    <span *ngIf="!isEditMode">{{ event.coursePackage }}</span>
+                    <span>{{ event.coursePackage }}</span>
                   </td>
                 </tr>
               </tbody>

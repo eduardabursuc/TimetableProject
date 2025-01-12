@@ -17,7 +17,7 @@ describe('RegisterComponent', () => {
     const spyRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RegisterComponent],  // Ensure RegisterComponent is imported
+      imports: [CommonModule, FormsModule, RegisterComponent], 
       providers: [
         { provide: UserService, useValue: spyUserService },
         { provide: Router, useValue: spyRouter }

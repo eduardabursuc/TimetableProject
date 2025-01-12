@@ -52,6 +52,7 @@ export class GroupsComponent implements OnInit {
 
     if (this.token === '') {
       this.router.navigate(['/login']);
+      return;
     }
     this.user = localStorage.getItem('user');
     this.fetchGroups();

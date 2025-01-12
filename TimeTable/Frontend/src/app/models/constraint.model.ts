@@ -14,7 +14,7 @@ export interface Constraint {
   }
 
   export enum ConstraintType {
-    HARD_NO_OVERLAP,
+        HARD_NO_OVERLAP,
         HARD_YEAR_PRIORITY,
         HARD_ROOM_CAPACITY,
         

@@ -135,9 +135,83 @@ describe('CreateTimetableStep2Component', () => {
         type: 'course',
       });
     });
+
+    it('should show error modal if the event already exists', () => {
+      const mockEvent = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+
+      component.selectedCourse =  { id: '1', courseName: 'Course 1', credits: 2, package: 'compulsory', semester: 3, level: 'license'};
+      component.selectedProfessor = { id: '1', name: 'Professor 1', email: "" };
+      component.selectedGroup = { id: '1', name: 'Group 1' };
+      component.eventDuration = 1;
+      component.eventType = 'course';
+
+      component.addedEvents = [mockEvent];
+
+      component.addEvent();
+
+      expect(component.modalTitle).toBe('Event Already Exists');
+      expect(component.modalMessage).toBe('This event is already added. Please modify it or remove the existing one.');
+      expect(component.modalType).toBe('add');
+      expect(component.isModalVisible).toBeTrue();
+    });
+
+    it('should update the event if eventToEdit is not null', () => {
+      const mockEvent = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+      const updatedEvent = {
+        course: 'Course 2',
+        courseId: '2',
+        professor: 'Professor 2',
+        professorId: '2',
+        group: 'Group 2',
+        groupId: '2',
+        duration: 2,
+        type: 'lab',
+      };
+      component.addedEvents = [mockEvent];
+      component.selectedCourse = { id: '2', courseName: 'Course 2', credits: 3, package: 'compulsory', semester: 2, level: 'master' };
+      component.selectedProfessor = { id: '2', name: 'Professor 2', email: "" };
+      component.selectedGroup = { id: '2', name: 'Group 2' };
+      component.eventDuration = 2;
+      component.eventType = 'lab';
+      component.eventToEdit = mockEvent;
+
+      component.addEvent();
+
+      expect(component.addedEvents).toEqual([updatedEvent]);
+      expect(component.eventToEdit).toBeNull();
+    });
   });
 
   describe('generateTimetable', () => {
+
+    it('should log an error and return if inputValue is empty or only contains whitespace', () => {
+      spyOn(console, 'error');
+
+      component.inputValue = '   ';
+      component.generateTimetable();
+
+      expect(console.error).toHaveBeenCalledWith('Timetable name is required.');
+      expect(mockTimetableService.create).not.toHaveBeenCalled();
+    });
+
     it('should call the timetable service with correct data', () => {
       const mockEvent = {
         course: 'Course 1',
@@ -175,5 +249,347 @@ describe('CreateTimetableStep2Component', () => {
         timeslots: [{ day: 'Monday', time: '08:00 - 10:00' }],
       });
     });
+
+    it('should handle error when timetable creation fails', () => {
+      const mockError = { message: 'Request failed' };
+      mockTimetableService.create.and.returnValue(throwError(mockError));
+      spyOn(console, 'error');
+
+      component.inputValue = 'Test Timetable';
+      component.generateTimetable();
+
+      expect(mockTimetableService.create).toHaveBeenCalled();
+      expect(component.isModalVisible).toBeTrue();
+      expect(component.modalTitle).toBe('Creating error');
+      expect(component.modalMessage).toBe('No valid timetable can be generated.');
+      expect(component.modalType).toBe('error');
+      expect(console.error).toHaveBeenCalledWith('Error generating timetable:', mockError);
+      expect(component.isLoading).toBeFalse();
+    });
   });
+
+  describe('onGenerate', () => {
+    it('should show modal with message when no events are added', () => {
+      component.addedEvents = [];
+      component.onGenerate();
+
+      expect(component.modalTitle).toBe('No Events Added');
+      expect(component.modalMessage).toBe('No events have been added. Please add events before generating the timetable.');
+      expect(component.modalType).toBe('generate');
+      expect(component.isModalVisible).toBeTrue();
+      expect(component.isInputRequired).toBeFalse();
+      expect(component.showCancelButton).toBeFalse();
+    });
+
+    it('should show modal with input when events are added', () => {
+      component.addedEvents = [{
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      }];
+      component.onGenerate();
+
+      expect(component.modalTitle).toBe('Generate Timetable');
+      expect(component.modalMessage).toBe('Please enter a name for the timetable:');
+      expect(component.modalType).toBe('generate');
+      expect(component.isModalVisible).toBeTrue();
+      expect(component.isInputRequired).toBeTrue();
+      expect(component.inputPlaceholder).toBe('Timetable Name');
+      expect(component.showCancelButton).toBeTrue();
+    });
+  });
+
+  describe('saveEventsToLocalStorage', () => {
+    it('should save events to local storage if available', () => {
+      spyOn(localStorage, 'setItem');
+      component.addedEvents = [{
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      }];
+
+      component.saveEventsToLocalStorage();
+
+      expect(localStorage.setItem).toHaveBeenCalledWith('addedEvents', JSON.stringify(component.addedEvents));
+    });
+  });
+
+  describe('loadEventForEdit', () => {
+    it('should load event for edit and show modal', () => {
+      component.courses = [{ courseName: 'Course 1', id: '1', credits: 3, package: 'compulsory', semester: 1, level: 'license' }];
+      component.professors = [{ name: 'Professor 1', id: '1', email: 'professor1@example.com' }];
+      component.groups = [{ name: 'Group 1', id: '1' }];
+      component.eventToEdit = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+
+      component.loadEventForEdit();
+
+      expect(component.selectedCourse).toEqual(component.courses[0]);
+      expect(component.selectedProfessor).toEqual(component.professors[0]);
+      expect(component.selectedGroup).toEqual(component.groups[0]);
+      expect(component.eventDuration).toBe(1);
+      expect(component.eventType).toBe('course');
+      expect(component.isModalVisible).toBeTrue();
+    });
+
+  });
+
+  describe('deleteEvent', () => {
+    it('should set eventToDelete and show modal with correct message', () => {
+      const event = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+
+      component.deleteEvent(event);
+
+      expect(component.eventToDelete).toEqual(event);
+      expect(component.modalTitle).toBe('Confirm Deletion');
+      expect(component.modalMessage).toBe(`Are you sure you want to delete the event for ${event.course}?`);
+      expect(component.modalType).toBe('delete');
+      expect(component.isModalVisible).toBeTrue();
+    });
+  });
+
+  describe('editEvent', () => {
+    it('should set eventToEdit and show modal with correct message', () => {
+      const event = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+
+      component.editEvent(event);
+
+      expect(component.eventToEdit).toEqual(event);
+      expect(component.modalTitle).toBe('Confirm Edit');
+      expect(component.modalMessage).toBe(`Are you sure you want to edit the event for ${event.course}?`);
+      expect(component.modalType).toBe('edit');
+      expect(component.isModalVisible).toBeTrue();
+    });
+  });
+
+  describe('handleGenerateConfirmation', () => {
+    it('should close modal if no events are added', () => {
+      spyOn(component, 'closeModal');
+      component.addedEvents = [];
+
+      component.handleGenerateConfirmation();
+
+      expect(component.closeModal).toHaveBeenCalled();
+    });
+
+    it('should set inputValue to empty string if inputValue is not provided', () => {
+      component.addedEvents = [{ /* mock event data */ }];
+      component.inputValue = 'Existing Value';
+
+      component.handleGenerateConfirmation();
+
+      expect(component.inputValue).toBe('');
+    });
+    /*
+    it('should set inputValue to provided value', () => {
+      component.addedEvents = [{ /* mock event data * / }];
+      const inputValue = 'New Timetable';
+
+      component.handleGenerateConfirmation(inputValue);
+
+      expect(component.inputValue).toBe(inputValue);
+    });*/
+
+    it('should set isLoading to true and call generateTimetable if inputValue is provided', () => {
+      spyOn(component, 'generateTimetable');
+      component.addedEvents = [{ /* mock event data */ }];
+      const inputValue = 'New Timetable';
+
+      component.handleGenerateConfirmation(inputValue);
+
+      expect(component.isLoading).toBeTrue();
+      expect(component.generateTimetable).toHaveBeenCalled();
+    });
+
+    it('should not set isLoading to true or call generateTimetable if inputValue is not provided', () => {
+      spyOn(component, 'generateTimetable');
+      component.addedEvents = [{ /* mock event data */ }];
+      component.inputValue = '';
+
+      component.handleGenerateConfirmation();
+
+      //expect(component.isLoading).toBeFalse();
+      expect(component.generateTimetable).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('handleModalConfirm', () => {
+    it('should close modal if event is not confirmed', () => {
+      spyOn(component, 'closeModal');
+      const event = { confirmed: false };
+
+      component.handleModalConfirm(event);
+
+      expect(component.closeModal).toHaveBeenCalled();
+    });
+
+    it('should handle delete confirmation and close modal', () => {
+      spyOn(component, 'handleDeleteConfirmation');
+      spyOn(component, 'closeModal');
+      component.modalType = 'delete';
+      const event = { confirmed: true };
+
+      component.handleModalConfirm(event);
+
+      expect(component.handleDeleteConfirmation).toHaveBeenCalled();
+      expect(component.closeModal).toHaveBeenCalled();
+    });
+
+    it('should handle edit confirmation and close modal', () => {
+      spyOn(component, 'handleEditConfirmation');
+      spyOn(component, 'closeModal');
+      component.modalType = 'edit';
+      const event = { confirmed: true };
+
+      component.handleModalConfirm(event);
+
+      expect(component.handleEditConfirmation).toHaveBeenCalled();
+      expect(component.closeModal).toHaveBeenCalled();
+    });
+
+    it('should handle generate confirmation with input value and close modal', () => {
+      spyOn(component, 'handleGenerateConfirmation');
+      spyOn(component, 'closeModal');
+      component.modalType = 'generate';
+      const event = { confirmed: true, inputValue: 'Timetable Name' };
+
+      component.handleModalConfirm(event);
+
+      expect(component.handleGenerateConfirmation).toHaveBeenCalledWith('Timetable Name');
+      expect(component.closeModal).toHaveBeenCalled();
+    });
+
+    it('should close modal after handling confirmation', () => {
+      spyOn(component, 'closeModal');
+      const event = { confirmed: true };
+
+      component.handleModalConfirm(event);
+
+      expect(component.closeModal).toHaveBeenCalled();
+    });
+  });
+
+  describe('closeModal', () => {
+    it('should set isModalVisible to false and modalType to null', () => {
+      component.isModalVisible = true;
+      component.modalType = 'edit';
+
+      component.closeModal();
+
+      expect(component.isModalVisible).toBeFalse();
+      expect(component.modalType).toBeNull();
+    });
+  });
+
+  describe('handleDeleteConfirmation', () => {
+    it('should delete the event and save events to local storage', () => {
+      const mockEvent = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+      component.addedEvents = [mockEvent];
+      component.eventToDelete = mockEvent;
+      spyOn(component, 'saveEventsToLocalStorage');
+
+      component.handleDeleteConfirmation();
+
+      expect(component.addedEvents).toEqual([]);
+      expect(component.eventToDelete).toBeNull();
+      expect(component.saveEventsToLocalStorage).toHaveBeenCalled();
+    });
+
+    it('should not delete any event if eventToDelete is null', () => {
+      const mockEvent = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+      component.addedEvents = [mockEvent];
+      component.eventToDelete = null;
+      spyOn(component, 'saveEventsToLocalStorage');
+
+      component.handleDeleteConfirmation();
+
+      expect(component.addedEvents).toEqual([mockEvent]);
+      expect(component.saveEventsToLocalStorage).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('handleEditConfirmation', () => {
+    it('should load the event for edit if eventToEdit is not null', () => {
+      const mockEvent = {
+        course: 'Course 1',
+        courseId: '1',
+        professor: 'Professor 1',
+        professorId: '1',
+        group: 'Group 1',
+        groupId: '1',
+        duration: 1,
+        type: 'course',
+      };
+      component.eventToEdit = mockEvent;
+      spyOn(component, 'loadEventForEdit');
+
+      component.handleEditConfirmation();
+
+      expect(component.loadEventForEdit).toHaveBeenCalled();
+    });
+
+    it('should not load any event for edit if eventToEdit is null', () => {
+      component.eventToEdit = null;
+      spyOn(component, 'loadEventForEdit');
+
+      component.handleEditConfirmation();
+
+      expect(component.loadEventForEdit).not.toHaveBeenCalled();
+    });
+  });
+
 });

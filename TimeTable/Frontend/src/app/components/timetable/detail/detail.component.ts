@@ -65,7 +65,7 @@ export class DetailComponent implements OnInit {
   endTime: string = ''; 
   startTime: string = ''; 
   eventName: string = ''; 
-  eventTypes: string[] = ['Course', 'Laboratory', 'Seminary'];
+  eventTypes: string[] = ['course', 'laboratory', 'seminary'];
 
   isAdmin: boolean = false;
   isProfessor: boolean = false;
@@ -130,17 +130,21 @@ export class DetailComponent implements OnInit {
     .subscribe({ next: (data) => this.rooms = data, error: (error) => { console.error("Error loading rooms: ", error); this.isLoading = false; } , complete: () => this.isLoading = false }); 
 
     if( this.role == "professor" ) {
-      this.constraintService.getAllForProfessor(this.user, this.id)
-      .subscribe({ next: (data) => this.constraints = data, error: (error) => console.error("Error loading constraints: ", error) });
+      this.loadConstraints();
     }
   
   }
+
+  formatTime(time: string): string {
+    const [hours, minutes] = time.trim().split(':');
+    return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+  }
+  
 
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
   }
   
-
   getTimetableById(id: string): void {
     this.timetableService.getById(id).subscribe({
       next: (response) => {
@@ -155,13 +159,16 @@ export class DetailComponent implements OnInit {
         this.populateEventDetails();
   
         this.groupEventsByDay();
+
+        this.sortEvents();
       },
       error: (error) => {
         this.errorMessage = `Failed to fetch details for ID: ${id}.`;
         console.error(error);
       },
       complete: () => {
-        this.timetable?.isPublic ? this.privacy = 'public' : this.privacy = 'private';
+
+        this.privacy = this.timetable?.isPublic ? 'public' : 'private';
 
         if( this.role == 'admin' && this.timetable?.userEmail == this.user ) 
           this.isAdmin = true;
@@ -174,6 +181,12 @@ export class DetailComponent implements OnInit {
   
   populateEventDetails(): void {
     this.filteredEvents.forEach((event) => {
+
+      event.weekEvenness = event.isEven;
+
+      event.timeslot.startTime  = this.formatTime(event.timeslot.time.split('-')[0]);
+      event.timeslot.endTime = this.formatTime(event.timeslot.time.split('-')[1]);
+
       this.courseService.getById(event.courseId).subscribe({
         next: (course) => {
           event.courseName = course.courseName;
@@ -213,6 +226,15 @@ export class DetailComponent implements OnInit {
     });
   }
 
+  sortEvents(): void {
+    this.filteredEvents.sort((a, b) => {
+      if (a.timeslot.day === b.timeslot.day) {
+        return a.timeslot.startTime.localeCompare(b.timeslot.startTime);
+      }
+      return a.timeslot.day.localeCompare(b.timeslot.day);
+    });
+  }
+
   deleteTimetable(id: string): void {
     if (!id) return;
     this.timetableService.delete(id).subscribe({
@@ -229,68 +251,6 @@ export class DetailComponent implements OnInit {
       },
     });
   }
-  
-
-  filterByField(field: keyof Timeslot | keyof Event, value: any): void {
-    if (this.isEditMode) return;
-
-    this.filteredEvents = this.originalEvents.filter((timeslot) => {
-      if (field in timeslot) {
-        return timeslot[field as keyof Timeslot] === value;
-      } else if (field in timeslot.event) {
-        return timeslot.event[field as keyof Event] === value;
-      }
-      return false;
-    });
-
-    this.isFiltered = true;
-
-    // Reapply sorting after filtering
-    if (this.currentSortColumn) {
-      this.sortByColumn(this.currentSortColumn);
-      this.sortByColumn(this.currentSortColumn); // have to apply twice to maintain sort order
-    }
-  }
-
-  resetFilters(): void {
-    this.filteredEvents = [...this.originalEvents];
-    this.isFiltered = false;
-
-    // Reapply sorting after resetting filters
-    if (this.currentSortColumn) {
-      this.sortByColumn(this.currentSortColumn);
-    }
-  }
-
-  sortByColumn(column: keyof Timeslot | keyof Event): void {
-    if (this.currentSortColumn === column) {
-      this.isAscending = !this.isAscending; // Toggle sort order
-    } else {
-      this.currentSortColumn = column;
-      this.isAscending = true; // Default to ascending
-    }
-
-    if (column === 'day') {
-      const dayOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-      this.filteredEvents.sort((a, b) => {
-        const aIndex = dayOrder.indexOf(a.day);
-        const bIndex = dayOrder.indexOf(b.day);
-
-        return this.isAscending ? aIndex - bIndex : bIndex - aIndex;
-      });
-    } else {
-      this.filteredEvents.sort((a, b) => {
-        const aValue =
-          column in a ? a[column as keyof Timeslot] : a.event[column as keyof Event];
-        const bValue =
-          column in b ? b[column as keyof Timeslot] : b.event[column as keyof Event];
-
-        if (aValue < bValue) return this.isAscending ? -1 : 1;
-        if (aValue > bValue) return this.isAscending ? 1 : -1;
-        return 0;
-      });
-    }
-  }
 
   groupEventsByDay(): void {
     this.groupedEvents = this.filteredEvents.reduce((groups, event) => {
@@ -303,7 +263,7 @@ export class DetailComponent implements OnInit {
     }, {});
 
     // Sort days for display
-    this.sortedDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    this.sortedDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].filter(day => this.groupedEvents[day]);
   }
 
   
@@ -311,80 +271,13 @@ export class DetailComponent implements OnInit {
     if (event.confirmed) {
       if (this.modalType === 'delete' && this.timetableToDelete) {
         this.deleteTimetable(this.timetableToDelete.id);
-      } else if (this.modalType === 'edit' && this.timetable) {
-        const updatedTimetable: Timetable = {
-          ...this.timetable,
-          events: this.timetable.events.map(event => {
-            const course = this.courses.find(course => course.id === event.courseId);
-            const professor = this.professors.find(prof => prof.id === event.professorId);
-            const room = this.rooms.find(room => room.id === event.roomId);
-            const group = this.groups.find(group => group.name === event.group);
-
-            const updatedEvent: Event = {
-              ...event,
-              courseId: course?.id ?? event.courseId,
-              roomId: room?.id ?? event.roomId,
-              professorId: professor?.id ?? event.professorId,
-              groupId: group?.id ?? event.groupId,
-              weekEvenness: event.weekEvenness,
-              courseName: course?.courseName ?? event.courseName,
-              roomName: room?.name ?? event.roomName,
-              professorName: professor?.name ?? event.professorName,
-              group: group?.name ?? event.group,
-              timeslot: {
-                ...event.timeslot,
-                day: event.timeslot.day,
-                time: `${event.timeslot.startTime}-${event.timeslot.endTime}`
-              }
-            };
-            return updatedEvent;
-          })
-        };
-  
-        console.log(updatedTimetable);
-        // Sending update request to API
-        this.timetableService.update(updatedTimetable.id, updatedTimetable).subscribe({
-          next: (response) => {
-            // Proceed with post-update logic
-            this.isEditMode = false;
-            this.getTimetableById(updatedTimetable.id);
-            this.router.navigate([`/detail/${updatedTimetable.id}`]);
-          },
-          error: (error) => {
-            console.error('Failed to update timetable:', error);
-            this.errorMessage = 'Failed to update timetable. Please try again.';
-          }
-        });
+      } else if (this.modalType === 'edit') {
+        this.handleUpdate();
       } else if ( this.modalType == "addConstraint" ) {
-        this.isLoading = true;
         this.inputValue = event.inputValue? event.inputValue : "";
-        if( this.inputValue ) {
-          this.constraintService.create( { professorEmail: this.user, timetableId: this.id, input : this.inputValue} ).subscribe({
-            next: (response) => {
-              window.location.reload();
-            },
-            error: (error) => {
-              console.error('Failed to add a constraint:', error);
-              this.errorMessage = 'Failed to add a constraint. Please try again.';
-              this.isLoading = false;
-            },
-            complete: () => {
-              this.isLoading = false;
-            }
-          });
-        }
+        this.handleAddConstraint();
       } else if ( this.modalType == "deleteConstraint" ) {
-        if( this.constraintToDelete )
-        this.constraintService.delete(this.constraintToDelete.id).subscribe({
-          next: (response) => {
-            const id = this.constraintToDelete ? this.constraintToDelete.id : null ;
-            if ( id ) this.constraints = this.constraints.filter(constraint => constraint.id !== id);
-          },
-          error: (error) => {
-            console.error('Failed to delete constraint:', error);
-            this.errorMessage = 'Failed to delete constraint. Please try again.';
-          }
-        })
+        this.handleDeleteConstraint();
       }
     }
     this.isInputRequired = false;
@@ -394,6 +287,92 @@ export class DetailComponent implements OnInit {
     this.modalType = null;
     this.modalMessage = '';
   }  
+
+  handleUpdate(): void {
+
+    if( !this.timetable ) return;
+    const updatedTimetable: Timetable = {
+      ...this.timetable,
+      events: this.timetable.events.map(event => {
+        const course = this.courses.find(course => course.id === event.courseId);
+        const professor = this.professors.find(prof => prof.id === event.professorId);
+        const room = this.rooms.find(room => room.id === event.roomId);
+        const group = this.groups.find(group => group.name === event.group);
+
+        const updatedEvent: Event = {
+          ...event,
+          courseId: course?.id ?? event.courseId,
+          roomId: room?.id ?? event.roomId,
+          professorId: professor?.id ?? event.professorId,
+          groupId: group?.id ?? event.groupId,
+          isEven: event.weekEvenness,
+          courseName: course?.courseName ?? event.courseName,
+          roomName: room?.name ?? event.roomName,
+          professorName: professor?.name ?? event.professorName,
+          group: group?.name ?? event.group,
+          timeslot: {
+            ...event.timeslot,
+            day: event.timeslot.day,
+            time: `${event.timeslot.startTime}-${event.timeslot.endTime}`
+          }
+        };
+        return updatedEvent;
+      })
+    };
+
+    // Sending update request to API
+    this.timetableService.update(updatedTimetable.id, updatedTimetable).subscribe({
+      next: (response) => {
+        // Proceed with post-update logic
+        this.isEditMode = false;
+        this.getTimetableById(updatedTimetable.id);
+        this.router.navigate([`/detail/${updatedTimetable.id}`]);
+      },
+      error: (error) => {
+        console.error('Failed to update timetable:', error);
+        this.errorMessage = 'Failed to update timetable. Please try again.';
+      }
+    });
+
+  }
+
+  handleAddConstraint(): void {
+    this.isLoading = true;
+    if( this.inputValue ) {
+      this.constraintService.create( { professorEmail: this.user, timetableId: this.id, input : this.inputValue} ).subscribe({
+        next: (response) => {
+          this.loadConstraints();
+        },
+        error: (error) => {
+          console.error('Failed to add a constraint:', error);
+          this.errorMessage = 'Failed to add a constraint. Please try again.';
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+    }
+  }
+
+  loadConstraints(): void {
+    this.constraintService.getAllForProfessor(this.user, this.id)
+      .subscribe({ next: (data) => this.constraints = data, error: (error) => console.error("Error loading constraints: ", error) });
+  }
+
+  handleDeleteConstraint(): void {
+    if( this.constraintToDelete )
+    this.constraintService.delete(this.constraintToDelete.id).subscribe({
+      next: (response) => {
+        const id = this.constraintToDelete ? this.constraintToDelete.id : null ;
+        if ( id ) this.constraints = this.constraints.filter(constraint => constraint.id !== id);
+      },
+      error: (error) => {
+        console.error('Failed to delete constraint:', error);
+        this.errorMessage = 'Failed to delete constraint. Please try again.';
+      }
+    })
+  }
   
   
   showDeleteModal(timetable: Timetable): void {
@@ -448,7 +427,7 @@ export class DetailComponent implements OnInit {
     if( this.timetable )
       this.timetable.isPublic = !this.timetable.isPublic;
 
-    this.timetable?.isPublic ? this.privacy = 'public' : this.privacy = 'private';
+    this.privacy = this.timetable?.isPublic ? 'public' : 'private';
   }
 
 }

@@ -6,6 +6,7 @@ import { of, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -69,6 +70,14 @@ describe('LoginComponent', () => {
     component.ngOnInit();
 
     expect(router.navigate).toHaveBeenCalledWith(['/timetable']);
+  });
+
+  describe('getResetPasswordModal', () => {
+    it('should set isModalVisible to true', () => {
+      component.getResetPasswordModal();
+
+      expect(component.isModalVisible).toBeTrue();
+    });
   });
 
 });
