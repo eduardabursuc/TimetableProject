@@ -16,9 +16,9 @@ public class HardConstraintValidator(ICourseRepository courseRepo, IGroupReposit
     {
         return eventName.ToLower() switch
         {
-            "course" => room.Capacity > 90,
-            "seminary" => room.Capacity > 30,
-            "laboratory" => room.Capacity > 30,
+            "course" => room.Capacity >= 90,
+            "seminary" => room.Capacity >= 30,
+            "laboratory" => room.Capacity >= 30,
             _ => true
         };
     }
@@ -28,7 +28,6 @@ public class HardConstraintValidator(ICourseRepository courseRepo, IGroupReposit
         var group1 = groupRepo.GetByIdAsync(event1.GroupId).Result.Data;
         var group2 = groupRepo.GetByIdAsync(event2.GroupId).Result.Data;
 
-
         var course1 = courseRepo.GetByIdAsync(event1.CourseId).Result;
         var course2 = courseRepo.GetByIdAsync(event2.CourseId).Result;
 
@@ -36,17 +35,38 @@ public class HardConstraintValidator(ICourseRepository courseRepo, IGroupReposit
 
         if (TimeslotsOverlap(value1.Item2, event1.Duration, value2.Item2, event2.Duration))
         {
-            if (IsSameOrNestedGroup(group1.Name, group2.Name)) return false;
-            if (course1.Data.Package == "compulsory" || course2.Data.Package == "compulsory") return false; //sa nu se suprapuna un eveniment compulsory al unei grupe cu oricare altul al aceleiasi grupe
-            if (course1.Data.Package == course2.Data.Package 
-                && course1.Data.Level == course2.Data.Level 
-                && course1.Data.Semester == course2.Data.Semester) 
-                return false; //daca ambele evenimente sunt din acelasi pachet
+            if (IsSameOrNestedGroup(group1.Name, group2.Name))
+            {
+                return false;
+            }
+
+            if (course1.Data.Id == course2.Data.Id)
+            {
+                return false;
+            }
+
+            if (course1.Data.Package == "compulsory" || course2.Data.Package == "compulsory")
+            {
+                return false;
+            }
+
+            if (course1.Data.Package == course2.Data.Package
+                && course1.Data.Level == course2.Data.Level
+                && course1.Data.Semester == course2.Data.Semester)
+            {
+                return false;
+            }
         }
         return true;
     }
+
     public bool TimeslotsOverlap(Timeslot timeslot1, int duration1, Timeslot timeslot2, int duration2)
     {
+        if (timeslot1.Day != timeslot2.Day)
+        {
+            return false; 
+        }
+
         var startTime1 = TimeSpan.Parse(timeslot1.Time.Split(" - ")[0]);
         var endTime1 = startTime1.Add(TimeSpan.FromHours(duration1));
 

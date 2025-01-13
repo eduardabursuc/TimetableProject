@@ -1,7 +1,6 @@
 ﻿using Application.Validators;
 using Domain.Entities;
 using Domain.Repositories;
-using System.Globalization;
 
 namespace Application.Services
 {
@@ -16,6 +15,9 @@ namespace Application.Services
         private readonly IProfessorRepository professorRepository;
         private readonly Guid? timetableId;
         private List<Constraint> softConstraints = new List<Constraint>();
+        private readonly SoftConstraintsValidator softConstraintsValidator = new SoftConstraintsValidator();
+        private Dictionary<int, List<Timeslot>> timeslotCache = new Dictionary<int, List<Timeslot>>();
+
 
         public TimetableGeneratorService(
             string userEmail,
@@ -40,25 +42,32 @@ namespace Application.Services
         public async Task<Timetable> GenerateBestTimetableAsync()
         {
             var (variables, _) = await GenerateVariablesWithConstraintsAsync();
+            Console.WriteLine("Trying generating an optimal solution...");
 
-            var greedySolution = await GreedySchedulingAsync(variables);
+            var optimalSolution = await FindOptimalSolutionWithBacktrackingAsync(variables);
 
-            return MapSolutionToTimetable(greedySolution);
+            if (optimalSolution != null)
+            {
+                return MapSolutionToTimetable(optimalSolution);
+            }
+
+            Console.WriteLine("Backtracking failed to find a valid solution. Falling back to greedy algorithm.");
+            var greedySolutionFallback = await GreedySchedulingAsync(variables);
+            return MapSolutionToTimetable(greedySolutionFallback);
         }
 
-        private async Task<(Dictionary<Event, List<(Room, Timeslot)>> variables, Dictionary<Event, (Room, Timeslot)> currentSolution)> GenerateVariablesWithConstraintsAsync()
+        private async Task<(Dictionary<Event, List<(Room, Timeslot)>> variables, List<(Event, Room, Timeslot)> currentSolution)> GenerateVariablesWithConstraintsAsync()
         {
             var variables = new Dictionary<Event, List<(Room, Timeslot)>>();
-            //var professors = await professorRepository.GetAllAsync(userEmail);
-            var professors = await professorRepository.GetAllAsync("admin@gmail.com"); //pt testare
+            var professors = await professorRepository.GetAllAsync(userEmail);
+            var constraints = new List<Constraint>();
 
             foreach (var professor in professors.Data)
             {
                 var constraintsResult = await constraintRepository.GetConstraintsByProfessorId(professor.Id);
-
                 if (constraintsResult.IsSuccess)
                 {
-                    softConstraints.AddRange(constraintsResult.Data);
+                    constraints.AddRange(constraintsResult.Data);
                 }
                 else
                 {
@@ -66,299 +75,270 @@ namespace Application.Services
                 }
             }
 
-            Console.WriteLine($"Numarul total de constrângeri soft găsite: {softConstraints.Count}");
+            softConstraints.AddRange(constraints);
+
+            var possibleRooms = (await roomRepository.GetAllAsync(userEmail)).Data ?? new List<Room>();
 
 
-            Console.WriteLine("Constrangeri soft:");
-            foreach (var constraint in softConstraints)
+            var eventTasks = instance.Events.Select(async ev =>
             {
-                {
-                    Console.WriteLine($"- Id: {constraint.Id}");
-                    Console.WriteLine($"  TimetableId: {constraint.TimetableId}");
-                    Console.WriteLine($"  Type: {constraint.Type}");
-                    Console.WriteLine($"  ProfessorId: {constraint.ProfessorId}");
-                    Console.WriteLine($"  CourseId: {constraint.CourseId}");
-                    Console.WriteLine($"  RoomId: {constraint.RoomId}");
-                    Console.WriteLine($"  WantedRoomId: {constraint.WantedRoomId}");
-                    Console.WriteLine($"  GroupId: {constraint.GroupId}");
-                    Console.WriteLine($"  Day: {constraint.Day}");
-                    Console.WriteLine($"  Time: {constraint.Time}");
-                    Console.WriteLine($"  WantedDay: {constraint.WantedDay}");
-                    Console.WriteLine($"  WantedTime: {constraint.WantedTime}");
-                    Console.WriteLine($"  Event: {constraint.Event}");
-                    Console.WriteLine("----------------------------------------");
-                }
-            }
-
-
-            foreach (var ev in instance.Events)
-            {
-                Console.WriteLine($"Processing event: {ev.EventName}, ID: {ev.Id}");
-
-                var possibleRooms = (await roomRepository.GetAllAsync(userEmail)).Data ?? new List<Room>();
                 var splitTimeslots = SplitTimeslots(instance.Timeslots, ev.Duration);
-
                 var hardValidator = new HardConstraintValidator(courseRepository, groupRepository);
-
                 var domain = (from room in possibleRooms
                               from timeslot in splitTimeslots
                               where hardValidator.ValidateRoomCapacity(room, ev.EventName)
                               select (room, timeslot)).ToList();
 
-                variables[ev] = domain;
-                Console.WriteLine($"Found {domain.Count} possible assignments for event {ev.Id}");
+                return new { Event = ev, Domain = domain };
+            }).ToArray();
+
+            var eventResults = await Task.WhenAll(eventTasks);
+
+            foreach (var result in eventResults)
+            {
+                variables[result.Event] = result.Domain;
             }
 
-            return (variables, new Dictionary<Event, (Room, Timeslot)>());
+            return (variables, new List<(Event, Room, Timeslot)>());
+        }
+
+        private async Task<List<(Event, Room, Timeslot)>> FindOptimalSolutionWithBacktrackingAsync(
+            Dictionary<Event, List<(Room, Timeslot)>> variables)
+        {
+            var solution = new List<(Event, Room, Timeslot)>();
+            var result = new BacktrackResult();
+
+            var startTime = DateTime.Now;
+
+            await Backtrack(variables, solution, result, startTime);
+
+            return result.isFeasibleSolutionFound ? result.bestSolution : null;
+        }
+
+        private async Task Backtrack(
+            Dictionary<Event, List<(Room, Timeslot)>> variables,
+            List<(Event, Room, Timeslot)> currentSolution,
+            BacktrackResult result,
+            DateTime startTime)
+        {
+            if ((DateTime.Now - startTime).TotalMinutes > 2)
+            {
+                //Console.WriteLine("Time limit exceeded. Returning best solution found so far.");
+                return;
+            }
+
+            if (currentSolution.Count == variables.Count)
+            {
+
+                // Dacă nu există constrângeri soft, putem accepta orice soluție fezabilă completă
+                if (softConstraints.Count == 0)
+                {
+                    result.isFeasibleSolutionFound = true;
+                    result.bestSolution = new List<(Event, Room, Timeslot)>(currentSolution);
+                    result.bestScore = 1;
+                    return;
+                }
+                else
+                {
+                    bool isFeasible = currentSolution.All(ev => IsFeasible(ev.Item1, ev.Item2, ev.Item3, currentSolution));
+                    if (isFeasible)
+                    {
+                        double currentScore = softConstraintsValidator.CalculateTotalScore(currentSolution, softConstraints);
+                        if (currentScore > result.bestScore)
+                        {
+                            result.isFeasibleSolutionFound = true;
+                            result.bestSolution = new List<(Event, Room, Timeslot)>(currentSolution);
+                            result.bestScore = currentScore;
+                            //Console.WriteLine($"New best solution found with score: {currentScore}");
+                        }
+                    }
+                }
+                return;
+            }
+
+            var nextEvent = variables
+                .Where(kv => !currentSolution.Any(cs => cs.Item1.Id == kv.Key.Id))
+                .OrderBy(kv => kv.Value.Count)  // MRV (Minimum Remaining Values)
+                .First().Key;
+
+            foreach (var (room, timeslot) in variables[nextEvent])
+            {
+                if (softConstraints.Count == 0 && result.isFeasibleSolutionFound)
+                {
+                    return;
+                }
+
+                if (!IsFeasible(nextEvent, room, timeslot, currentSolution))
+                {
+                    continue;
+                }
+
+                currentSolution.Add((nextEvent, room, timeslot));
+                double currentScore = softConstraintsValidator.CalculateTotalScore(currentSolution, softConstraints);
+                double potentialScore = currentScore + softConstraintsValidator.MaxRemainingScore(variables, currentSolution, softConstraints);
+
+                if (softConstraints.Count == 0 || potentialScore > result.bestScore)
+                {
+                    await Backtrack(variables, currentSolution, result, startTime);
+                }
+
+                currentSolution.Remove((nextEvent, room, timeslot));
+                }
         }
 
 
-        private async Task<Dictionary<Event, (Room, Timeslot)>> GreedySchedulingAsync(
-            Dictionary<Event, List<(Room, Timeslot)>> variables)
+        private async Task<List<(Event, Room, Timeslot)>> GreedySchedulingAsync(Dictionary<Event, List<(Room, Timeslot)>> variables)
         {
-            var solution = new Dictionary<Event, (Room, Timeslot)>();
+            var solution = new List<(Event, Room, Timeslot)>();
 
             foreach (var ev in variables.Keys)
             {
-                double bestScore = double.MinValue;
-                (Room, Timeslot)? bestAssignment = null;
+                double bestFeasibleScore = double.MinValue;
+                (Room, Timeslot)? bestFeasibleAssignment = null;
+
+                double bestOverallScore = double.MinValue;
+                (Room, Timeslot)? bestOverallAssignment = null;
 
                 foreach (var (room, timeslot) in variables[ev])
                 {
-                    if (IsFeasible(ev, room, timeslot, solution)) // Validare constrangeri hard
-                    {
-                        double score = await CalculateScoreAsync(ev, room, timeslot);
+                    double score = softConstraintsValidator.CalculateScore(ev, room, timeslot, solution, softConstraints);
 
-                        if (score > bestScore)
+                    if (score > bestOverallScore)
+                    {
+                        bestOverallScore = score;
+                        bestOverallAssignment = (room, timeslot);
+
+                        if (IsFeasible(ev, room, timeslot, solution))
                         {
-                            bestScore = score;
-                            bestAssignment = (room, timeslot);
+                            bestFeasibleScore = score;
+                            bestFeasibleAssignment = (room, timeslot);
                         }
                     }
                 }
 
-                if (bestAssignment.HasValue)
+                if (bestFeasibleAssignment.HasValue)
                 {
-                    solution[ev] = bestAssignment.Value;
-                    MarkResourceAsUsed(bestAssignment.Value, solution, variables);
+                    //Console.WriteLine($"Selected feasible assignment for event {ev.EventName}: Room {bestFeasibleAssignment.Value.Item1.Name}, Timeslot {bestFeasibleAssignment.Value.Item2.Day}, {bestFeasibleAssignment.Value.Item2.Time}, Score: {bestFeasibleScore}");
+                    solution.Add((ev, bestFeasibleAssignment.Value.Item1, bestFeasibleAssignment.Value.Item2));
+                }
+                else if (bestOverallAssignment.HasValue)
+                {
+                    //Console.WriteLine($"Selected non-feasible assignment for event {ev.EventName}: Room {bestOverallAssignment.Value.Item1.Name}, Timeslot {bestOverallAssignment.Value.Item2.Day}, {bestOverallAssignment.Value.Item2.Time}, Score: {bestOverallScore}");
+                    solution.Add((ev, bestOverallAssignment.Value.Item1, bestOverallAssignment.Value.Item2));
                 }
                 else
                 {
-                    Console.WriteLine($"Warning: No valid assignment found for event {ev.EventName}");
+                    //Console.WriteLine($"Warning: No valid assignment found for event {ev.EventName}");
+                    var bestAssignment = variables[ev]
+                        .OrderByDescending(v => softConstraintsValidator
+                        .CalculateScore(ev, v.Item1, v.Item2, solution, softConstraints)).First(); 
+                    solution.Add((ev, bestAssignment.Item1, bestAssignment.Item2));
                 }
             }
 
             return solution;
         }
 
-        private bool IsFeasible(Event ev, Room room, Timeslot timeslot, Dictionary<Event, (Room, Timeslot)> currentSolution)
+
+
+        private bool IsFeasible(Event ev, Room room, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution)
         {
             var hardValidator = new HardConstraintValidator(courseRepository, groupRepository);
 
-            foreach (var (assignedEvent, (assignedRoom, assignedTimeslot)) in currentSolution)
+            foreach (var (assignedEvent, assignedRoom, assignedTimeslot) in currentSolution)
             {
+                if (ev.Id == assignedEvent.Id)
+                {
+                    continue;
+                }
+
                 var roomsAreEqual = room.Id == assignedRoom.Id;
                 var professorOverlap = ev.ProfessorId == assignedEvent.ProfessorId;
 
-                // Verificăm suprapunerea intervalelor de timp
                 var timeslotsOverlap = timeslot.Day == assignedTimeslot.Day &&
                                        hardValidator.TimeslotsOverlap(timeslot, ev.Duration, assignedTimeslot, assignedEvent.Duration);
 
-                // Suprapunere de timp pentru aceeași sală sau profesor
                 if ((roomsAreEqual && timeslotsOverlap) || (professorOverlap && timeslotsOverlap))
                 {
+                    //Console.WriteLine($"Assignment rejected: Conflict detected");
+                    //Console.WriteLine($" - Event being scheduled: ID={ev.Id}, Name={ev.EventName}, ProfessorId={ev.ProfessorId}, GroupId={ev.GroupId}, Duration={ev.Duration}");
+                    //Console.WriteLine($" - Assigned event causing conflict: ID={assignedEvent.Id}, Name={assignedEvent.EventName}, ProfessorId={assignedEvent.ProfessorId}, GroupId={assignedEvent.GroupId}, Duration={assignedEvent.Duration}");
+                    //Console.WriteLine($" - Room conflict: {roomsAreEqual} (Room1={room.Name}, Room2={assignedRoom.Name})");
+                    //Console.WriteLine($" - Professor conflict: {professorOverlap}");
+                    //Console.WriteLine($" - Timeslot conflict: {timeslotsOverlap} (Day1={timeslot.Day}, Time1={timeslot.Time}, Day2={assignedTimeslot.Day}, Time2={assignedTimeslot.Time})");
                     return false;
                 }
 
-                // Suprapunere de timp pentru aceeași grupă
                 if (!hardValidator.ValidateGroupOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)))
                 {
+                    //Console.WriteLine($"Assignment rejected: Group overlap detected");
+                    //Console.WriteLine($" - Event being scheduled: ID={ev.Id}, Name={ev.EventName}, GroupId={ev.GroupId}, Duration={ev.Duration}");
+                    //Console.WriteLine($" - Assigned event causing conflict: ID={assignedEvent.Id}, Name={assignedEvent.EventName}, GroupId={assignedEvent.GroupId}, Duration={assignedEvent.Duration}");
+                    //Console.WriteLine($" - Timeslot conflict details: (Day1={timeslot.Day}, Time1={timeslot.Time}, Day2={assignedTimeslot.Day}, Time2={assignedTimeslot.Time})");
                     return false;
                 }
             }
 
-            return true; // Asignarea este validă dacă nu există conflicte
-
-            //aici se poate creste scorul foarte foarte mult in loc sa returneze true/false,
-            //ca sa se returneze totusi o solutie aproximativa daca nu a fost gasita una perfect optima, fara overlapping
+            return true;
         }
 
-
-        private async Task<double> CalculateScoreAsync(Event ev, Room room, Timeslot timeslot)
+        public List<Timeslot> SplitTimeslots(List<Timeslot> timeslots, int eventDuration)
         {
-            double score = 0;
-
-            foreach (var constraint in softConstraints) { 
-            switch (constraint.Type)
+            if (timeslotCache.TryGetValue(eventDuration, out var cachedTimeslots))
             {
-                //case ConstraintType.SOFT_ROOM_CHANGE:
-                //    if (constraint.ProfessorId == ev.ProfessorId &&
-                //        constraint.CourseId == ev.CourseId &&
-                //        constraint.GroupId == ev.GroupId &&
-                //        constraint.WantedRoomId == room.Id)
-                //    {
-                //        score += 50;
-                //    }
-                //    else
-                //    {
-                //        score -= 20;
-                //    }
-                //    break;
-
-                case ConstraintType.SOFT_ROOM_PREFERENCE:
-                    if (constraint.ProfessorId == ev.ProfessorId && constraint.RoomId == room.Id)
-                    {
-                        score += 50;
-                    }
-                    else
-                    {
-                        score -= 20;
-                    }
-                    break;
-
-                //case ConstraintType.SOFT_TIME_CHANGE:
-                //    if (constraint.ProfessorId == ev.ProfessorId &&
-                //        constraint.CourseId == ev.CourseId &&
-                //        constraint.GroupId == ev.GroupId &&
-                //        constraint.WantedDay == timeslot.Day &&
-                //        constraint.WantedTime == timeslot.Time)
-                //    {
-                //        score += 50;
-                //    }
-                //    else
-                //    {
-                //        score -= 20; 
-                //    }
-                //    break;
-
-                
-
-                case ConstraintType.SOFT_INTERVAL_UNAVAILABILITY:
-                    if (constraint.ProfessorId == ev.ProfessorId && constraint.Day == timeslot.Day)
-                    {
-                        var constraintStart = DateTime.ParseExact(constraint.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                        var constraintEnd = DateTime.ParseExact(constraint.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-
-                        var eventStart = DateTime.ParseExact(timeslot.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                        var eventEnd = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-
-                        if ((eventStart < constraintEnd && eventEnd > constraintStart)) 
-                        {
-                            score -= 50; 
-                        }
-                    }
-                    break;
-
-
-                case ConstraintType.SOFT_INTERVAL_AVAILABILITY:
-                    if (constraint.ProfessorId == ev.ProfessorId && constraint.Day == timeslot.Day)
-                    {
-                        var constraintStart = DateTime.ParseExact(constraint.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                        var constraintEnd = DateTime.ParseExact(constraint.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-
-                        var eventStart = DateTime.ParseExact(timeslot.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                        var eventEnd = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-
-                        if ((eventStart >= constraintStart && eventEnd <= constraintEnd))
-                        {
-                            score += 50; 
-                        }
-                    }
-                    break;
-
-
-                    case ConstraintType.SOFT_DAY_OFF:
-                    if (constraint.ProfessorId == ev.ProfessorId &&
-                        constraint.Day == timeslot.Day)
-                    {
-                        score -= 50;
-                    }
-                    break;
-
-                //case ConstraintType.SOFT_ADD_WINDOW:
-                //    // Exemplu: Bonus pentru adăugarea unei ferestre de timp adiționale
-                //    score += 10;
-                //    break;
-
-                //case ConstraintType.SOFT_REMOVE_WINDOW:
-                //    // Exemplu: Penalizare pentru eliminarea unei ferestre de timp
-                //    score -= 10;
-                //    break;
-
-                //case ConstraintType.SOFT_DAY_CHANGE:
-                //    // Exemplu: Bonus sau penalizare pentru schimbarea zilei
-                //    score += 10;
-                //    break;
-
-                //case ConstraintType.SOFT_WEEK_EVENNESS:
-                //    // Exemplu: Bonus pentru o distribuție echitabilă pe zilele săptămânii
-                //    score += 20;
-                //    break;
-
+                return cachedTimeslots;
             }
-        }
 
-            return score;
-        } 
+            var eventLength = TimeSpan.FromHours(eventDuration);
+            var splitTimeslots = new List<Timeslot>(timeslots.Count * 3);
+            var increment = TimeSpan.FromHours(1);
 
 
-        private void MarkResourceAsUsed(
-            (Room room, Timeslot timeslot) assignment,
-            Dictionary<Event, (Room, Timeslot)> solution,
-            Dictionary<Event, List<(Room, Timeslot)>> variables)
-        {
-            var (room, timeslot) = assignment;
-
-            foreach (var ev in variables.Keys)
+            foreach (var timeslot in timeslots)
             {
-                variables[ev].RemoveAll(x => x.Item1 == room && x.Item2 == timeslot);
+                var separatorIndex = timeslot.Time.IndexOf(" - ");
+                if (separatorIndex == -1)
+                {
+                    continue;
+                }
+
+                var startTime = TimeSpan.Parse(timeslot.Time[..separatorIndex].Trim());
+                var endTime = TimeSpan.Parse(timeslot.Time[(separatorIndex + 3)..].Trim());
+
+                for (var currentTime = startTime; currentTime + eventLength <= endTime; currentTime += increment)
+                {
+                    var newTimeslot = new Timeslot
+                    {
+                        Day = timeslot.Day,
+                        Time = $"{currentTime:hh\\:mm} - {(currentTime + eventLength):hh\\:mm}"
+                    };
+
+                    splitTimeslots.Add(newTimeslot);
+                }
             }
+
+            timeslotCache[eventDuration] = splitTimeslots;
+            return splitTimeslots;
         }
 
 
-        private Timetable MapSolutionToTimetable(Dictionary<Event, (Room, Timeslot)> solution)
+        public Timetable MapSolutionToTimetable(List<(Event, Room, Timeslot)> solution)
         {
             var timetable = new Timetable { Id = Guid.NewGuid() };
 
-            foreach (var (ev, value) in solution)
+            foreach (var (ev, room, timeslot) in solution)
             {
-                var (room, timeslot) = value;
                 ev.RoomId = room.Id;
-                ev.Timeslot = timeslot;
+                ev.Timeslot = new Timeslot
+                {
+                    Day = timeslot.Day,
+                    Time = timeslot.Time
+                };
                 ev.TimetableId = timetable.Id;
                 timetable.Events.Add(ev);
             }
 
             return timetable;
-        }
-
-        private List<Timeslot> SplitTimeslots(List<Timeslot> timeslots, int eventDuration)
-        {
-            var splitTimeslots = new List<Timeslot>();
-            var eventLength = TimeSpan.FromHours(eventDuration);
-
-            foreach (var timeslot in timeslots)
-            {
-                // Parse the Time property (e.g., "08:00 - 10:00")
-                var timeParts = timeslot.Time.Split(" - ");
-                var startTime = TimeSpan.Parse(timeParts[0]);
-                var endTime = TimeSpan.Parse(timeParts[1]);
-
-                // Split into smaller intervals
-                while (startTime + eventLength <= endTime)
-                {
-                    var newTimeslot = new Timeslot
-                    {
-                        Day = timeslot.Day,
-                        Time = $@"{startTime:hh\:mm} - {(startTime + eventLength):hh\:mm}"
-                    };
-
-                    splitTimeslots.Add(newTimeslot);
-                    startTime += eventLength; // Move to the next interval
-                }
-            }
-
-            return splitTimeslots;
         }
 
     }

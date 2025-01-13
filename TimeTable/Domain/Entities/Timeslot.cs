@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace Domain.Entities
 {
     public class Timeslot(string day, string time, string? roomName)
