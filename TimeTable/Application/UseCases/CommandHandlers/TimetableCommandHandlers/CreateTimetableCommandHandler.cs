@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
 {
-    public class CreateTimetableCommandHandler(ITimetableRepository repository, IMapper mapper, Instance instance, IGroupRepository groupRepository, ICourseRepository courseRepository, IConstraintRepository constraintRepository, IRoomRepository roomRepository)
+    public class CreateTimetableCommandHandler(ITimetableRepository repository, Instance instance, IGroupRepository groupRepository, ICourseRepository courseRepository, IConstraintRepository constraintRepository, IRoomRepository roomRepository)
         : IRequestHandler<CreateTimetableCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateTimetableCommand request, CancellationToken cancellationToken)

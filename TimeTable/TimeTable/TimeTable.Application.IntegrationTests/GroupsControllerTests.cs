@@ -1,12 +1,15 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Application.DTOs;
 using Application.UseCases.Commands.GroupCommands;
-using Domain.Common;
+using Domain.Repositories;
 using FluentAssertions;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -16,13 +19,10 @@ namespace TimeTable.Application.IntegrationTests
     public class GroupsControllerTests : IClassFixture<WebApplicationFactory<Program>>, IDisposable
     {
         private readonly WebApplicationFactory<Program> _factory;
+        private readonly AuthorizationService authorizationService = new AuthorizationService();
+        private readonly ApplicationDbContext _dbContext;
         private readonly HttpClient _client;
         private const string BaseUrl = "/api/v1/groups";
-
-        private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
 
         public GroupsControllerTests(WebApplicationFactory<Program> factory)
         {
@@ -42,100 +42,176 @@ namespace TimeTable.Application.IntegrationTests
                     {
                         services.Remove(descriptor);
                     }
+                    
+                    descriptor = services.SingleOrDefault(
+                        d => d.ServiceType == typeof(IDbContextOptionsConfiguration<ApplicationDbContext>));
+                    if (descriptor != null)
+                    {
+                        services.Remove(descriptor);
+                    }
 
                     services.AddDbContext<ApplicationDbContext>(options =>
                     {
-                        var serviceProvider = services.BuildServiceProvider();
-                        var config = serviceProvider.GetRequiredService<IConfiguration>();
-                        var useInMemory = config.GetValue<bool>("UseInMemoryDatabase");
-
-                        if (useInMemory)
-                        {
-                            options.UseInMemoryDatabase("TestDatabase");
-                        }
-                        else
-                        {
-                            options.UseNpgsql(
-                                config.GetConnectionString("DefaultConnection"),
-                                b => b.MigrationsAssembly("Infrastructure"));
-                        }
+                        options.UseInMemoryDatabase("InMemoryDbForTesting");
                     });
-
-                    var sp = services.BuildServiceProvider();
-
-                    using (var scope = sp.CreateScope())
-                    {
-                        var scopedServices = scope.ServiceProvider;
-                        var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-                        db.Database.EnsureCreated();
-                    }
+                    
                 });
             });
 
+            var scope = _factory.Services.CreateScope();
+            _dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            _dbContext.Database.EnsureCreated();
             _client = _factory.CreateClient();
+        }
+
+        private async Task SetAdminAuthorizationHeader()
+        {
+            var token = await authorizationService.GetToken("example@gmail.com", 60);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
         public void Dispose()
         {
-            var scope = _factory.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            dbContext.Database.EnsureDeleted();
-            dbContext.Dispose();
-
             GC.SuppressFinalize(this);
         }
 
         [Fact]
-        public async Task CreateGroup_ShouldReturnCreated()
+        public async Task CreateGroup_AsAdmin_ShouldReturnCreated()
         {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
             var command = new CreateGroupCommand
             {
                 UserEmail = "testuser@example.com",
                 Name = "Group 1"
             };
 
+            // Act
             var response = await _client.PostAsJsonAsync(BaseUrl, command);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
+
+        [Fact]
+        public async Task DeleteGroup_AsAdmin_ShouldReturnNoContent()
+        {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
+            var createCommand = new CreateGroupCommand
+            {
+                UserEmail = "testuser@example.com",
+                Name = "Group to Delete"
+            };
+
+            var createResponse = await _client.PostAsJsonAsync(BaseUrl, createCommand);
+            createResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var responseContent = await createResponse.Content.ReadFromJsonAsync<Guid>();
+            var id = responseContent;
+
+            // Act
+            var response = await _client.DeleteAsync($"{BaseUrl}/{id}");
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        [Fact]
+        public async Task UpdateGroup_AsAdmin_ShouldReturnOk()
+        {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
+            var createCommand = new CreateGroupCommand
+            {
+                UserEmail = "testuser@example.com",
+                Name = "Original Group Name"
+            };
+
+            var createResponse = await _client.PostAsJsonAsync(BaseUrl, createCommand);
+            createResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var responseContent = await createResponse.Content.ReadFromJsonAsync<Guid>();
+            var id = responseContent;
+
+            var updateCommand = new UpdateGroupCommand
+            {
+                Id = id,
+                UserEmail = "testuser@example.com",
+                Name = "Updated Group Name"
+            };
+
+            // Act
+            var response = await _client.PutAsJsonAsync($"{BaseUrl}/{id}", updateCommand);
+
+            // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
-/*
+
         [Fact]
-        public async Task GetGroupById_ShouldReturnOk()
+        public async Task GetAllGroups_AsAdmin_ShouldReturnOk()
         {
-            var id = Guid.NewGuid();
-            var command = new CreateGroupCommand
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
+            var userEmail = "testuser@example.com";
+
+            var createCommand1 = new CreateGroupCommand
+            {
+                UserEmail = userEmail,
+                Name = "Group 1"
+            };
+
+            var createCommand2 = new CreateGroupCommand
+            {
+                UserEmail = userEmail,
+                Name = "Group 2"
+            };
+
+            await _client.PostAsJsonAsync(BaseUrl, createCommand1);
+            await _client.PostAsJsonAsync(BaseUrl, createCommand2);
+
+            // Act
+            var response = await _client.GetAsync($"{BaseUrl}?userEmail={userEmail}");
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var groups = await response.Content.ReadFromJsonAsync<IEnumerable<GroupDto>>();
+            groups.Should().NotBeNullOrEmpty();
+            groups.Should().HaveCount(2);
+            groups.All(g => g.UserEmail == userEmail).Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GetGroupById_AsAdmin_ShouldReturnOk()
+        {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
+            var createCommand = new CreateGroupCommand
             {
                 UserEmail = "testuser@example.com",
                 Name = "Group 1"
             };
 
-            await _client.PostAsJsonAsync(BaseUrl, command);
+            var createResponse = await _client.PostAsJsonAsync(BaseUrl, createCommand);
+            var responseContent = await createResponse.Content.ReadFromJsonAsync<Guid>();
+            var id = responseContent;
 
+            // Act
             var response = await _client.GetAsync($"{BaseUrl}/{id}");
+
+            // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-*/
-        [Fact]
-        public async Task GetGroupById_ShouldReturnNotFound()
-        {
-            var id = Guid.NewGuid();
-            var response = await _client.GetAsync($"{BaseUrl}/{id}");
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
 
-        [Fact]
-        public async Task DeleteGroup_ShouldReturnNoContent()
-        {
-            var id = Guid.NewGuid();
-            var command = new CreateGroupCommand
-            {
-                UserEmail = "admin@gmail.com",
-                Name = "Group 1"
-            };
-
-            await _client.PostAsJsonAsync(BaseUrl, command);
-
-            var response = await _client.DeleteAsync($"{BaseUrl}/{id}");
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            var group = await response.Content.ReadFromJsonAsync<GroupDto>();
+            group.Should().NotBeNull();
+            group.Id.Should().Be(id);
+            group.Name.Should().Be("Group 1");
         }
     }
 }

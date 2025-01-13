@@ -2,16 +2,13 @@
 
 namespace Domain.Entities
 {
-    public class Timeslot(string day, string time, string? roomName)
+    public class Timeslot(string day, string time)
     {
         public required string Day { get; set; } = day;
         public required string Time { get; set; } = time;
         
-        public Timeslot(string day, string time) : this(day, time, null)
-        {
-        }
 
-        public Timeslot() : this(string.Empty, string.Empty, null)
+        public Timeslot() : this(string.Empty, string.Empty)
         {
         }
         
@@ -103,12 +100,6 @@ namespace Domain.Entities
             
             var t2StartTime = timeslot.Time.Split('-')[0].Trim();
             var t2EndTime = timeslot.Time.Split('-')[1].Trim();
-
-            // Convert to TimeSpan for comparison
-            var t1Start = TimeSpan.Parse(t1StartTime);
-            var t1End = TimeSpan.Parse(t1EndTime);
-            var t2Start = TimeSpan.Parse(t2StartTime);
-            var t2End = TimeSpan.Parse(t2EndTime);
             
             return t1EndTime == t2StartTime || t2EndTime == t1StartTime;
         }

@@ -51,7 +51,7 @@ namespace TimeTable.Controllers
                 return BadRequest(result.ErrorMessage);
             }
 
-            return Ok(result.Data);
+            return CreatedAtAction(nameof(GetById), new { Id = result.Data }, result.Data);
         }
         
         [Authorize(Roles = "admin")]
@@ -84,7 +84,7 @@ namespace TimeTable.Controllers
                 return BadRequest(result.ErrorMessage);
             }
 
-            return Ok(result.Data);
+            return NoContent();
         }
 
     }

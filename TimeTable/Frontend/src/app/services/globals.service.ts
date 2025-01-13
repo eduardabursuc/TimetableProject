@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
 import { Token } from '../models/token.model'
 import { Observable } from 'rxjs';
+import { get } from 'node:http';
 
 @Injectable({
   providedIn: 'root',
@@ -44,8 +45,9 @@ export class GlobalsService {
   }
   
   private refreshToken(data: { email: string }): Observable<{ token: string }> {
+    const headers = this.getAuthHeaders();
     const url = `${this.apiUrl}/refresh`;
-    return this.http.post<{ token: string }>(url, data);
+    return this.http.post<{ token: string }>(url, data, { headers });
   }
 
   public decodeToken(token: string): Token {

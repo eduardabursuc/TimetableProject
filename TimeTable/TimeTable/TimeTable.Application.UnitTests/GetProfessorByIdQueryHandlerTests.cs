@@ -109,7 +109,8 @@ namespace TimeTable.Application.UnitTests
             {
                 UserEmail = professor.UserEmail,
                 Id = professor.Id,
-                Name = professor.Name
+                Name = professor.Name,
+                Email = professor.Email
             };
         }
     }

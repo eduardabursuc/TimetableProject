@@ -5,8 +5,8 @@ namespace Application.UseCases.Authentication
 {
     public class RegisterUserCommand : IRequest<Result<string>>
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string AccountType { get; set; }
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+        public required string AccountType { get; set; }
     }
 }

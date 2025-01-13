@@ -25,6 +25,7 @@ public class AuthController(IMediator mediator) : ControllerBase
         return Ok(new { Token = token.Data });
     }
     
+    [Authorize]
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh(RefreshTokenCommand command)
     {

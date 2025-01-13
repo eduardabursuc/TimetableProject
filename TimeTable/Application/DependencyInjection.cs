@@ -21,7 +21,6 @@ namespace Application
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddValidatorsFromAssemblyContaining<CreateConstraintCommandValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateConstraintCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<GetConstraintByIdQueryValidator>();
 
             // Course Validators
@@ -35,7 +34,6 @@ namespace Application
             services.AddValidatorsFromAssemblyContaining<GetProfessorByIdQueryValidator>();
 
             services.AddScoped<CoursesValidator>();
-            services.AddScoped<ProfessorsValidator>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;

@@ -7,7 +7,7 @@ namespace Application.UseCases.Commands.ConstraintCommands
 {
     public class CreateConstraintCommandValidator : AbstractValidator<CreateConstraintCommand>
     {
-        public CreateConstraintCommandValidator(ConstraintsValidator validator, IMapper mapper, Instance instance)
+        public CreateConstraintCommandValidator()
         {
             RuleFor(c => c.ProfessorEmail)
                 .NotEmpty()

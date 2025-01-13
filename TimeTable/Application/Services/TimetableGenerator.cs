@@ -257,7 +257,7 @@ namespace Application.Services
 
         private Timetable MapSolutionToTimetable(Dictionary<Event, (Room, Timeslot)> solution)
         {
-            var timetable = new Timetable { Id = Guid.NewGuid() };
+            var timetable = new Timetable { Id = Guid.NewGuid(), Name="New Timetable", UserEmail = ""};
 
             foreach (var (ev, value) in solution)
             {

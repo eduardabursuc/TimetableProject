@@ -1,12 +1,15 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Application.DTOs;
 using Application.UseCases.Commands.RoomCommands;
-using Domain.Common;
+using Domain.Entities;
 using FluentAssertions;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -16,14 +19,11 @@ namespace TimeTable.Application.IntegrationTests
     public class RoomsControllerTests : IClassFixture<WebApplicationFactory<Program>>, IDisposable
     {
         private readonly WebApplicationFactory<Program> _factory;
+        private readonly AuthorizationService authorizationService = new AuthorizationService();
         private readonly HttpClient _client;
+        private readonly ApplicationDbContext _dbContext;
         private const string BaseUrl = "/api/v1/rooms";
-
-        private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
+        
         public RoomsControllerTests(WebApplicationFactory<Program> factory)
         {
             _factory = factory.WithWebHostBuilder(builder =>
@@ -42,52 +42,45 @@ namespace TimeTable.Application.IntegrationTests
                     {
                         services.Remove(descriptor);
                     }
+                    
+                    descriptor = services.SingleOrDefault(
+                        d => d.ServiceType == typeof(IDbContextOptionsConfiguration<ApplicationDbContext>));
+                    if (descriptor != null)
+                    {
+                        services.Remove(descriptor);
+                    }
 
                     services.AddDbContext<ApplicationDbContext>(options =>
                     {
-                        var serviceProvider = services.BuildServiceProvider();
-                        var config = serviceProvider.GetRequiredService<IConfiguration>();
-                        var useInMemory = config.GetValue<bool>("UseInMemoryDatabase");
-
-                        if (useInMemory)
-                        {
-                            options.UseInMemoryDatabase("TestDatabase");
-                        }
-                        else
-                        {
-                            options.UseNpgsql(
-                                config.GetConnectionString("DefaultConnection"),
-                                b => b.MigrationsAssembly("Infrastructure"));
-                        }
+                        options.UseInMemoryDatabase("InMemoryDbForTesting");
                     });
-
-                    var sp = services.BuildServiceProvider();
-
-                    using (var scope = sp.CreateScope())
-                    {
-                        var scopedServices = scope.ServiceProvider;
-                        var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-                        db.Database.EnsureCreated();
-                    }
+                    
                 });
             });
 
+            var scope = _factory.Services.CreateScope();
+            _dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            _dbContext.Database.EnsureCreated();
             _client = _factory.CreateClient();
+        }
+
+        private async Task SetAdminAuthorizationHeader()
+        {
+            var token = await authorizationService.GetToken("example@gmail.com", 60);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
         public void Dispose()
         {
-            var scope = _factory.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            dbContext.Database.EnsureDeleted();
-            dbContext.Dispose();
-
             GC.SuppressFinalize(this);
         }
 
         [Fact]
-        public async Task CreateRoom_ShouldReturnCreated()
+        public async Task CreateRoom_AsAdmin_ShouldReturnCreated()
         {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
             var command = new CreateRoomCommand
             {
                 UserEmail = "testuser@example.com",
@@ -95,13 +88,19 @@ namespace TimeTable.Application.IntegrationTests
                 Capacity = 30
             };
 
+            // Act
             var response = await _client.PostAsJsonAsync(BaseUrl, command);
+
+            // Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
-/*
+
         [Fact]
         public async Task GetRoomById_ShouldReturnOk()
         {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
             var command = new CreateRoomCommand
             {
                 UserEmail = "testuser@example.com",
@@ -112,21 +111,31 @@ namespace TimeTable.Application.IntegrationTests
             var createResponse = await _client.PostAsJsonAsync(BaseUrl, command);
             var createdRoomId = JsonSerializer.Deserialize<Guid>(await createResponse.Content.ReadAsStringAsync());
 
+            // Act
             var response = await _client.GetAsync($"{BaseUrl}/{createdRoomId}");
+
+            // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Fact]
         public async Task GetRoomById_ShouldReturnNotFound()
         {
-            var id = Guid.NewGuid();
-            var response = await _client.GetAsync($"{BaseUrl}/{id}");
+            await SetAdminAuthorizationHeader();
+
+            // Act
+            var response = await _client.GetAsync($"{BaseUrl}/{Guid.NewGuid()}");
+
+            // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [Fact]
-        public async Task DeleteRoom_ShouldReturnNoContent()
+        public async Task DeleteRoom_AsAdmin_ShouldReturnNoContent()
         {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
             var command = new CreateRoomCommand
             {
                 UserEmail = "testuser@example.com",
@@ -137,9 +146,91 @@ namespace TimeTable.Application.IntegrationTests
             var createResponse = await _client.PostAsJsonAsync(BaseUrl, command);
             var createdRoomId = JsonSerializer.Deserialize<Guid>(await createResponse.Content.ReadAsStringAsync());
 
+            // Act
             var response = await _client.DeleteAsync($"{BaseUrl}/{createdRoomId}");
+
+            // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
-*/
+
+        [Fact]
+        public async Task UpdateRoom_AsAdmin_ShouldReturnOk()
+        {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
+            var command = new CreateRoomCommand
+            {
+                UserEmail = "testuser@example.com",
+                Name = "Room A",
+                Capacity = 30
+            };
+
+            var createResponse = await _client.PostAsJsonAsync(BaseUrl, command);
+            var createdRoomId = JsonSerializer.Deserialize<Guid>(await createResponse.Content.ReadAsStringAsync());
+
+            var updateCommand = new UpdateRoomCommand
+            {
+                Id = createdRoomId,
+                UserEmail = "testuser@example.com",
+                Name = "Updated Room A",
+                Capacity = 40
+            };
+
+            // Act
+            var response = await _client.PutAsJsonAsync($"{BaseUrl}/{createdRoomId}", updateCommand);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+        
+        [Fact]
+        public async Task GetAllRooms_AsAdmin_ShouldReturnOk()
+        {
+            await SetAdminAuthorizationHeader();
+
+            // Arrange
+            var userEmail = "testuser@example.com";
+
+            // Arrange
+            var createCommand1 = new CreateRoomCommand
+            {
+                UserEmail = userEmail,
+                Name = "Room A",
+                Capacity = 30
+            };
+
+            var createCommand2 = new CreateRoomCommand
+            {
+                UserEmail = userEmail,
+                Name = "Room B",
+                Capacity = 50
+            };
+
+            await _client.PostAsJsonAsync(BaseUrl, createCommand1);
+            await _client.PostAsJsonAsync(BaseUrl, createCommand2);
+
+            // Act
+            var response = await _client.GetAsync($"{BaseUrl}?userEmail={userEmail}");
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var rooms = await response.Content.ReadFromJsonAsync<IEnumerable<RoomDto>>();
+            rooms.Should().NotBeNullOrEmpty();
+            rooms.All(p => p.UserEmail == userEmail).Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GivenNonExistingRoom_WhenGettingRoomById_ThenShouldReturnNotFoundResponse()
+        {
+            await SetAdminAuthorizationHeader();
+
+            // Act
+            var response = await _client.GetAsync($"{BaseUrl}/{Guid.NewGuid()}");
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
     }
 }

@@ -54,20 +54,6 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<Unit>> UpdateAsync(Constraint constraint)
-        {
-            try
-            {
-                context.Entry(constraint).State = EntityState.Modified;
-                await context.SaveChangesAsync();
-                return Result<Unit>.Success(Unit.Value);
-            }
-            catch (Exception e)
-            {
-                return Result<Unit>.Failure(e.Message);
-            }
-        }
-
         public async Task<Result<Unit>> DeleteAsync(Guid id)
         {
             try

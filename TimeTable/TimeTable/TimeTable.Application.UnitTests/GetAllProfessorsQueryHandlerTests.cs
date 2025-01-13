@@ -119,7 +119,8 @@ namespace TimeTable.Application.UnitTests
             {
                 UserEmail = p.UserEmail,
                 Id = p.Id,
-                Name = p.Name
+                Name = p.Name,
+                Email = p.Email
             }).ToList();
         }
     }

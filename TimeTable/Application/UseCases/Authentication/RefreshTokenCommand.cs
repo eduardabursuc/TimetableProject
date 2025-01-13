@@ -5,5 +5,5 @@ namespace Application.UseCases.Authentication;
 
 public class RefreshTokenCommand : IRequest<Result<string>>
 {
-    public string Email { get; set; }
+    public required string Email { get; set; }
 }

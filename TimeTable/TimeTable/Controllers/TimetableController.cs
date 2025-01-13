@@ -57,45 +57,6 @@ namespace TimeTable.Controllers
 
             return Ok(result.Data);
         }
- 
-        [HttpGet("byRoom")]
-        public async Task<ActionResult<TimetableDto>> GetTimetableByRoom([FromQuery] Guid id, [FromQuery] Guid roomId)
-        {
-            var result = await mediator.Send(new GetTimetableByRoomQuery { Id = id, RoomId = roomId });
-
-            if (!result.IsSuccess)
-            {
-                return NotFound(result.ErrorMessage);
-            }
-
-            return Ok(result.Data);
-        }
-        
-        [HttpGet("byGroup")]
-        public async Task<ActionResult<TimetableDto>> GetTimetableByGroup([FromQuery] Guid id, [FromQuery] Guid groupId)
-        {
-            var result = await mediator.Send(new GetTimetableByGroupQuery { Id = id, GroupId = groupId });
-       
-            if (!result.IsSuccess)
-            {
-                return NotFound(result.ErrorMessage);
-            }
-       
-            return Ok(result.Data);
-        }
-        
-        [HttpGet("byProfessor")]
-        public async Task<ActionResult<TimetableDto>> GetTimetableByProfessor([FromQuery] Guid id, [FromQuery] Guid professorId)
-        {
-            var result = await mediator.Send(new GetTimetableByProfessorQuery { Id = id, ProfessorId = professorId });
-   
-            if (!result.IsSuccess)
-            {
-                return NotFound(result.ErrorMessage);
-            }
-   
-            return Ok(result.Data);
-        }
 
         [HttpGet]
         public async Task<ActionResult<List<TimetableDto>>> GetAllTimetables(string userEmail)

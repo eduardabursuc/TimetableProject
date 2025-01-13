@@ -19,41 +19,6 @@ namespace Application.Validators
             };
         }
         
-        public bool ValidateLectureBeforeLabs(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
-        {
-            var course1 = courseRepo.GetByIdAsync(evnt1.CourseId).Result;
-            var course2 = courseRepo.GetByIdAsync(evnt2.CourseId).Result;
-            
-            if ( constraint.Type != ConstraintType.SOFT_LECTURE_BEFORE_LABS ) return true;
-            if ( course1.Data.CourseName != course2.Data.CourseName ) return true;
-            if ( evnt1.EventName == evnt2.EventName ) return true;
-            if ( evnt1.EventName != "course" && evnt2.EventName != "course" ) return true;
-            Timeslot courseTime;
-            Timeslot labTime;
-            if (evnt2.EventName == "course")
-            {
-                courseTime = ts2;
-                labTime = ts1;
-            }
-            else
-            {
-                courseTime = ts1;
-                labTime = ts2;
-            }
-            return courseTime.isEarlier(labTime);
-        }
-        
-        public static bool ValidateConsecutiveHours(Constraint constraint, Event evnt1, Event evnt2, Timeslot ts1, Timeslot ts2)
-        {
-            if (constraint.Type != ConstraintType.SOFT_CONSECUTIVE_HOURS) return true;
-            if (constraint.Day != ts1.Day) return true;
-            if (constraint.ProfessorId == evnt1.ProfessorId && constraint.ProfessorId == evnt2.ProfessorId)
-            {
-                return ts1.IsConsecutive(ts2);
-            }
-            return true;
-        }
-    
         private static bool ValidateRoomPreference(Constraint constraint, Event evnt, Room room)
         {
             return constraint.ProfessorId != evnt.ProfessorId || constraint.WantedRoomId == room.Id;

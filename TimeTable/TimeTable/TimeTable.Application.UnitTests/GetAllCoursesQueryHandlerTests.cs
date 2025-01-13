@@ -6,7 +6,6 @@ using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
-using Xunit;
 
 namespace TimeTable.Application.UnitTests
 {

@@ -6,6 +6,6 @@ namespace Application.UseCases.Authentication
 {
     public class GetUserByIdQuery : IRequest<Result<UserDto>>
     {
-        public string Email { get; init; }
+        public required string Email { get; init; }
     }
 }

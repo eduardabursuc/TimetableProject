@@ -30,18 +30,6 @@ namespace TimeTable.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
         }
         
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateConstraint(Guid id, [FromBody] UpdateConstraintCommand command)
-        {
-            if (id != command.Id)
-            {
-                return BadRequest("ID in the URL does not match ID in the command.");
-            }
-
-            var result = await mediator.Send(command);
-
-            return NoContent();
-        }
         
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ConstraintDto>> GetById(Guid id)
