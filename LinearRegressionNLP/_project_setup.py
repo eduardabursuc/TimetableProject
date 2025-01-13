@@ -34,7 +34,8 @@ def main():
         "scikit-learn",
         "pandas",
         "flask",
-        "psycopg2"
+        "psycopg2",
+        "flask_cors"
     ]
 
     # Install required packages
@@ -45,6 +46,8 @@ def main():
     download_nltk_data()
 
     print("\nSetup completed successfully!")
+
+user_email = "admin@gmail.com"
 
 if __name__ == "__main__":
     main()

@@ -10,6 +10,40 @@ def standardize_room_number(room_text):
         room = 'C' + room
     return room.upper()
 
+import re
+from datetime import time, timedelta
+
+def parse_time_24h(hour_str: str, minute_str: str = None):
+    """
+    Given strings for hour and optional minute, return (hour, minute) in 24-hour format.
+    If minute_str is None or empty, assume 00.
+    Example: parse_time_24h('10') -> (10, 0)
+             parse_time_24h('9','30') -> (9, 30)
+    """
+    hour = int(hour_str)
+    minute = int(minute_str) if minute_str else 0
+    # Basic clamp/validation if needed:
+    # e.g., hour=23 max, minute=59 max, but that might be up to you
+    return hour, minute
+
+def time_to_string(hour: int, minute: int):
+    """
+    Convert hour and minute to 'HH:MM' string (24h format).
+    Example: (9,5) -> '09:05'
+    """
+    return f"{hour:02d}:{minute:02d}"
+
+def add_hours(hour: int, minute: int, hrs_to_add: int = 2):
+    """
+    Add hrs_to_add hours to the given hour/minute, 
+    wrapping around if hour >= 24.
+    """
+    new_hour = hour + hrs_to_add
+    new_minute = minute
+    if new_hour >= 24:
+        new_hour -= 24  # simple wrap for next day
+    return new_hour, new_minute
+
 def standardize_group_name(group_text):
     """Standardize group format (e.g., 'E12' → '1E2')"""
     group = re.sub(r'[^a-zA-Z0-9]', '', group_text.upper())
@@ -50,22 +84,21 @@ def find_professor_id(professors, professor_email):
 # EVENT DETECTION
 # ====================================================
 # We’ll map various keywords to exactly one of:
-#   - "Lecture"
-#   - "Laboratory"
-#   - "Seminary"
+#   - "course"
+#   - "laboratory"
+#   - "seminary"
 # If multiple keywords appear, we pick the first one found in the text.
 
 EVENT_KEYWORD_MAPPING = {
     # Lab synonyms
-    "lab": "Laboratory",
-    "laboratory": "Laboratory",
+    "lab": "laboratory",
+    "laboratory": "laboratory",
     # Lecture synonyms
-    "lecture": "Lecture",
-    "class": "Lecture",
-    "course": "Lecture",
+    "class": "course",
+    "lecture": "course",
     # Seminary synonyms
-    "seminar": "Seminary",
-    "seminary": "Seminary",
+    "seminar": "seminary",
+    "seminary": "seminary",
 }
 
 def find_event_type(text: str) -> str:
@@ -147,10 +180,50 @@ def match_and_validate_data(input_text, constraint_type, user_data, professor_em
     if matched_day:
         matched_data["Day"] = matched_day.group(0).capitalize()
 
-    time_pattern = r'\b\d{1,2}:\d{2}(?:\s?[APap][Mm])?\b'
-    matched_time = re.search(time_pattern, input_text)
-    if matched_time:
-        matched_data["Time"] = matched_time.group(0)
+    # A regex capturing hours and optional minutes, e.g. "10", "10:00", "9:15"
+    # We'll skip AM/PM logic for simplicity, but you could expand if needed.
+    time_pattern = r'\b(\d{1,2})(?::(\d{1,2}))?\b'
+    all_times = re.findall(time_pattern, input_text)  # list of (hour_str, minute_str)
+
+    parsed_times = []
+    for (hr_str, min_str) in all_times:
+        try:
+            hour, minute = parse_time_24h(hr_str, min_str)
+            parsed_times.append((hour, minute))
+        except ValueError:
+            # If parsing fails, skip or handle it in some way
+            continue
+
+    if len(parsed_times) == 0:
+        # No times found -> do nothing (or matched_data["Time"] = None)
+        pass
+    elif len(parsed_times) >= 2:
+        # Use the first two, ignoring extras
+        hour1, minute1 = parsed_times[0]
+        hour2, minute2 = parsed_times[1]
+
+        # Ensure hour1:minute1 <= hour2:minute2 if you want chronological ordering
+        # For example:
+        t1 = hour1*60 + minute1
+        t2 = hour2*60 + minute2
+        if t1 > t2:
+            # swap to keep them in ascending order
+            hour1, minute1, hour2, minute2 = hour2, minute2, hour1, minute1
+
+        # Format as "HH:MM - HH:MM"
+        time_str_1 = time_to_string(hour1, minute1)
+        time_str_2 = time_to_string(hour2, minute2)
+        matched_data["Time"] = f"{time_str_1} - {time_str_2}"
+    else:
+        # Exactly 1 time found
+        hour1, minute1 = parsed_times[0]
+
+        # Add 2 hours
+        hour2, minute2 = add_hours(hour1, minute1, hrs_to_add=2)
+
+        time_str_1 = time_to_string(hour1, minute1)
+        time_str_2 = time_to_string(hour2, minute2)
+        matched_data["Time"] = f"{time_str_1} - {time_str_2}"
 
     # =========================
     #   MATCHING EVENT
@@ -160,11 +233,9 @@ def match_and_validate_data(input_text, constraint_type, user_data, professor_em
         matched_data["Event"] = event_type
 
     # =========================
-    #  FETCH PROFESSOR ID (IF NEEDED)
+    #  FETCH PROFESSOR ID
     # =========================
-    requires_professor_id = any("ProfessorId" in req for req in CONSTRAINT_REQUIREMENTS.get(constraint_type, []))
-    if requires_professor_id:
-        matched_data["ProfessorId"] = find_professor_id(user_data["professors"], professor_email)
+    matched_data["ProfessorId"] = find_professor_id(user_data["professors"], professor_email)
 
     # =========================
     # VALIDATE THE MATCHED DATA

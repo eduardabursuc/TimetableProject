@@ -38,7 +38,7 @@ class DatabaseHelper:
             print(f"Database error: {e}")
             return None
 
-    def create_new_constraint(self, timetable_id, constraint_type, matched_data, user_data):
+    def create_new_constraint(self, timetableId, constraint_type, matched_data, user_data):
         """
         Insert a new constraint into the database, converting matched_data
         from 'name' fields into the actual IDs. Then store only the columns
@@ -62,7 +62,7 @@ class DatabaseHelper:
         # 3) Build a dictionary that maps exactly to the constraints table columns
         data_for_insert = {
             "Id": new_id,
-            "TimetableId": timetable_id,
+            "TimetableId": timetableId,
             "Type": constraint_type_value
         }
 
