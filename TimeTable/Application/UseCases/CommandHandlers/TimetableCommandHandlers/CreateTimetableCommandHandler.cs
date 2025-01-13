@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
 {
-    public class CreateTimetableCommandHandler(ITimetableRepository repository, Instance instance, IGroupRepository groupRepository, ICourseRepository courseRepository, IConstraintRepository constraintRepository, IRoomRepository roomRepository)
+    public class CreateTimetableCommandHandler(ITimetableRepository repository, Instance instance, IGroupRepository groupRepository, ICourseRepository courseRepository,  IProfessorRepository professorRepository, IConstraintRepository constraintRepository, IRoomRepository roomRepository)
         : IRequestHandler<CreateTimetableCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(CreateTimetableCommand request, CancellationToken cancellationToken)
@@ -16,11 +16,11 @@ namespace Application.UseCases.CommandHandlers.TimetableCommandHandlers
             instance.Timeslots = request.Timeslots;
             instance.Events = request.Events;
             Console.WriteLine("Creating timetable");
-            var timetableGenerator = new TimetableGenerator(request.UserEmail, instance, roomRepository, groupRepository, courseRepository, constraintRepository);
+            var timetableGenerator = new TimetableGeneratorService(request.UserEmail, instance, roomRepository, groupRepository, courseRepository, constraintRepository, professorRepository, request.Name);
             try
             {
                 Console.WriteLine("create");
-                var timetable = timetableGenerator.GenerateBestTimetable(out var solution);
+                var timetable = await timetableGenerator.GenerateBestTimetableAsync();
                 timetable.CreatedAt = DateTime.Now.ToUniversalTime();
                 timetable.Name = request.Name;
                 timetable.UserEmail = request.UserEmail;
