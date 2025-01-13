@@ -10,17 +10,19 @@ import { Observable } from 'rxjs';
 export class ConstraintService {
 
   private readonly apiUrl: string;
+  private readonly flaskapiUrl: string;
 
   constructor(
     private readonly http: HttpClient, 
     private readonly globals: GlobalsService
   ) {
     this.apiUrl = `${this.globals.apiUrl}/v1/constraints`;
+    this.flaskapiUrl = `${this.globals.flaskApiUrl}/create_constraint`;
   }
 
   create(data: { professorEmail: string, timetableId: string, input: string }): Observable<{ id: string }> {
     const headers = this.globals.getAuthHeaders();
-    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
+    return this.http.post<{ id: string }>(this.flaskapiUrl, data, { headers });
   }
 
   getAllForProfessor(professorEmail: string, timetableId: string): Observable<Constraint[]> {
