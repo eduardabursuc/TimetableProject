@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
 import { Token } from '../models/token.model'
 import { Observable } from 'rxjs';
+import { get } from 'node:http';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,9 @@ export class GlobalsService {
     private readonly http: HttpClient
   ) {}
 
-  public apiUrl: string = 'https://timetablegenerator.best/api';
-  //public apiUrl: string = 'http://localhost:5088/api';
-  public flaskApiUrl: string = 'https://a8b6-37-251-223-166.ngrok-free.app';
+  //public apiUrl: string = 'https://timetablegenerator.best/api';
+  public apiUrl: string = 'http://localhost:5088/api';
+  public flaskApiUrl: string = 'https://bed4-62-217-241-123.ngrok-free.app';
 
   public getAuthHeaders(): HttpHeaders {
     const token = this.cookieService.get('authToken');
