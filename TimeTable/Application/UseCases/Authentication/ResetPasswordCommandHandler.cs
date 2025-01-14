@@ -12,7 +12,7 @@ public class ResetPasswordCommandHandler(IUserRepository userRepository, IEmailS
         var token = await userRepository.GetToken(request.Email, 15);
         if (!token.IsSuccess) return Result<string>.Failure(token.ErrorMessage);
         
-        var resetLink = $"http://localhost:4200/reset-password?token={token.Data}";
+        var resetLink = $"https://timetable-project.vercel.app/reset-password?token={token.Data}";
 
         await emailService.SendEmailAsync(
             request.Email,
