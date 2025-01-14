@@ -66,13 +66,13 @@ namespace Infrastructure.Repositories
                 var existingTimetable = await context.Timetables
                     .Include(t => t.Events)
                     .ThenInclude(e => e.Timeslot)
-                    .FirstOrDefaultAsync(t => t.Id == timetable.Id);
+                    .FirstOrDefaultAsync(t => t.Id == timetable!.Id);
 
                 if (existingTimetable == null)
-                    return Result<Unit>.Failure($"Timetable with ID '{timetable.Id}' not found.");
+                    return Result<Unit>.Failure($"Timetable with ID '{timetable!.Id}' not found.");
 
                 // 1. Update the main Timetable fields manually
-                existingTimetable.Name = timetable.Name;
+                existingTimetable.Name = timetable!.Name;
                 existingTimetable.IsPublic = timetable.IsPublic;
 
                 // 2. Update or add Events manually

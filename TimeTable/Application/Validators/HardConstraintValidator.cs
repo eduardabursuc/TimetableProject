@@ -6,12 +6,6 @@ namespace Application.Validators;
 public class HardConstraintValidator(ICourseRepository courseRepo, IGroupRepository groupRepo)
 {
 
-    public bool ValidateNoOverlap((Room, Timeslot) value1, (Room, Timeslot) value2)
-    {
-        return value1.Item1 != value2.Item1 || value1.Item2 != value2.Item2;
-    }
-
-
     public bool ValidateRoomCapacity(Room room, string eventName)
     {
         return eventName.ToLower() switch

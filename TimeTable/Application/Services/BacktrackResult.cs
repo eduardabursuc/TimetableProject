@@ -4,7 +4,7 @@ namespace Application.Services
     public class BacktrackResult
     {
         public bool isFeasibleSolutionFound { get; set; }
-        public List<(Event, Room, Timeslot)> bestSolution { get; set; }
+        public List<(Event, Room, Timeslot)>? bestSolution { get; set; }
         public double bestScore { get; set; }
 
         public BacktrackResult()

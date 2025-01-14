@@ -5,41 +5,20 @@ using MediatR;
 
 namespace Application.Services
 {
-    public class TimetableGeneratorService
+    public class TimetableGeneratorService(
+        string userEmail,
+        Instance instance,
+        IRoomRepository roomRepository,
+        IGroupRepository groupRepository,
+        ICourseRepository courseRepository,
+        IConstraintRepository constraintRepository,
+        IProfessorRepository professorRepository,
+        string timetableName)
     {
-        private readonly string userEmail;
-        private readonly Instance instance;
-        private readonly IRoomRepository roomRepository;
-        private readonly IGroupRepository groupRepository;
-        private readonly ICourseRepository courseRepository;
-        private readonly IConstraintRepository constraintRepository;
-        private readonly IProfessorRepository professorRepository;
-        private readonly string timetableName;
         private readonly List<Constraint> softConstraints = new List<Constraint>();
         private readonly SoftConstraintsValidator softConstraintsValidator = new SoftConstraintsValidator();
         private readonly Dictionary<int, List<Timeslot>> timeslotCache = new Dictionary<int, List<Timeslot>>();
 
-
-        public TimetableGeneratorService(
-            string userEmail,
-            Instance instance,
-            IRoomRepository roomRepository,
-            IGroupRepository groupRepository,
-            ICourseRepository courseRepository,
-            IConstraintRepository constraintRepository,
-            IProfessorRepository professorRepository,
-            string timetableName
-            )
-        {
-            this.userEmail = userEmail;
-            this.instance = instance;
-            this.roomRepository = roomRepository;
-            this.groupRepository = groupRepository;
-            this.courseRepository = courseRepository;
-            this.constraintRepository = constraintRepository;
-            this.professorRepository = professorRepository;
-            this.timetableName = timetableName;
-        }
 
         public async Task<Timetable> GenerateBestTimetableAsync()
         {
@@ -82,7 +61,7 @@ namespace Application.Services
             var possibleRooms = (await roomRepository.GetAllAsync(userEmail)).Data ?? new List<Room>();
 
 
-            var eventTasks = instance.Events.Select(async ev =>
+            var eventTasks = instance.Events.Select(ev =>
             {
                 var splitTimeslots = SplitTimeslots(instance.Timeslots, ev.Duration);
                 var hardValidator = new HardConstraintValidator(courseRepository, groupRepository);
@@ -91,7 +70,7 @@ namespace Application.Services
                               where hardValidator.ValidateRoomCapacity(room, ev.EventName)
                               select (room, timeslot)).ToList();
 
-                return new { Event = ev, Domain = domain };
+                return Task.FromResult(new { Event = ev, Domain = domain });
             }).ToArray();
 
             var eventResults = await Task.WhenAll(eventTasks);
@@ -104,7 +83,9 @@ namespace Application.Services
             return (variables, new List<(Event, Room, Timeslot)>());
         }
 
-        public async Task<List<(Event, Room, Timeslot)>> FindOptimalSolutionWithBacktrackingAsync(
+
+      
+        public async Task<List<(Event, Room, Timeslot)>?> FindOptimalSolutionWithBacktrackingAsync(
             Dictionary<Event, List<(Room, Timeslot)>> variables)
         {
             var solution = new List<(Event, Room, Timeslot)>();
@@ -125,7 +106,6 @@ namespace Application.Services
         {
             if ((DateTime.Now - startTime).TotalMinutes > 2)
             {
-                //Console.WriteLine("Time limit exceeded. Returning best solution found so far.");
                 return;
             }
 
@@ -151,7 +131,6 @@ namespace Application.Services
                             result.isFeasibleSolutionFound = true;
                             result.bestSolution = new List<(Event, Room, Timeslot)>(currentSolution);
                             result.bestScore = currentScore;
-                            //Console.WriteLine($"New best solution found with score: {currentScore}");
                         }
                     }
                 }
@@ -189,13 +168,12 @@ namespace Application.Services
         }
 
 
-        private async Task<List<(Event, Room, Timeslot)>> GreedySchedulingAsync(Dictionary<Event, List<(Room, Timeslot)>> variables)
+        private Task<List<(Event, Room, Timeslot)>> GreedySchedulingAsync(Dictionary<Event, List<(Room, Timeslot)>> variables)
         {
             var solution = new List<(Event, Room, Timeslot)>();
 
             foreach (var ev in variables.Keys)
             {
-                double bestFeasibleScore = double.MinValue;
                 (Room, Timeslot)? bestFeasibleAssignment = null;
 
                 double bestOverallScore = double.MinValue;
@@ -212,7 +190,6 @@ namespace Application.Services
 
                         if (IsFeasible(ev, room, timeslot, solution))
                         {
-                            bestFeasibleScore = score;
                             bestFeasibleAssignment = (room, timeslot);
                         }
                     }
@@ -220,12 +197,10 @@ namespace Application.Services
 
                 if (bestFeasibleAssignment.HasValue)
                 {
-                    //Console.WriteLine($"Selected feasible assignment for event {ev.EventName}: Room {bestFeasibleAssignment.Value.Item1.Name}, Timeslot {bestFeasibleAssignment.Value.Item2.Day}, {bestFeasibleAssignment.Value.Item2.Time}, Score: {bestFeasibleScore}");
                     solution.Add((ev, bestFeasibleAssignment.Value.Item1, bestFeasibleAssignment.Value.Item2));
                 }
                 else if (bestOverallAssignment.HasValue)
                 {
-                    //Console.WriteLine($"Selected non-feasible assignment for event {ev.EventName}: Room {bestOverallAssignment.Value.Item1.Name}, Timeslot {bestOverallAssignment.Value.Item2.Day}, {bestOverallAssignment.Value.Item2.Time}, Score: {bestOverallScore}");
                     solution.Add((ev, bestOverallAssignment.Value.Item1, bestOverallAssignment.Value.Item2));
                 }
                 else
@@ -237,14 +212,10 @@ namespace Application.Services
                             .CalculateScore(ev, v.Item1, v.Item2, solution, softConstraints)).First();
                         solution.Add((ev, bestAssignment.Item1, bestAssignment.Item2));
                     }
-                    else
-                    {
-                        //Console.WriteLine($"Warning: No available assignments for event {ev.EventName}");
-                    }
                 }
             }
 
-            return solution;
+            return Task.FromResult(solution);
         }
 
 
@@ -268,21 +239,11 @@ namespace Application.Services
 
                 if ((roomsAreEqual && timeslotsOverlap) || (professorOverlap && timeslotsOverlap))
                 {
-                    //Console.WriteLine($"Assignment rejected: Conflict detected");
-                    //Console.WriteLine($" - Event being scheduled: ID={ev.Id}, Name={ev.EventName}, ProfessorId={ev.ProfessorId}, GroupId={ev.GroupId}, Duration={ev.Duration}");
-                    //Console.WriteLine($" - Assigned event causing conflict: ID={assignedEvent.Id}, Name={assignedEvent.EventName}, ProfessorId={assignedEvent.ProfessorId}, GroupId={assignedEvent.GroupId}, Duration={assignedEvent.Duration}");
-                    //Console.WriteLine($" - Room conflict: {roomsAreEqual} (Room1={room.Name}, Room2={assignedRoom.Name})");
-                    //Console.WriteLine($" - Professor conflict: {professorOverlap}");
-                    //Console.WriteLine($" - Timeslot conflict: {timeslotsOverlap} (Day1={timeslot.Day}, Time1={timeslot.Time}, Day2={assignedTimeslot.Day}, Time2={assignedTimeslot.Time})");
                     return false;
                 }
 
                 if (!hardValidator.ValidateGroupOverlap(ev, assignedEvent, (room, timeslot), (assignedRoom, assignedTimeslot)))
                 {
-                    //Console.WriteLine($"Assignment rejected: Group overlap detected");
-                    //Console.WriteLine($" - Event being scheduled: ID={ev.Id}, Name={ev.EventName}, GroupId={ev.GroupId}, Duration={ev.Duration}");
-                    //Console.WriteLine($" - Assigned event causing conflict: ID={assignedEvent.Id}, Name={assignedEvent.EventName}, GroupId={assignedEvent.GroupId}, Duration={assignedEvent.Duration}");
-                    //Console.WriteLine($" - Timeslot conflict details: (Day1={timeslot.Day}, Time1={timeslot.Time}, Day2={assignedTimeslot.Day}, Time2={assignedTimeslot.Time})");
                     return false;
                 }
             }
@@ -330,7 +291,7 @@ namespace Application.Services
         }
 
 
-        public Timetable MapSolutionToTimetable(List<(Event, Room, Timeslot)> solution, string userEmail, string name)
+        public static Timetable MapSolutionToTimetable(List<(Event, Room, Timeslot)> solution, string userEmail, string name)
         {
             var timetable = new Timetable
             {
