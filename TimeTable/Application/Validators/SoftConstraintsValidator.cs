@@ -392,7 +392,7 @@ namespace Application.Validators
             return totalScore;
         }
 
-        private bool CheckLectureBeforeLab(Event ev, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution, ref double score)
+        public bool CheckLectureBeforeLab(Event ev, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution, ref double score)
         {
             bool isLabOrSeminar = ev.EventName.Contains("laboratory") || ev.EventName.Contains("seminary");
             bool isLecture = ev.EventName.Contains("course");
