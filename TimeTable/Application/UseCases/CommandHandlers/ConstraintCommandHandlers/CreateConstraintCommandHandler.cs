@@ -115,7 +115,7 @@ public class CreateConstraintCommandHandler(
         var content = message.GetProperty("content").GetString();
 
         // Parse the content string into another JsonDocument
-        using var contentDoc = JsonDocument.Parse(content);
+        using var contentDoc = JsonDocument.Parse(content!);
         // Extract the required properties
         var jsonResponse = contentDoc.RootElement;
 

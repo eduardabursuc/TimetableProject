@@ -17,31 +17,7 @@ namespace Application.Validators
                 { "Saturday", 6 },
                 { "Sunday", 7 }
             };
-        private readonly Dictionary<int, double> softConstraintScoreCache = new();
-
-        private readonly List<(Event, Room, Timeslot)> emptySolution = new();
-
-        public double GetCachedScore(Event ev, Room room, Timeslot timeslot, List<Constraint> softConstraints)
-        {
-            int key = GenerateHashKey(ev, room, timeslot);
-
-            if (softConstraintScoreCache.TryGetValue(key, out double cachedScore))
-            {
-                return cachedScore;
-            }
-
-            double score = CalculateScore(ev, room, timeslot, emptySolution, softConstraints);
-            softConstraintScoreCache[key] = score;
-            return score;
-        }
-
-
-        private static int GenerateHashKey(Event ev, Room room, Timeslot timeslot)
-        {
-            return HashCode.Combine(ev.Id, room.Id, timeslot.Day, timeslot.Time);
-        }
-
-
+        
         public double CalculateScore(Event ev, Room room, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution, List<Constraint> softConstraints)
         {
             double score = 0;
@@ -178,11 +154,9 @@ namespace Application.Validators
                                     };
 
                                     // Dacă nu există pauză între două evenimente consecutive
-                                    if (firstTimeslot.IsConsecutive(secondTimeslot))
-                                    {
-                                        hasNoBreak = false;
-                                        break;
-                                    }
+                                    if (!firstTimeslot.IsConsecutive(secondTimeslot)) continue;
+                                    hasNoBreak = false;
+                                    break;
                                 }
 
                                 if (hasNoBreak)
@@ -243,9 +217,6 @@ namespace Application.Validators
                             var areConsecutive = true;
                             for (var i = 0; i < professorEvents.Count - 1; i++)
                             {
-                                var currentEnd = DateTime.ParseExact(professorEvents[i].Item3.Time.Split('-')[1].Trim(), FORMAT, CultureInfo.InvariantCulture);
-                                var nextStart = DateTime.ParseExact(professorEvents[i + 1].Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture);
-
                                 if (professorEvents[i].Item3.IsConsecutive(professorEvents[i + 1].Item3)) continue;
                                 areConsecutive = false;
                                 break;
@@ -297,13 +268,9 @@ namespace Application.Validators
                         }
                         else if (constraint.ProfessorId == ev.ProfessorId)
                         {
-                            foreach (var professorEvent in currentSolution)
+                            foreach (var professorEvent in currentSolution.Where(professorEvent => professorEvent.Item1.ProfessorId == ev.ProfessorId && professorEvent.Item1.EventName.Contains("course")).Where(professorEvent => CheckLectureBeforeLab(professorEvent.Item1, professorEvent.Item3, currentSolution, ref score)))
                             {
-                                if (professorEvent.Item1.ProfessorId == ev.ProfessorId && professorEvent.Item1.EventName.Contains("course"))
-                                {
-                                    if (CheckLectureBeforeLab(professorEvent.Item1, professorEvent.Item3, currentSolution, ref score))
-                                        score += 50;
-                                }
+                                score += 50;
                             }
                         }
                         break;
