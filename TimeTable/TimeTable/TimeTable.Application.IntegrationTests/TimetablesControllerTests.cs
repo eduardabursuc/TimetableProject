@@ -4,7 +4,10 @@ using System.Net.Http.Json;
 using Application.UseCases.Commands.TimetableCommands;
 using Application.DTOs;
 using Application.UseCases.Authentication;
+using Application.UseCases.Commands.CourseCommands;
+using Application.UseCases.Commands.GroupCommands;
 using Application.UseCases.Commands.ProfessorCommands;
+using Application.UseCases.Commands.RoomCommands;
 using Domain.Entities;
 using FluentAssertions;
 using Infrastructure.Persistence;
@@ -42,7 +45,7 @@ namespace TimeTable.Application.IntegrationTests
                     {
                         services.Remove(descriptor);
                     }
-                    
+
                     descriptor = services.SingleOrDefault(
                         d => d.ServiceType == typeof(IDbContextOptionsConfiguration<ApplicationDbContext>));
                     if (descriptor != null)
@@ -54,7 +57,7 @@ namespace TimeTable.Application.IntegrationTests
                     {
                         options.UseInMemoryDatabase("InMemoryDbForTesting");
                     });
-                    
+
                 });
             });
 
@@ -68,7 +71,7 @@ namespace TimeTable.Application.IntegrationTests
         {
             GC.SuppressFinalize(this);
         }
-        
+
         private async Task SetAdminAuthorizationHeader()
         {
             var token = await authorizationService.GetToken("example@gmail.com", 60);
@@ -79,7 +82,7 @@ namespace TimeTable.Application.IntegrationTests
         public async Task CreateTimetable_ShouldReturnCreated()
         {
             await SetAdminAuthorizationHeader();
-            
+
             // Arrange
             var command = new CreateTimetableCommand
             {
@@ -91,16 +94,16 @@ namespace TimeTable.Application.IntegrationTests
 
             // Act
             var response = await _client.PostAsJsonAsync(BaseUrl, command);
-            
+
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
-        
+
         [Fact]
         public async Task GetTimetableById_ShouldReturnOk()
         {
             await SetAdminAuthorizationHeader();
-            
+
             // Arrange
             var createCommand = new CreateTimetableCommand
             {
@@ -109,15 +112,15 @@ namespace TimeTable.Application.IntegrationTests
                 Events = new List<Event>(),
                 Timeslots = new List<Timeslot>()
             };
-            
+
             var createResponse = await _client.PostAsJsonAsync(BaseUrl, createCommand);
             createResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
             var id = await createResponse.Content.ReadFromJsonAsync<Guid>();
-            
+
             // Act
             var response = await _client.GetAsync($"{BaseUrl}/{id}");
-            
+
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -132,9 +135,9 @@ namespace TimeTable.Application.IntegrationTests
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
-        
+
         [Fact]
-        public async Task UpdateProfessor_AsAdmin_ShouldReturnNoContent()
+        public async Task UpdateTimetable_AsAdmin_ShouldReturnNoContent()
         {
             await SetAdminAuthorizationHeader();
 
@@ -174,7 +177,7 @@ namespace TimeTable.Application.IntegrationTests
         public async Task DeleteTimetable_AsAdmin_ShouldReturnNoContent()
         {
             await SetAdminAuthorizationHeader();
-            
+
             // Arrange
             var command = new CreateTimetableCommand
             {
@@ -186,14 +189,14 @@ namespace TimeTable.Application.IntegrationTests
 
             var createResponse = await _client.PostAsJsonAsync(BaseUrl, command);
             var id = await createResponse.Content.ReadFromJsonAsync<Guid>();
-            
+
             // Act
             var response = await _client.DeleteAsync($"{BaseUrl}/{id}");
-            
+
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
-        
+
         [Fact]
         public async Task GetAllTimetables_ShouldReturnOk()
         {
@@ -231,27 +234,27 @@ namespace TimeTable.Application.IntegrationTests
             timetables.Should().NotBeNullOrEmpty();
             timetables.All(p => p.UserEmail == userEmail).Should().BeTrue();
         }
-        
+
 
         [Fact]
         public async Task GetAllForProfessor_ShouldReturnOk()
         {
             await SetAdminAuthorizationHeader();
-            
+
             var userEmail = "testuser@example.com";
-            
+
             var registerCommand = new RegisterUserCommand
             {
                 Email = userEmail,
                 Password = "Password123",
                 AccountType = "admin"
-            };  
-            
+            };
+
             var register = await _client.PostAsJsonAsync($"/api/auth/register", registerCommand);
             register.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var profEmail = "johndoe@example.com";
-            
+
             // Arrange: Create a professor
             var createProfessorCommand = new CreateProfessorCommand
             {
@@ -262,9 +265,9 @@ namespace TimeTable.Application.IntegrationTests
 
             var professorResponse = await _client.PostAsJsonAsync("/api/v1/professors", createProfessorCommand);
             professorResponse.StatusCode.Should().Be(HttpStatusCode.Created);
-            
+
             var profId = await professorResponse.Content.ReadFromJsonAsync<Guid>();
-  
+
             var createCommand1 = new CreateTimetableCommand
             {
                 UserEmail = userEmail,
@@ -304,9 +307,165 @@ namespace TimeTable.Application.IntegrationTests
             var timetables = await response.Content.ReadFromJsonAsync<IEnumerable<TimetableDto>>();
             //timetables.Should().NotBeNullOrEmpty();
         }
+/*
+        [Fact]
+        public async Task UpdateAsync_ShouldUpdateTimetableAndEventsCorrectly()
+        {
+            await SetAdminAuthorizationHeader();
+            
+            // Arrange
+            var email = "user@example.com";
+            var eventId = Guid.NewGuid();
+            
+            var regCommand = new RegisterUserCommand
+            {
+                Email = email,
+                Password = "Password123",
+                AccountType = "admin"
+            };
 
-        
-        
+            var reg = await _client.PostAsJsonAsync("api/auth/register", regCommand);
 
-    }
+            reg.StatusCode.Should().Be(HttpStatusCode.OK);
+            
+            var prof = new CreateProfessorCommand
+            {
+                UserEmail = email,
+                Name = "Professor 1",
+                Email = "professor1@example.com"
+            };
+            
+            var profRes = await _client.PostAsJsonAsync("api/v1/professors", prof);
+            profRes.StatusCode.Should().Be(HttpStatusCode.Created);
+            var profId = await profRes.Content.ReadFromJsonAsync<Guid>();
+            
+            var course = new CreateCourseCommand
+            {
+                UserEmail = email,
+                CourseName = "Some",
+                Package = "comp",
+                Level = "license",
+                Semester = 1,
+                Credits = 5
+            };
+            
+            var courseRes = await _client.PostAsJsonAsync("api/v1/courses", course);
+            courseRes.StatusCode.Should().Be(HttpStatusCode.Created);
+            var courseId = await courseRes.Content.ReadFromJsonAsync<Guid>();
+            
+            var room = new CreateRoomCommand
+            {
+                UserEmail = email,
+                Name = "C2",
+                Capacity = 100
+            };
+            
+            var roomRes = await _client.PostAsJsonAsync("api/v1/rooms", room);
+            roomRes.StatusCode.Should().Be(HttpStatusCode.Created);
+            var roomId = await roomRes.Content.ReadFromJsonAsync<Guid>();
+            
+            var group = new CreateGroupCommand
+            {
+                UserEmail = email,
+                Name = "1A1"
+            };
+            
+            var groupRes = await _client.PostAsJsonAsync("api/v1/groups", group);
+            groupRes.StatusCode.Should().Be(HttpStatusCode.Created);
+            var groupId = await groupRes.Content.ReadFromJsonAsync<Guid>();
+
+            // Arrange
+            var createCommand = new CreateTimetableCommand
+            {
+                UserEmail = "test@gmail.com",
+                Name = "Initial Timetable",
+                Events = new List<Event>
+                {
+                    new Event
+                    {
+                        Id = eventId,
+                        EventName = "seminary",
+                        Duration = 2,
+                        CourseId = courseId,
+                        RoomId = roomId,
+                        ProfessorId = profId,
+                        GroupId = groupId
+                    }
+                },
+                Timeslots = [ new Timeslot { Day = "Monday", Time = "08:00 - 20:00" }, new Timeslot { Day = "Tuesday", Time = "08:00 - 20:00" }]
+            };
+
+            var createResponse = await _client.PostAsJsonAsync(BaseUrl, createCommand);
+            createResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var responseContent = await createResponse.Content.ReadFromJsonAsync<Guid>();
+            var id = responseContent;
+
+
+            var updatedCommand = new UpdateTimetableCommand
+            {
+                Id = id,
+                Name = "Updated Timetable",
+                IsPublic = true,
+                Events = new List<Event>
+                {
+                    new Event
+                    {
+                        Id = eventId, // Update existing event
+                        EventName = "laboratory",
+                        Duration = 3,
+                        CourseId = courseId,
+                        RoomId = roomId,
+                        ProfessorId = profId,
+                        GroupId = groupId,
+                        Timeslot = new Timeslot
+                        {
+                            Day = "Tuesday",
+                            Time = "10:00 - 12:00"
+                        }
+                    },
+                    new Event
+                    {
+                        Id = Guid.NewGuid(), // New event
+                        EventName = "course",
+                        Duration = 2,
+                        CourseId = courseId,
+                        RoomId = roomId,
+                        ProfessorId = profId,
+                        GroupId = groupId,
+                    }
+                },
+                CreatedAt = new DateTime()
+            };
+
+            // Act
+            var response = await _client.PutAsJsonAsync($"{BaseUrl}/{id}", updatedCommand);
+            
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+
+            var savedTimetable = await _dbContext.Timetables
+                .Include(t => t.Events)
+                .ThenInclude(e => e.Timeslot)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            savedTimetable.Should().NotBeNull();
+            savedTimetable!.Name.Should().Be("Updated Timetable");
+            savedTimetable.IsPublic.Should().BeTrue();
+
+            savedTimetable.Events.Count.Should().Be(2); // 1 updated + 1 new event
+
+            var updatedEvent = savedTimetable.Events.First(e => e.Id == eventId);
+            updatedEvent.EventName.Should().Be("laboratory");
+            updatedEvent.Duration.Should().Be(3);
+            updatedEvent.Timeslot.Day.Should().Be("Tuesday");
+            updatedEvent.Timeslot.Time.Should().Be("10:00 - 12:00");
+
+            var newEvent = savedTimetable.Events.First(e => e.EventName == "Physics Class");
+            newEvent.Timeslot.Day.Should().Be("Monday");
+            newEvent.Timeslot.Time.Should().Be("10:00 - 12:00");
+        }
+ */   }
+
 }

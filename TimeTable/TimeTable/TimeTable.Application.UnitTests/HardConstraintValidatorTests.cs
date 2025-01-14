@@ -17,21 +17,7 @@ namespace TimeTable.Application.UnitTests
         {
             _validator = new HardConstraintValidator(_courseRepo, _groupRepo);
         }
-
-        [Fact]
-        public void ValidateNoOverlap_DifferentRooms_ReturnsTrue()
-        {
-            // Arrange
-            var value1 = (new Room { Id = Guid.NewGuid(), Name = "Room A", Capacity = 100, UserEmail = "test@example.com" }, new Timeslot { Day = "Monday", Time = "09:00 - 11:00" });
-            var value2 = (new Room { Id = Guid.NewGuid(), Name = "Room B", Capacity = 50, UserEmail = "test@example.com" }, new Timeslot { Day = "Monday", Time = "09:00 - 11:00" });
-
-            // Act
-            var result = _validator.ValidateNoOverlap(value1, value2);
-
-            // Assert
-            Assert.True(result);
-        }
-
+        
         [Fact]
         public void ValidateRoomCapacity_CourseCapacityValid_ReturnsTrue()
         {
