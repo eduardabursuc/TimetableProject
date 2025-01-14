@@ -264,7 +264,8 @@ namespace Application.Validators
                     case ConstraintType.SOFT_LECTURE_BEFORE_LABS:
                         if (constraint.CourseId == ev.CourseId)
                         {
-                            CheckLectureBeforeLab(ev, timeslot, currentSolution, ref score);
+                            if (CheckLectureBeforeLab(ev, timeslot, currentSolution, ref score))
+                                score += 50;
                         }
                         else if (constraint.ProfessorId == ev.ProfessorId)
                         {
