@@ -1,9 +1,9 @@
 ﻿using Application.Services;
+using Application.Validators;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Repositories;
 using NSubstitute;
-using Xunit;
 
 public class TimetableGeneratorServiceTests
 {
@@ -295,5 +295,191 @@ public class TimetableGeneratorServiceTests
             Assert.NotNull(ev.ProfessorId); // Ensure that each event has a professor assigned
         });
     }
+    
+    [Fact]
+    public void IsFeasible_ShouldReturnTrue_WhenSameEventId()
+    {
+        // Arrange
 
+        var id = Guid.NewGuid();
+        
+        var ev = new Event
+        {
+            Id = id,
+            EventName = "seminary",
+            Duration = 2,
+            ProfessorId = new Guid(),
+            GroupId = Guid.NewGuid(),
+            CourseId = Guid.NewGuid(),
+        };
+        
+        var room = new Room { Id = new Guid(), Capacity = 40, Name = "Room 1", UserEmail = "some@gmail"};
+        var timeslot = new Timeslot { Day = "Monday", Time = "10:00 - 12:00"};
+        var currentSolution = new List<(Event, Room, Timeslot)>
+        {
+            (new Event
+            {
+                Id = id,
+                EventName = "seminary",
+                Duration = 2,
+                ProfessorId = new Guid(),
+                GroupId = Guid.NewGuid(),
+                CourseId = Guid.NewGuid(),
+            }, room, timeslot)
+        };
+        
+        var service = new TimetableGeneratorService(
+            "user@example.com",
+            _instance,
+            _roomRepository,
+            _groupRepository,
+            _courseRepository,
+            _constraintRepository,
+            _professorRepository,
+            "Sample Timetable");
+
+        // Act
+        var result = service.IsFeasible(ev, room, timeslot, currentSolution);
+
+        // Assert
+        Assert.True(result);
+    }
+  
+    [Fact]
+    public void IsFeasible_ShouldReturnFalse_WhenRoomsOverlapAtTheSameTime()
+    {
+        // Arrange
+        var ev = new Event
+        {
+            Id = Guid.NewGuid(),
+            EventName = "seminary",
+            Duration = 2,
+            ProfessorId = Guid.NewGuid(),
+            GroupId = Guid.NewGuid(),
+            CourseId = Guid.NewGuid(),
+        };
+        
+        var room = new Room { Id = Guid.NewGuid(), Name = "Room 1", Capacity = 40, UserEmail = "some@gmail.com" };
+        var timeslot = new Timeslot { Day = "Monday", Time = "10:00 - 12:00" };
+        var currentSolution = new List<(Event, Room, Timeslot)>
+        {
+            (new Event
+            {
+                Id = new Guid(),
+                EventName = "seminary",
+                Duration = 2,
+                ProfessorId = new Guid(),
+                GroupId = Guid.NewGuid(),
+                CourseId = Guid.NewGuid(),
+            }, room, timeslot)
+        };
+        
+        var service = new TimetableGeneratorService(
+            "user@example.com",
+            _instance,
+            _roomRepository,
+            _groupRepository,
+            _courseRepository,
+            _constraintRepository,
+            _professorRepository,
+            "Sample Timetable");
+
+        // Act
+        var result = service.IsFeasible(ev, room, timeslot, currentSolution);
+
+        // Assert
+        Assert.False(result); // Should return false due to room overlap at the same time
+    }
+
+    [Fact]
+    public void IsFeasible_ShouldReturnFalse_WhenProfessorsOverlapAtTheSameTime()
+    {
+        // Arrange
+        var ev = new Event
+        {
+            Id = Guid.NewGuid(),
+            EventName = "seminary",
+            Duration = 2,
+            ProfessorId = Guid.NewGuid(), // Different professor
+            GroupId = Guid.NewGuid(),
+            CourseId = Guid.NewGuid(),
+        };
+        
+        var room = new Room { Id = Guid.NewGuid(), Name = "Room 1", Capacity = 40, UserEmail = "some@gmail.com" };
+        var timeslot = new Timeslot { Day = "Monday", Time = "10:00 - 12:00" };
+        var currentSolution = new List<(Event, Room, Timeslot)>
+        {
+            (new Event
+            {
+                Id = new Guid(),
+                EventName = "seminary",
+                Duration = 2,
+                ProfessorId = ev.ProfessorId,
+                GroupId = Guid.NewGuid(),
+                CourseId = Guid.NewGuid(),
+            }, room, timeslot)
+        };
+        
+        var service = new TimetableGeneratorService(
+            "user@example.com",
+            _instance,
+            _roomRepository,
+            _groupRepository,
+            _courseRepository,
+            _constraintRepository,
+            _professorRepository,
+            "Sample Timetable");
+
+        // Act
+        var result = service.IsFeasible(ev, room, timeslot, currentSolution);
+
+        // Assert
+        Assert.False(result); // Should return false due to professor overlap at the same time
+    }
+
+    [Fact]
+    public void IsFeasible_ShouldReturnFalse_WhenGroupsOverlapAtTheSameTime()
+    {
+        // Arrange
+        var ev = new Event
+        {
+            Id = Guid.NewGuid(),
+            EventName = "seminary",
+            Duration = 2,
+            ProfessorId = Guid.NewGuid(),
+            GroupId = Guid.NewGuid(), // Different group
+            CourseId = Guid.NewGuid(),
+        };
+        
+        var room = new Room { Id = Guid.NewGuid(), Name = "Room 1", Capacity = 40, UserEmail = "some@gmail.com" };
+        var timeslot = new Timeslot { Day = "Monday", Time = "10:00 - 12:00" };
+        var currentSolution = new List<(Event, Room, Timeslot)>
+        {
+            (new Event
+            {
+                Id = new Guid(),
+                EventName = "seminary",
+                Duration = 2,
+                ProfessorId = new Guid(),
+                GroupId = ev.GroupId,
+                CourseId = Guid.NewGuid(),
+            }, room, timeslot)
+        };
+        
+        var service = new TimetableGeneratorService(
+            "user@example.com",
+            _instance,
+            _roomRepository,
+            _groupRepository,
+            _courseRepository,
+            _constraintRepository,
+            _professorRepository,
+            "Sample Timetable");
+
+        // Act
+        var result = service.IsFeasible(ev, room, timeslot, currentSolution);
+
+        // Assert
+        Assert.False(result); // Should return false due to group overlap at the same time
+    }
 }

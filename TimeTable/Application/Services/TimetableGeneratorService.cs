@@ -220,7 +220,7 @@ namespace Application.Services
 
 
 
-        private bool IsFeasible(Event ev, Room room, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution)
+        public bool IsFeasible(Event ev, Room room, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution)
         {
             var hardValidator = new HardConstraintValidator(courseRepository, groupRepository);
 
