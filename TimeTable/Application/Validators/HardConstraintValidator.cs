@@ -70,7 +70,7 @@ public class HardConstraintValidator(ICourseRepository courseRepo, IGroupReposit
         return startTime1 < endTime2 && startTime2 < endTime1;
     }
 
-    private static bool IsSameOrNestedGroup(string group1, string group2)
+    public static bool IsSameOrNestedGroup(string group1, string group2)
     {
         // Check if one group is a prefix of the other (e.g., 2E and 2E3, 2MISS and 2MISS1)
         return group1.StartsWith(group2) || group2.StartsWith(group1);
