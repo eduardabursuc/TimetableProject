@@ -83,6 +83,7 @@ public class CreateConstraintCommandHandler(
             ProfessorId = professorId,
             CourseId = chatGptResult.CourseName != null ? courseDictionary.FirstOrDefault(c => c.Value == chatGptResult.CourseName).Key : null,
             RoomId = chatGptResult.RoomName != null ? roomDictionary.FirstOrDefault(r => r.Value == chatGptResult.RoomName).Key : null,
+            WantedRoomId = chatGptResult.WantedRoomName != null ? roomDictionary.FirstOrDefault(r => r.Value == chatGptResult.WantedRoomName).Key : null,
             GroupId = chatGptResult.GroupName != null ? groupDictionary.FirstOrDefault(g => g.Value == chatGptResult.GroupName).Key : null,
             Event = chatGptResult.Event,
             Day = chatGptResult.Day,
@@ -129,6 +130,7 @@ public class CreateConstraintCommandHandler(
             RoomName = jsonResponse.TryGetProperty("RoomName", out var roomName) ? roomName.GetString() : null,
             GroupName = jsonResponse.TryGetProperty("GroupName", out var groupName) ? groupName.GetString() : null,
             CourseName = jsonResponse.TryGetProperty("CourseName", out var courseName) ? courseName.GetString() : null,
+            WantedRoomName =  jsonResponse.TryGetProperty("WantedRoomName", out var wantedRoomName) ? wantedRoomName.GetString() : null,
             ValidationErrors = jsonResponse.GetProperty("validationErrors").EnumerateArray()
                 .Select(e => e.GetString()).ToList()
         };
@@ -141,6 +143,7 @@ public class ChatGptConstraintResponse
 {
     public ConstraintType Type { get; set; }
     public string? RoomName { get; set; }
+    public string? WantedRoomName { get; set; }
     public string? GroupName { get; set; }
     public string? CourseName { get; set; }
     public string? Day { get; set; }

@@ -99,7 +99,8 @@ namespace TimeTable.Application.UnitTests
             {
                 UserEmail = "some1@gmail.com",
                 Id = Guid.NewGuid(),
-                Name = "Professor 1"
+                Name = "Professor 1",
+                Email = "some@gmail.com"
             };
         }
 

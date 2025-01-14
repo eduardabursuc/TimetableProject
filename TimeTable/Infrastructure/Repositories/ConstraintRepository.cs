@@ -38,13 +38,13 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<IEnumerable<Constraint>>> GetAllAsync(Guid timetable)
+        public async Task<Result<IEnumerable<Constraint>>> GetAllAsync(Guid timetableId)
         {
             try
             {
                 // Query constraints where UserEmail matches the provided email
                 var constraints = await context.Constraints
-                    .Where(c => c.TimetableId == timetable)
+                    .Where(c => c.TimetableId == timetableId)
                     .ToListAsync();
 
                 return Result<IEnumerable<Constraint>>.Success(constraints);

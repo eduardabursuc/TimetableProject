@@ -14,11 +14,10 @@ namespace Application.Services
         private readonly ICourseRepository courseRepository;
         private readonly IConstraintRepository constraintRepository;
         private readonly IProfessorRepository professorRepository;
-        private readonly Guid? timetableId;
         private readonly string timetableName;
-        private List<Constraint> softConstraints = new List<Constraint>();
+        private readonly List<Constraint> softConstraints = new List<Constraint>();
         private readonly SoftConstraintsValidator softConstraintsValidator = new SoftConstraintsValidator();
-        private Dictionary<int, List<Timeslot>> timeslotCache = new Dictionary<int, List<Timeslot>>();
+        private readonly Dictionary<int, List<Timeslot>> timeslotCache = new Dictionary<int, List<Timeslot>>();
 
 
         public TimetableGeneratorService(
@@ -29,8 +28,8 @@ namespace Application.Services
             ICourseRepository courseRepository,
             IConstraintRepository constraintRepository,
             IProfessorRepository professorRepository,
-            string timetableName,
-            Guid? timetableId = null)
+            string timetableName
+            )
         {
             this.userEmail = userEmail;
             this.instance = instance;
@@ -40,7 +39,6 @@ namespace Application.Services
             this.constraintRepository = constraintRepository;
             this.professorRepository = professorRepository;
             this.timetableName = timetableName;
-            this.timetableId = timetableId;
         }
 
         public async Task<Timetable> GenerateBestTimetableAsync()

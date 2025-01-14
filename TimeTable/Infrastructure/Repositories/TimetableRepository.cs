@@ -58,7 +58,7 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<Result<Unit>> UpdateAsync(Timetable timetable)
+        public async Task<Result<Unit>> UpdateAsync(Timetable? timetable)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Infrastructure.Repositories
                 foreach (var incomingEvent in timetable.Events)
                 {
                     var existingEvent = existingTimetable.Events
-                        .FirstOrDefault(e => e.Id == incomingEvent.Id);
+                        .Find(e => e.Id == incomingEvent.Id);
 
                     if (existingEvent == null)
                     {
@@ -117,7 +117,7 @@ namespace Infrastructure.Repositories
 
                 // 3. Manually remove Events that should no longer exist (if any)
                 var eventsToRemove = existingTimetable.Events
-                    .Where(e => timetable.Events.All(te => te.Id != e.Id))
+                    .Where(e => timetable.Events.TrueForAll(te => te.Id != e.Id))
                     .ToList();
 
                 foreach (var eventToRemove in eventsToRemove)

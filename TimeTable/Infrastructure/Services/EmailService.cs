@@ -12,14 +12,14 @@ namespace Infrastructure.Services
             
             var smtpClient = new SmtpClient(configuration["Smtp:Host"])
             {
-                Port = int.Parse(configuration["Smtp:Port"]),
+                Port = int.Parse(configuration["Smtp:Port"]!),
                 Credentials = new NetworkCredential(configuration["Smtp:Username"], configuration["Smtp:Password"]),
-                EnableSsl = bool.Parse(configuration["Smtp:EnableSsl"]),
+                EnableSsl = bool.Parse(configuration["Smtp:EnableSsl"]!),
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(configuration["Smtp:From"]),
+                From = new MailAddress(configuration["Smtp:From"]!),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true,

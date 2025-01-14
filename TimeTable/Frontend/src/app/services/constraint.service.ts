@@ -25,6 +25,12 @@ export class ConstraintService {
     return this.http.post<{ id: string }>(this.flaskapiUrl, data, { headers });
   }
 
+/*
+  create(data: { professorEmail: string, timetableId: string, input: string }): Observable<{ id: string }> {
+    const headers = this.globals.getAuthHeaders();
+    return this.http.post<{ id: string }>(this.apiUrl, data, { headers });
+  }
+*/
   getAllForProfessor(professorEmail: string, timetableId: string): Observable<Constraint[]> {
     const params = new HttpParams()
         .set('professorEmail', professorEmail)

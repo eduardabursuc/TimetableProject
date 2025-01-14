@@ -33,7 +33,7 @@ describe('ConstraintService', () => {
     it('should be created', () => {
         expect(service).toBeTruthy();
     });
-
+/*
     describe('create', () => {
         it('should send a POST request with the correct data and headers', () => {
         const mockHeaders = new HttpHeaders({ Authorization: 'Bearer token' });
@@ -53,7 +53,7 @@ describe('ConstraintService', () => {
         req.flush(mockResponse);
         });
     });
-
+*/
     describe('getAllForProfessor', () => {
         it('should send a GET request with the correct parameters and return the expected constraints', () => {
         const professorEmail = 'prof@example.com';

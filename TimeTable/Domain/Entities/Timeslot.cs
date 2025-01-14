@@ -26,65 +26,32 @@ namespace Domain.Entities
                 _ => -1
             };
         }
-
-        public bool isEarlier(Timeslot timeslot)
+        
+        private static (TimeSpan Start, TimeSpan End) ParseTimeslot(string timeRange)
         {
-            // Compare days first
-            if (GetDayIndex(Day) < GetDayIndex(timeslot.Day)) return true;
-            if (GetDayIndex(Day) > GetDayIndex(timeslot.Day)) return false;
-            
-            var t1EndTime = Time.Split('-')[1].Trim();
-            var t2StartTime = timeslot.Time.Split('-')[0].Trim();
-
-            // Convert to TimeSpan for comparison
-            var t1End = TimeSpan.Parse(t1EndTime);
-            var t2Start = TimeSpan.Parse(t2StartTime);
-
-            // Compare times
-            return t1End <= t2Start;
+            var split = timeRange.Split('-');
+            return (TimeSpan.Parse(split[0].Trim()), TimeSpan.Parse(split[1].Trim()));
         }
 
-        public bool inInterval(Timeslot timeslot)
+        public bool InInterval(Timeslot timeslot)
         {
             // Compare days first
             if (GetDayIndex(Day) != GetDayIndex(timeslot.Day)) return false;
 
-            var split = Time.Split('-');
-            var t1StartTime = split[0];
-            var t1EndTime = split[1];
-            
-            split = timeslot.Time.Split('-');
-            var t2StartTime = split[0];
-            var t2EndTime = split[1];
-
-            // Convert to TimeSpan for comparison
-            var t1Start = TimeSpan.Parse(t1StartTime);
-            var t1End = TimeSpan.Parse(t1EndTime);
-            var t2Start = TimeSpan.Parse(t2StartTime);
-            var t2End = TimeSpan.Parse(t2EndTime);
+            var (t1Start, t1End) = ParseTimeslot(Time);
+            var (t2Start, t2End) = ParseTimeslot(timeslot.Time);
 
             // Compare times
             return t2Start <= t1Start && t1End <= t2End;
         }
 
-        public bool overlap(Timeslot timeslot)
+        public bool Overlap(Timeslot timeslot)
         {
             // Compare days first
             if (GetDayIndex(Day) != GetDayIndex(timeslot.Day)) return false;
 
-            var split = Time.Split('-');
-            var t1StartTime = split[0];
-            var t1EndTime = split[1];
-            
-            split = timeslot.Time.Split('-');
-            var t2StartTime = split[0];
-            var t2EndTime = split[1];
-
-            // Convert to TimeSpan for comparison
-            var t1Start = TimeSpan.Parse(t1StartTime);
-            var t1End = TimeSpan.Parse(t1EndTime);
-            var t2Start = TimeSpan.Parse(t2StartTime);
-            var t2End = TimeSpan.Parse(t2EndTime);
+            var (t1Start, t1End) = ParseTimeslot(Time);
+            var (t2Start, t2End) = ParseTimeslot(timeslot.Time);
 
             // Compare times
             return t1Start < t2End && t2Start < t1End;
@@ -94,15 +61,14 @@ namespace Domain.Entities
         {
             // Compare days first
             if (GetDayIndex(Day) != GetDayIndex(timeslot.Day)) return false;
-            
-            var t1StartTime = Time.Split('-')[0].Trim();
-            var t1EndTime = Time.Split('-')[1].Trim();
-            
-            var t2StartTime = timeslot.Time.Split('-')[0].Trim();
-            var t2EndTime = timeslot.Time.Split('-')[1].Trim();
-            
-            return t1EndTime == t2StartTime || t2EndTime == t1StartTime;
+
+            var (t1Start, t1End) = ParseTimeslot(Time);
+            var (t2Start, t2End) = ParseTimeslot(timeslot.Time);
+
+            // Check for consecutive times
+            return t1End == t2Start || t2End == t1Start;
         }
+
         
     }
 }

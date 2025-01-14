@@ -4,7 +4,6 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Application.DTOs;
 using Application.UseCases.Commands.RoomCommands;
-using Domain.Entities;
 using FluentAssertions;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -12,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 
 namespace TimeTable.Application.IntegrationTests
 {

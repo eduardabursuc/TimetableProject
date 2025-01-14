@@ -5,6 +5,8 @@ namespace Application.Validators
 {
     public class SoftConstraintsValidator
     {
+        private const string FORMAT = "HH:mm";
+        
         private static readonly Dictionary<string, int> DaysOfWeek = new Dictionary<string, int>
             {
                 { "Monday", 1 },
@@ -34,7 +36,7 @@ namespace Application.Validators
         }
 
 
-        private int GenerateHashKey(Event ev, Room room, Timeslot timeslot)
+        private static int GenerateHashKey(Event ev, Room room, Timeslot timeslot)
         {
             return HashCode.Combine(ev.Id, room.Id, timeslot.Day, timeslot.Time);
         }
@@ -95,12 +97,12 @@ namespace Application.Validators
                             {
                                 var professorEvents = currentSolution
                                     .Where(e => e.Item1.ProfessorId == ev.ProfessorId && e.Item3.Day == constraint.Day)
-                                    .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture))
+                                    .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture))
                                     .ToList();
 
-                                bool hasBreak = false;
+                                var hasBreak = false;
 
-                                for (int i = 0; i < professorEvents.Count - 1; i++)
+                                for (var i = 0; i < professorEvents.Count - 1; i++)
                                 {
                                     var firstTimeslot = new Timeslot
                                     {
@@ -115,11 +117,9 @@ namespace Application.Validators
                                     };
 
                                     // Dacă există o pauză între două evenimente consecutive
-                                    if (!firstTimeslot.IsConsecutive(secondTimeslot))
-                                    {
-                                        hasBreak = true;
-                                        break;
-                                    }
+                                    if (firstTimeslot.IsConsecutive(secondTimeslot)) continue;
+                                    hasBreak = true;
+                                    break;
                                 }
 
                                 if (hasBreak)
@@ -137,39 +137,11 @@ namespace Application.Validators
                                 };
 
 
-                                bool isFreeEveryDay = true;
-
-                                foreach (var day in DaysOfWeek.Keys)
-                                {
-                                    var professorEvents = currentSolution
-                                        .Where(e => e.Item1.ProfessorId == ev.ProfessorId && e.Item3.Day == day)
-                                        .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture))
-                                        .ToList();
-
-                                    bool hasBreak = false;
-
-                                    foreach (var professorEvent in professorEvents)
-                                    {
-                                        var eventTimeslot = new Timeslot
-                                        {
-                                            Day = professorEvent.Item3.Day,
-                                            Time = professorEvent.Item3.Time
-                                        };
-
-                                        // Dacă evenimentul are o pauză care se încadrează în intervalul specificat
-                                        if (eventTimeslot.inInterval(constraintTimeslot))
-                                        {
-                                            hasBreak = true;
-                                            break;
-                                        }
-                                    }
-
-                                    if (!hasBreak)
-                                    {
-                                        isFreeEveryDay = false;
-                                        break;
-                                    }
-                                }
+                                var isFreeEveryDay = DaysOfWeek.Keys.Select(day => currentSolution.Where(e => e.Item1.ProfessorId == ev.ProfessorId && e.Item3.Day == day)
+                                        .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture))
+                                        .ToList())
+                                    .Select(professorEvents => professorEvents.Select(professorEvent => new Timeslot { Day = professorEvent.Item3.Day, Time = professorEvent.Item3.Time }).Any(eventTimeslot => eventTimeslot.InInterval(constraintTimeslot)))
+                                    .All(hasBreak => hasBreak);
 
                                 if (isFreeEveryDay)
                                 {
@@ -186,12 +158,12 @@ namespace Application.Validators
                             {
                                 var professorEvents = currentSolution
                                     .Where(e => e.Item1.ProfessorId == ev.ProfessorId && e.Item3.Day == constraint.Day)
-                                    .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture))
+                                    .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture))
                                     .ToList();
 
-                                bool hasNoBreak = true;
+                                var hasNoBreak = true;
 
-                                for (int i = 0; i < professorEvents.Count - 1; i++)
+                                for (var i = 0; i < professorEvents.Count - 1; i++)
                                 {
                                     var firstTimeslot = new Timeslot
                                     {
@@ -229,26 +201,10 @@ namespace Application.Validators
 
                                 var professorEvents = currentSolution
                                     .Where(e => e.Item1.ProfessorId == ev.ProfessorId)
-                                    .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture))
+                                    .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture))
                                     .ToList();
 
-                                bool hasOverlap = false;
-
-                                foreach (var professorEvent in professorEvents)
-                                {
-                                    var eventTimeslot = new Timeslot
-                                    {
-                                        Day = professorEvent.Item3.Day,
-                                        Time = professorEvent.Item3.Time
-                                    };
-
-                                    // Dacă evenimentul se suprapune cu intervalul specificat
-                                    if (eventTimeslot.overlap(constraintTimeslot))
-                                    {
-                                        hasOverlap = true;
-                                        break;
-                                    }
-                                }
+                                var hasOverlap = professorEvents.Select(professorEvent => new Timeslot { Day = professorEvent.Item3.Day, Time = professorEvent.Item3.Time }).Any(eventTimeslot => eventTimeslot.Overlap(constraintTimeslot));
 
                                 if (hasOverlap)
                                 {
@@ -281,20 +237,18 @@ namespace Application.Validators
                         {
                             var professorEvents = currentSolution
                                 .Where(e => e.Item1.ProfessorId == ev.ProfessorId && e.Item3.Day == timeslot.Day)
-                                .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture))
+                                .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture))
                                 .ToList();
 
-                            bool areConsecutive = true;
-                            for (int i = 0; i < professorEvents.Count - 1; i++)
+                            var areConsecutive = true;
+                            for (var i = 0; i < professorEvents.Count - 1; i++)
                             {
-                                var currentEnd = DateTime.ParseExact(professorEvents[i].Item3.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                                var nextStart = DateTime.ParseExact(professorEvents[i + 1].Item3.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
+                                var currentEnd = DateTime.ParseExact(professorEvents[i].Item3.Time.Split('-')[1].Trim(), FORMAT, CultureInfo.InvariantCulture);
+                                var nextStart = DateTime.ParseExact(professorEvents[i + 1].Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture);
 
-                                if (!professorEvents[i].Item3.IsConsecutive(professorEvents[i + 1].Item3))
-                                {
-                                    areConsecutive = false;
-                                    break;
-                                }
+                                if (professorEvents[i].Item3.IsConsecutive(professorEvents[i + 1].Item3)) continue;
+                                areConsecutive = false;
+                                break;
                             }
 
                             if (areConsecutive)
@@ -307,11 +261,11 @@ namespace Application.Validators
                     case ConstraintType.SOFT_INTERVAL_AVAILABILITY:
                         if (constraint.ProfessorId == ev.ProfessorId && constraint.Day == timeslot.Day)
                         {
-                            var constraintStart = DateTime.ParseExact(constraint.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                            var constraintEnd = DateTime.ParseExact(constraint.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
+                            var constraintStart = DateTime.ParseExact(constraint.Time!.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture);
+                            var constraintEnd = DateTime.ParseExact(constraint.Time.Split('-')[1].Trim(), FORMAT, CultureInfo.InvariantCulture);
 
-                            var eventStart = DateTime.ParseExact(timeslot.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                            var eventEnd = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
+                            var eventStart = DateTime.ParseExact(timeslot.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture);
+                            var eventEnd = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), FORMAT, CultureInfo.InvariantCulture);
 
                             if (eventStart >= constraintStart && eventEnd <= constraintEnd)
                             {
@@ -323,11 +277,11 @@ namespace Application.Validators
                     case ConstraintType.SOFT_INTERVAL_UNAVAILABILITY:
                         if (constraint.ProfessorId == ev.ProfessorId && constraint.Day == timeslot.Day)
                         {
-                            var constraintStart = DateTime.ParseExact(constraint.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                            var constraintEnd = DateTime.ParseExact(constraint.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
+                            var constraintStart = DateTime.ParseExact(constraint.Time!.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture);
+                            var constraintEnd = DateTime.ParseExact(constraint.Time.Split('-')[1].Trim(), FORMAT, CultureInfo.InvariantCulture);
 
-                            var eventStart = DateTime.ParseExact(timeslot.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                            var eventEnd = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
+                            var eventStart = DateTime.ParseExact(timeslot.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture);
+                            var eventEnd = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), FORMAT, CultureInfo.InvariantCulture);
 
                             if (eventEnd <= constraintStart || eventStart >= constraintEnd) //verifica daca eventul e in afara intervalului indisponibil
                             {
@@ -361,25 +315,7 @@ namespace Application.Validators
 
         public double MaxRemainingScore(Dictionary<Event, List<(Room, Timeslot)>> variables, List<(Event, Room, Timeslot)> currentSolution, List<Constraint> softConstraints)
         {
-            double maxScore = 0;
-            foreach (var kv in variables)
-            {
-                if (!currentSolution.Any(cs => cs.Item1.Id == kv.Key.Id))
-                {
-                    double eventMaxScore = double.MinValue;
-                    foreach (var assignment in kv.Value)
-                    {
-                        double score = CalculateScore(kv.Key, assignment.Item1, assignment.Item2, currentSolution, softConstraints);
-                        if (score > eventMaxScore)
-                        {
-                            eventMaxScore = score;
-                        }
-                    }
-                    maxScore += eventMaxScore;
-                }
-            }
-
-            return maxScore;
+            return variables.Where(kv => currentSolution.All(cs => cs.Item1.Id != kv.Key.Id)).Sum(kv => kv.Value.Select(assignment => CalculateScore(kv.Key, assignment.Item1, assignment.Item2, currentSolution, softConstraints)).Prepend(double.MinValue).Max());
         }
 
         public double CalculateTotalScore(List<(Event, Room, Timeslot)> solution, List<Constraint> softConstraints)
@@ -392,32 +328,28 @@ namespace Application.Validators
             return totalScore;
         }
 
-        private bool CheckLectureBeforeLab(Event ev, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution, ref double score)
+        private static bool CheckLectureBeforeLab(Event ev, Timeslot timeslot, List<(Event, Room, Timeslot)> currentSolution, ref double score)
         {
-            bool isLabOrSeminar = ev.EventName.Contains("laboratory") || ev.EventName.Contains("seminary");
-            bool isLecture = ev.EventName.Contains("course");
+            var isLabOrSeminar = ev.EventName.Contains("laboratory") || ev.EventName.Contains("seminary");
 
             // cautam evenimentul corespunzator cursului
             var matchingEvent = isLabOrSeminar
                 ? currentSolution.FirstOrDefault(e => e.Item1.CourseId == ev.CourseId && e.Item1.EventName.Contains("course") && e.Item1.GroupId == ev.GroupId)
                 : currentSolution.FirstOrDefault(e => e.Item1.CourseId == ev.CourseId && (e.Item1.EventName.Contains("laboratory") || e.Item1.EventName.Contains("seminary")) && e.Item1.GroupId == ev.GroupId);
 
-            if (matchingEvent.Item1 != null)
-            {
-                int eventDay = DaysOfWeek[timeslot.Day];
-                int matchingEventDay = DaysOfWeek[matchingEvent.Item3.Day];
+            if (matchingEvent.Item1 == null) return false;
+            var eventDay = DaysOfWeek[timeslot.Day];
+            var matchingEventDay = DaysOfWeek[matchingEvent.Item3.Day];
 
-                DateTime eventEndTime = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), "HH:mm", CultureInfo.InvariantCulture);
-                DateTime matchingEventStartTime = DateTime.ParseExact(matchingEvent.Item3.Time.Split('-')[0].Trim(), "HH:mm", CultureInfo.InvariantCulture);
+            var eventEndTime = DateTime.ParseExact(timeslot.Time.Split('-')[1].Trim(), FORMAT, CultureInfo.InvariantCulture);
+            var matchingEventStartTime = DateTime.ParseExact(matchingEvent.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture);
 
-                bool isValid = isLabOrSeminar
-                    ? eventDay > matchingEventDay || eventDay == matchingEventDay && eventEndTime >= matchingEventStartTime
-                    : eventDay < matchingEventDay || eventDay == matchingEventDay && eventEndTime <= matchingEventStartTime;
+            var isValid = isLabOrSeminar
+                ? eventDay > matchingEventDay || eventDay == matchingEventDay && eventEndTime >= matchingEventStartTime
+                : eventDay < matchingEventDay || eventDay == matchingEventDay && eventEndTime <= matchingEventStartTime;
 
-                return isValid;
-            }
+            return isValid;
 
-            return false;
         }
 
 

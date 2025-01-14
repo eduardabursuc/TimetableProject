@@ -67,13 +67,13 @@ namespace Infrastructure.Repositories
             return Result<string>.Success("User updated successfully");
         }
 
-        public async Task<Result<string>> GetToken(string email, int minutes)
+        public Task<Result<string>> GetToken(string email, int minutes)
         {
             var user = GetByEmailAsync(email).Result;
             
             if (!user.IsSuccess)
             {
-                return Result<string>.Failure("User not found");
+                return Task.FromResult(Result<string>.Failure("User not found"));
             }
             
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -94,7 +94,7 @@ namespace Infrastructure.Repositories
             };
             
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return Result<string>.Success(tokenHandler.WriteToken(token));
+            return Task.FromResult(Result<string>.Success(tokenHandler.WriteToken(token)));
         }
         
     }

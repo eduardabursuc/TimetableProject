@@ -103,12 +103,14 @@ namespace TimeTable.Application.UnitTests
                     UserEmail = "some1@gmail.com",
                     Id = Guid.NewGuid(),
                     Name = "Professor 1",
+                    Email = "Some1@gmail.com"
                 },
                 new Professor
                 {
                     UserEmail = "some2@gmail.com",
                     Id = Guid.NewGuid(),
                     Name = "Professor 2",
+                    Email = "Some2@gmail.com"
                 }
             };
         }
