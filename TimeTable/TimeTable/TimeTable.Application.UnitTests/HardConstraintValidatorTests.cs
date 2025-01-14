@@ -17,7 +17,7 @@ namespace TimeTable.Application.UnitTests
         {
             _validator = new HardConstraintValidator(_courseRepo, _groupRepo);
         }
-        
+
         [Fact]
         public void ValidateRoomCapacity_CourseCapacityValid_ReturnsTrue()
         {

@@ -996,5 +996,382 @@ namespace TimeTable.Application.UnitTests
         }
 
 
+        [Fact]
+        public void CalculateScore_SoftDayChangeConstraint_MatchingConstraint_IncreasesScore()
+        {
+            // Arrange
+            var ev = new Event
+            {
+                Id = Guid.NewGuid(),
+                ProfessorId = Guid.NewGuid(),
+                CourseId = Guid.NewGuid(),
+                GroupId = Guid.NewGuid(),
+                EventName = "course",
+                Duration = 2
+            };
+
+            var timeslot = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var constraint = new Constraint
+            {
+                Type = ConstraintType.SOFT_DAY_CHANGE,
+                ProfessorId = ev.ProfessorId,
+                CourseId = ev.CourseId,
+                GroupId = ev.GroupId,
+                WantedDay = "Monday",
+                WantedTime = "08:00 - 10:00"
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>();
+            var softConstraints = new List<Constraint> { constraint };
+
+            // Act
+            double score = validator.CalculateScore(ev, null, timeslot, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(50, score);
+        }
+
+        [Fact]
+        public void CalculateScore_SoftAddWindowConstraint_NoBreak_ScoreRemainsZero()
+        {
+            // Arrange
+            var professorId = Guid.NewGuid();
+            var courseId = Guid.NewGuid();
+            var groupId = Guid.NewGuid();
+
+            var ev = new Event
+            {
+                Id = Guid.NewGuid(),
+                CourseId = courseId,
+                GroupId = groupId,
+                ProfessorId = professorId,
+                EventName = "course",
+                Duration = 2
+            };
+
+            var timeslot = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var constraint = new Constraint
+            {
+                Type = ConstraintType.SOFT_ADD_WINDOW,
+                ProfessorId = professorId,
+                Day = "Monday"
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>
+    {
+        (new Event { ProfessorId = professorId, CourseId = courseId, GroupId = groupId, EventName = "course", Duration = 2 }, null, new Timeslot { Day = "Monday", Time = "10:00 - 12:00" }),
+        (new Event { ProfessorId = professorId, CourseId = courseId, GroupId = groupId, EventName = "course", Duration = 2 }, null, new Timeslot { Day = "Monday", Time = "12:00 - 14:00" })
+    };
+
+            var softConstraints = new List<Constraint> { constraint };
+
+            // Act
+            double score = validator.CalculateScore(ev, null, timeslot, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(0, score);
+        }
+
+
+
+        [Fact]
+        public void CalculateScore_SoftConsecutiveHoursConstraint_AllConsecutive_IncreasesScore()
+        {
+            // Arrange
+            var professorId = Guid.NewGuid();
+            var ev = new Event
+            {
+                Id = Guid.NewGuid(),
+                ProfessorId = professorId,
+                EventName = "course",
+                GroupId = Guid.NewGuid(),
+                CourseId = Guid.NewGuid(),
+                Duration = 2
+            };
+
+            var timeslot = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var constraint = new Constraint
+            {
+                Type = ConstraintType.SOFT_CONSECUTIVE_HOURS,
+                ProfessorId = professorId,
+                Day = "Monday"
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>
+    {
+        (new Event { ProfessorId = professorId, CourseId = Guid.NewGuid(), EventName = "course", Duration = 2, GroupId = Guid.NewGuid() },  new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 2"}, new Timeslot { Day = "Monday", Time = "06:00 - 08:00" }),
+        (ev,  new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 3"}, timeslot),
+        (new Event { ProfessorId = professorId, CourseId = Guid.NewGuid(), GroupId = Guid.NewGuid(), EventName = "seminary", Duration = 2 }, new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 1"}, new Timeslot { Day = "Monday", Time = "10:00 - 12:00" })
+    };
+
+            var softConstraints = new List<Constraint> { constraint };
+
+            // Act
+            double score = validator.CalculateScore(ev, null, timeslot, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(50, score);
+        }
+
+
+        [Fact]
+        public void CalculateScore_SoftLectureBeforeLabConstraint_LectureBeforeLab_IncreasesScore()
+        {
+            // Arrange
+            var courseId = Guid.NewGuid();
+            var groupId = Guid.NewGuid();
+            var professorId = Guid.NewGuid();
+
+            var lectureEvent = new Event
+            {
+                Id = Guid.NewGuid(),
+                CourseId = courseId,
+                GroupId = groupId,
+                ProfessorId = professorId,
+                EventName = "course",
+                Duration = 2
+            };
+
+            var labEvent = new Event
+            {
+                Id = Guid.NewGuid(),
+                CourseId = courseId,
+                GroupId = groupId,
+                ProfessorId = professorId,
+                EventName = "laboratory",
+                Duration = 2
+            };
+
+            var timeslotLecture = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var timeslotLab = new Timeslot
+            {
+                Day = "Monday",
+                Time = "10:00 - 12:00"
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>
+        {
+            (lectureEvent, null, timeslotLecture)
+        };
+
+            var softConstraints = new List<Constraint>
+        {
+            new Constraint { Type = ConstraintType.SOFT_LECTURE_BEFORE_LABS, CourseId = courseId }
+        };
+
+            // Act
+            double score = validator.CalculateScore(labEvent, null, timeslotLab, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(50, score);
+        }
+
+
+    [Fact]
+        public void CalculateScore_SoftRoomPreferenceConstraint_IncreasesScore()
+        {
+            // Arrange
+            var professorId = Guid.NewGuid();
+            var courseId = Guid.NewGuid();
+            var wantedRoomId = Guid.NewGuid();
+
+            var ev = new Event
+            {
+                Id = Guid.NewGuid(),
+                ProfessorId = professorId,
+                GroupId = Guid.NewGuid(),
+                CourseId = courseId,
+                EventName = "course",
+                Duration = 2
+            };
+
+            var room = new Room
+            {
+                Id = wantedRoomId,
+                Name = "Room A",
+                Capacity = 100,
+                UserEmail = "test@example.com"
+            };
+
+            var timeslot = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var constraint = new Constraint
+            {
+                Type = ConstraintType.SOFT_ROOM_PREFERENCE,
+                ProfessorId = professorId,
+                WantedRoomId = wantedRoomId
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>();
+            var softConstraints = new List<Constraint> { constraint };
+
+            // Act
+            double score = validator.CalculateScore(ev, room, timeslot, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(50, score);
+        }
+
+        [Fact]
+        public void CalculateScore_SoftAddWindowConstraint_WithBreak_IncreasesScore()
+        {
+            // Arrange
+            var professorId = Guid.NewGuid();
+            var courseId = Guid.NewGuid();
+            var groupId = Guid.NewGuid();
+
+            var ev = new Event
+            {
+                Id = Guid.NewGuid(),
+                CourseId = courseId,
+                GroupId = groupId,
+                ProfessorId = professorId,
+                EventName = "course",
+                Duration = 2
+            };
+
+            var timeslot = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var constraint = new Constraint
+            {
+                Type = ConstraintType.SOFT_ADD_WINDOW,
+                ProfessorId = professorId,
+                Day = "Monday"
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>
+    {
+         (new Event { ProfessorId = professorId, CourseId = Guid.NewGuid(), EventName = "course", Duration = 2, GroupId = Guid.NewGuid() },  new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 2"}, new Timeslot { Day = "Monday", Time = "10:00 - 12:00" }),
+         (new Event { ProfessorId = professorId, CourseId = Guid.NewGuid(), EventName = "course", Duration = 2, GroupId = Guid.NewGuid() },  new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 2"}, new Timeslot { Day = "Monday", Time = "14:00 - 16:00" })
+    };
+
+            var softConstraints = new List<Constraint> { constraint };
+
+            // Act
+            double score = validator.CalculateScore(ev, null, timeslot, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(50, score);
+        }
+
+        [Fact]
+        public void CalculateScore_SoftConsecutiveHoursConstraint_NotAllConsecutive_ScoreRemainsZero()
+        {
+            // Arrange
+            var professorId = Guid.NewGuid();
+            var courseId = Guid.NewGuid();
+            var groupId = Guid.NewGuid();
+
+            var ev = new Event
+            {
+                Id = Guid.NewGuid(),
+                CourseId = courseId,
+                GroupId = groupId,
+                ProfessorId = professorId,
+                EventName = "course",
+                Duration = 2
+            };
+
+            var timeslot = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var constraint = new Constraint
+            {
+                Type = ConstraintType.SOFT_CONSECUTIVE_HOURS,
+                ProfessorId = professorId,
+                Day = "Monday"
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>
+            {
+                (new Event { ProfessorId = professorId, CourseId = Guid.NewGuid(), EventName = "course", Duration = 2, GroupId = Guid.NewGuid() },  new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 2"}, new Timeslot { Day = "Monday", Time = "10:00 - 12:00" }),
+                (new Event { ProfessorId = professorId, CourseId = Guid.NewGuid(), EventName = "course", Duration = 2, GroupId = Guid.NewGuid() },  new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 2"}, new Timeslot { Day = "Monday", Time = "14:00 - 16:00" })
+            };
+
+            var softConstraints = new List<Constraint> { constraint };
+
+            // Act
+            double score = validator.CalculateScore(ev, null, timeslot, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(0, score);
+        }
+
+        [Fact]
+        public void CalculateScore_SoftRemoveWindowConstraint_WithNoBreak_IncreasesScore()
+        {
+            // Arrange
+            var professorId = Guid.NewGuid();
+            var courseId = Guid.NewGuid();
+            var groupId = Guid.NewGuid();
+
+            var ev = new Event
+            {
+                Id = Guid.NewGuid(),
+                CourseId = courseId,
+                GroupId = groupId,
+                ProfessorId = professorId,
+                EventName = "course",
+                Duration = 2
+            };
+
+            var timeslot = new Timeslot
+            {
+                Day = "Monday",
+                Time = "08:00 - 10:00"
+            };
+
+            var constraint = new Constraint
+            {
+                Type = ConstraintType.SOFT_REMOVE_WINDOW,
+                ProfessorId = professorId,
+                Day = "Monday"
+            };
+
+            var currentSolution = new List<(Event, Room, Timeslot)>
+            {
+                (new Event { ProfessorId = professorId, CourseId = Guid.NewGuid(), EventName = "course", Duration = 2, GroupId = Guid.NewGuid() },  new Room{UserEmail = "prof@test.com", Capacity = 100, Name = "Room 2"}, new Timeslot { Day = "Monday", Time = "12:00 - 14:00" })
+            };
+            var softConstraints = new List<Constraint> { constraint };
+
+            // Act
+            double score = validator.CalculateScore(ev, null, timeslot, currentSolution, softConstraints);
+
+            // Assert
+            Assert.Equal(50, score);
+        }
+
+
     }
 }
