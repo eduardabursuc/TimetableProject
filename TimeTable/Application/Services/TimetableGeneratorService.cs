@@ -104,7 +104,7 @@ namespace Application.Services
             return (variables, new List<(Event, Room, Timeslot)>());
         }
 
-        private async Task<List<(Event, Room, Timeslot)>> FindOptimalSolutionWithBacktrackingAsync(
+        public async Task<List<(Event, Room, Timeslot)>> FindOptimalSolutionWithBacktrackingAsync(
             Dictionary<Event, List<(Room, Timeslot)>> variables)
         {
             var solution = new List<(Event, Room, Timeslot)>();
@@ -230,11 +230,17 @@ namespace Application.Services
                 }
                 else
                 {
-                    //Console.WriteLine($"Warning: No valid assignment found for event {ev.EventName}");
-                    var bestAssignment = variables[ev]
-                        .OrderByDescending(v => softConstraintsValidator
-                        .CalculateScore(ev, v.Item1, v.Item2, solution, softConstraints)).First();
-                    solution.Add((ev, bestAssignment.Item1, bestAssignment.Item2));
+                    if (variables[ev].Any())
+                    {
+                        var bestAssignment = variables[ev]
+                            .OrderByDescending(v => softConstraintsValidator
+                            .CalculateScore(ev, v.Item1, v.Item2, solution, softConstraints)).First();
+                        solution.Add((ev, bestAssignment.Item1, bestAssignment.Item2));
+                    }
+                    else
+                    {
+                        //Console.WriteLine($"Warning: No available assignments for event {ev.EventName}");
+                    }
                 }
             }
 
