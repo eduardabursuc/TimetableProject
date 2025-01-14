@@ -15,8 +15,8 @@ export class GlobalsService {
     private readonly http: HttpClient
   ) {}
 
-  //public apiUrl: string = 'https://timetablegenerator.best/api';
-  public apiUrl: string = 'http://localhost:5088/api';
+  public apiUrl: string = 'https://timetablegenerator.best/api';
+  //public apiUrl: string = 'http://localhost:5088/api';
   public flaskApiUrl: string = 'https://a8b6-37-251-223-166.ngrok-free.app';
 
   public getAuthHeaders(): HttpHeaders {
