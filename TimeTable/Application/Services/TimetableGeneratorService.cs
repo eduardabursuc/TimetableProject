@@ -137,10 +137,23 @@ namespace Application.Services
                 return;
             }
 
-            var nextEvent = variables
+            //var nextEvent = variables
+            //    .Where(kv => !currentSolution.Any(cs => cs.Item1.Id == kv.Key.Id))
+            //    .OrderBy(kv => kv.Value.Count)  // MRV (Minimum Remaining Values)
+            //    .First().Key;
+
+            var remainingVariables = variables
                 .Where(kv => !currentSolution.Any(cs => cs.Item1.Id == kv.Key.Id))
-                .OrderBy(kv => kv.Value.Count)  // MRV (Minimum Remaining Values)
-                .First().Key;
+                .OrderBy(kv => kv.Value.Count)
+                .ToList();
+
+            if (!remainingVariables.Any())
+            {
+                return;
+            }
+
+            var nextEvent = remainingVariables.First().Key;
+
 
             foreach (var (room, timeslot) in variables[nextEvent])
             {

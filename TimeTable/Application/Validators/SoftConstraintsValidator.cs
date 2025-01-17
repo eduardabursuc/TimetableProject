@@ -104,26 +104,6 @@ namespace Application.Validators
 
                                 }
                             }
-                            else if (!string.IsNullOrEmpty(constraint.Time))
-                            {
-                                var constraintTimeslot = new Timeslot
-                                {
-                                    Day = string.Empty, // Ziua nu contează
-                                    Time = constraint.Time
-                                };
-
-
-                                var isFreeEveryDay = DaysOfWeek.Keys.Select(day => currentSolution.Where(e => e.Item1.ProfessorId == ev.ProfessorId && e.Item3.Day == day)
-                                        .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture))
-                                        .ToList())
-                                    .Select(professorEvents => professorEvents.Select(professorEvent => new Timeslot { Day = professorEvent.Item3.Day, Time = professorEvent.Item3.Time }).Any(eventTimeslot => eventTimeslot.InInterval(constraintTimeslot)))
-                                    .All(hasBreak => hasBreak);
-
-                                if (isFreeEveryDay)
-                                {
-                                    score += 50;
-                                }
-                            }
                         }
                         break;
 
@@ -160,27 +140,6 @@ namespace Application.Validators
                                 }
 
                                 if (hasNoBreak)
-                                {
-                                    score += 50;
-                                }
-                            }
-
-                            else if (!string.IsNullOrEmpty(constraint.Time))
-                            {
-                                var constraintTimeslot = new Timeslot
-                                {
-                                    Day = string.Empty, // Ziua nu contează
-                                    Time = constraint.Time
-                                };
-
-                                var professorEvents = currentSolution
-                                    .Where(e => e.Item1.ProfessorId == ev.ProfessorId)
-                                    .OrderBy(e => DateTime.ParseExact(e.Item3.Time.Split('-')[0].Trim(), FORMAT, CultureInfo.InvariantCulture))
-                                    .ToList();
-
-                                var hasOverlap = professorEvents.Select(professorEvent => new Timeslot { Day = professorEvent.Item3.Day, Time = professorEvent.Item3.Time }).Any(eventTimeslot => eventTimeslot.Overlap(constraintTimeslot));
-
-                                if (hasOverlap)
                                 {
                                     score += 50;
                                 }
