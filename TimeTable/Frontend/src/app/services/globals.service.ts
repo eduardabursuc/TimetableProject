@@ -17,7 +17,7 @@ export class GlobalsService {
 
   public apiUrl: string = 'https://timetablegenerator.best/api';
   //public apiUrl: string = 'http://localhost:5088/api';
-  public flaskApiUrl: string = 'https://bed4-62-217-241-123.ngrok-free.app';
+  public flaskApiUrl: string = 'https://9bce-62-217-241-123.ngrok-free.app';
 
   public getAuthHeaders(): HttpHeaders {
     const token = this.cookieService.get('authToken');
