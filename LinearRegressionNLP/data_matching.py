@@ -22,8 +22,6 @@ def parse_time_24h(hour_str: str, minute_str: str = None):
     """
     hour = int(hour_str)
     minute = int(minute_str) if minute_str else 0
-    # Basic clamp/validation if needed:
-    # e.g., hour=23 max, minute=59 max, but that might be up to you
     return hour, minute
 
 def time_to_string(hour: int, minute: int):
@@ -181,7 +179,7 @@ def match_and_validate_data(input_text, constraint_type, user_data, professor_em
         matched_data["Day"] = matched_day.group(0).capitalize()
 
     # A regex capturing hours and optional minutes, e.g. "10", "10:00", "9:15"
-    # We'll skip AM/PM logic for simplicity, but you could expand if needed.
+    # We'll skip AM/PM logic for simplicity
     time_pattern = r'\b(\d{1,2})(?::(\d{1,2}))?\b'
     all_times = re.findall(time_pattern, input_text)  # list of (hour_str, minute_str)
 
@@ -191,7 +189,7 @@ def match_and_validate_data(input_text, constraint_type, user_data, professor_em
             hour, minute = parse_time_24h(hr_str, min_str)
             parsed_times.append((hour, minute))
         except ValueError:
-            # If parsing fails, skip or handle it in some way
+            # If parsing fails
             continue
 
     if len(parsed_times) == 0:
@@ -202,8 +200,6 @@ def match_and_validate_data(input_text, constraint_type, user_data, professor_em
         hour1, minute1 = parsed_times[0]
         hour2, minute2 = parsed_times[1]
 
-        # Ensure hour1:minute1 <= hour2:minute2 if you want chronological ordering
-        # For example:
         t1 = hour1*60 + minute1
         t2 = hour2*60 + minute2
         if t1 > t2:

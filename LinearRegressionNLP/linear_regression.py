@@ -30,7 +30,6 @@ class RidgeConstraintClassifier:
     """Multi-label Linear Regression model using ClassifierChain."""
 
     def __init__(self):
-        # Use ngram_range=(1, 2) for bigrams and unigrams
         self.vectorizer = TfidfVectorizer(preprocessor=None, tokenizer=None, lowercase=False, ngram_range=(1, 2), max_features=5000)
         base_model = RidgeClassifier(random_state=42)
         self.chain = ClassifierChain(base_model, order='random', random_state=42)

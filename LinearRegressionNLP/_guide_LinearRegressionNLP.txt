@@ -1,0 +1,25 @@
+Va recomand sa rulati si evaluati proiectul LinearRegressionNPL izolat, dar daca doriti sa il conectati la website va trebui sa instalati si sa rulati ngrok cu:
+
+    -"ngrok http http://127.0.0.1:5001"
+    -veti vedea o linie de genul:
+        "Forwarding                    https://9bcd-194-176-167-102.ngrok-free.app -> http://127.0.0.1:5001"
+    - acest link (de forma https://9bcd-194-176-167-102.ngrok-free.app) trebuie inlocuit cu cel vechi in TimeTable/Frontend/src/app/services/globals.service.ts
+    - daca inchideti procesul cu ngrok va trebui sa repetati pasii
+    
+    - rulati _project_setup.py pentru a va instala toate pachetele necesare (scuzati daca am omis cateva)
+    - rulati api.py
+
+
+Flow:
+- se proceseaza NL-ul pentru a fi dat la clasat
+- dupa clasare, se procesesaza din nou NL-ul initial, putin diferit, pentru extragere date
+- se compara datele cu cele din baza de date si se verifica daca toate datele necesare tipului de constrangere au fost alocate
+- se adauga constrangerea in baza de date / print error in consola
+
+Observatii:
+- fisierele input_preprocessing.py si linear_regression.py au functie main separata in caz ca doriti sa
+testati functionatilatie izolat.
+- legat de dictionarul custom folosit: initial am utilizat o librarie specializata si din curiozitate am vrut sa
+vad ce rezultate as putea obtine cu dictionarul facut de mine si din motiv ca acuratetea la prezicere a crescut, am pastrat
+dictionarul custom
+- daca mai aveti intrebari, va rog sa ma contactati pe WhatsApp la numarul 0742454128 - Georgescu Razvan

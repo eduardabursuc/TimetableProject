@@ -67,30 +67,16 @@ class DatabaseHelper:
         }
 
         # ============ PROFESSOR ID ==============
-        # If we have matched_data["ProfessorId"], that is likely already a UUID
-        # so we can store that in "ProfessorId":
         if "ProfessorId" in matched_data:
             data_for_insert["ProfessorId"] = matched_data["ProfessorId"]
 
         # ============ ROOM IDs ==============
-        # The table has "RoomId" and "WantedRoomId".
-        # If you want to store an "old" room, you'd do data_for_insert["RoomId"] = ...
-        # For the "WantedRoomName", find the DB room ID in user_data.
-        # Example: matched_data["WantedRoomName"] -> user_data["rooms"] => Id
-        # but only if "WantedRoomName" actually exists:
         if "WantedRoomName" in matched_data:
             # find the DB entry
             name = matched_data["WantedRoomName"]
             found_room = next((r for r in user_data["rooms"] if r["Name"] == name), None)
             if found_room:
                 data_for_insert["WantedRoomId"] = found_room["Id"]
-
-        # If you also want to store the "old" room, do something like
-        # if "OldRoomName" in matched_data:
-        #     ...
-        #     data_for_insert["RoomId"] = ...
-        # (But your current code doesn't track the old room explicitly.)
-
         # ============ COURSE ID ==============
         if "CourseName" in matched_data:
             cname = matched_data["CourseName"]
@@ -111,12 +97,6 @@ class DatabaseHelper:
             data_for_insert["Day"] = matched_data["Day"]
         if "Time" in matched_data:
             data_for_insert["Time"] = matched_data["Time"]
-
-        # If you implement "WantedDay"/"WantedTime" in your matching logic,
-        # place them here:
-        # data_for_insert["WantedDay"] = ...
-        # data_for_insert["WantedTime"] = ...
-
         if "Event" in matched_data:
             data_for_insert["Event"] = matched_data["Event"]
 
